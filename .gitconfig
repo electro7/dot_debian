@@ -9,3 +9,5 @@
 	ui = true
 [alias]
 	last = log -1 HEAD
+[credential]
+	helper = cache --timeout=3600
