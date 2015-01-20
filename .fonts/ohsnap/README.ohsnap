@@ -1,0 +1,77 @@
+Ohsnap is a monospaced bitmap font based on Artwiz Snap (http://artwizaleczapka.sourceforge.net/).
+
+There are ISO8859-1 versions, versions with status icons, consolefonts and I started working on ISO10646-1 versions. All have bold too.
+There are four sizes now: 6x11, 7x12, 6x13 and 7x14.
+
+each size has 8 fonts, for example:
+ohsnap6x11r.pcf (6x11 medium iso8859-1)
+ohsnap6x11b.pcf (6x11 bold iso8859-1)
+ohsnap6x11r.icons.pcf (6x11 medium with status icons)
+ohsnap6x11b.icons.pcf (6x11 bold with status icons)
+ohsnapu6x11r.pcf (6x11 medium iso10646-1)
+ohsnapu6x11b.pcf (6x11 bold iso10646-1)
+ohsnap6x11r.psfu (6x11 medium consolefont)
+ohsnap6x11b.psfu (6x11 bold consolefont)
+
+You can use xfontsel to get the full names.
+
+To install manually system-wide, copy the .pcf files to /usr/share/fonts/local and the .psfu files to /usr/share/kbd/consolefonts.
+
+Then do:
+sudo fc-cache -fs
+sudo mkfontscale /usr/share/fonts/local
+sudo mkfontdir /usr/share/fonts/local
+
+And make sure you have something like this in your .xinitrc:
+xset +fp /usr/share/fonts/local
+xset fp rehash
+
+I would recommend trying to use the ISO10646-1 versions first and use the ISO8859-1 versions as fallback.
+
+To use the ISO10646-1:
+-*-ohsnapu-medium-r-normal-*-11-*-*-*-*-*-*-*
+-*-ohsnapu-bold-r-normal-*-11-*-*-*-*-*-*-*
+
+For the ISO8859-1:
+-*-ohsnap-medium-r-normal-*-11-*-*-*-*-*-*-*
+-*-ohsnap-bold-r-normal-*-11-*-*-*-*-*-*-*
+
+The icon versions have status "icons" that I drew into the font. The inspiration for the icons came from lokaltog (https://github.com/Lokaltog) and his post in the dwm 
+(http://dwm.suckless.org) hackers thread on the Arch Linux forums (https://bbs.archlinux.org/viewtopic.php?pid=724236#p724236).
+
+To use the icon versions:
+-*-ohsnap.icons-medium-r-normal-*-11-*-*-*-*-*-*-*
+-*-ohsnap.icons-bold-r-normal-*-11-*-*-*-*-*-*-*
+
+You can use xfd to view the font. (xfd -fn -misc-ohsnap.icons-medium-r-normal--11-79-100-100-c-60-iso8859-1)
+
+From a terminal, you can do something like:
+echo -e '\xB7' to display a clock icon for example and then copy the output to a script or your config.h.
+
+You can also use pcf2bdf to convert the .pcf fonts to .bdf and then use gbdfed (http://sofia.nmsu.edu/~mleisher/Software/gbdfed/) to view and edit the font.
+To convert from .pcf to .bdf: (pcf2bdf -o ohsnap6x11r.bdf ohsnap6x11r.pcf).
+Then use bdftopcf to convert it back: (bdftopcf -o ohsnap6x11r.pcf ohsnap6x11r.bdf).
+Reinstall.
+
+You can check out the ohsnap thread on the forums (https://bbs.archlinux.org/viewtopic.php?id=130562&p=1) for screenshots and discussion.
+
+A better solution for icons (at least for dwm, which I originally made these for) might be to use stlarch_font (https:sourceforge.net/projects/stlarch_font/).
+See the README.stlarch for more info.
+
+To try the consolefont, you can do: setfont ohsnap6x11r for example. See your distros documentation for a more permanent solution.
+
+Created by stlarch (stlarchie@gmail.com)
+
+Released under GPLv2 license. (http://www.gnu.org/licenses/gpl-2.0.html)
+
+Changes in version 1.7.5: Added consolefonts and ISO10646-1 versions and dropped the 8x15 and 8x17 sizes.
+
+Changes in version 1.7.6: Fixes.
+
+Changes in version 1.7.7: A few more fixes to the 6x11 bold.
+
+Changes in version 1.7.8: A couple fixes to the iso10646-1 versions.
+
+Changes in version 1.7.9: Added a new size, 6x13, and a few other changes, mainly to the 7x14.
+
+Changes in version 1.8.0: Fixed the mapping table on the consolefonts.

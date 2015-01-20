@@ -15,7 +15,9 @@ downloads/*
 .fehbg
 .fetchmailrc
 .fontconfig/*
-.fonts/*
+.fonts/arial.ttf
+.fonts/tahoma.ttf
+.fonts/verdana.ttf
 .forward
 .gconf/*
 .gimp-2.8/*
