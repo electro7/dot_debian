@@ -1,0 +1,6 @@
+#!/bin/sh
+#
+# Cambia el fondo de escritorio en cada arranque
+
+IMAGEN=`date +%S | cut -c2`.png 
+cp $HOME/X/background/$IMAGEN $HOME/.enlightenment/backgrounds/back.png

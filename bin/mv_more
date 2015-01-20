@@ -1,0 +1,47 @@
+#!/bin/sh
+#
+# Script que convierte espacios a subrayado (_) en el nombre de los archivo
+#
+# Vicente Gimeno Morales - Electro7 
+# dom ene 09 17:42:54 CET 2005
+
+# Uso
+function usage() {
+  echo "Renombrar ficheros del directorio actual."
+  echo
+  echo "Uso:" 
+  echo "	$HOWCALLED <opción> <archivos>"
+  echo
+  echo "Opciones:"
+  echo " 	-1 -> Convierte espacios a subrayados. Por defecto."
+  echo " 	-2 -> Convierte subrayados a espacios."
+  echo " 	-3 -> Convierte minúsculas a máyusculas."
+  echo " 	-4 -> Convierte mayúsculas a minúsculas."
+}
+
+HOWCALLED=`basename $0`
+
+if [ $# -eq 0 ]
+ then
+   usage 
+   exit 1
+fi
+
+# Renombrar
+for i in "$@" ; do
+
+  if [ "$1" == "-4" ] ; then
+	NEW="`echo "$i" | tr '[A-Z]' '[a-z]'`"
+  elif [ "$1" == "-3" ] ; then
+	NEW="`echo "$i" | tr '[a-z]' '[A-Z]'`"
+  elif [ "$1" == "-2" ] ; then
+	NEW="`echo "$i" | tr '_' '\ '`"
+  else
+	NEW="`echo "$i" | tr ' ' '_'`"
+  fi
+
+  if [ -e "$i" ] ; then 
+	echo "'"$i"' -> '"$NEW"'"
+	mv "$i" "$NEW" &>/dev/null
+  fi
+done

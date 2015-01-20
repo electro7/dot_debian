@@ -1,0 +1,14 @@
+#!/bin/sh
+#
+# Garga los archivos de recursos
+#
+
+dirresources=/home/electro7/X/xresources
+
+if [ -d $dirresources ]; then
+  for resourcefile in $dirresources/*; do
+    if [ -f $resourcefile ]; then
+        xrdb -merge $resourcefile
+    fi
+  done
+fi

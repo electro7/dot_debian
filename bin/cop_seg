@@ -1,0 +1,10 @@
+#!/bin/sh
+#
+# Copia de seguridad
+
+FILE=/home/electro7/backup/backup_`uname -n`_`date +%m%d%y`.tgz
+
+# Comprime directorios importantes
+tar czf $FILE -X /home/electro7/.exclude /home/electro7  > /dev/null
+
+echo Copia realida en $FILE
