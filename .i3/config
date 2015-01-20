@@ -1,0 +1,190 @@
+# i3 config file (v4)
+#
+# Please see http://i3wm.org/docs/userguide.html for a complete reference!
+# 02 ene 2015 - E7
+
+#.......
+# Font
+#.......
+
+set $ft -xos4-terminesspowerline-medium-r-normal--12-120-72-72-c-60-iso10646-1
+font $ft
+
+#..........
+# Look
+#..........
+
+new_window 1pixel
+new_float 1pixel
+
+# Hybrid colors
+set $back               #1d1F21
+set $black              #282A2E
+set $grey               #373B41
+set $lightgrey          #707880
+set $white              #C5C8C6
+set $yellow             #F0C674
+set $red                #CC6666
+
+#class                  border      backgr.     text        split
+client.focused          $yellow     $yellow     $black      $red
+client.focused_inactive $grey       $grey       $lightgrey  $red
+client.unfocused        $grey       $grey       $lightgrey  $red
+client.urgent           $red        $red        $black      $red
+client.background       $back
+
+#..........
+# Applications
+#..........
+
+# Shortcuts
+set $mod Mod1
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+bindsym $mod+Return exec urxvt    # terminal
+bindsym $mod+Ctrl+t exec ~/.i3/i3_focus_or_run.sh -t mldonkey ~/bin/terminal mldonkey
+bindsym $mod+Ctrl+h exec ~/.i3/i3_focus_or_run.sh -t htop ~/bin/terminal htop
+bindsym $mod+Ctrl+m exec ~/.i3/i3_focus_or_run.sh -c Iceweasel iceweasel
+bindsym $mod+Ctrl+g exec gcolor2  # Color picker
+
+# start dmenu (a program launcher)
+bindsym $mod+x exec dmenu_run -fn ohsnap-medium-11 -nb "$back" -nf "$white" -sb "$yellow" -sf "$black"
+
+# Media keys
+# En Manzanita ya lo hace solo el pbbuttons
+#bindsym XF86AudioRaiseVolume exec --no-startud-id "amixer sset Master 5%+"
+#bindsym XF86AudioLowerVolume exec --no-startud-id "amixer sset Master 5%-"
+#bindsym XF86AudioMute exec --no-startud-id "amixer -q sset Master toggle"
+#bindsym XF86AudioPlay exec ncmpcpp toggle
+#bindsym XF86AudioStop exec ncmpcpp stop
+#bindsym XF86AudioPrev exec ncmpcpp prev
+#bindsym XF86AudioNext exec ncmpcpp next
+
+#assign application to workspace
+#assign [class="Iceweasel"] → 2
+#assign [class="Firefox"] → 2
+#assign [class="Google-chrome"] → 2
+#assign [class="vlc"] → 4
+#assign [class="xv/mplayer"] → 4
+#assign [class="Gimp"] → 3
+#assign [class="Virtualbox"] → 5
+#assign [class="Zathura"] → 5
+
+# Layout
+for_window [class="feh"] floating enable
+for_window [class="Gcolor2"] floating enable
+
+
+#...........
+# Keybinds i3
+#...........
+# kill focused window
+bindsym $mod+Shift+Q kill
+bindsym $mod+q kill
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# split in horizontal orientation
+bindsym $mod+h split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen
+
+# change container layout (stacked, tabbed, default)
+bindsym $mod+s layout stacking
+bindsym $mod+t layout tabbed
+bindsym $mod+e layout default
+bindsym $mod+w layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus the child container
+bindsym $mod+d focus child
+
+# switch to workspace
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+
+# move focused container to workspace
+bindsym $mod+Shift+exclam move container to workspace 1
+bindsym $mod+Shift+quotedbl move container to workspace 2
+bindsym $mod+Shift+periodcentered move container to workspace 3
+bindsym $mod+Shift+dollar move container to workspace 4
+bindsym $mod+Shift+percent move container to workspace 5
+bindsym $mod+Shift+ampersand move container to workspace 6
+
+# reload the configuration file
+bindsym $mod+Shift+C reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+R restart
+# exit i3 (logs you out of your X session)
+#bindsym $mod+Shift+E exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+  # These bindings trigger as soon as you enter the resize mode
+
+  # Pressing left will shrink the window’s width.
+  # Pressing right will grow the window’s width.
+  # Pressing up will shrink the window’s height.
+  # Pressing down will grow the window’s height.
+  bindsym h resize shrink width 10 px or 10 ppt
+  bindsym j resize grow height 10 px or 10 ppt
+  bindsym k resize shrink height 10 px or 10 ppt
+  bindsym l resize grow width 10 px or 10 ppt
+
+  # same bindings, but for the arrow keys
+  bindsym Left resize shrink width 5 px or 5 ppt
+  bindsym Down resize grow height 5 px or 5 ppt
+  bindsym Up resize shrink height 5 px or 5 ppt
+  bindsym Right resize grow width 5 px or 5 ppt
+
+  # back to normal: Enter or Escape
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+bar {
+	position top
+	mode hide
+  modifier Mod1
+  font terminusicons2
+	workspace_buttons yes
+  status_command i3status -c ~/.i3/i3status.conf
+  colors {
+    background  $back
+    statusline  $white
+    focused_workspace    $yellow    $grey   $white
+    active_workspace     $yellow    $red    $white
+    inactive_workspace   $lightgrey $grey   $lightgrey 
+    urgent_workspace     $red       $yellow $white
+  }
+}

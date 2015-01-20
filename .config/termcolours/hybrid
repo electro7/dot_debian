@@ -1,0 +1,85 @@
+! Hybrid Terminal Colours
+! vim: ft=xdefaults
+
+! Tomorrow-Night Palette
+#define t_background #1D1F21
+#define t_current_line #282A2E
+#define t_selection #373B41
+#define t_foreground #C5C8C6
+#define t_comment #707880
+#define t_red #CC6666
+#define t_orange #DE935F
+#define t_yellow #F0C674
+#define t_green #B5BD68
+#define t_aqua #8ABEB7
+#define t_blue #81A2BE
+#define t_purple #B294BB
+
+! base16-default Palette (slightly darker)
+#define b_background #151515
+#define b_current_line #202020
+#define b_selection #303030
+#define b_foreground #C5C8C6
+#define b_comment #505050
+#define b_red #AC4142
+#define b_orange #D28445
+#define b_yellow #F4BF75
+#define b_green #90A959
+#define b_aqua #75B5AA
+#define b_blue #6A9FB5
+#define b_purple #AA759F
+
+! Codeacademy Palette (dark blue background)
+#define c_background #232C31
+#define c_current_line #2D3C46
+#define c_selection #425059
+#define c_comment #6C7A80
+
+!*background: b_background
+!*foreground: b_foreground
+*background: t_background
+*foreground: t_foreground
+!*background: c_background
+!*foreground: t_foreground
+
+! black
+!*color0: b_current_line
+!*color8: b_selection
+*color0: t_current_line
+*color8: t_selection
+!*color0: c_current_line
+!*color8: c_selection
+
+! red
+*color1: b_red
+*color9: t_red
+
+! green
+*color2: b_green
+*color10: t_green
+
+! yellow
+!*color3: b_orange
+!*color11: b_yellow
+*color3: t_orange
+*color11: t_yellow
+
+! blue
+*color4: b_blue
+*color12: t_blue
+
+! magenta
+*color5: b_purple
+*color13: t_purple
+
+! cyan
+*color6: b_aqua
+*color14: t_aqua
+
+! white
+!*color7: b_comment
+!*color15: b_foreground
+*color7: t_comment
+*color15: t_foreground
+!*color7: c_comment
+!*color15: t_foreground

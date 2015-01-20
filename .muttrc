@@ -1,0 +1,293 @@
+#======================================================================#
+#
+# Configuracion para el mutt.
+#
+# Vicente Gimeno Morales - Electro7 	sáb feb 03 11:07:05 CET 2001 
+#======================================================================#
+
+#---------------------------------------------------------------------------
+# Opciones generales
+#---------------------------------------------------------------------------
+
+# Mis datos
+set realname="Electro7"
+set hostname="Manzanita"
+unset use_from
+unmy_hdr From:
+send-hook . 'my_hdr From: Electro7 <agmviv@gmail.com>'
+my_hdr Reply-To: agmviv@gmail.com
+my_hdr Organization: ViV
+my_hdr X-Editor: Vi Improved
+my_hdr X-Operating-System: `uname -srn` en un `uname -m`
+#set alternates=(electro7@|vgimeno@).*
+
+# Mi firma
+set sig_dashes
+set signature="~/.signature"
+
+# Fichero de direcciones
+set alias_file=~/mail/.mail_aliases
+source ~/mail/.mail_aliases
+
+# Donde guardar los mensajes
+set folder=~/mail
+set mbox=+leidos                # Dónde guardar los mensajes leídos.
+set record=+enviados           	# Dónde guardar mensajes enviados.
+set postponed=+pospuestos		# Dónde guardar los mensajes pospuestos.
+set tmpdir=~/tmp    			# Directorio temporal (tb puede ser /tmp).
+set spoolfile=+entrada			# Bandeja de entrada (procmail)
+
+# Lista de carpeta para buscar correos nuevos
+# "c" para seleccionar los mailboxes
+unmailboxes *
+mailboxes `for file in ~/mail/boxes/*; do echo -n "+boxes/$(basename $file) "; done`
+#mailboxes `echo $HOME/mail/boxes/*`
+
+# Castellanización.          
+set charset="iso-8859-1"
+set locale="es_ES"
+set allow_8bit
+
+# Mover mensajes leidos a mbox y copiar mensajes enviados a record
+set move=yes
+set copy=yes
+set delete=yes                  # Borrar mensajes leidos.
+
+# Confirmaciones al añadir mensajes a buzones
+unset confirmappend
+set confirmcreate
+
+# Formato de la lista de correos
+set index_format="%3C %Z %{%b %d} (%4l) [%-15.15L] %s"
+
+# ¿Qué quiero ver al abrir el visualizador (explorador) de buzones?
+set folder_format="%2C %t %N %F %2l %-8.8u %-8.8g %8s %d %f"
+
+# Carácter para indicar a quién está dirigido el mensaje.
+set to_chars="LTGCF"
+
+# Forzar el colapso de todos los hilos al abrir las carpetas.
+#folder-hook . "push <esc>V"
+
+# Aplicar comandos a todos los mensajes marcados.
+set auto_tag
+
+# no preguntar que pulse una tecla después de una orden externa.
+set nowait_key
+
+# No pitar en errores.
+set nobeep
+
+# No grabar los mensajes en el buzón con el nombre del que lo envia.
+unset force_name
+unset save_name
+
+# Expresiones para resolver el texto citado y las respuestas
+set quote_regexp="^ *[a-zA-Z]*[>:#}]"
+set reply_regexp="^(re|aw):[ \t]*"
+
+# Preguntas del programa
+set print=ask-no                # Preguntar si deseo imprimir el msg.
+set print_command=/bin/false    # No imprimir.
+set quit=ask-yes                # Preguntar si quiero salir.
+set recall=no		# Preguntar si queremos editar un mensaje pospuesto
+
+# Shell a utilizar al ejecutar comandos
+set shell="/bin/sh"
+
+# Orden de los mensajes
+set sort=threads                # Método de ordenación principal.
+set sort_aux=last-date          # Método de ordenación auxiliar.
+set sort_browser=reverse-date   # Método de ordenación de ficheros.
+
+# Usar -> en lugar de resaltar la línea de la entrada corriente.
+unset arrow_cursor
+
+# Guarda los adjuntos a un mensaje junto al mismo
+set fcc_attach
+
+# Para tipos MIME, indicar la localización de los ficheros `mailcap'.
+set mailcap_path="~/mail/.mailcap"
+
+# Buscar en el fichero de alias el nombre del remitente de un mensaje,
+# y mostrar éste en lugar del campo "From:".
+set reverse_alias
+
+#----------------------------------------------------------------------#
+# Opciones de lectura de los correos
+#----------------------------------------------------------------------# 
+
+# Que cabeceras mostrar al leer el mensaje
+unignore *
+ignore Received:
+
+# Orden
+hdr_order Date: From From: To: Cc: Reply-To: Subject:
+
+# Configuración del pager
+set pager_index_lines=0			# A pantalla completa	
+set pager_stop					# No avanza al siguiente mensaje
+set pager_context=10	# Número de renglones en un avance de página
+
+# Mostrar el progreso al leer los mensajes (de 5 en 5).
+set read_inc=5
+
+# Rellenar las líneas en blanco con virgulillas (~)
+set tilde
+
+#----------------------------------------------------------------------#
+# Opciones de escritura de correos
+#----------------------------------------------------------------------# 
+
+# Opciones del editor de mensajes
+set editor="vim '+/^$'"			# Editor a utilizar
+unset autoedit					# Primero pregunta por las cabeceras.
+set edit_headers				# Permite editar las cabeceras.
+
+# Añade automáticamente las cabeceras por defecto.
+set hdrs
+
+# Formato de las respuesta e insertar mensajes quoteado
+set forward_format="Re: %s"
+set forward_quote
+set include
+set indent_string="> "
+
+# Formato de la autolínea sobre el texto citado.
+set date_format="%A, %d de %B del %Y, a las %H:%M:%S (%Z)"
+set attribution="El %d, \n%n escribió:\n"
+
+# Con qué línea queremos acabar la respuesta a un mensaje.
+set post_indent_string='\n--- Fin de respuesta al mensaje [%s] ---\n'
+
+# No responderme a mi mismo.
+unset metoo
+
+# No pregunta por las cabeceras al responder a mensajes.
+set fast_reply
+
+# Si existe el campo "Reply-To:", preguntar si deseo usarlo.
+set reply_to=ask-yes
+
+# Preguntar si enviar mensaje sin cambiar o sin asunto
+set abort_nosubject=ask-yes
+set abort_unmodified=yes
+
+# Preguntar si quiero posponer mensajes no enviados.
+set postpone=ask-yes
+
+# Preguntar si se desea incluir destinatarios en un campo de copia
+unset askbcc
+set askcc
+
+# Al responder a una lista, generar el campo Followup-To, evitando
+#que nos mande un duplicado.
+set followup_to
+
+# Al responder a un mensaje, enviarlo con mi dirección
+# en la que lo he recibido.
+set reverse_name
+
+#---------------------------------------------------------------------------
+# Teclas
+#---------------------------------------------------------------------------
+
+bind pager <up> previous-line
+bind pager <down> next-line
+bind pager p previous-undeleted
+bind pager n next-undeleted
+
+#---------------------------------------------------------------------------
+# Colores
+#---------------------------------------------------------------------------
+
+color attachment 	magenta 		default
+color body     		brightyellow default [\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+
+color body     		brightblue default (http|ftp)://[\-\.\,/%~_:?\#a-zA-Z0-9]+
+color header		brightred		default	^Date:
+color header   		brightblue	 	default ^(From|Reply-To):
+color header   		brightgreen	 	default ^(To|Reply-To|Cc|Bcc):
+color header   		brightmagenta	default ^Subject:
+color header		green			default	^X-.*:
+color header		green			default	^-Agent:
+color hdrdefault 	cyan 			default    
+color indicator 	brightgreen 	default
+color markers 		brightred 		default
+color message 		brightblue 		default
+color normal		white			default
+color quoted 		yellow 			default
+color quoted1 		brightblack		default
+color quoted2 		magenta			default
+color search		brightyellow	magenta
+color signature 	brightblack		default
+color error 		brightred 		default
+color status 		brightyellow 	blue
+color tilde 		magenta 		default
+color tree 			brightred		default
+color underline 	brightgreen 	default
+
+# Colores del indice
+color index			white			default  ~A         # Todos
+color index			brightwhite		default  ~N         # Nuevo
+color index			magenta			default  ~T         # Marcado
+color index			brightblack		default  ~D         # Borrado
+
+#----------------------------------------------------------------------#
+# Listas de correo
+#----------------------------------------------------------------------# 
+
+unlists *      							# Borra todas
+lists `cd ~/mail/boxes && echo *`		# Añade
+unsubscribe *							# Quita suscripciones
+subscribe `cd ~/mail/boxes && echo *`	# Añade suscripciones
+
+#======================================================================#
+# PGP ( "p" en la pantalla de envio)
+#
+# Los comandos para invocar el GPG estan en /etc/Muttrc que viene de
+# "fábrica". De momento nos fiaremos de él.
+#======================================================================# 
+
+# Firmar digitalmente todo el correo saliente
+#set pgp_autosign=yes
+
+# Cifrar autómaticamente todo el correo saliente
+#unset pgp_autoencrypt
+
+# Cifrar y firmar las repuestas a los mensajes cifrados
+#unset pgp_replyencrypt
+#unset pgp_replysign
+
+# Verificar firmas digitales
+#set pgp_verify_sig=yes
+
+# Eliminar de la memoria la contraseña PGP trás 1 minutos
+#set pgp_timeout=20
+
+# Usar codificación Q-P siempre que PGP la requiera
+#set pgp_strict_enc
+
+# Mostrar identificadores de claves PGP de 64 bits
+#unset pgp_long_ids
+
+#======================================================================#
+# Bogofilter
+#
+# Con S marca/desmarca el mensaje como spam, con W ve su puntuación
+#======================================================================#
+
+#folder-hook . 'macro index S "<pipe-entry>bogofilter -l -Ns\n\
+#<save-message>~/mail/spam/bogofilter\n" "save message as spam"'
+#folder-hook bogofilter 'macro index S "<pipe-entry>bogofilter -l -Sn\n\
+#<save-message>!\n" "save message as no-spam"'
+#macro index W "<enter-command>set wait_key\n\
+#<pipe-entry>bogofilter -vv\n<enter-command>unset wait_key\n"\
+#"view spam message score"
+
+#======================================================================#
+# URLView
+#======================================================================#
+
+macro index \cu |urlview\n
+macro pager \cu |urlview\n
+  

@@ -1,0 +1,260 @@
+# set to yes if you want Conky to be forked in the background
+background no
+
+cpu_avg_samples 2
+diskio_avg_samples 2
+net_avg_samples 2
+
+out_to_console no
+
+# X font when Xft is disabled, you can pick one with program xfontsel
+font noxis
+
+# Use Xft?
+use_xft no
+
+# Xft font when Xft is enabled
+xftfont monospace-8
+
+# Transparencia total o color de fondo
+own_window_hints sticky,skip_taskbar,undecorated
+own_window_colour grey20
+own_window_transparent no
+
+# Opacidad en ventana
+#own_window_type override
+#own_window_argb_visual true
+#own_window_argb_value 0
+
+# Text alpha when using Xft
+xftalpha 0.8
+
+# Update interval in seconds
+update_interval 2
+
+# Create own window instead of using desktop (required in nautilus)
+own_window yes
+
+# Use double buffering (reduces flicker, may not work for everyone)
+double_buffer yes
+
+# Minimum size of text area
+minimum_size 5 5
+maximum_width 150
+
+# Draw shades?
+draw_shades no
+
+# Draw outlines?
+draw_outline no
+
+# Draw borders around text
+draw_borders yes
+
+# Stippled borders?
+stippled_borders 0
+
+# border width
+border_width 1
+
+# Default colors and also border colors
+default_color black
+default_shade_color white
+default_outline_color grey30
+
+# Text alignment, other possible values are commented
+alignment top_left
+#alignment top_right
+#alignment bottom_left
+#alignment bottom_right
+
+# Gap between borders of screen and text
+gap_x 5
+gap_y 5
+
+# Add spaces to keep things from moving about?  This only affects certain objects.
+use_spacer right
+
+# Subtract file system buffers from used memory?
+no_buffers yes
+
+# set to yes if you want all text to be in uppercase
+uppercase no
+
+# Unidades cortas en la representación de tañanos
+short_units               yes
+
+# Possible variables to be used:
+#
+#      Variable         Arguments                  Description                
+#  acpiacadapter                     ACPI ac adapter state.                   
+#  acpifan                           ACPI fan state                           
+#  acpitemp                          ACPI temperature.                        
+#  adt746xcpu                        CPU temperature from therm_adt746x       
+#  adt746xfan                        Fan speed from therm_adt746x             
+#  battery           (num)           Remaining capasity in ACPI or APM        
+#                                    battery. ACPI battery number can be      
+#                                    given as argument (default is BAT0).     
+#  buffers                           Amount of memory buffered                
+#  cached                            Amount of memory cached                  
+#  color             (color)         Change drawing color to color            
+#  cpu                               CPU usage in percents                    
+#  cpubar            (height)        Bar that shows CPU usage, height is      
+#                                    bar's height in pixels                   
+#  downspeed         net             Download speed in kilobytes              
+#  downspeedf        net             Download speed in kilobytes with one     
+#                                    decimal                                  
+#  exec              shell command   Executes a shell command and displays    
+#                                    the output in torsmo. warning: this      
+#                                    takes a lot more resources than other    
+#                                    variables. I'd recommend coding wanted   
+#                                    behaviour in C and posting a patch :-).  
+#  execi             interval, shell Same as exec but with specific interval. 
+#                    command         Interval can't be less than              
+#                                    update_interval in configuration.        
+#  fs_bar            (height), (fs)  Bar that shows how much space is used on 
+#                                    a file system. height is the height in   
+#                                    pixels. fs is any file on that file      
+#                                    system.                                  
+#  fs_free           (fs)            Free space on a file system available    
+#                                    for users.                               
+#  fs_free_perc      (fs)            Free percentage of space on a file       
+#                                    system available for users.              
+#  fs_size           (fs)            File system size                         
+#  fs_used           (fs)            File system used space                   
+#  hr                (height)        Horizontal line, height is the height in 
+#                                    pixels                                   
+#  i2c               (dev), type, n  I2C sensor from sysfs (Linux 2.6). dev   
+#                                    may be omitted if you have only one I2C  
+#                                    device. type is either in (or vol)       
+#                                    meaning voltage, fan meaning fan or temp 
+#                                    meaning temperature. n is number of the  
+#                                    sensor. See /sys/bus/i2c/devices/ on     
+#                                    your local computer.                     
+#  kernel                            Kernel version                           
+#  loadavg           (1), (2), (3)   System load average, 1 is for past 1     
+#                                    minute, 2 for past 5 minutes and 3 for   
+#                                    past 15 minutes.                         
+#  machine                           Machine, i686 for example                
+#  mails                             Mail count in mail spool. You can use    
+#                                    program like fetchmail to get mails from 
+#                                    some server using your favourite         
+#                                    protocol. See also new_mails.            
+#  mem                               Amount of memory in use                  
+#  membar            (height)        Bar that shows amount of memory in use   
+#  memmax                            Total amount of memory                   
+#  memperc                           Percentage of memory in use              
+#  new_mails                         Unread mail count in mail spool.         
+#  nodename                          Hostname                                 
+#  outlinecolor      (color)         Change outline color                     
+#  pre_exec          shell command   Executes a shell command one time before 
+#                                    torsmo displays anything and puts output 
+#                                    as text.                                 
+#  processes                         Total processes (sleeping and running)   
+#  running_processes                 Running processes (not sleeping),        
+#                                    requires Linux 2.6                       
+#  shadecolor        (color)         Change shading color                     
+#  stippled_hr       (space),        Stippled (dashed) horizontal line        
+#                    (height)        
+#  swapbar           (height)        Bar that shows amount of swap in use     
+#  swap                              Amount of swap in use                    
+#  swapmax                           Total amount of swap                     
+#  swapperc                          Percentage of swap in use                
+#  sysname                           System name, Linux for example           
+#  time              (format)        Local time, see man strftime to get more 
+#                                    information about format                 
+#  totaldown         net             Total download, overflows at 4 GB on     
+#                                    Linux with 32-bit arch and there doesn't 
+#                                    seem to be a way to know how many times  
+#                                    it has already done that before torsmo   
+#                                    has started.                             
+#  totalup           net             Total upload, this one too, may overflow 
+#  updates                           Number of updates (for debugging)        
+#  upspeed           net             Upload speed in kilobytes                
+#  upspeedf          net             Upload speed in kilobytes with one       
+#                                    decimal                                  
+#  uptime                            Uptime                                   
+#  uptime_short                      Uptime in a shorter format               
+#
+#  seti_prog                         Seti@home current progress
+#  seti_progbar      (height)        Seti@home current progress bar
+#  seti_credit                       Seti@hoome total user credit
+
+
+# variable is given either in format $variable or in ${variable}. Latter
+# allows characters right after the variable and must be used in network
+# stuff because of an argument
+#${font Dungeon:style=Bold:pixelsize=10}I can change the font as well
+#${font Verdana:size=10}as many times as I choose
+#${font Perry:size=10}Including UTF-8,
+# stuff after 'TEXT' will be formatted on screen
+
+TEXT
+${color grey90}${alignc}$nodename
+
+${color grey80}$sysname $kernel - ${color LightBlue3}$machine
+${color grey80}Uptime: ${color LightBlue3}$uptime
+
+${color grey90}SISTEMA ${color grey60}${hr 1}
+
+${color grey80}Temp: CPU ${color LightBlue3}${execi 10 cat /sys/devices/temperatures/sensor1_temperature}º \
+${color grey80}GPU ${color LightBlue3}${execi 10 cat /sys/devices/temperatures/sensor2_temperature}º 
+${color grey80}Fan : ${color LightBlue3}${execi 10 cat /sys/devices/temperatures/sensor1_fan_speed}
+${color grey80}Batt: ${color LightBlue3}${pb_battery status}${color grey80} - ${color LightBlue3}${pb_battery percent}
+${color grey60}${cpugraph 20 78bce8 c8c800}
+${color grey80}CPU : ${color LightBlue3}$freq_g GHz ${color grey80} - \
+${color LightBlue3}${cpu}%${alignr}${color grey60}${cpubar 8,40}
+${color grey80}RAM : ${color LightBlue3}$mem${color grey80} / ${color LightBlue3}$memmax \
+${alignr}${color grey60}${membar 8,40}
+${color grey80}SWAP: ${color LightBlue3}$swap${color grey80} / ${color LightBlue3}$swapmax \
+${alignr}${color grey60}${swapbar 8,40}
+
+${color grey90}DISCOS ${color grey60}${hr 1}
+
+${color grey80}IO  : ${color LightBlue3}${diskio} \
+${color grey80}R: ${color LightBlue3}${diskio_read} \
+${color grey80}W: ${color LightBlue3}${diskio_write}
+${color grey60}${diskiograph 20 78bce8 c8c800}
+${color grey80}Root: ${color LightBlue3}${fs_used /}${color grey80} / \
+${color LightBlue3}${fs_size /}${alignr}${color grey60}${fs_bar 8,40 /}
+${color grey80}USB : ${color LightBlue3}\
+${if_mounted /media/usb}\
+${fs_used /media/usb}${color grey80} / \
+${color LightBlue3}${fs_size /media/usb}${alignr}${color grey60}${fs_bar 8,40 /media/usb}\
+${else}Sin montar ${endif}
+
+${color grey90}ETHERNET ${color grey60}${hr 1}
+
+${color grey80}IP   : ${color LightBlue3}${addr eth0}
+
+${color grey80}Bajada: ${color LightBlue3}${downspeed eth0} \
+${color grey80}Total: ${color LightBlue3}${totaldown eth0}
+${color grey60}${downspeedgraph eth0 20 78bce8 c8c800}
+${color grey80}Subida: ${color LightBlue3}${upspeed eth0} \
+${color grey80}Total: ${color LightBlue3}${totalup eth0}
+${color grey60}${upspeedgraph eth0 20 78bce8 c8c800}
+
+${color grey90}WIFI ${color grey60}${hr 1}
+
+${color grey80}AP   : ${color LightBlue3}${wireless_essid wlan0}
+${color grey80}IP   : ${color LightBlue3}${addr wlan0}
+${color grey80}Señal: ${color LightBlue3}${wireless_bitrate wlan0}${alignr}${color grey60}${wireless_link_bar 8,40 wlan0}
+
+${color grey80}Bajada: ${color LightBlue3}${downspeed wlan0} \
+${color grey80}Total: ${color LightBlue3}${totaldown wlan0}
+${color grey60}${downspeedgraph wlan0 20 78bce8 c8c800}
+${color grey80}Subida: ${color LightBlue3}${upspeed wlan0} \
+${color grey80}Total: ${color LightBlue3}${totalup wlan0}
+${color grey60}${upspeedgraph wlan0 20 78bce8 c8c800}
+
+${color grey90}PROCESOS ${color grey60}${hr 1}
+
+${color grey80}Load: ( ${color LightBlue3}$loadavg ${color grey80})
+${color grey80}Procesos: ${color LightBlue3}$processes	${color grey80}Corriendo: ${color LightBlue3}$running_processes
+
+${color grey60} Nombre             CPU%  RAM%
+${color LightBlue3} ${top name 1} ${top cpu 1}${top mem 1}
+${color grey80} ${top name 2} ${top cpu 2}${top mem 2}
+${color grey80} ${top name 3} ${top cpu 3}${top mem 3}
+${color grey80} ${top name 4} ${top cpu 4}${top mem 4}
+${color grey80} ${top name 5} ${top cpu 5}${top mem 5}
