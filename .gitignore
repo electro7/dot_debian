@@ -1,6 +1,6 @@
 backup/*
 .bash_*
-bin/*
+bin/gmail.sh
 .cache/
 .config/*
 !.config/gtk-3.0/
