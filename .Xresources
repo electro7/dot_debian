@@ -1,0 +1,135 @@
+! Configuración de recursos X
+! 02 ene 2015 - E7
+! vim: set ft=xdefaults:
+
+! XFT - Fuentes
+!----------------------------------------------------------------------
+!Xft.dpi: 		    96
+Xft.antialias:  true
+Xft.rgba:       rgb
+!Xft.hinting:    true
+!Xft.hintstyle:  hintslight
+!Xft.lcdfilter:	 lcddefault
+Xcursor.theme:	 Neutral
+
+! Colores
+!----------------------------------------------------------------------
+!#include "/home/electro7/.config/termcolours/jellybeans"
+#include "/home/electro7/.config/termcolours/hybrid"
+!#include "/home/electro7/.config/termcolours/yousai"
+
+! URXVT
+!----------------------------------------------------------------------
+! Colores
+URxvt.cursorColor: #00FF00
+!URxvt.cursorColor: gold1
+! bold, italic, underline
+URxvt.colorBD: #B5BD68
+URxvt.colorIT: #B294BB
+URxvt.colorUL: #81A2BE
+! Fuentes
+! Para los caracteres especiales de la línea de powerline es necesario
+! una fuente powerline. Inconsolata for powerline los tienes, pero solo
+! a tamaño 12.
+! Uso el Inconsolata normal, con resguardo de terminespowerline y asi
+! funcionan. :)
+URxvt.letterSpace: -2
+URxvt.font: xft:Inconsolata:size=10, -xos4-terminesspowerline-medium-r-normal--12-120-72-72-c-60-iso10646-1
+URxvt.boldFont: xft:Inconsolata:size=10, -xos4-terminesspowerline-medium-r-normal--12-120-72-72-c-60-iso10646-1
+URxvt.italicFont: xft:Inconsolata:size=10, -xos4-terminesspowerline-medium-r-normal--12-120-72-72-c-60-iso10646-1
+URxvt.boldItalicFont: xft:Inconsolata:size=10, -xos4-terminesspowerline-medium-r-normal--12-120-72-72-c-60-iso10646-1
+! Varios
+URxvt.depth: 24
+URxvt*scrollBar: false
+URxvt.urgentOnBell: True
+URxvt.visualBell: False
+URxvt*saveLines: 1024
+URxvt*mouseWheelScrollPage: true
+! Extensions ~/.urxvt./ext
+URxvt.perl-ext-common: default,clipboard,keyboard-select,url-select
+! Clipboard
+URxvt.keysym.M-C-c: perl:clipboard:copy
+URxvt.keysym.M-C-v: perl:clipboard:paste
+URxvt.keysym.M-C-S-v: perl:clipboard:paste_escaped
+URxvt.clipboard.copycmd:  xsel -ib
+URxvt.clipboard.pastecmd: xsel -ob
+! Keyboard-select
+URxvt.keysym.M-C-Escape: perl:keyboard-select:activate
+URxvt.keysym.M-C-s: perl:keyboard-select:search
+! Url-select
+URxvt.keysym.M-C-u: perl:url-select:select_next
+URxvt.url-select.autocopy: true
+URxvt.url-select.button: 1
+URxvt.url-select.launcher: /usr/bin/firefox
+URxvt.url-select.underline: true
+
+! XMAILBOX
+!----------------------------------------------------------------------
+!XMailbox*update: 60
+!XMailbox*mailXpmFile: /home/electro7/X/pixmaps/mail1.xpm
+!XMailbox*nomailXpmFile: /home/electro7/X/pixmaps/mail0.xpm
+!XMailbox*mailapp: $HOME/bin/terminal mutt
+!XMailbox*volume: 66
+!xmailbox*mailSndFile: /home/electro7/X/sounds/mail.wav
+!xmailbox*mailSndComm: /usr/bin/play %s
+
+! XMIX
+!----------------------------------------------------------------------
+!xmix*font: -ttf-beijing ssi-medium-r-normal-*-*-110-*-*-p-*-iso8859-1
+!xmix.whole.background:	grey32
+!xmix.whole.buttons.background: grey32
+!xmix*borderWidth: 0
+!xmix*highlightThickness: 1
+!xmix*background: grey32
+!xmix*foreground: gold3
+!xmix*sliders.background: grey32
+!xmix*sliders*Label.foreground: grey90
+!xmix*sliders*Scrollbar.background: grey25
+!xmix*sliders*Scrollbar.foreground: grey32
+!xmix*buttons*Label.foreground: grey90
+!xmix*quit.shapeStyle: oval
+!xmix*quit.background: grey25
+
+! XTERM
+!----------------------------------------------------------------------
+xterm*geometry: 80x25
+xterm*background: black
+xterm*foreground: lightgrey
+xterm*scrollBar: false
+xterm*font: 9x15bold
+!xterm*pointerColor: black
+!xterm*pointerColorBackground: white
+!xterm*cursorColor: yellow
+xterm*boldFont: 9x15bold
+xterm*colorBDMode: true
+xterm*colorULMode: true
+xterm*colorBD: plum2
+xterm*colorUL: wheat
+xterm*saveLines: 256
+xterm*title:  Terminal
+XTerm*color0:			#000000
+XTerm*color1:			#c00000
+XTerm*color2:			#008000
+XTerm*color3:			#808000
+XTerm*color4:			#0000c0
+XTerm*color5:			#c000c0
+XTerm*color6:			#008080
+XTerm*color7:			#c0c0c0
+XTerm*color8:			#808080
+XTerm*color9:			#ff6060
+XTerm*color10:			#00ff00
+XTerm*color11:			#ffff00
+XTerm*color12:			#8080ff
+XTerm*color13:			#ff40ff
+XTerm*color14:			#00ffff
+XTerm*color15:			#ffffff
+Xterm*cursorColor:		Black
+! Xterm con soporte de la rueda del raton
+xterm.vt100.translations: #override\n\
+ Shift<Btn4Down>,<Btn4Up>:scroll-back(1,line)\n\
+ Shift<Btn5Down>,<Btn5Up>:scroll-forw(1,line)\n\
+ Ctrl<Btn4Down>,<Btn4Up>:scroll-back(1,page)\n\
+ Ctrl<Btn5Down>,<Btn5Up>:scroll-forw(1,page)\n\
+ <Btn4Down>,<Btn4Up>:scroll-back(1,halfpage)\n\
+ <Btn5Down>,<Btn5Up>:scroll-forw(1,halfpage)
+

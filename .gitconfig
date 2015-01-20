@@ -1,0 +1,11 @@
+[user]
+	name = electro7
+	email = electroseven@gmail.com
+[core]
+	editor = vim
+[merge]
+	tool = vimdiff
+[color]
+	ui = true
+[alias]
+	last = log -1 HEAD
