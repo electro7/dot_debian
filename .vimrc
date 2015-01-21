@@ -44,7 +44,7 @@ call vundle#begin()
   Plugin 'godlygeek/tabular'           " Text filtering and alignment
   Plugin 'majutsushi/tagbar'           " Display tags in a window
   "Plugin 'scrooloose/syntastic'        " Syntax checking on write
-  "Plugin 'tpope/vim-fugitive'          " Git wrapper
+  Plugin 'tpope/vim-fugitive'          " Git wrapper
   Plugin 'tpope/vim-surround'          " Manipulate quotes and brackets
   Plugin 'bling/vim-airline'            " Pretty statusbar
   Plugin 'terryma/vim-multiple-cursors' " Multiple cursors work

@@ -1,13 +1,36 @@
 [user]
 	name = electro7
-	email = electroseven@gmail.com
-[core]
-	editor = vim
-[merge]
-	tool = vimdiff
+  email = electroseven@gmail.com
 [color]
 	ui = true
+[color "branch"]
+  current = green bold
+  remote = red bold
+[color "diff"]
+  meta = yellow
+  frag = cyan bold
+  old = red bold
+  new = green bold
+[color "status"]
+  added = green bold
+  changed = red bold
+  untracked = red bold
+[core]
+  editor = vim
+  excludesfile = /home/electro7/.gitignore_global
+[github]
+  user = electro7
+[diff]
+  tool = vimdiff
+[difftool]
+  prompt = false
+[merge]
+	tool = vimdiff
+[mergetool]
+    keepBackup = false
 [alias]
 	last = log -1 HEAD
+  l = log --pretty=format:'%C(yellow)%h%C(magenta)%d%Creset %s %C(cyan)%cr%Creset' --graph
+  s = status -sb
 [credential]
 	helper = cache --timeout=3600
