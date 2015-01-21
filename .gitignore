@@ -42,6 +42,7 @@ mail/*
 .profile
 .pulse/*
 .pulse*
+.ssh/*
 .themes/*
 .thumbnails/*
 tmp/*
