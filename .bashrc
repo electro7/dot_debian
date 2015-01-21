@@ -13,49 +13,50 @@
 # Prompt
 #----------------------------------------------------------------------#
 
-if [ $TERM = "rxvt-unicode-256color" ]; then
-  # Prompt a traves de promptline.vim
-  # Es un plugin de VIM para crear un prompt con simbolos powerline.
-  # Entrar en vim y hacer un :PromptlineSnapShot ~/.shell_prompt.sh
-  source ~/.shell_prompt.sh
-  # Añado retorno de carro y señal de usuario/root
-  function __promptadd
-  {
-    XTITLE='\[\e]0;\s (\w)\a\]'
-    COL="\[\033[0;36m\]"  # Cyan
-    COLR="\[\033[0;31m\]" # rojo root
-    COLN="\[\033[0m\]"	  # Reset
-    [[ "$UID" = "0" ]] && COL=$COLR	# Rojo para root
-    PS1="$XTITLE$PS1\n$COL \\$ $COLN"
-  }
-  PROMPT_COMMAND="$PROMPT_COMMAND __promptadd;"
-else
-  # Prompt normal
-  # Colores a utilizar
-  COL1="\[\033[0;32m\]" # Verde
-  COL2="\[\033[0;36m\]" # Cyan
-  COL3="\[\033[0;36m\]" # cyan root
-  COL4="\[\033[0;33m\]" # Amarillo
-  COL5="\[\033[0m\]"	  # Reset
-  COL6="\[\033[0;34m\]" # Blue
-  COL7="\[\033[0;35m\]" # Purple
+case "$TERM" in
+  rxvt*)
+    # Prompt a traves de promptline.vim
+    # Es un plugin de VIM para crear un prompt con simbolos powerline.
+    # Entrar en vim y hacer un :PromptlineSnapShot ~/.shell_prompt.sh
+    source ~/.shell_prompt.sh
+    # Añado retorno de carro y señal de usuario/root
+    function __promptadd
+    {
+      XTITLE='\[\e]0;\s (\w)\a\]'
+      COL1="\[\033[0;32m\]" # Verde
+      COL2="\[\033[0;36m\]" # Cyan
+      COL="\[\033[0;36m\]"  # Usuario normal
+      COLR="\[\033[0;31m\]" # Root
+      COLN="\[\033[0m\]"	  # Reset
+      [[ "$UID" = "0" ]] && COL=$COLR	# Rojo para root
+      # Conexión remota
+      if [ -n "$REMOTEHOST" ]; then
+        PS1="$XTITLE$PS1\n$COL1 [$COL2\h$COL1]$COL \\$ $COLN"
+      else
+        PS1="$XTITLE$PS1\n$COL \\$ $COLN"
+      fi
+    }
+    PROMPT_COMMAND="$PROMPT_COMMAND __promptadd;"
+    ;;
+  *)
+    # Prompt normal
+    # Colores a utilizar
+    COL1="\[\033[0;32m\]" # Verde
+    COL2="\[\033[0;36m\]" # Cyan
+    COL3="\[\033[0;36m\]" # cyan root
+    COL4="\[\033[0;33m\]" # Amarillo
+    COL5="\[\033[0m\]"	  # Reset
+    COL6="\[\033[0;34m\]" # Blue
+    COL7="\[\033[0;35m\]" # Purple
 
-  # Título en los emuladores de terminal en X
-  #case "$TERM" in
-  #xterm*|rxvt*)
-  #	XTITLE='\[\e]0;\l: \u@\h (\w)\a\]'
-  #    ;;
-  #*)
-  #    ;;
-  #esac
+    # Prompt para el root
+    [[ "$UID" = "0" ]] && COL3="\[\033[0;31m\]"	# Rojo para root
 
-  # Prompt para el root
-  [[ "$UID" = "0" ]] && COL3="\[\033[0;31m\]"	# Rojo para root
-
-  # Prompt final
-  #PS1="$XTITLE$COL1┌─[$COL2\l$COL1]─[$COL3\u$COL1]─[$COL2\H$COL1]─($COL4\w$COL1)\n$COL1└────╼ $COL3\\$ $COL5"
-  PS1="$XTITLE$COL1--[$COL3\u$COL1]-[$COL2\h$COL1]-($COL4\w$COL1)\\$ $COL5"
-fi
+    # Prompt final
+    #PS1="$XTITLE$COL1┌─[$COL2\l$COL1]─[$COL3\u$COL1]─[$COL2\H$COL1]─($COL4\w$COL1)\n$COL1└────╼ $COL3\\$ $COL5"
+    PS1="$XTITLE$COL1--[$COL3\u$COL1]-[$COL2\h$COL1]-($COL4\w$COL1)\\$ $COL5"
+    ;;
+esac
 
 
 #----------------------------------------------------------------------#
@@ -132,6 +133,11 @@ alias xnetmasq="terminal netmasq"
 alias xiptraf="terminal iptraf"
 alias xbithcx="terminal bithcx"
 alias xt="terminal"
+
+# Alias del git
+alias gia="git add"
+alias gcm="git commit -a -m"
+alias gp="git push"
 
 #----------------------------------------------------------------------#
 # OTROS

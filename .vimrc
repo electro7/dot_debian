@@ -275,8 +275,8 @@ else
 endif
 
 " Promptline
+" \'b': [ promptline#slices#host(), promptline#slices#user() ],
 let g:promptline_preset = {
-        \'b': [ promptline#slices#host(), promptline#slices#user() ],
         \'c': [ promptline#slices#cwd() ],
         \'y': [ promptline#slices#vcs_branch() ],
         \'z': [ promptline#slices#git_status() ],
