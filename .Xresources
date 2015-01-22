@@ -11,6 +11,7 @@ Xft.rgba:       rgb
 !Xft.hintstyle:  hintslight
 !Xft.lcdfilter:	 lcddefault
 Xcursor.theme:	 Neutral
+*font: -xos4-terminesspowerline-medium-r-normal--12-120-72-72-c-60-iso10646-1
 
 ! Colores
 !----------------------------------------------------------------------

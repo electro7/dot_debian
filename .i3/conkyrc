@@ -38,7 +38,7 @@ if_up_strictness          address
 # Colores
 default_color             c5c8c6    # Fuente
 own_window_colour         1d1f21    # Fondo
-color0                    303030    # Gris separador
+color0                    373b41    # Gris separador
 color1                    b294bb    # Violeta
 color2                    81a2be    # Azul
 color3                    90A959    # Verde claro
@@ -51,12 +51,14 @@ color9                    373b41    # Gris separador
 
 # Fuente de 6 pixels
 TEXT
-${goto 864}${color0}Üßßßßßßßßß${goto 918}${color8}Ü\
+${goto 918}${color}Üßßßßßßßßßßßßßßßßßßßß\
+${goto 864}${color0}Üßßßßßßßßß${goto 918}${color}Ü\
 ${goto 624}${color0}Üßßßßßßßßßßßßßßßßßßßß${goto 744}${color8}Ü\
 ${goto 516}${color0}Üßßßßßßßßß${goto 570}${color8}Ü\
 ${goto 402}${color0}Üßßßßßßßßßß${goto 462}${color8}Ü\
+${goto 0}${color b5bd68}ßßÚ\
 # Time
-${goto 930}${color}Õ ${time %d %b} ${time %H:%M}\
+${goto 930}${color8}Õ ${time %d %b} ${time %H:%M}\
 # Vol
 ${goto 876}${color1}Ô ${execi 3 amixer get Master | grep Left | awk -F'[]%[]' '/%/ {if ($5 == "off") {print "×"} else {printf "%d%%", $2}}'}\
 # ETH
@@ -100,4 +102,4 @@ ${goto 360}${color CC6666}Ï ${cpu}%\
 ${endif}\
 ${goto 348}${color9}Ý\
 # FOCUS
-${goto 2}${color AAAAAA}Â${font ohsnapu-medium-1} ${execi 3 ~/bin/getfocus.sh}${font}\
+${goto 2}${color 005f00}Â  ${color AAAAAA}${font ohsnapu-medium-1} ${execi 3 ~/bin/getfocus.sh}${font}\
