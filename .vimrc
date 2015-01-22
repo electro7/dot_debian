@@ -39,7 +39,6 @@ call vundle#begin()
   "Plugin 'Shougo/neocomplete'          " Automatic keyword completion
   "Plugin 'Shougo/unite.vim'            " Find files and buffers using ag
   "Plugin 'Shougo/vimfiler.vim'         " File Explorer :VimFiler
-  Plugin 'ervandew/supertab'            " Full autocomplete with TAB
   Plugin 'jlanzarotta/bufexplorer'     " Buffer Explorer :BufExplore
   Plugin 'godlygeek/tabular'           " Text filtering and alignment
   Plugin 'majutsushi/tagbar'           " Display tags in a window
