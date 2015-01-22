@@ -8,10 +8,10 @@
 " Configuración ontenida de W0ng -> https://github.com/w0ng
 "
 " Vicente Gimeno Morales - E7
-" Version 2.7 - 19 ene 2015
+" Version 2.8 - 22 ene 2015
 "======================================================================#
 "
-" Comptability {{{
+" Compability {{{
 " -----------------------------------------------------------------------------
 "
 set nocompatible          " use vim defaults instead of vi
@@ -270,15 +270,15 @@ if has("gui_win32")
   let g:airline_theme = 'powerlineish'
 else
   let g:airline_powerline_fonts = 1
-  let g:airline_theme = 'powerlineish'
+  let g:airline_theme = 'hybridline'
 endif
 
 " Promptline
 " \'b': [ promptline#slices#host(), promptline#slices#user() ],
 let g:promptline_preset = {
-        \'c': [ promptline#slices#cwd() ],
-        \'y': [ promptline#slices#vcs_branch() ],
-        \'z': [ promptline#slices#git_status() ],
+        \'b': [ promptline#slices#cwd() ],
+        \'c': [ promptline#slices#vcs_branch() ],
+        \'x': [ promptline#slices#git_status() ],
         \'warn' : [ promptline#slices#last_exit_code() ]}
 let g:promptline_theme = 'airline'
 
@@ -300,14 +300,14 @@ autocmd FileType cpp,java,javascript,json,markdown,php,python
       \ setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType markdown setlocal textwidth=79
 autocmd FileType prg
-      \ setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
+      \ setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4 cindent
 
 " Txt
 autocmd FileType text setlocal textwidth=79 wrap
 
 " Folding rules
-autocmd FileType c,cpp,java setlocal foldmethod=syntax foldnestmax=5
-autocmd FileType css,html,htmldjango,xhtml,prg
+autocmd FileType c,cpp,java,prg setlocal foldmethod=syntax foldnestmax=5
+autocmd FileType css,html,htmldjango,xhtml
       \ setlocal foldmethod=indent foldnestmax=20
 
 " Set correct markdown extensions

@@ -34,3 +34,5 @@
   s = status -sb
 [credential]
 	helper = cache --timeout=3600
+[format]
+	pretty = oneline
