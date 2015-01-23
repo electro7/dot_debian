@@ -1,0 +1,629 @@
+﻿*chuletario.txt*  Chuletario personal     Last change: 23 ene 2015
+
+chuletario                                              *chuletario* *chuleta*
+
+Mi chuletario personal, debido a mi poca o nula memoría
+
+==============================================================================
+==============================================================================
+CONTENIDO                                                 *chuleta_contenido*
+
+  - Cambiar la ip                                   |chuleta_ip|
+  - El fstab                                        |chuleta_fstab|
+  - Paquetes debian                                 |chuleta_paquetes|
+  - Compilar kernel en Debian                       |chuleta_debian_kernel|
+  - Cron y Anacron                                  |chuleta_cron|
+  - Correo el estilo linux                          |chuleta_correo|
+  - Módulos                                         |chuleta_modulos|
+  - Gnupg                                           |chuleta_gnupg|
+  - Paginas de manual                               |chuleta_man|
+  - Conexión segura con SSH                         |chuleta_ssh|
+  - Compartir archivos con NFS                      |chuleta_nfs|
+  - Compilar paquetes en Debian                     |chuleta_compilar_debian|
+  - En hora con NTP                                 |chuleta_ntp|
+  - Ordenar MP3                                     |chuleta_mp3|
+  - Fuentes, temas, iconos                          |chuleta_fuentes_temas_gtk|
+  - Drivers NVIDIA                                  |chuleta_nvidia|
+  - Airport Extreme                                 |chuleta_airport|
+  - Debian en Powerbook                             |chuleta_powerbook|
+  - Versionitis con GIT                             |chuleta_git|
+
+
+
+==============================================================================
+==============================================================================
+CAMBIAR LA IP                                                   *chuleta_ip*
+
+Se hace con "ifup" y "ipdown" >
+  ifup eth0; ifdown eth0
+<
+El archivo de configuración es {/etc/network/interfaces} donde se indica
+la dirección IP, la mascará, el gateway, etc.
+>
+  # La interfaz loopblack
+  iface lo inet loopback
+
+  # Las tarjeta de red
+  iface eth0 inet static
+    address 192.168.0.79
+    netmask 255.255.255.0
+    network 192.168.0.0
+    broadcast 192.168.0.255
+>
+
+El archivo /etc/network/config sirve para activar cosas como el paso
+del paquetes de una interfaz a otra (ip_forward).
+
+Para añadir varias IP a la misma interfaces, basta con crear un alias.
+>
+  auto eth0:0
+  iface eth0:0 inet static
+    addres 192.168.1.79
+>
+==============================================================================
+EL FSTAB                                                     *chuleta_fstab*
+
+Para que los usuarios puedan montar el cdrom y el floppy hay que añadir
+la opción "user". Se montaria con "mount /cdrom".
+
+Para que puedan escribir en vfat (del root) hay que poner en las opciones
+"gid=6,umask=007" y añadir el usuario al grupo disk (6). La opción "quiet"
+sirve para que al mover o copiar los archivos no aparezcan un mensaje de error
+al no poder mantener permisos.
+
+Ejemplo:
+>
+  # «file system» «mount point»   «type»  «options»           «dump»  «pass»
+  /dev/hda3   /           ext2    defaults,errors=remount-ro  0       1
+  /dev/hda2   none        swap    sw                          0       0
+  proc        /proc       proc    defaults                    0       0
+  /dev/hda1   /hdwin      vfat    defaults,gid=6,umask=007,quiet    0       0
+  /dev/hdd1   /hdextra    vfat    defaults,gid=6,umask=007,quiet    0       0
+  /dev/fd0    /floppy     auto    defaults,noauto,user        0       0
+  /dev/cdrom  /cdrom      iso9660 defaults,ro,noauto,user     0       0
+  /dev/cdrw   /cdrw       iso9660 defaults,ro,noauto,user     0       0
+  /dev/sda1   /mnt/PenDrive       auto    defaults,noauto,user        0 0
+  linuxe7:/home   /mnt/LinuxE7    nfs defaults,rw,noauto,user 0       0
+<
+==============================================================================
+APT Y DPKG                                               *chuleta_paquetes*
+
+El apt se configura en {/etc/apt/source.list}. El source.list (apt-setup)
+contiene los servidores de donde pillar los paquetes con el formato:
+>
+  deb ftp://ftp.es.debian.org/debian unstable main contrib non-free
+  deb ftp://ulises.adi.uam.es/debian stable main contrib non-free
+<
+
+Lo tipico con el apt es hacer un "apt-get update" para bajarse la lista
+de paquetes y hacer un "apt-get install {paquete]" para instalar. Con "apt-get
+check" y "apt-get -f install" nos aseguramos que todas las dependencias estan
+bien. Con "apt-get upgrade" se actualiza todo el sistema.
+
+Para buscar paquetes disponibles en los servidores tenemos el "apt-cache
+search {paquete}" y para buscar algún paquete el en sistema se usa el "dpkg -l
+{paquete]"
+
+Para mantener limpito el sistema se usa "apt-get clean" y el "apt-get
+autoremove".
+
+El dpkg:
+
+  dpkg -i -» instalar
+  dpkg -r -» desinstalar
+  dpkg -P -» desinstalar hasta los ficheros de configuración
+  dpkg -P -» purge (desinstala hasta archivos de configuración)
+  dpkg --configure -a -» configura todos los paquetes desconfigurados
+  dpkg -L -» muestra los archivos de un paquete instalado
+  dpkg -s -» muestra información de un paquete
+  dpkg -S -» busca un fichero en todos los paquetes instalados
+  dpkg -c -» muestra los archivos de un .deb
+  dpkg -I -» muestra info de un .deb
+
+Para marcar algún paquete para que no se actualize se utiliza "dpkg
+--set-selections".
+>
+  dpkg --set-selections
+  mutt hold
+  [CTRL+D]
+>
+>
+En Debian existen tareas para actualizar grandes sistemas de paquetes.
+Normalmente depende de un paquete global llamado "task".
+
+==============================================================================
+COMPILAR KERNEL EN DEBIAN                          *chuleta_debian_kernel*
+
+Instalar los paquetes "build-essential", "libncurses5-dev"y el
+"kernel-package". Extraer el codigo a {/usr/src/linux/}.
+
+Para configurar: make "config, menuconfig, xconfig". "make mrproper"
+limpia entre compilaciones.
+
+Podemos copiar el config del actual kernel que normalmente se encuentra
+en /boot.
+
+Compilar con "make-kpkg --initrd -rev Custom.N kernel_image kernel_headers",
+donde N es el número de imagen a asignar.
+
+Instalar el kernel y los headers. Se descomprime en /boot.
+
+==============================================================================
+CRON Y ANACRON                                                *chuleta_cron*
+
+En DEBIAN el CRON llama a ANACRON (un demonio que ejecuta las tareas sin
+necesidad de estar 24h rulando, la hace por intervalo de tiempo).
+
+La configuración se hace en {/etc/anacrontab} y las tareas se ejecutan en
+ficheros ejecutables que residen en {/etc/cron.daily}, {/etc/cron.weekly} y
+{/etc/cron.monthly}, para las tareas que se ejecutan todos los dias, por
+semanas y por meses, respectivamente.
+
+==============================================================================
+CORREO AL ESTILO LINUX                                      *chuleta_correo*
+
+Programas necesarios: Sendmail, fetchmail, mutt y xmailbox.
+
+Configuramos Sendmail de manera muy simple (el que envia al smtp):
+
+* En "# "Smart" relay host (may be null)" ponemos nuestro servidor SMTP
+de la manera "DSsmtp.ono.com".
+* En "# who I masquerade as (null for no masquerading)" se pone el
+enmascaramiento de la dirección de correo que debe hacer -»
+"DMono.com".
+
+Casi todo esto lo pregunta el paquete Debian al instalarse.
+Cuando terminemos de editar parar con /etc/init.d/sendmail stop y
+relanzar con start.
+
+Si no utilizamos el Sendmail y obtamos por el exim lo más importante es
+añadir en el fichero "/etc/email-addresses" las direcciones de correo correctas
+usadas para enviar correo hacía fuera. Una línea por cada usuario que envia
+correo.Configurar exim4 para enviar a través de GMAIL
+<http://wiki.debian.org/GmailAndExim4>
+
+Configuramos fetchmail (el que recoge al pop).  Se configura para cada usuario
+en {.fetchmailrc}
+
+Un ejemplo:
+>
+  # Recoge el correo cada x minutos
+  set daemon 1800
+  set syslog
+  # Carga las opciones por defecto
+  defaults
+    fetchall flush pass8bits
+  # Ono
+  poll pop3.ono.com proto pop3:
+  user electro7 pass hobbit6 to electro7;
+  # Curro
+  poll 213.0.68.12 proto pop3:
+  user vicenteg pass vgimeno to electro7, keep, no flush, no
+  fetchall;
+
+El fetchmail debe ejecutarlo cada usuario. Con la opción "set
+daemon" se ejecuta como demonio cada X segundos. Lo mejor es meterlo
+en el .bashrc o en el arranque de las X. El fetchmail solo permite
+una ejecución de él mismo, así que no hay peligro de llamarlo desde
+los scripts.
+
+Instalamos y correo hacía fuera. Una línea por cada usuario que envia
+correo. configuramos el mutt. Se configura con el .muttrc. Esta muy bien
+este cliente de correo, nos va a servir tanto para leer el correo interno
+como el recogido con fetchmail.
+
+Proceso de recepción y tratamiento:
+* El fechmail lo recoge y la mete en /var/mail/<user>
+* El procmail lo captura y según las reglas definidas lo guarda en un fichero.
+* El mutt lee los ficheros donde procmail guarda los correos.
+* El mailcheck chequea si hay correos nuevos revisando los ficheros.
+
+----------------------------------------------------------------------------
+ACTUALIZACIÓN CON GMAIL
+
+Chequeamos si fetchmail tiene soporte openssl con "ldd /usr/bin/fetchmail"
+Si sale una línea con libssl.so.*, tenemos.
+
+Testeamos el certificado de gmail con "openssel s_client -connect pop.gmail.com:995"
+
+Configuramos .fechmailrc tal que así:
+>
+  set daemon 600
+  set syslog
+  defaults
+  fechall flush
+  set postmaster "electro7"
+  poll pop.gmail.com with proto POP3
+    user 'agmviv@gmail.com' there with password '<pass>' is electro7 here optins ssl
+
+Probamos con "fetchmail -d0 -vk pop.gmail.com". Las trazas van al syslog.
+
+==============================================================================
+MODULOS                                                     *chuleta_modulos*
+
+Para saber que quiere decir el mensaje "modprobe: Can locate module
+char-mayor-X", primero hay que mirar que dispositivo esta buscando
+obteniendolo de /dev, los dos numeros que aparecen en vez del tamaño
+corresponden a la X.
+
+Después para que no aparezca el mensaje basta con poner en
+/etc/modules.conf la línea "alias char-major-X off" si no lo vamos
+a utilizar.
+
+
+==============================================================================
+GNUPG                                                        *chuleta_gnupg*
+
+Para generar la clave se utiliza "gpg --gen-key" y utilizamos el
+algoritmo DSA/ElGamal.
+
+Se exporta con "gpg -a --export » clave".
+
+Se importan claves con "gpg --import fichero". Puede incluir más de
+una clave.
+
+Se crea la clave de revocación (por si perdemos nuestra clave
+privada) con "gpg --gen-revoke".
+
+Más comandos:
+
+  gpg --list-keys -» muestra las claves públicas disponibles
+  gpg --delete-key -» borra una clave pública
+  gpg --edit-key -» edita un clave (para validarla)
+  gpg --armor -e [fichero] -» codifica un fichero
+  gpg -s [fichero] -» firma un fichero
+  gpg [fichero] -» decodifica io verficar la firma de un fichero
+
+Mutt -» después de escribir los mensajes y antes de postearlo se
+pulsa "p" y aparece el menú de PGP.
+
+SLRN -» Utilizando el pgpg-stuff.sh.
+
+==============================================================================
+MAN                                                           *chuleta_man*
+
+Para que funcione bien el scroll en el man hay que instalar "less".
+Puede ser necesario la variable de entorno PAGER='less' en el .bashrc
+
+==============================================================================
+SSH                                                          *chuleta_ssh*
+
+Vamos a poner la cosa un poco más segura que un telnet.
+
+- Instalamos en paquete "ssh" que en realidad en el ssh del Openssh -»
+  www.openssh.com.
+- Hay que instalarlo tanto en la máquina servidor como en la cliente.
+  Usaremos la autentificación de 1024 bits de RSA y si falla está la clave
+  de usaurio (de momento).
+- Activamos el sshd en la máquina servidor. No lo arranca el inetd.conf
+  porque necesita generar la clave del servidor de 768 bits y puede tardar
+  10 segundos en cada arranque. Se arranca en el runlevel.
+- El fichero de configuración del sshd es el {/etc/ssh/sshd_config}. Las
+  opciones más interesantes son:
+  - Port : Puerto de escucha.
+  - X11Forwarding : Para poder lanzar aplicaciones X.
+  - KeepAlive : Mantener conexión.
+  - RSAAutehticacion : Autentificación por clave RSA (la que usaremos):
+  - PermitRootLogin : Permitir acceso de root (no).
+  - PasswordAuthentication : Autentificación por clave normal. Al
+    principio la dejaremos activada, después solo usaremos la RSA con
+    clave pública/privada.
+- Se relee la configuración con "/etc/init.d/ssh reload".
+- Ya nos podemos conectar con el servidor con "ssh -p «puerto» «máquina»".
+  Solo podremos entrar con la clave normal, pero ya todo encritado.
+- Después nos generamos la clave RSA con "ssh-keygen" que nos crea los
+  ficheros "identity" (clave privada) y "identity.pub" (clave pública). Es
+  buena idea darle una frase de paso.
+- Después copiar la clave pública en el servidor con "ssh-copy-id
+  «servidor»". También se puede copiar a mano el fichero
+  "$HOME/.ssh/identitu.pub" en el servidor a "$HOME/.ssh/authorized_keys".
+  Se puede tener más de una clave almacenada en el servidor.
+- Se copia ficheros de modo seguro con "scp".
+- Ya podemos entrar con RSA y desactivar la clave normal en el sshd.
+- Se puede configurar el cliente ssh con el fichero "/etc/ssh/ssh_config".
+  Lo más importante:
+  - Host : Máquinas que le afectan las opciones.
+  - ForwardAgent : Para conectar aplicaciones X.
+  - ForwardX11 : Para conectar aplicaciones X.
+  - Port : Puerto a utilizar.
+- Para que se pueda ejecutar aplicaciones X en el servidor y que se vean en
+  las X locales, se de añadir la opción "use-ssh-agent" en
+  "/etc/X11/Xsession.options". De este modo se ejecutara las X a través de
+  "ssh-agent" que permitirá identificar cualquier cliente automáticamente.
+  Podemos identificar una sesión lanzando un shell con "ssh-agent bash".
+- Después hay que proporcionar a "ssh-agent" la clave privada con el comando
+  "ssh-add" e introduciendo la frase de paso.
+- A partir de ese momento cada vez que nos introduzcamos en el servidor la
+  variable DISPLAY se redirecciona a el servidor local de las X con una
+  especie de servidor virtual en el servidor con una comunicación encritada
+  y autentificada.
+- Se pueden ejecutar automáticamente aplicaciones con "ssh -f «server»
+  «comando»".
+
+----------------------------------------------------------------------------
+ACTUALIZACIÓN
+
+- Para utilizar el ssh con protocolo 2 basta con poner en
+  "/etc/ssh/sshd_config" la opción "protocol=2".
+- La autentifiación con ssh2 se realiza con RSA siempre. Hay que generar la
+  clave con "ssh-keygen -t rsa".
+- La clave en el remoto se sigue poniendo en "$HOME/.ssh/authorized_keys".
+  Cada clave se pone en una solo línea, sin retornos de carro.
+
+----------------------------------------------------------------------------
+TUNELES
+
+- Se puede hacer un tunel para redireccionar un puerto y encriptar la
+  comunicación. SSH abre un puerto en la máquina local, se conecta a la
+  máquina remota y hace un puente con el puerto remoto especificado. De este
+  modo la conexión que se hace al puerto local se envia al puerto
+  especificado del remoto en una conexión segura.
+- Ej. ssh -L 32000:localhost:4080 electro7@viv.no-ip.org
+  Direcciona el puerto 32000 de la máquina local al puerto 4080 de
+  viv.no-ip.org, ya que se ha especificado localhost.
+- Ej. ssh -L 33000:192.168.0.79:80 electro7@viv.no-ip.org.
+  Direcciona el puerto local 33000 al puerto 80 de la máquina 192.168.0.79,
+  que está en red local con viv.no-ip.org.
+- Ej. ssh -R 80:localhost:33000 electro7@viv.no-ip.org
+  Túnel inverso, el remoto se conecta al puerto 80 del local al acceder al
+  puerto 33000 de localhost.
+
+==============================================================================
+NFS                                                            *chuleta_nfs*
+
+Compilar el kernel con soporte de NFS. Filesystem -» Network
+Filesystem en el cliente y el servidor. En el servidor también incluir
+soporte de servidor NFS. Instalar en el servidor el "nfs-kernel-server".
+
+Añadir los directorios exportados a {/etc/exports}.
+Ej:
+>
+  /home casiopea(rw)
+
+Añadir las máquinas que tendran acceso con hosts.deny y hosts.allow. Se
+mirar gracias al portmapper. No se puede utilizar nombres de hosts, solo ALL
+o direcciones IP completas para el portmapper, sino da "RPC: programa no
+registrado".
+
+Instalar en el cliente el nfs-common. Montar las unidades con
+"mount -t nfs linuxe7:/home /mnt/Linuxe7".
+
+Para que cualquier usuario pueda desmontar y montar las unidades añadir
+al /etc/fstab lo siguiente:
+>
+  linuxe7:/home   /mnt/LinuxE7    nfs     rw,noauto,user 0       0
+
+Los directorios exportados en el servidor se ven en /proc/fs/nfs/exports
+o con un "exportfs" y se ve si el nfs está rulando con "rpcinfo -p".
+
+Si modificamos el /etc/exports hay que hacer un "exportfs -ra".
+
+Para que los archivos copiados o creados en un directorio nfs se creen
+siempre con el mismo uid y gid hay que exportarlos de la siguiente manera:
+>
+  /home/www morgana(rw,all_squash,anonuid=33,anongid=33)
+
+==============================================================================
+COMPILAR PAQUETE DEBIAN                           *chuleta_compilar_debian*
+
+- Lo bajamos con "apt-get source <paquete>"
+- Instalamos las dependandias con "apt-get build-dep <paquete>"
+- Para compilar optimizado para nuestra arquitectura, obtenemos toda la
+  información de la cep con "cat /proc/cpu" y luego buscamos las mejores
+  opciones para el "export CFLAGS" en http://en.gentoo-wiki.com/wiki/Safe_Cflags
+- Con "export CHOST" se puede definir la arquitectura.
+- Compilamos con "dpkg-buildpackage -us -uc"
+- Para que no se actualize si lo instalamos "echo <paquete> hold | dpkg
+  --set slections"
+
+
+==============================================================================
+EN HORA CON NTP                                               *chuleta_ntp*
+
+- Instalar el paquete ntp. El solo hace las preguntas pertinentes.
+- Seleccionar correctamente la hora con "tzsetup".
+- Los servidores recomandables son "hora.rediris.es",
+"ntp.escomposlinux.org" y "chronos.bulma.net".
+- La configuración está en el fichero "/etc/ntp.conf".
+- El demonio como siempre se controla desde "/etc/init.d".
+- Con "ntptrace" vemos información de las actualizaciones.
+- El demonio ntpd está pensado para servidor 24 h, para "casa", es mejor
+utilizar el ntpdate.
+- Instalar el paquete ntpdate.
+- Los servidores se guardan en "/etc/default/ntp-servers".
+- Con "ntpdate -d hora.rediris.es" actualiza.
+- Poner el script "/etc/init.d/ntpdate" en el runlevel para que se
+actualice en el arranque (o con anacron). Por defecto lo pone en "rcS.d".
+
+==============================================================================
+ORDENAR MP3                                                   *chuleta_mp3*
+
+- Formato tipo -» "Nº pista - Autor - Canción.mp3".
+- Lo hacemos "Shell friendly" convirtiendo espacios a subrayados.
+- Utilizar el "mp3mover.pl" y el "mvmore".
+- Crear un lista de reproducción con el nombre "000_Playlist.m3u". Usar el
+  alias "lsmp3" para hacer el volcado del directorio.
+- Utilizar el script "mp3id3". Necesita de "id3ren" y "id3v2".
+- Las carátulas, pues simplemente "back.jpg" y "cover.jpg".
+
+==============================================================================
+FUENTES TEMAS ICONOS GTK                          *chuleta_fuentes_temas_gtk*
+
+- Fuentes PCF-BDF.
+  - Crear fichero fonts.dir en el directorio con "mkfontdir".
+  - Añadir al recurso de fuentes con xset +fp <ruta directorio>
+  - Debería ya estar disponibles. Se lista con xlsfonts.
+  - Los BDF se pueden editar con el gbdfed. Normalmente aumenta la separación.
+    Hacer una copia del BDF antes de editarlo y luego mirar las diferencias
+    del campo WITH de cada letra para ponerlo como antes.
+  - Se puede visualizar con el xfd -fn <nombre fuente>.
+- Fuentes TTF: Copiar las ttf en ".fonts" de $HOME. Ejecutar "fc-cache".
+  - Se puede visualizar con el xfd -fa <nombre fuente>.
+- Temas: Copiar a ".themes".
+- Iconos: Copiar a ".icons".
+- Selección de colores: Usar el gcolor2.
+
+==============================================================================
+DRIVERS NVIDIA                                               *chuleta_nvidia*
+
+- Instalar el paquete "build-essential".
+- Instalar el paquete "apt-get install linux-headers-`uname -r`"
+- Bajarse los ultimos drivers de la página de NVIDIA.
+- Parar las X y el GDM/LIGHTDM.
+- Ejecutar como root "sh NVIDIA..."
+- Relanzar el gdm/lightdm
+
+==============================================================================
+AIRPORT EXTREME                                             *chuleta_airport*
+
+----------------------------------------------------------------------------
+EN DEBIAN
+
+- Añadir los paquetes contrib y nonfree a las fuentes del repositorio.
+- "apt-get install firmware-b43-installer"
+- Se debe cargar solo el modulo, sino "modprobe b43".
+
+La red wifi se configura con "iwconfig" y "iwlist." Pero mejor hacerlo
+automático en "/etc/network/interfaces".
+
+Ejemplo de conexión con WPA-PSK.
+>
+  auto wlan0
+  #iface wlan0 inet dhcp
+   wpa-driver wext
+   wpa-ssid "Mis vecinos apestan"
+   wpa-psk anillos7
+   wpa-key-mgmt WPA-PSK
+   wpa-group TKIP CCMP
+   wpa-proto WPA
+
+O también, dejarlo de la mano del demonio network-manager de gnome. Arrancar
+el "nm-applet" y au!.
+
+- "apt-get install gnome-network-manager"
+- Dejar el fichero "/etc/network/interfaces" solo con la entrada del
+	loopback.
+- Reiniciar.
+- Desde las X podemos cambiar de redes con el "nm-applet". Solo se
+	puede arrancar si el gestos de ventanas tiene un systray. Si no lo
+	tiene (fvwm) usar el "stalonetray" que es estandar.
+
+==============================================================================
+DEBIAN EN POWERBOOK                                     *chuleta_powerbook*
+
+- El control de temperatura viene con el módulo "therm_adt746x". Poner
+  la carga manualmente en "/etc/modules".
+
+- Cambiar entre consolas virtuales -> ctrl + alt + fn + manzana izq.
+
+- X (ver xorg.conf). Las ultimas debian no llevan xorg.conf, pero basta con
+  copiarlo en "/etc/X11".
+
+----------------------------------------------------------------------------
+Botón izquierdo y central del ratón.
+
+- Añadir esto en /etc/sysctl.conf
+>
+  dev.mac_hid.mouse_button2_keycode = 126
+  dev.mac_hid.mouse_button3_keycode = 125
+  dev.mac_hid.mouse_button_emulation = 1
+
+- Luego hacer "sysctl -p /etc/sysctl.conf"
+- Reiniciar las X.
+- Ya funciona el izquierdo con la tecla de manzana derecha y el central  con
+  mayúsculas + manzana derecha.
+- Si no va, averiguar el código de la tecla desde una consola fuera de
+  X con "showkey".
+
+==============================================================================
+GIT                                                              *chuleta_git*
+
+BASICO                                                    *chuleta_git_basico*
+
+- git init ~
+  Crea un nuevo repositorio local
+
+- git clone </path/to/repository> ~
+  Crea una copia local de un repositorio remoto.
+
+- El repositorio local esta compuesto por tres "árboles" administrados por git.
+  El primero es tu Directorio de trabajo que contiene los archivos, el segundo
+  es el Index que actua como una zona intermedia, y el último es el HEAD que
+  apunta al último commit realizado.
+
+- git add <filename> ~
+  Añade cambios en Index.
+  "git add ." añade todos.
+  "git add -i" añade interactivamente.
+
+- git commit -m <Mensaje> ~
+  Añade los cambios al HEAD.
+
+- git commit -a -m <Mensaje> ~
+  Añade a la vez los cambios a Index y a HEAD.
+
+- git log ~
+  Histórico de cambios.
+
+- git status ~
+  Estado de repositorio.
+
+RAMAS                                                       *chuleta_git_ramas*
+
+- git branch <rama> ~
+  Crea una rama de desarrollo.
+  Las ramas son utilizadas para desarrollar funcionalidades aisladas unas de
+  otras. La rama master es la rama "por defecto" cuando creas un repositorio.
+  Crea nuevas ramas durante el desarrollo y fusiónalas a la rama principal
+  cuando termines.
+
+- git checkout -b <rama> ~
+  Crear y cambiar a una rama de una vez.
+
+- git checkout master ~
+  Vuelve a la rama principal.
+
+- git checkout -d <rama> ~
+  Borra una rama.
+
+- git merge <rama> ~
+  Fusiona una rama de desarrollo con master. "git merge <branch>"
+  Desafortunadamente, no siempre será posible y se podrán producir conflictos.
+  Tú eres responsable de fusionar esos conflictos manualmente al editar los
+  archivos mostrados por git. Después de modificarlos, necesitas marcarlos como
+  fusionados con git add <filename>. Antes de fusionar los cambios, puedes
+  revisarlos usando git diff <source_branch> <target_branch>.
+
+REMOTO                                                    *chuleta_git_remoto*
+
+- git remote add origin <server> ~
+  Añade repositorio remoto.
+  Ahora podrás subir tus cambios al repositorio remoto seleccionado.
+
+- git push origin master ~
+  Envia los cambios de la rama master al repositorio remoto.
+  (Reemplazar "master" por la rama que se quiera enviar).
+
+- git push origin <branch> ~
+  Envia, actualiza y fusiona la rama en el remoto.
+
+- git pull ~
+  Recibe del remoto y actualiza el repositorio local.
+
+VARIOS                                                    *chuleta_git_varios*
+
+- git tag ~
+  Crear etiquetas de commits.
+  "git tag 1.0.0 1b2e1d63ff" <1b2e1d63ff>  se refiere a los 10 caracteres
+  del commit id al cual quieres referirte con  tu etiqueta. Puedes obtener
+  el commit id con "git log".
+
+- git checkout -- <filename> ~
+  Revierte los cambios del archivo al último commit.
+
+- git reset ~
+  Por otro lado, si quieres deshacer todos los cambios locales y  commits,
+  puedes traer la última versión del servidor y apuntar a tu copia  local
+  principal de esta forma "git fetch origin" "git reset --hard origin/master"
+
+vim:tw=78:ts=8:wrap:ft=help:norl:
