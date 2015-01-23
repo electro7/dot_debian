@@ -122,8 +122,13 @@ set shm=atI               " cut large messages
 
 " Colours
 set t_Co=256
-let g:hybrid_use_Xresources = 1
-colorscheme hybrid_e7
+if &term == "xterm"
+  set background=dark
+  colorscheme base16-default
+else
+  let g:hybrid_use_Xresources = 1
+  colorscheme hybrid_e7
+endif
 
 " gVim
 if has('gui_running')
@@ -260,7 +265,7 @@ iab _home ~/
 let g:airline_inactive_collapse = 0
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tagbar#enabled = 1
-if has("gui_win32")
+if has("gui_win32") || &term == "xterm"
   let g:airline_powerline_fonts = 0
   let g:airline_symbols = {}
   let g:airline_left_sep = ''

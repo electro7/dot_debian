@@ -13,6 +13,18 @@
 # Prompt
 #----------------------------------------------------------------------#
 
+# Colores a utilizar
+COLV="\[\033[0;32m\]" # Verde
+COLC="\[\033[0;36m\]" # Cyan
+COLA="\[\033[0;33m\]" # Amarillo
+COLB="\[\033[0;34m\]" # Blue
+COLP="\[\033[0;35m\]" # Purple
+COLR="\[\033[0;31m\]" # Rojo
+COLN="\[\033[0m\]"	  # Reset
+COL="$COLC"           # Usuario normal
+
+[[ "$UID" = "0" ]] && COL=$COLR	# Rojo para root
+
 case "$TERM" in
   rxvt*)
     # Prompt a traves de promptline.vim
@@ -23,12 +35,6 @@ case "$TERM" in
     function __promptadd
     {
       XTITLE='\[\e]0;\s (\w)\a\]'
-      COL1="\[\033[0;32m\]" # Verde
-      COL2="\[\033[0;36m\]" # Cyan
-      COL="\[\033[0;36m\]"  # Usuario normal
-      COLR="\[\033[0;31m\]" # Root
-      COLN="\[\033[0m\]"	  # Reset
-      [[ "$UID" = "0" ]] && COL=$COLR	# Rojo para root
       # Conexión remota
       if [ -n "$REMOTEHOST" ]; then
         PS1="$XTITLE$PS1\n$COL1 [$COL2\h$COL1]$COL \\$ $COLN"
@@ -39,22 +45,14 @@ case "$TERM" in
     PROMPT_COMMAND="$PROMPT_COMMAND __promptadd;"
     ;;
   *)
-    # Prompt normal
-    # Colores a utilizar
-    COL1="\[\033[0;32m\]" # Verde
-    COL2="\[\033[0;36m\]" # Cyan
-    COL3="\[\033[0;36m\]" # cyan root
-    COL4="\[\033[0;33m\]" # Amarillo
-    COL5="\[\033[0m\]"	  # Reset
-    COL6="\[\033[0;34m\]" # Blue
-    COL7="\[\033[0;35m\]" # Purple
-
-    # Prompt para el root
-    [[ "$UID" = "0" ]] && COL3="\[\033[0;31m\]"	# Rojo para root
+    # Opciones para el git
+    GIT_PS1_SHOWDIRTYSTATE=1
+    GIT_PS1_SHOWSTASHSTATE=1
+    GIT_PS1_SHOWUNTRACKEDFILES=1
+    GIT_PS1_SHOWUPSTREAM="auto"
 
     # Prompt final
-    #PS1="$XTITLE$COL1┌─[$COL2\l$COL1]─[$COL3\u$COL1]─[$COL2\H$COL1]─($COL4\w$COL1)\n$COL1└────╼ $COL3\\$ $COL5"
-    PS1="$XTITLE$COL1--[$COL3\u$COL1]-[$COL2\h$COL1]-($COL4\w$COL1)\\$ $COL5"
+    PS1="$COLV--[$COL\u$COLV]-[$COLC\h$COLV]-[$COLA\w$COLV]\$(__git_ps1)\n$COL \\$ $COLN"
     ;;
 esac
 
