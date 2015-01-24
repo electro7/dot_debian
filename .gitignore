@@ -45,6 +45,8 @@ mail/*
 .ssh/*
 .themes/*
 .thumbnails/*
+.turses/log
+.turses/token
 tmp/*
 .vim/bundle/*
 .vim/plugin/*
