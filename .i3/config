@@ -37,16 +37,17 @@ client.background       $back
 # Applications
 #..........
 
-# Shortcuts
-set $mod Mod1
+# Principal mod key (Super = Win key)
+# mod1 = Alt (xmodmap to show)
+set $mod Mod4
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 bindsym $mod+Return exec urxvt    # terminal
-bindsym $mod+Ctrl+t exec ~/.i3/i3_focus_or_run.sh -t mldonkey ~/bin/terminal mldonkey
-bindsym $mod+Ctrl+h exec ~/.i3/i3_focus_or_run.sh -t htop ~/bin/terminal htop
-bindsym $mod+Ctrl+m exec ~/.i3/i3_focus_or_run.sh -c Iceweasel iceweasel
-bindsym $mod+Ctrl+g exec gcolor2  # Color picker
+bindsym Mod1+Ctrl+t exec ~/.i3/i3_focus_or_run.sh -t mldonkey ~/bin/terminal mldonkey
+bindsym Mod1+Ctrl+h exec ~/.i3/i3_focus_or_run.sh -t htop ~/bin/terminal htop
+bindsym Mod1+Ctrl+m exec ~/.i3/i3_focus_or_run.sh -c Iceweasel iceweasel
+bindsym Mod1+Ctrl+g exec gcolor2  # Color picker
 
 # start dmenu (a program launcher)
 bindsym $mod+x exec dmenu_run -fn ohsnap-medium-11 -nb "$back" -nf "$white" -sb "$yellow" -sf "$black"
@@ -75,12 +76,10 @@ bindsym $mod+x exec dmenu_run -fn ohsnap-medium-11 -nb "$back" -nf "$white" -sb 
 for_window [class="feh"] floating enable
 for_window [class="Gcolor2"] floating enable
 
-
 #...........
 # Keybinds i3
 #...........
 # kill focused window
-bindsym $mod+Shift+Q kill
 bindsym $mod+q kill
 
 # alternatively, you can use the cursor keys:
@@ -173,9 +172,9 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-	position top
+	position bottom
 	mode hide
-  modifier Mod1
+  modifier Mod4
   font terminusicons2
 	workspace_buttons yes
   status_command i3status -c ~/.i3/i3status.conf
