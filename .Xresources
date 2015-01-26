@@ -16,9 +16,10 @@ Xcursor.theme:	 Neutral
 ! Colores
 !----------------------------------------------------------------------
 !#include "/home/electro7/.config/termcolours/jellybeans"
-#include "/home/electro7/.config/termcolours/hybrid"
+!#include "/home/electro7/.config/termcolours/hybrid"
 !#include "/home/electro7/.config/termcolours/yousai"
 !#include "/home/electro7/.config/termcolours/base16-default.dark.256"
+#include "/home/electro7/.config/termcolours/term_e7"
 
 ! URXVT
 !----------------------------------------------------------------------

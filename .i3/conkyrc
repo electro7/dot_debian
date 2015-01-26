@@ -4,7 +4,7 @@
 alignment                 top_right
 background                no
 border_width              0
-border_inner_margin       1
+border_inner_margin       0
 border_outer_margin       0
 cpu_avg_samples           5
 draw_borders              no
@@ -38,68 +38,61 @@ if_up_strictness          address
 # Colores
 default_color             c5c8c6    # Fuente
 own_window_colour         1d1f21    # Fondo
-color0                    373b41    # Gris separador
-color1                    b294bb    # Violeta
-color2                    81a2be    # Azul
-color3                    90A959    # Verde claro
-color4                    b5bd68    # Verde
-color5                    AC4142    # Rojo
-color6                    de935f    # Naranja
-color7                    f0c674    # Amarillo
-color8                    1d1f21    # Fondo
-color9                    373b41    # Gris separador
+color0                    373b41    # Light gray
+color1                    aa759f    # Purple
+color2                    8abeb7    # Light Blue
+color3                    90a959    # Green
+color4                    b5bd68    # Light Green
+color5                    ac4142    # Red
+color6                    cc6666    # Light Red
+color7                    f0c674    # Yellow
+color8                    1d1f21    # Background
+color9                    707880    # Dark White
 
 # Fuente de 6 pixels
 TEXT
-${goto 918}${color}Üßßßßßßßßßßßßßßßßßßßß\
-${goto 864}${color0}Üßßßßßßßßß${goto 918}${color}Ü\
-${goto 624}${color0}Üßßßßßßßßßßßßßßßßßßßß${goto 744}${color8}Ü\
-${goto 516}${color0}Üßßßßßßßßß${goto 570}${color8}Ü\
-${goto 402}${color0}Üßßßßßßßßßß${goto 462}${color8}Ü\
-${goto 0}${color b5bd68}ßßÚ\
+${goto 970}${color}Üßßßßßßßßß\
+${goto 856}${color0}Üßßßßßßßßßß${goto 916}${color8}Ü\
+${goto 616}${color0}Üßßßßßßßßßßßßßßßßßßßß${goto 736}${color8}Ü\
+${goto 466}${color0}Üßßßßßßßßßßßßßßßß${goto 562}${color8}Ü\
+${goto 348}${color0}Üßßßßßßßßß${goto 402}${color8}Ü\
+${goto 0}${color3}ßßÚ\
 # Time
-${goto 930}${color8}Õ ${time %d %b} ${time %H:%M}\
+${goto 976}${color8}Õ ${time %H:%M}\
+${goto 922}${color9} ${time %d %b}\
 # Vol
-${goto 876}${color1}Ô ${execi 3 amixer get Master | grep Left | awk -F'[]%[]' '/%/ {if ($5 == "off") {print "×"} else {printf "%d%%", $2}}'}\
+${goto 868}${color}Ô ${execi 3 amixer get Master | grep Left | awk -F'[]%[]' '/%/ {if ($5 == "off") {print "×"} else {printf "%d%%", $2}}'}\
 # ETH
-${goto 756}\
-${if_up eth0}${color4}${else}${color9}${endif}Ð ${downspeed eth0}${color9} Ý \
-${if_up eth0}${color7}${else}${color9}${endif}Ñ ${upspeed eth0}\
+${if_up eth0}${color1}${else}${color0}${endif}${goto 748}Å\
+${if_up eth0}${color4}${else}${color0}${endif} Ð ${downspeed eth0}\
+${if_up eth0}${color7}${else}${color0}${endif} Ñ ${upspeed eth0}\
 # WLAN
-${goto 636}\
-${if_up wlan0}${color4}${else}${color8}${endif}Ð ${downspeed wlan0}${color8} Ý \
-${if_up wlan0}${color7}${else}${color8}${endif}Ñ ${upspeed wlan0}\
+${if_up wlan0}${color1}${else}${color8}${endif}${goto 628}Ø\
+${if_up wlan0}${color4}${else}${color8}${endif} Ð ${downspeed wlan0}\
+${if_up wlan0}${color7}${else}${color8}${endif} Ñ ${upspeed wlan0}\
 # MAIL
 ${execi 300 ~/bin/gmail.sh -c}\
 ${if_match ${execi 60 cat ~/.gmail} != 0}\
-${goto 570}${color5}Üßßßßßßßßß${goto 624}${color0}Ü\
-${goto 582}${color7}Ó ${execi 60 cat ~/.gmail}\
+${goto 562}${color5}Üßßßßßßßßß${goto 616}${color0}Ü\
+${goto 574}${color7}Ó ${execi 60 cat ~/.gmail}\
 ${else}\
-${goto 582}${color6}Ó ${execi 60 cat ~/.gmail}\
-${endif}\
-# DISK HOME
-${if_match ${fs_used_perc /home} >= 75}\
-${goto 516}${color5}Üßßßßßßßßß${goto 570}${color8}Ü\
-${goto 528}${color7}Æ ${fs_used_perc /home}%\
-${else}\
-${goto 528}${color3}Æ ${fs_used_perc /home}%\
+${goto 574}${color9}Ó ${execi 60 cat ~/.gmail}\
 ${endif}\
 # DISK /
-${if_match ${fs_used_perc /} >= 75}\
-${goto 462}${color5}Üßßßßßßßßß${goto 516}${color0}Ü\
-${goto 474}${color7}À ${fs_used_perc /}%\
-${else}\
-${goto 474}${color3}À ${fs_used_perc /}%\
-${endif}\
+${goto 478}\
+${if_match ${fs_used_perc /} >= 75}${color6}${else}${color}${endif}\
+À ${fs_used_perc /}%  \
+# DISK HOME
+${if_match ${fs_used_perc /home} >= 75}${color6}${else}${color}${endif}\
+Æ ${fs_used_perc /home}%\
 # MEM
-${goto 414}${color2}Þ ${mem}\
+${goto 414}${color4}Þ ${mem}\
 # CPU
 ${if_match ${cpu} >= 75}\
-${goto 348}${color5}Üßßßßßßßßß${goto 402}${color0}Ü\
+${goto 348}${color5}Üßßßßßßßßß${goto 402}${color8}Ü\
 ${goto 360}${color7}Ï ${cpu}%\
 ${else}\
-${goto 360}${color CC6666}Ï ${cpu}%\
+${goto 360}${color2}Ï ${cpu}%\
 ${endif}\
-${goto 348}${color9}Ý\
 # FOCUS
-${goto 2}${color 005f00}Â  ${color AAAAAA}${font ohsnapu-medium-1} ${execi 3 ~/bin/getfocus.sh}${font}\
+${goto 2}${color8}Â  ${color9}${font ohsnapu-medium-1} ${execi 3 ~/bin/getfocus.sh}${font}\

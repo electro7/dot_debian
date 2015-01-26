@@ -272,10 +272,10 @@ if has("gui_win32") || &term == "xterm"
   let g:airline_left_sep = ''
   let g:airline_right_sep = ''
   let g:airline_right_sep = ''
-  let g:airline_theme = 'hybridline'
+  let g:airline_theme = 'aire7'
 else
   let g:airline_powerline_fonts = 1
-  let g:airline_theme = 'hybridline'
+  let g:airline_theme = 'aire7'
 endif
 
 " Promptline

@@ -52,6 +52,7 @@ ehthumbs.db
 ##############
 *.pyc
 *.swp
+.*.swp
 
 # VCS directories #
 ###################
