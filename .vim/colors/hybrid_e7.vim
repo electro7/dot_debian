@@ -1,11 +1,13 @@
-" File:       hybrid.vim
-" Maintainer: Andrew Wong (w0ng)
-" URL:        https://github.com/w0ng/vim-hybrid
-" Modified:   27 Jan 2013 07:33 AM AEST
+" File:       hybrid_e7.vim
+" Maintainer: Electro7
+" Modified:   27 ene 2015 15:21 
 " License:    MIT
 
 " Description:"{{{
 " ----------------------------------------------------------------------------
+" Version of fantastic hybrid vim:
+" https://github.com/w0ng/vim-hybrid
+"
 " The RGB colour palette is taken from Tomorrow-Night.vim:
 " https://github.com/chriskempson/vim-tomorrow-theme
 "
@@ -96,10 +98,11 @@ if has("gui_running")
   let s:addfg      = "#d7ffaf"
   let s:changebg   = "#5F5F87"
   let s:changefg   = "#d7d7ff"
-  let s:darkblue   = "#00005f"
-  let s:darkcyan   = "#005f5f"
-  let s:darkred    = "#5f0000"
-  let s:darkpurple = "#5f005f"
+  let s:darkblue   = "#5f819d"
+  let s:darkcyan   = "#5e8d87"
+  let s:darkred    = "#a54242"
+  let s:darkpurple = "#85678f"
+  let s:darkgreen  = "#8C9440"
 else
   let s:vmode      = "cterm"
   let s:background = "234"
@@ -109,10 +112,6 @@ else
   let s:addfg      = "193"
   let s:changebg   = "60"
   let s:changefg   = "189"
-  let s:darkblue   = "17"
-  let s:darkcyan   = "24"
-  let s:darkred    = "52"
-  let s:darkpurple = "53"
   if g:hybrid_use_Xresources == 1
     let s:foreground = "15"   " White
     let s:selection  = "8"    " DarkGrey
@@ -125,6 +124,11 @@ else
     let s:aqua       = "14"   " LightCyan
     let s:blue       = "12"   " LightBlue
     let s:purple     = "13"   " LightMagenta
+    let s:darkblue   = "4"    " DarkBlue
+    let s:darkcyan   = "6"    " DarkCyan
+    let s:darkred    = "1"    " DarkRed
+    let s:darkpurple = "5"    " DarkPurple
+    let s:darkgreen  = "2"    " DarkGreen
   elseif g:hybrid_use_iTerm_colors == 1
     let s:background = "NONE"
     let s:foreground = "7"
@@ -138,6 +142,11 @@ else
     let s:aqua       = "6"
     let s:blue       = "4"
     let s:purple     = "5"
+    let s:darkblue   = "17"
+    let s:darkcyan   = "24"
+    let s:darkred    = "52"
+    let s:darkpurple = "53"
+    let s:darkgreen  = "34" 
   else
     let s:foreground = "250"
     let s:selection  = "237"
@@ -150,6 +159,11 @@ else
     let s:aqua       = "109"
     let s:blue       = "110"
     let s:purple     = "139"
+    let s:darkblue   = "17"
+    let s:darkcyan   = "24"
+    let s:darkred    = "52"
+    let s:darkpurple = "53"
+    let s:darkgreen  = "34" 
   endif
 endif
 
@@ -192,6 +206,7 @@ exe "let s:bg_darkblue   = ' ".s:vmode."bg=".s:darkblue  ."'"
 exe "let s:bg_darkcyan   = ' ".s:vmode."bg=".s:darkcyan  ."'"
 exe "let s:bg_darkred    = ' ".s:vmode."bg=".s:darkred   ."'"
 exe "let s:bg_darkpurple = ' ".s:vmode."bg=".s:darkpurple."'"
+exe "let s:bg_darkgreen  = ' ".s:vmode."bg=".s:darkgreen ."'"
 
 exe "let s:fg_none       = ' ".s:vmode."fg=".s:none      ."'"
 exe "let s:fg_foreground = ' ".s:vmode."fg=".s:foreground."'"
@@ -216,6 +231,7 @@ exe "let s:fg_darkblue   = ' ".s:vmode."fg=".s:darkblue  ."'"
 exe "let s:fg_darkcyan   = ' ".s:vmode."fg=".s:darkcyan  ."'"
 exe "let s:fg_darkred    = ' ".s:vmode."fg=".s:darkred   ."'"
 exe "let s:fg_darkpurple = ' ".s:vmode."fg=".s:darkpurple."'"
+exe "let s:fg_darkgreen  = ' ".s:vmode."fg=".s:darkgreen ."'"
 
 exe "let s:fmt_none      = ' ".s:vmode."=NONE".          " term=NONE"        ."'"
 exe "let s:fmt_bold      = ' ".s:vmode."=NONE".s:b.      " term=NONE".s:b    ."'"
@@ -252,6 +268,7 @@ if has("gui_running")
   exe "let s:sp_darkcyan   = ' guisp=".s:darkcyan  ."'"
   exe "let s:sp_darkred    = ' guisp=".s:darkred   ."'"
   exe "let s:sp_darkpurple = ' guisp=".s:darkpurple."'"
+  exe "let s:sp_darkgreen  = ' guisp=".s:darkgreen ."'"
 else
   let s:sp_none       = ""
   let s:sp_foreground = ""
@@ -339,21 +356,21 @@ endif
 " ----------------------------------------------------------------------------
 exe "hi! Comment"         .s:fg_comment     .s:bg_none        .s:fmt_none
 
-exe "hi! Constant"        .s:fg_red         .s:bg_none        .s:fmt_none
-exe "hi! String"          .s:fg_green       .s:bg_none        .s:fmt_none
-exe "hi! Character"       .s:fg_green       .s:bg_none        .s:fmt_none
-exe "hi! Number"          .s:fg_purple      .s:bg_none        .s:fmt_none
-exe "hi! Boolean"         .s:fg_purple      .s:bg_none        .s:fmt_none
-exe "hi! Float"           .s:fg_purple      .s:bg_none        .s:fmt_none
+exe "hi! Constant"        .s:fg_darkred      .s:bg_none        .s:fmt_none
+exe "hi! String"          .s:fg_purple      .s:bg_none        .s:fmt_none
+exe "hi! Character"       .s:fg_purple      .s:bg_none        .s:fmt_none
+exe "hi! Number"          .s:fg_red         .s:bg_none        .s:fmt_none
+exe "hi! Boolean"         .s:fg_red         .s:bg_none        .s:fmt_none
+exe "hi! Float"           .s:fg_red         .s:bg_none        .s:fmt_none
 
-exe "hi! Identifier"      .s:fg_orange      .s:bg_none        .s:fmt_none
+exe "hi! Identifier"      .s:fg_green       .s:bg_none        .s:fmt_none
 exe "hi! Function"        .s:fg_yellow      .s:bg_none        .s:fmt_none
 
 exe "hi! Statement"       .s:fg_blue        .s:bg_none        .s:fmt_none
 exe "hi! Conditional"     .s:fg_blue        .s:bg_none        .s:fmt_none
 "		Repeat"
 "		Label"
-exe "hi! Operator"        .s:fg_aqua        .s:bg_none        .s:fmt_none
+exe "hi! Operator"        .s:fg_blue        .s:bg_none        .s:fmt_none
 "		Keyword"
 "		Exception"
 
@@ -363,23 +380,23 @@ exe "hi! PreProc"         .s:fg_aqua        .s:bg_none        .s:fmt_none
 "		Macro"
 "		PreCondit"
 
-exe "hi! Type"            .s:fg_aqua        .s:bg_none        .s:fmt_none
+exe "hi! Type"            .s:fg_darkcyan    .s:bg_none        .s:fmt_none
 "		StorageClass"
-exe "hi! Structure"       .s:fg_aqua        .s:bg_none        .s:fmt_none
+exe "hi! Structure"       .s:fg_darkcyan    .s:bg_none        .s:fmt_none
 "		Typedef"
 
-exe "hi! Special"         .s:fg_green       .s:bg_none        .s:fmt_none
+exe "hi! Special"         .s:fg_orange       .s:bg_none        .s:fmt_none
 "		SpecialChar"
 "		Tag"
 "		Delimiter"
 "		SpecialComment"
 "		Debug"
 "
-exe "hi! Underlined"      .s:fg_blue        .s:bg_none        .s:fmt_none
+exe "hi! Underlined"      .s:fg_aqua        .s:bg_none        .s:fmt_none
 
 exe "hi! Ignore"          .s:fg_none        .s:bg_none        .s:fmt_none
 
-exe "hi! Error"           .s:fg_red         .s:bg_darkred     .s:fmt_undr
+exe "hi! Error"           .s:fg_none        .s:bg_darkred     .s:fmt_none
 
 exe "hi! Todo"            .s:fg_addfg       .s:bg_none        .s:fmt_none
 
@@ -416,6 +433,7 @@ hi! link diffAdded Special
 " Copyright (c) 2011 Ethan Schoonover
 " Copyright (c) 2009-2012 NanoTech
 " Copyright (c) 2012 w0ng
+" Copyright (c) 2015 electro7
 "
 " Permission is hereby granted, free of charge, to any per‐
 " son obtaining a copy of this software and associated doc‐
