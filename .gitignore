@@ -53,6 +53,7 @@ tmp/*
 .vim/spell/*
 .vim/.netrwhist
 .viminfo
+.vboxclient*
 .Xauthority
 .xinitrc
 .xscreensaver

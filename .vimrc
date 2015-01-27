@@ -127,6 +127,7 @@ if &term == "xterm"
   colorscheme base16-default
 else
   let g:hybrid_use_Xresources = 1
+  set background=dark
   colorscheme hybrid_e7
 endif
 
@@ -272,10 +273,10 @@ if has("gui_win32") || &term == "xterm"
   let g:airline_left_sep = ''
   let g:airline_right_sep = ''
   let g:airline_right_sep = ''
-  let g:airline_theme = 'aire7'
+  let g:airline_theme = 'air_e7'
 else
   let g:airline_powerline_fonts = 1
-  let g:airline_theme = 'aire7'
+  let g:airline_theme = 'air_e7'
 endif
 
 " Promptline
@@ -285,7 +286,7 @@ let g:promptline_preset = {
         \'c': [ promptline#slices#vcs_branch() ],
         \'x': [ promptline#slices#git_status() ],
         \'warn' : [ promptline#slices#last_exit_code() ]}
-let g:promptline_theme = 'airline'
+let g:promptline_theme = 'air_e7'
 
 "}}}
 " Autocommands {{{
