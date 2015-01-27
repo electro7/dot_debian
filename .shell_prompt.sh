@@ -113,7 +113,7 @@ function __promptline_git_status {
   local added_symbol="●"
   local unmerged_symbol="✗"
   local modified_symbol="+"
-  local clean_symbol="✔"
+  local clean_symbol="="
   local has_untracked_files_symbol="…"
 
   local ahead_symbol="↑"
