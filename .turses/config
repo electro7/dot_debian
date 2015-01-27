@@ -58,11 +58,11 @@ open_status_url = O
 redraw = ctrl l
 
 [colors]
-active_tab = yellow
-active_tab_bg = dark gray
-visible_tab = white
-visible_tab_bg = dark gray
-inactive_tab = light gray
+active_tab = white
+active_tab_bg = dark green
+visible_tab = light green
+visible_tab_bg = 
+inactive_tab = dark green
 inactive_tab_bg = 
 header = light blue
 header_bg = 
@@ -91,9 +91,9 @@ url_bg =
 error = white
 error_bg = dark red
 info = white
-info_bg = dark blue
+info_bg = dark green
 editor = white
-editor_bg = dark blue
+editor_bg = dark gray
 
 [styles]
 statuses_in_user_info = 3
