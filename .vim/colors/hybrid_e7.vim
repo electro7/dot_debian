@@ -1,6 +1,6 @@
 " File:       hybrid_e7.vim
 " Maintainer: Electro7
-" Modified:   27 ene 2015 15:21 
+" Modified:   27 ene 2015 15:21
 " License:    MIT
 
 " Description:"{{{
@@ -92,7 +92,7 @@ if has("gui_running")
   let s:aqua       = "#8abeb7"
   let s:blue       = "#81a2be"
   let s:purple     = "#b294bb"
-  let s:window     = "#303030"
+  let s:window     = "#4e4e4e"
   let s:darkcolumn = "#1c1c1c"
   let s:addbg      = "#5F875F"
   let s:addfg      = "#d7ffaf"
@@ -105,8 +105,8 @@ if has("gui_running")
   let s:darkgreen  = "#8C9440"
 else
   let s:vmode      = "cterm"
-  let s:background = "234"
-  let s:window     = "236"
+  let s:background = "233"
+  let s:window     = "239"
   let s:darkcolumn = "234"
   let s:addbg      = "65"
   let s:addfg      = "193"
@@ -146,7 +146,7 @@ else
     let s:darkcyan   = "24"
     let s:darkred    = "52"
     let s:darkpurple = "53"
-    let s:darkgreen  = "34" 
+    let s:darkgreen  = "34"
   else
     let s:foreground = "250"
     let s:selection  = "237"
@@ -163,7 +163,7 @@ else
     let s:darkcyan   = "24"
     let s:darkred    = "52"
     let s:darkpurple = "53"
-    let s:darkgreen  = "34" 
+    let s:darkgreen  = "34"
   endif
 endif
 
@@ -316,7 +316,7 @@ exe "hi! Folded"        .s:fg_comment     .s:bg_darkcolumn  .s:fmt_none
 exe "hi! FoldColumn"    .s:fg_none        .s:bg_darkcolumn  .s:fmt_none
 exe "hi! SignColumn"    .s:fg_none        .s:bg_darkcolumn  .s:fmt_none
 "		Incsearch"
-exe "hi! LineNr"        .s:fg_selection   .s:bg_darkcolumn  .s:fmt_none
+exe "hi! LineNr"        .s:fg_window      .s:bg_darkcolumn  .s:fmt_none
 exe "hi! CursorLineNr"  .s:fg_yellow      .s:bg_none        .s:fmt_bold
 exe "hi! MatchParen"    .s:fg_background  .s:bg_changebg    .s:fmt_none
 exe "hi! ModeMsg"       .s:fg_green       .s:bg_none        .s:fmt_none
@@ -334,7 +334,7 @@ exe "hi! SpellLocal"    .s:fg_aqua        .s:bg_darkcyan    .s:fmt_undr
 exe "hi! SpellBad"      .s:fg_red         .s:bg_darkred     .s:fmt_undr
 exe "hi! SpellRare"     .s:fg_purple      .s:bg_darkpurple  .s:fmt_undr
 exe "hi! StatusLine"    .s:fg_comment     .s:bg_background  .s:fmt_revr
-exe "hi! StatusLineNC"  .s:fg_window      .s:bg_comment     .s:fmt_revr
+exe "hi! StatusLineNC"  .s:fg_darkcolumn  .s:bg_comment     .s:fmt_revr
 exe "hi! TabLine"       .s:fg_foreground  .s:bg_darkcolumn  .s:fmt_revr
 "		TabLineFill"
 "		TabLineSel"
