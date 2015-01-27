@@ -284,7 +284,7 @@ endif
 let g:promptline_preset = {
         \'b': [ promptline#slices#cwd() ],
         \'c': [ promptline#slices#vcs_branch() ],
-        \'x': [ promptline#slices#git_status() ],
+        \'z': [ promptline#slices#git_status() ],
         \'warn' : [ promptline#slices#last_exit_code() ]}
 let g:promptline_theme = 'air_e7'
 
