@@ -200,9 +200,9 @@ function __promptline {
   local warn_fg="${wrap}38;5;232${end_wrap}"
   local warn_bg="${wrap}48;5;166${end_wrap}"
   local warn_sep_fg="${wrap}38;5;166${end_wrap}"
-  local x_fg="${wrap}38;5;16${end_wrap}"
-  local x_bg="${wrap}48;5;2${end_wrap}"
-  local x_sep_fg="${wrap}38;5;2${end_wrap}"
+  local x_fg="${wrap}38;5;0${end_wrap}"
+  local x_bg="${wrap}48;5;10${end_wrap}"
+  local x_sep_fg="${wrap}38;5;10${end_wrap}"
   if [[ -n ${ZSH_VERSION-} ]]; then
     PROMPT="$(__promptline_left_prompt)"
     RPROMPT="$(__promptline_right_prompt)"
