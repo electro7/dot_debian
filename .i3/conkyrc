@@ -36,7 +36,7 @@ text_buffer_size          2048
 if_up_strictness          address
 
 # Colores
-default_color             b2b2b2    # Fuente
+default_color             b8b8b8    # Fuente
 own_window_colour         1d1f21    # Fondo
 color0                    373b41    # Light gray
 color1                    8abeb7    # Cyan
