@@ -93,8 +93,6 @@ URxvt.url-select.underline: true
 ! XTERM
 !----------------------------------------------------------------------
 xterm*geometry: 80x25
-xterm*background: black
-xterm*foreground: lightgrey
 xterm*scrollBar: false
 xterm*font: 9x15bold
 !xterm*pointerColor: black
@@ -107,23 +105,6 @@ xterm*colorBD: plum2
 xterm*colorUL: wheat
 xterm*saveLines: 256
 xterm*title:  Terminal
-XTerm*color0:			#000000
-XTerm*color1:			#c00000
-XTerm*color2:			#008000
-XTerm*color3:			#808000
-XTerm*color4:			#0000c0
-XTerm*color5:			#c000c0
-XTerm*color6:			#008080
-XTerm*color7:			#c0c0c0
-XTerm*color8:			#808080
-XTerm*color9:			#ff6060
-XTerm*color10:			#00ff00
-XTerm*color11:			#ffff00
-XTerm*color12:			#8080ff
-XTerm*color13:			#ff40ff
-XTerm*color14:			#00ffff
-XTerm*color15:			#ffffff
-Xterm*cursorColor:		Black
 ! Xterm con soporte de la rueda del raton
 xterm.vt100.translations: #override\n\
  Shift<Btn4Down>,<Btn4Up>:scroll-back(1,line)\n\
@@ -132,4 +113,3 @@ xterm.vt100.translations: #override\n\
  Ctrl<Btn5Down>,<Btn5Up>:scroll-forw(1,page)\n\
  <Btn4Down>,<Btn4Up>:scroll-back(1,halfpage)\n\
  <Btn5Down>,<Btn5Up>:scroll-forw(1,halfpage)
-

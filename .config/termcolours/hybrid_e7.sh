@@ -24,16 +24,16 @@ color12="81/a2/be" # Bright Blue
 color13="b2/94/bb" # Bright Magenta
 color14="8a/be/b7" # Bright Cyan
 color15="c5/c8/c6" # Bright White
-color16="81/a2/e1" # Extra blue
-color17="8a/cb/b7" # Extra cyan
-color18="bd/4b/4b" # Extra red
+color16="9c/af/eb" # Extra blue
+color17="8a/be/94" # Extra cyan
+color18="d6/7f/82" # Extra red
 color19="1d/1f/21" # Extra Black 1
 color20="2b/2e/30" # Extra Black 2
 color21="d5/d9/d7" # Extra White 1
 color_foreground="c5/c8/c6" # Foreground
 color_background="1d/1f/21" # Background
 color_cursor="c3/ff/00"     # Cursor color 
-
+   
 if [ -n "$TMUX" ]; then
   # tell tmux to pass the escape sequences through
   # (Source: http://permalink.gmane.org/gmane.comp.terminal-emulators.tmux.user/1324)

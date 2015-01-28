@@ -126,7 +126,10 @@ if &term == "xterm"
   set background=dark
   colorscheme base16-default
 else
+  " Theme setting. See comment in theme
   let g:hybrid_use_Xresources = 1
+  let g:base16_shell_path= '/home/electro7/.config/termcolours/'
+  let base16colorspace=256
   set background=dark
   colorscheme hybrid_e7
 endif
@@ -335,7 +338,6 @@ autocmd BufNewFile,BufRead *.prg,*.dev set ft=prg
 function! ToggleColours()
     if g:colors_name == 'hybrid_e7'
         set background=light
-        let g:base16_shell_path= '/home/electro7/.config/termcolours/'
         colorscheme base16-solarized
         AirlineTheme base16
     else
