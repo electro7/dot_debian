@@ -17,13 +17,12 @@ Xcursor.theme:	 Neutral
 !----------------------------------------------------------------------
 !#include "/home/electro7/.config/termcolours/jellybeans"
 !#include "/home/electro7/.config/termcolours/hybrid"
+!#include "/home/electro7/.config/termcolours/base16-solarized.light"
 #include "/home/electro7/.config/termcolours/hybrid_e7"
 
 ! URXVT
 !----------------------------------------------------------------------
 ! Colores
-URxvt.cursorColor: #00FF00
-!URxvt.cursorColor: gold1
 ! bold, italic, underline
 URxvt.colorBD: #B5BD68
 URxvt.colorIT: #B294BB

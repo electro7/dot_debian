@@ -27,6 +27,10 @@ COL="$COLC"           # Usuario normal
 
 case "$TERM" in
   rxvt*)
+    # Colores forzados a través de script. Sobreescribe los de recursos X.
+    SHELL_COLOURS="~/.config/termcolours/default.sh"
+    [[ -e SHELL_COLOURS ]] && source SHELL_COLOURS
+
     # Prompt a traves de promptline.vim
     # Es un plugin de VIM para crear un prompt con simbolos powerline.
     # Entrar en vim y hacer un :PromptlineSnapShot ~/.shell_prompt.sh
@@ -139,6 +143,11 @@ alias gp="git push"
 
 # Mis chuletas
 alias chuleta="vim ~/.vim/doc/chuletario.txt"
+
+# Cambio colores de terminal
+alias col_dark="sh ~/.config/termcolours/dark.sh"
+alias col_light="sh ~/.config/termcolours/light.sh"
+alias col_default="sh ~/.config/termcolour/default.sh"
 
 #----------------------------------------------------------------------#
 # OTROS

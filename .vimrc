@@ -334,9 +334,14 @@ autocmd BufNewFile,BufRead *.prg,*.dev set ft=prg
 " Toggle Colours
 function! ToggleColours()
     if g:colors_name == 'hybrid_e7'
-        colorscheme hybrid-light
+        set background=light
+        let g:base16_shell_path= '/home/electro7/.config/termcolours/'
+        colorscheme base16-solarized
+        AirlineTheme base16
     else
+        set background=dark
         colorscheme hybrid_e7
+        AirlineTheme air_e7
     endif
 endfunction
 
