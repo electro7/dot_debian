@@ -54,6 +54,10 @@ tmp/*
 .vim/.netrwhist
 .viminfo
 .vboxclient*
+.weechat/*
+!.weechat/*.conf
+!.weechat/perl/
+!.weechat/script/
 .Xauthority
 .xinitrc
 .xscreensaver

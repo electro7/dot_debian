@@ -1,3 +1,0 @@
-#Triggers file version 1.0
--publics -nocase -regexp 'w(0|o)ng_?' -command 'exec - echo -e  "$N \\uE020 $Z" > ~/.logs/irssi_pipe' 
--privmsgs -command 'exec - echo -e "$N \\uE020 $Z" > ~/.logs/irssi_pipe' 
