@@ -50,12 +50,12 @@ URxvt.perl-ext-common: default,clipboard,keyboard-select,url-select
 ! Clipboard
 URxvt.keysym.M-c: perl:clipboard:copy
 URxvt.keysym.M-v: perl:clipboard:paste
-URxvt.keysym.M-S-V: perl:clipboard:paste_escaped
+URxvt.keysym.M-w: perl:clipboard:paste_escaped
 URxvt.clipboard.copycmd:  xsel -ib
 URxvt.clipboard.pastecmd: xsel -ob
 ! Keyboard-select
 URxvt.keysym.M-Escape: perl:keyboard-select:activate
-URxvt.keysym.M-S-S: perl:keyboard-select:search
+URxvt.keysym.M-s: perl:keyboard-select:search
 ! Url-select
 URxvt.keysym.M-u: perl:url-select:select_next
 URxvt.url-select.autocopy: true
