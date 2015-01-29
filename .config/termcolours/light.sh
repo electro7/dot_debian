@@ -1,1 +1,1 @@
-solarized_light.sh
+solarized.sh
