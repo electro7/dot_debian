@@ -1,14 +1,12 @@
 "
-" ~/.vimrc 		-> linux
-" $VIM/.vimrc	-> win
+" ~/.vimrc 		-> linux $VIM/.vimrc	-> win
 "
 " Archivo de configuración del editor VIM (er mejo!)
 "
 " Trato que funcione tanto en WIN (con gvim) como en LINUX (vim y gvim)
 " Configuración ontenida de W0ng -> https://github.com/w0ng
 "
-" Vicente Gimeno Morales - E7
-" Version 2.8 - 22 ene 2015
+" Vicente Gimeno Morales - E7 Version 2.8 - 22 ene 2015
 "======================================================================#
 "
 " Compability {{{
@@ -36,18 +34,19 @@ call vundle#begin()
   Plugin 'gmarik/Vundle.vim'
 
   " Put your non-Plugin stuff after this line
-  "Plugin 'Shougo/neocomplete'          " Automatic keyword completion
-  "Plugin 'Shougo/unite.vim'            " Find files and buffers using ag
-  "Plugin 'Shougo/vimfiler.vim'         " File Explorer :VimFiler
-  Plugin 'jlanzarotta/bufexplorer'     " Buffer Explorer :BufExplore
-  Plugin 'godlygeek/tabular'           " Text filtering and alignment
-  Plugin 'majutsushi/tagbar'           " Display tags in a window
-  "Plugin 'scrooloose/syntastic'        " Syntax checking on write
-  Plugin 'tpope/vim-fugitive'          " Git wrapper
-  Plugin 'tpope/vim-surround'          " Manipulate quotes and brackets
-  Plugin 'bling/vim-airline'            " Pretty statusbar
-  Plugin 'terryma/vim-multiple-cursors' " Multiple cursors work
-  Plugin 'edkolev/promptline.vim'       " Prompt generator for bash
+  "Plugin 'Shougo/neocomplete'                    " Automatic keyword completion
+  "Plugin 'Shougo/unite.vim'                      " Find files and buffers using ag
+  "Plugin 'Shougo/vimfiler.vim'                   " File Explorer :VimFiler
+  Plugin 'jlanzarotta/bufexplorer'                " Buffer Explorer :BufExplore
+  Plugin 'godlygeek/tabular'                      " Text alignment
+  Plugin 'majutsushi/tagbar'                      " Display tags in a window
+  "Plugin 'scrooloose/syntastic'                  " Syntax checking on write
+  Plugin 'tpope/vim-fugitive'                     " Git wrapper
+  Plugin 'tpope/vim-surround'                     " Manipulate quotes and brackets
+  Plugin 'bling/vim-airline'                      " Pretty statusbar
+  Plugin 'terryma/vim-multiple-cursors'           " Multiple cursors work
+  Plugin 'edkolev/promptline.vim'                 " Prompt generator for bash
+  Plugin 'altercation/vim-colors-solarized.git'   " Solarized theme
 
   " All of your Plugins must be added before the following line
 call vundle#end()                     " required
@@ -126,10 +125,11 @@ if &term == "xterm"
   set background=dark
   colorscheme base16-default
 else
-  " Theme setting. See comment in theme
+  " Theme setting. 
+  " Two principal themes for dark and light background
+  " Function ToggleColours
+  " See comments in theme
   let g:hybrid_use_Xresources = 1
-  let g:base16_shell_path= '/home/electro7/.config/termcolours/'
-  let base16colorspace=256
   set background=dark
   colorscheme hybrid_e7
 endif
@@ -336,15 +336,31 @@ autocmd BufNewFile,BufRead *.prg,*.dev set ft=prg
 
 " Toggle Colours
 function! ToggleColours()
-    if g:colors_name == 'hybrid_e7'
-        set background=light
-        colorscheme base16-solarized
-        AirlineTheme base16
+  if &background  == 'dark'
+    set background=light 
+    let g:solarized_bold=0
+    colorscheme solarized
+    AirlineTheme base16
+  else
+    set background=dark
+    let g:hybrid_use_Xresources = 1
+    colorscheme hybrid_e7
+    AirlineTheme air_e7
+  endif
+
+  " Reconfigure term colors
+  if !has('gui_running') 
+    if &background == 'light'
+      if filereadable($HOME."/.config/termcolours/light.sh")
+        execute "silent !/bin/sh ".$HOME."/.config/termcolours/light.sh"
+      endif
     else
-        set background=dark
-        colorscheme hybrid_e7
-        AirlineTheme air_e7
+      if filereadable($HOME."/.config/termcolours/dark.sh")
+        execute "silent !/bin/sh ".$HOME."/.config/termcolours/dark.sh"
+      endif
     endif
+  endif
+
 endfunction
 
 " Open compiler for filetype

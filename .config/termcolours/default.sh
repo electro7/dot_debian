@@ -1,1 +1,0 @@
-hybrid_e7.sh

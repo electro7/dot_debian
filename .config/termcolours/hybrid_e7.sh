@@ -24,12 +24,6 @@ color12="81/a2/be" # Bright Blue
 color13="b2/94/bb" # Bright Magenta
 color14="8a/be/b7" # Bright Cyan
 color15="c5/c8/c6" # Bright White
-color16="9c/af/eb" # Extra blue
-color17="8a/be/94" # Extra cyan
-color18="d6/7f/82" # Extra red
-color19="1d/1f/21" # Extra Black 1
-color20="2b/2e/30" # Extra Black 2
-color21="d5/d9/d7" # Extra White 1
 color_foreground="c5/c8/c6" # Foreground
 color_background="1d/1f/21" # Background
 color_cursor="c3/ff/00"     # Cursor color 
@@ -69,14 +63,6 @@ printf $printf_template 13 $color13
 printf $printf_template 14 $color14
 printf $printf_template 15 $color15
 
-# 256 color space
-printf $printf_template 16 $color16
-printf $printf_template 17 $color17
-printf $printf_template 18 $color18
-printf $printf_template 19 $color19
-printf $printf_template 20 $color20
-printf $printf_template 21 $color21
-
 # foreground / background / cursor color
 if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
@@ -112,12 +98,6 @@ unset color12
 unset color13
 unset color14
 unset color15
-unset color16
-unset color17
-unset color18
-unset color19
-unset color20
-unset color21
 unset color_foreground
 unset color_background
 unset color_cursor

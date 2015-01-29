@@ -6,7 +6,7 @@
  
 *background: #1D1F21
 *foreground: #C5C8C6
-*cursorcolor: #C3FF00
+*cursorColor: #C3FF00
 
 ! black
 *color0: #282A2E
@@ -32,18 +32,3 @@
 ! white
 *color7: #707880
 *color15: #C5C8C6 
-
-! Note: colors beyond 15 might not be loaded (e.g., xterm, urxvt),
-! use 'shell' template to set these if necessary
-! Extra Blue 
-*color16: #81A2E1
-! Extra Cyan 
-*color17: #8ACDb7
-! Extra red
-*color18: #BD4B4B
-! Extra dark 1
-*color19: #1D1F21
-! Extra dark 2
-*color20: #2B2E30
-! Extra white
-*color21: #D5D9Dy

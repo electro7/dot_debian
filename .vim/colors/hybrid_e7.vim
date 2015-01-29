@@ -40,16 +40,6 @@
 "       let g:hybrid_use_Xresources = 1
 "       colorscheme hybrid
 "
-" 3. For extra cterm colors you must run base16-shell scripts.
-"
-"       https://gist.github.com/ab9634c12b4ba9e21152.git
-"
-"   This enables the coresponding shell script to run so that
-"   colorscheme works in terminals supported by 256 colors
-"   User must set this variable in .vimrc
-"
-"       let g:base16_shell_path=.config/termcolours/
-"
 " For iTerm2 users:
 " 1.  Install this color preset on your iTerm2:
 "
@@ -60,7 +50,21 @@
 "       let g:hybrid_use_iTerm_colors = 1
 "       colorscheme hybrid
 "
-
+"}}}
+" Colorscheme hacking:"{{{
+" ----------------------------------------------------------------------------
+"
+" Useful commands for testing colorschemes:
+" :source $VIMRUNTIME/syntax/hitest.vim
+" :help highlight-groups
+" :help cterm-colors
+" :help group-name
+"
+" Useful links for developing colorschemes:
+" http://www.vim.org/scripts/script.php?script_id=2937
+" http://vimcasts.org/episodes/creating-colorschemes-for-vim/
+" http://www.frexx.de/xterm-256-notes/"
+"
 "}}}
 " Initialisation:"{{{
 " ----------------------------------------------------------------------------
@@ -81,12 +85,6 @@ hi clear
 
 if exists("syntax_on")
   syntax reset
-endif
-
-if !has('gui_running')
-  if exists("g:base16_shell_path")
-    execute "silent !/bin/sh ".g:base16_shell_path."/hybrid_e7.sh"
-  endif
 endif
 
 let colors_name = "hybrid_e7"
@@ -119,9 +117,6 @@ if has("gui_running")
   let s:darkred    = "#a54242"
   let s:darkpurple = "#85678f"
   let s:darkgreen  = "#8C9440"
-  let s:extrablue  = "#9cafeb"
-  let s:extracyan  = "#8abe94"
-  let s:extrared   = "#d67f82"
 else
   let s:vmode      = "cterm"
   let s:background = "233"
@@ -150,15 +145,6 @@ else
     let s:darkred    = "1"    " DarkRed
     let s:darkpurple = "5"    " DarkPurple
     let s:darkgreen  = "2"    " DarkGreen
-    if exists('base16colorspace') && base16colorspace == "256"
-      let s:extrablue  = "16"
-      let s:extracyan  = "17"
-      let s:extrared   = "18"
-    else
-      let s:extrablue  = "12"
-      let s:extracyan  = "6"
-      let s:extrared   = "9"
-    endif
   " With iTerm
   elseif g:hybrid_use_iTerm_colors == 1
     let s:background = "NONE"
@@ -178,9 +164,6 @@ else
     let s:darkred    = "1"
     let s:darkpurple = "5"
     let s:darkgreen  = "2"
-    let s:extrablue  = "4"
-    let s:extracyan  = "6"
-    let s:extrared   = "1"
   " Default
   else
     let s:foreground = "250"
@@ -199,9 +182,6 @@ else
     let s:darkred    = "52"
     let s:darkpurple = "57"
     let s:darkgreen  = "28"
-    let s:extrablue  = "75"
-    let s:extracyan  = "73"
-    let s:extrared   = "166"
   endif
 endif
 
@@ -245,9 +225,6 @@ exe "let s:bg_darkcyan   = ' ".s:vmode."bg=".s:darkcyan  ."'"
 exe "let s:bg_darkred    = ' ".s:vmode."bg=".s:darkred   ."'"
 exe "let s:bg_darkpurple = ' ".s:vmode."bg=".s:darkpurple."'"
 exe "let s:bg_darkgreen  = ' ".s:vmode."bg=".s:darkgreen ."'"
-exe "let s:bg_extrablue  = ' ".s:vmode."bg=".s:extrablue ."'"
-exe "let s:bg_extracyan  = ' ".s:vmode."bg=".s:extracyan ."'"
-exe "let s:bg_extrared   = ' ".s:vmode."bg=".s:extrared  ."'"
 
 exe "let s:fg_none       = ' ".s:vmode."fg=".s:none      ."'"
 exe "let s:fg_foreground = ' ".s:vmode."fg=".s:foreground."'"
@@ -273,9 +250,6 @@ exe "let s:fg_darkcyan   = ' ".s:vmode."fg=".s:darkcyan  ."'"
 exe "let s:fg_darkred    = ' ".s:vmode."fg=".s:darkred   ."'"
 exe "let s:fg_darkpurple = ' ".s:vmode."fg=".s:darkpurple."'"
 exe "let s:fg_darkgreen  = ' ".s:vmode."fg=".s:darkgreen ."'"
-exe "let s:fg_extrablue  = ' ".s:vmode."fg=".s:extrablue ."'"
-exe "let s:fg_extracyan  = ' ".s:vmode."fg=".s:extracyan ."'"
-exe "let s:fg_extrared   = ' ".s:vmode."fg=".s:extrared  ."'"
 
 exe "let s:fmt_none      = ' ".s:vmode."=NONE".          " term=NONE"        ."'"
 exe "let s:fmt_bold      = ' ".s:vmode."=NONE".s:b.      " term=NONE".s:b    ."'"
@@ -371,7 +345,7 @@ exe "hi! PmenuSel"      .s:fg_foreground  .s:bg_selection   .s:fmt_revr
 "		PmenuSbar"
 "		PmenuThumb"
 exe "hi! Question"      .s:fg_green       .s:bg_none        .s:fmt_none
-exe "hi! Search"        .s:fg_background  .s:bg_orange      .s:fmt_none
+exe "hi! Search"        .s:fg_background  .s:bg_darkgreen   .s:fmt_none
 exe "hi! SpecialKey"    .s:fg_selection   .s:bg_none        .s:fmt_none
 exe "hi! SpellCap"      .s:fg_blue        .s:bg_darkblue    .s:fmt_undr
 exe "hi! SpellLocal"    .s:fg_aqua        .s:bg_darkcyan    .s:fmt_undr
@@ -400,7 +374,7 @@ endif
 " ----------------------------------------------------------------------------
 exe "hi! Comment"         .s:fg_comment     .s:bg_none        .s:fmt_none
 
-exe "hi! Constant"        .s:fg_extrared    .s:bg_none        .s:fmt_none
+exe "hi! Constant"        .s:fg_darkgreen   .s:bg_none        .s:fmt_none
 exe "hi! String"          .s:fg_purple      .s:bg_none        .s:fmt_none
 exe "hi! Character"       .s:fg_purple      .s:bg_none        .s:fmt_none
 exe "hi! Number"          .s:fg_red         .s:bg_none        .s:fmt_none
@@ -411,14 +385,14 @@ exe "hi! Identifier"      .s:fg_green       .s:bg_none        .s:fmt_none
 exe "hi! Function"        .s:fg_yellow      .s:bg_none        .s:fmt_none
 
 exe "hi! Statement"       .s:fg_blue        .s:bg_none        .s:fmt_none
-exe "hi! Conditional"     .s:fg_extrablue   .s:bg_none        .s:fmt_none
+exe "hi! Conditional"     .s:fg_blue        .s:bg_none        .s:fmt_none
 "		Repeat"
 "		Label"
 exe "hi! Operator"        .s:fg_blue        .s:bg_none        .s:fmt_none
 "		Keyword"
 "		Exception"
 
-exe "hi! PreProc"         .s:fg_extracyan   .s:bg_none        .s:fmt_none
+exe "hi! PreProc"         .s:fg_darkcyan    .s:bg_none        .s:fmt_none
 "		Include"
 "		Define"
 "		Macro"
@@ -436,7 +410,7 @@ exe "hi! Special"         .s:fg_orange      .s:bg_none        .s:fmt_none
 "		SpecialComment"
 "		Debug"
 "
-exe "hi! Underlined"      .s:fg_aqua        .s:bg_none        .s:fmt_undr
+exe "hi! Underlined"      .s:fg_blue        .s:bg_none        .s:fmt_undr
 
 exe "hi! Ignore"          .s:fg_none        .s:bg_none        .s:fmt_none
 
@@ -501,5 +475,6 @@ hi! link diffAdded Special
 " TRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CON‐
 " NECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 " THE SOFTWARE.
-
+"
+" vim:foldmethod=marker:foldlevel=0
 " }}}

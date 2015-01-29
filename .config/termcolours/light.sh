@@ -1,1 +1,1 @@
-base16-solarized.light.sh
+solarized_light.sh

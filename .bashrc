@@ -27,10 +27,6 @@ COL="$COLC"           # Usuario normal
 
 case "$TERM" in
   rxvt*)
-    # Colores forzados a través de script. Sobreescribe los de recursos X.
-    SHELL_COLOURS="$HOME/.config/termcolours/default.sh"
-    [[ -e $SHELL_COLOURS ]] && source $SHELL_COLOURS
-
     # Prompt a traves de promptline.vim
     # Es un plugin de VIM para crear un prompt con simbolos powerline.
     # Entrar en vim y hacer un :PromptlineSnapShot ~/.shell_prompt.sh

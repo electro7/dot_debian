@@ -39,7 +39,8 @@ client.background       $back
 
 # Principal mod key (Super = Win key)
 # mod1 = Alt (xmodmap to show)
-set $mod Mod4
+# mod4 = Winkey (xmodmap to show)
+set $mod Mod1
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
@@ -174,7 +175,7 @@ bindsym $mod+r mode "resize"
 bar {
 	position bottom
 	mode hide
-  modifier Mod4
+  modifier Mod1
   font terminusicons2
 	workspace_buttons yes
   status_command i3status -c ~/.i3/i3status.conf
