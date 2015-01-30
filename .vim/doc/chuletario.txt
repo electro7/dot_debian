@@ -555,6 +555,12 @@ BASICO                                                    *chuleta_git_basico*
   "git add ." añade todos.
   "git add -i" añade interactivamente.
 
+- git rm <filename> ~
+  Borra el fichero del disco y de git
+
+- git rm --cached <filename> ~
+  Borra solo el fichero de git
+
 - git commit -m <Mensaje> ~
   Añade los cambios al HEAD.
 
