@@ -524,13 +524,13 @@ Botón izquierdo (3) y central del ratón (2).
 
 - Añadir esto en /etc/sysctl.conf
 >
-  dev.mac_hid.mouse_button2_keycode = 126
-  dev.mac_hid.mouse_button3_keycode = 125
+  dev.mac_hid.mouse_button3_keycode = 126
+  dev.mac_hid.mouse_button2_keycode = 127
   dev.mac_hid.mouse_button_emulation = 1
 
 - Luego hacer "sysctl -p /etc/sysctl.conf"
-- Ya funciona el botón izquierdo con la tecla de la manzana y el botón central
-  con la tecla Fn+Manzana.
+- Ya funciona el botón izquierdo con la tecla Fn+ manzana y el botón central
+  con la tecla Fn+^(enter al lado de la manzana).
 - Si no va, averiguar el código de la tecla desde una consola fuera de
   X con "showkey".
 
