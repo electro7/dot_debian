@@ -1,0 +1,9 @@
+#!/bin/sh
+#
+# Cuenta los highligh de los irc para conky.
+# Todo el proceso se hace a través de un simple fichero, añadiendo líneas 
+# según los mensajes recibidos. Conky lo pinta con el comando "lines"
+
+FILE=$HOME/.weechat/highlight
+
+echo \n >> $FILE

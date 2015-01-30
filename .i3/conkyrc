@@ -94,5 +94,6 @@ ${goto 348}${color7}Ï ${cpu}%\
 ${else}\
 ${goto 348}${color}Ï ${cpu}%\
 ${endif}\
+${goto 296}${lines /home/electro7/.weechat/highlight}\
 # FOCUS
 ${goto 2}${color8}Â  ${color9}${font ohsnapu-medium-1} ${execi 3 ~/bin/getfocus.sh}${font}\
