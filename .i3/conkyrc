@@ -54,8 +54,8 @@ TEXT
 ${goto 970}${color4}Üßßßßßßßßß\
 ${goto 856}${color0}Üßßßßßßßßßß${goto 916}${color8}Ü\
 ${goto 616}${color0}Üßßßßßßßßßßßßßßßßßßßß${goto 736}${color8}Ü\
-${goto 454}${color0}Üßßßßßßßßßßßßßßßßßß${goto 562}${color8}Ü\
-${goto 336}${color0}Üßßßßßßßßß${goto 390}${color8}Ü\
+${goto 400}${color0}Üßßßßßßßßßßßßßßßßßß${goto 508}${color8}Ü\
+${goto 286}${color0}Üßßßßßßßßß${goto 340}${color8}Ü\
 ${goto 0}${color4}ßßÚ\
 # Time
 ${goto 976}${color8}Õ ${time %H:%M}\
@@ -76,24 +76,31 @@ ${if_match ${execi 60 cat ~/.gmail} != 0}\
 ${goto 562}${color5}Üßßßßßßßßß${goto 616}${color0}Ü\
 ${goto 574}${color7}Ó ${execi 60 cat ~/.gmail}\
 ${else}\
+${goto 562}${color0}Ý\
 ${goto 574}${color9}Ó ${execi 60 cat ~/.gmail}\
 ${endif}\
+# CHAT-IRC
+${if_match ${lines /home/electro7/.weechat/highlight} != 0}\
+${goto 508}${color5}Üßßßßßßßßß${goto 562}${color8}Ü\
+${goto 520}${color7}Ò ${lines /home/electro7/.weechat/highlight}\
+${else}\
+${goto 520}${color9}Ò ${lines /home/electro7/.weechat/highlight}\
+${endif}\
 # DISK /
-${goto 466}\
+${goto 412}\
 ${if_match ${fs_used_perc /} >= 75}${color6}${else}${color}${endif}\
 À ${fs_used_perc /}%${color8}  Ý \
 # DISK HOME
 ${if_match ${fs_used_perc /home} >= 75}${color6}${else}${color}${endif}\
 Æ ${fs_used_perc /home}%\
 # MEM
-${goto 402}${color9}Þ ${mem}\
+${goto 352}${color9}Þ ${mem}\
 # CPU
 ${if_match ${cpu} >= 75}\
-${goto 336}${color5}Üßßßßßßßßß${goto 390}${color8}Ü\
-${goto 348}${color7}Ï ${cpu}%\
+${goto 286}${color5}Üßßßßßßßßß${goto 340}${color8}Ü\
+${goto 298}${color7}Ï ${cpu}%\
 ${else}\
-${goto 348}${color}Ï ${cpu}%\
+${goto 298}${color}Ï ${cpu}%\
 ${endif}\
-${goto 296}${lines /home/electro7/.weechat/highlight}\
 # FOCUS
-${goto 2}${color8}Â  ${color9}${font ohsnapu-medium-1} ${execi 3 ~/bin/getfocus.sh}${font}\
+${goto 2}${color8}Â   ${color9}${font ohsnapu-medium-1}${execi 3 ~/bin/getfocus.sh}${font}\

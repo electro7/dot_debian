@@ -1,9 +1,15 @@
-#!/bin/sh
+#!/bin/bash
 #
-# Cuenta los highligh de los irc para conky.
+# Cuenta los highligh del irc para conky.
 # Todo el proceso se hace a través de un simple fichero, añadiendo líneas 
-# según los mensajes recibidos. Conky lo pinta con el comando "lines"
+# según los mensajes recibidos. Eso lo hace el weechat con el script beep.
+# Conky lo pinta con el comando "lines"
+# -r -> Marca todo como leido
 
 FILE=$HOME/.weechat/highlight
 
-echo \n >> $FILE
+if [ "$1" == "-r" ] ; then
+  >$FILE
+else
+  echo \n >> $FILE
+fi
