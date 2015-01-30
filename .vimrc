@@ -199,6 +199,10 @@ nnoremap <C-Tab> :bn<CR>
 nnoremap <C-S-Tab> :bp<CR>
 nnoremap <C-Right> :bn<CR>
 nnoremap <C-Left> :bp<CR>
+nnoremap <M-Right> :bn<CR>
+nnoremap <M-Left> :bp<CR>
+nnoremap <M-n> :bn<CR>
+nnoremap <M-p> :bp<CR>
 
 " Spell checking
 nnoremap <leader>s :set spell!<CR>
