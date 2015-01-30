@@ -145,6 +145,10 @@ alias col_dark="sh ~/.config/termcolours/dark.sh"
 alias col_light="sh ~/.config/termcolours/light.sh"
 alias col_default="sh ~/.config/termcolours/default.sh"
 
+# Wifi on/off
+alias wifi_on="nmcli nm wifi on"
+alias wifi_off="nmcli nm wifi off"
+
 #----------------------------------------------------------------------#
 # OTROS
 #----------------------------------------------------------------------#
