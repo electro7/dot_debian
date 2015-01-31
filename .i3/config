@@ -45,10 +45,11 @@ set $mod Mod4
 floating_modifier $mod
 
 bindsym $mod+Return exec urxvt    # terminal
-bindsym Mod1+Ctrl+t exec ~/.i3/i3_focus_or_run.sh -t mldonkey ~/bin/terminal mldonkey
-bindsym Mod1+Ctrl+h exec ~/.i3/i3_focus_or_run.sh -t htop ~/bin/terminal htop
-bindsym Mod1+Ctrl+m exec ~/.i3/i3_focus_or_run.sh -c Iceweasel iceweasel
 bindsym Mod1+Ctrl+g exec gcolor2  # Color picker
+bindsym Mod1+Ctrl+h exec ~/.i3/i3_focus_or_run.sh -t htop ~/bin/terminal htop
+bindsym Mod1+Ctrl+i exec ~/.i3/i3_focus_or_run.sh -t weechat ~/bin/terminal weechat
+bindsym Mod1+Ctrl+m exec ~/.i3/i3_focus_or_run.sh -c Iceweasel iceweasel
+bindsym Mod1+Ctrl+t exec ~/.i3/i3_focus_or_run.sh -t mldonkey ~/bin/terminal mldonkey
 
 # start dmenu (a program launcher)
 bindsym $mod+x exec dmenu_run -fn ohsnap-medium-11 -nb "$back" -nf "$white" -sb "$yellow" -sf "$black"

@@ -64,6 +64,10 @@ then
 			EXEC="htop"
 			TITLE="htop"
 			;;
+		weechat)
+			EXEC="weechat-curses"
+			TITLE="weechat"
+			;;
 		*)
 			EXEC=$1
 			TITLE=$1
