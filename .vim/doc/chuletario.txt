@@ -631,4 +631,18 @@ VARIOS                                                    *chuleta_git_varios*
   puedes traer la última versión del servidor y apuntar a tu copia  local
   principal de esta forma "git fetch origin" "git reset --hard origin/master"
 
+==============================================================================
+CHECKINSTALL                                          *chuleta_checkinstall*
+
+- Después de compilar cierto software con "./configure" o "make" o lo que sea,
+  toca instalarlo en la máquina. Para hacerlo de forma limpia, creando un
+  paquete <deb> usaremos el checkinstall.
+>
+  apt-get install checkinstall
+<
+
+- checkinstall -D <make install> ~
+  Creará el .deb y lo instalará. En el proceso preguntará por ciertos datos
+  para incluir en el paquete, como las dependencias.
+
 vim:tw=78:ts=8:wrap:ft=help:norl:
