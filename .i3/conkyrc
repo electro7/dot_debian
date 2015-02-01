@@ -39,13 +39,13 @@ if_up_strictness          address
 default_color             b8b8b8    # Fuente
 own_window_colour         1d1f21    # Fondo
 color0                    373b41    # Light gray
-color1                    8abeb7    # Cyan
-color2                    85678f    # Light Blue
+color1                    282a2e    # Dark gray
+color2                    81a2be    # Light Blue
 color3                    8c9440    # Green
 color4                    b5bd68    # Light Green
 color5                    a54242    # Red
 color6                    cc6666    # Light Red
-color7                    f0c674    # Yellow
+color7                    f0c674    # Light Yellow
 color8                    1d1f21    # Background
 color9                    a8a8a8    # Dark White
 
@@ -58,7 +58,7 @@ ${goto 388}${color0}Üßßßßßßßßßßßßßßßßßß${goto 496}${color8}Ü\
 ${goto 274}${color0}Üßßßßßßßßß${goto 328}${color8}Ü\
 ${goto 0}${color4}ßßÚ\
 # Time
-${goto 976}${color8}Õ ${time %H:%M}\
+${goto 976}${color1}Õ ${time %H:%M}\
 ${goto 922}${color9} ${time %d %b}\
 # Vol
 ${goto 868}${color}Ô ${execi 3 amixer get Master | grep Left | awk -F'[]%[]' '/%/ {if ($5 == "off") {print "×"} else {printf "%d%%", $2}}'}\
@@ -73,16 +73,16 @@ ${if_up wlan0}${color}${else}${color8}${endif}Ñ ${upspeed wlan0}\
 # MAIL
 ${execi 300 ~/bin/gmail.sh -c}\
 ${if_match ${execi 60 cat ~/.gmail} != 0}\
-${goto 562}${color5}Üßßßßßßßßß${goto 616}${color0}Ü\
-${goto 574}${color7}Ó ${execi 60 cat ~/.gmail}\
+${goto 562}${color7}Üßßßßßßßßß${goto 616}${color0}Ü\
+${goto 574}${color1}Ó ${execi 60 cat ~/.gmail}\
 ${else}\
 ${goto 574}${color9}Ó ${execi 60 cat ~/.gmail}\
 ${endif}\
 ${goto 556}${color0}Ý\
 # CHAT-IRC
 ${if_match ${lines /home/electro7/.weechat/highlight} != 0}\
-${goto 496}${color5}Üßßßßßßßßß${goto 550}${color8}Ü\
-${goto 508}${color7}Ò ${lines /home/electro7/.weechat/highlight}\
+${goto 496}${color6}Üßßßßßßßßß${goto 550}${color8}Ü\
+${goto 508}${color1}Ò ${lines /home/electro7/.weechat/highlight}\
 ${else}\
 ${goto 508}${color9}Ò ${lines /home/electro7/.weechat/highlight}\
 ${endif}\
@@ -97,10 +97,10 @@ ${if_match ${fs_used_perc /home} >= 75}${color6}${else}${color}${endif}\
 ${goto 340}${color9}Þ ${mem}\
 # CPU
 ${if_match ${cpu} >= 75}\
-${goto 274}${color5}Üßßßßßßßßß${goto 328}${color8}Ü\
-${goto 286}${color7}Ï ${cpu}%\
+${goto 274}${color2}Üßßßßßßßßß${goto 328}${color8}Ü\
+${goto 286}${color1}Ï ${cpu}%\
 ${else}\
 ${goto 286}${color}Ï ${cpu}%\
 ${endif}\
 # FOCUS
-${goto 2}${color8}Â   ${color9}${font ohsnapu-medium-1}${execi 3 ~/bin/getfocus.sh}${font}\
+${goto 2}${color1}Â   ${color9}${font ohsnapu-medium-1}${execi 3 ~/bin/getfocus.sh}${font}\
