@@ -6,6 +6,7 @@ bin/gmail.sh
 !.config/gtk-3.0/
 !.config/ranger/
 !.config/termcolours/
+!.config/sounds/
 !.config/user-dirs*
 .dbus/*
 .dmenu_cache

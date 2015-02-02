@@ -8,8 +8,11 @@
 
 FILE=$HOME/.weechat/highlight
 
-if [ "$1" == "-r" ] ; then
+if [ "$1" == "-r" ]; then
   >$FILE
 else
   echo \n >> $FILE
+  if [ -x "/usr/bin/aplay" ]; then
+    /usr/bin/aplay -q $HOME/.config/sounds/chat.wav
+  fi
 fi
