@@ -308,12 +308,12 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 " Indent rules
 autocmd FileType c
-      \ setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
+      \ setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType cpp,java,javascript,json,markdown,php,python
-      \ setlocal tabstop=4 shiftwidth=4 softtabstop=4
+      \ setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType markdown setlocal textwidth=79
 autocmd FileType prg
-      \ setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4 cindent
+      \ setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4 cindent
 
 " Txt
 autocmd FileType text setlocal textwidth=79 wrap

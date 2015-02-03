@@ -1,6 +1,6 @@
 Recomendaciones de estilo para el desarrollo de código
 -------------------------------------------------------
-Vicente Gimeno Morales - 05 abr 2005 - Versión 2
+E7 - 03 feb 2015 
 
 1.- Introducción
 
@@ -10,7 +10,7 @@ ficheros fuente.
 
 2.-	Estructura del fichero
 
-- Usar indentación con un tabulador de 4.
+- Usar indentación con 4 espacios.No usar tab's son el demonio.
 - La línea no debe superar las 80 columnas.
 - Al principio del fichero se coloca una cabecera específica del fichero.
 - El primer elemento de código del programa son los #includes.
@@ -111,8 +111,8 @@ ficheros fuente.
 
 	/*
 	 * ARCHIVO		: <nombre de archivo>
-     * AUTOR		: Vicente Gimeno
-     * VERSIÓN      : 1.0
+   * AUTOR		: Vicente Gimeno
+   * VERSIÓN      : 1.0
 	 * DESCRIPCIóN	: <descripción>
 	 *                <...>
 	 *                <...>
