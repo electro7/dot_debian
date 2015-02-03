@@ -30,5 +30,5 @@ esac
 if [ -z "$PROG" ]; then
   i3-msg exec $3 $4 $5
 else
-  i3-msg [$FIND="$2"] focus
+  i3-msg [$FIND="(?i)$2"] focus
 fi
