@@ -4,7 +4,8 @@ bin/gmail.sh
 .cache/
 .config/*
 !.config/gtk-3.0/
-!.config/ranger/
+!.config/ranger/options.py
+!.config/ranger/bookmarks
 !.config/termcolours/
 !.config/sounds/
 !.config/user-dirs*

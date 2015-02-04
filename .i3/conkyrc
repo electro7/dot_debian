@@ -103,4 +103,4 @@ ${else}\
 ${goto 286}${color}Ï ${cpu}%\
 ${endif}\
 # FOCUS
-${goto 2}${color1}Â   ${color9}${font ohsnapu-medium-1}${execi 3 ~/bin/getfocus.sh}${font}\
+${goto 2}${color1}Â   ${color9}${font ohsnap-medium-11}${execi 3 ~/bin/getfocus.sh}${font}\

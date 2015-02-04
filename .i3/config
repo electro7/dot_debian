@@ -7,7 +7,10 @@
 # Font
 #.......
 
-set $ft -xos4-terminesspowerline-medium-r-normal--12-120-72-72-c-60-iso10646-1
+#set $ft pango:DejaVu Sans Mono 10
+#set $ft pango:Inconsolata:size=8
+#set $ft -xos4-terminesspowerline-medium-r-normal--12-120-72-72-c-60-iso10646-1
+set $ft ohsnap-medium-11
 font $ft
 
 #..........
@@ -25,11 +28,13 @@ set $lightgrey          #707880
 set $white              #C5C8C6
 set $yellow             #F0C674
 set $red                #CC6666
+set $darkred            #A54242
+set $green              #B5BD56
 
 #class                  border      backgr.     text        split
-client.focused          $yellow     $yellow     $black      $red
-client.focused_inactive $grey       $grey       $lightgrey  $red
-client.unfocused        $grey       $grey       $lightgrey  $red
+client.focused          $yellow     $yellow     $black      $darkred
+client.focused_inactive $grey       $grey       $lightgrey  $grey
+client.unfocused        $grey       $grey       $lightgrey  $grey
 client.urgent           $red        $red        $black      $red
 client.background       $back
 
