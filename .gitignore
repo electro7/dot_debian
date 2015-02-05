@@ -1,6 +1,5 @@
 backup/*
 .bash_*
-bin/gmail.sh
 .cache/
 .config/*
 !.config/gtk-3.0/
@@ -44,6 +43,7 @@ mail/*
 .profile
 .pulse/*
 .pulse*
+.private/*
 .ssh/*
 .themes/*
 .thumbnails/*
