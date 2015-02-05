@@ -27,8 +27,7 @@ CONTENIDO                                                 *chuleta_contenido*
   - Airport Extreme                                 |chuleta_airport|
   - Debian en Powerbook                             |chuleta_powerbook|
   - Versionitis con GIT                             |chuleta_git|
-
-
+  - Instalando fuentes                              |chuleta_checkinstall|
 
 ==============================================================================
 ==============================================================================
