@@ -7,7 +7,7 @@
 # 12 ene 2015
 
 # Ruta a los password
-source ~/.private/accounts
+. ~/.private/accounts
 
 MAIL=`curl -u $MAIL_USER:$MAIL_PASS --silent https://mail.google.com/mail/feed/atom`
 CON=`echo $MAIL | grep -c "<fullcount>"`
