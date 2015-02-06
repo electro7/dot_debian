@@ -1,38 +1,57 @@
 #!/bin/bash
-#!/bin/bash
 #
-# ~/bin/dwm-statusbar
-#
-# Status bar for dwm. Expanded from:
+# Status bar for i3. Expanded from:
 # https://bitbucket.org/jasonwryan/eeepc/src/73dadb289dead8ef17ef29a9315ba8f1706927cb/Scripts/dwm-status
+# and W0ng dotfiles
 
-# Colour codes from dwm/config.h
-colour_gry="\x01" # grey on black
-colour_wht="\x02" # white on black
-colour_dgry="\x04" # darkgrey on black
-colour_blk="\x05" # black on darkgrey
-colour_red="\x06" # colour_red on black
-colour_grn="\x07" # green on black
-colour_dylw="\x08" # orange on black
-colour_ylw="\x09" # yellow on black
-colour_blu="\x0A" # colour_blue on darkgrey
-colour_mag="\x0B" # colour_magenta on darkgrey
-colour_cyn="\x0C" # cyan on darkgrey
+# Colour codes (Hybrid)
+colour_gray="#373B41"     # gray
+colour_lgray="#707880"    # light gray
+colour_dgray="#282A2E"    # dark gray
+colour_white="#C5C8C6"    # white
+colour_red="#A54242"      # red
+colour_lred="#CC6666"     # light red
+colour_green="#8C9440"    # green
+colour_lgreen="#B5BD68"   # light green
+colour_orange="#CE935F"   # orange
+colour_yellow="#F0C674"   # yellow
+colour_blue="#5F819D"     # blue
+colour_lblue="#81A2BE"    # light blue
+colour_magenta="#85678F"  # magenta
+colour_lmagenta="#B294BB" # light magenta
+colour_cyan="#5E8D87"     # cyan
+colour_lcyan="#8ABEB7"    # light cyan
 
-# Icon glyphs from font xbmicons.pcf
-glyph_msc="\uE00E"
-glyph_cpu="\uE00F"
-glyph_mem="\uE010"
-glyph_dl="\uE011"
-glyph_ul="\uE012"
-glyph_com="\uE013"
-glyph_eml="\uE014"
-glyph_vol="\uE015"
-glyph_tim="\uE016"
-glyph_tor="\uE017"
-sep_solid="\uE01A"
-sep_line="\uE01B"
-sep_bar="\uE020"
+# Icon glyphs from Terminusicons2
+icon_clock="\u00D5"       # Clock icon
+icon_cpu="\u00CF"         # CPU icon
+icon_mem="\u00DE"         # MEM icon
+icon_dl="\u00D0"          # Download icon
+icon_ul="\u00D1"          # Upload icon
+icon_vol="\u00D4"         # Volume icon
+icon_hd="\u00C0"          # HD / icon
+icon_home="\u00C6"        # HD /home icon
+icon_mail="\u00D3"        # Mail icon
+icon_chat="\u00D2"        # IRC/Chat icon
+icon_music="\u00CE"       # Music icon
+icon_prog="\u00C2"        # Window icon
+sep_left="\u00DC"         # Powerline separator left
+sep_right="\u00DA"        # Powerline separator right
+sep_l_left="\u00DD"       # Powerline light separator left
+sep_l_right="\u00DB"      # Powerline light sepatator right
+
+# Settings
+DZEN_BG="#1D1F21"
+DZEN_FG="#C5C8C6"
+HEIGHT=14                 # Dzen bar height     
+RESOLUTIONW=$(xrandr | grep "current" | awk '{print $8a}')
+#RESOLUTIONH=$(xrandr | grep "current" | awk '{print $10}' | tr -d ',')
+X=0
+Y=0
+FONT="Terminusicons2"
+SLEEP=1
+DZEN="dzen2 -dock -x $X -y $Y -h $HEIGHT -fn $FONT -ta right -bg $DZEN_BG -fg $DZEN_FG"
+#DZEN="dzen2 -dock -x $X -y $Y -H $HEIGHT -fn $FONT -ta right -bg $DZEN_BG -fg $DZEN_FG"
 
 print_song_info() {
   song_info="$(mpc current -f '[[[[%artist% \uE01B ]%title%]]|[%file%]]' | head -c 75)"
@@ -68,125 +87,6 @@ print_mem_used() {
   mem_used="$(free -m | awk 'NR==3 {print $3}')"
   echo -ne "${sep_line} ${glyph_mem} ${mem_used}M "
 }
-
-print_volume() {
-  volume="$(amixer get PCM | tail -n1 | sed -r 's/.*\[(.*)%\].*/\1/')"
-  echo -ne "${colour_dgry}${sep_solid}${colour_mag} ${glyph_vol} ${volume}% "
-}
-
-print_datetime() {
-  datetime="$(date "+%a %d %b ${sep_line} %H:%M")"
-  echo -ne "${colour_blk}${sep_solid}${colour_wht} ${glyph_tim} ${datetime} "
-}
-
-# network (from: http://dzen.geekmode.org/dwiki/doku.php?id=dzen:network-meter)
-# cpu (from: https://bbs.archlinux.org/viewtopic.php?pid=661641#p661641)
-rx_old=$(cat /sys/class/net/enp5s0/statistics/rx_bytes)
-tx_old=$(cat /sys/class/net/enp5s0/statistics/tx_bytes)
-
-while true; do
-  # get new cpu idle and total usage
-  eval $(awk '/^cpu /{print "cpu_idle_now=" $5 "; cpu_total_now=" $2+$3+$4+$5 }' /proc/stat)
-  cpu_interval=$((cpu_total_now-${cpu_total_old:-0}))
-  # calculate cpu usage (%)
-  let cpu_used="100 * ($cpu_interval - ($cpu_idle_now-${cpu_idle_old:-0})) / $cpu_interval"
-
-  # get new rx/tx counts
-  rx_now=$(cat /sys/class/net/enp5s0/statistics/rx_bytes)
-  tx_now=$(cat /sys/class/net/enp5s0/statistics/tx_bytes)
-  # calculate the rate (K) and total (M)
-  let rx_rate=($rx_now-$rx_old)/1024
-  let tx_rate=($tx_now-$tx_old)/1024
-  #  let rx_total=$rx_now/1048576
-  #  let tx_total=$tx_now/1048576
-
-  # output vars
-  print_cpu_used() {
-    printf "%-14b" "${colour_dgry}${sep_solid}${colour_blu} ${glyph_cpu} ${cpu_used}%"
-  }
-  print_rx_rate() {
-    printf "%-15b" "${colour_blk}${sep_solid}${colour_grn} ${glyph_dl} ${rx_rate}K"
-  }
-  print_tx_rate() {
-    printf "%-14b" "${colour_gry}${sep_line}${colour_red} ${glyph_ul} ${tx_rate}K"
-  }
-
-  # Pipe to status bar, not indented due to printing extra spaces/tabs
-  xsetroot -name "$(print_song_info)\
-$(print_torrent_status)\
-$(print_email_unread)\
-$(print_last_msg)\
-$(print_cpu_used)$(print_mem_used)\
-$(print_rx_rate)$(print_tx_rate)\
-$(print_volume)\
-$(print_datetime)"
-
-  # reset old rates
-  rx_old=$rx_now
-  tx_old=$tx_now
-  cpu_idle_old=$cpu_idle_now
-  cpu_total_old=$cpu_total_now
-  # loop stats every 1 second
-  sleep 1
-done
-# ------------------------------------------------------
-# file:     $HOME/.scripts/dzenstat.sh
-# author:   Ramon Solis - http://cyb3rpunk.wordpress.com
-# modified: June 2011
-# vim:fenc=utf-8:nu:ai:si:et:ts=4:sw=4:ft=sh:
-# ------------------------------------------------------
-
-sep_solid="\uE01A"
-sep_line="\uE01B"
-sep_bar="\u00DC"
-clock="\u00D5"
-
-# -------------------------
-# Dzen settings & Variables
-# -------------------------
-ICONPATH="$HOME/.icons/dzenicons"
-COLOR_ICON="#b5bd68"
-CRIT_COLOR="#ff2c4a"
-DZEN_BG="#1d1f21"
-DZEN_FG="#b8b8b8"
-HEIGHT=14
-WIDTH=1024
-RESOLUTIONW=`xrandr | grep "current" | awk '{print $8}'`
-RESOLUTIONH=`xrandr | grep "current" | awk '{print $10}' | tr -d ','`
-X=0
-Y=0
-BAR_FG="#333333"
-BAR_BG="#808080"
-BAR_H=12
-BAR_W=60
-FONT="Terminusicons2"
-SLEEP=1
-VUP="amixer -c0 -q set Master 4dB+"
-VDOWN="amixer -c0 -q set Master 4dB-"
-EVENT="button3=exit;button4=exec:$VUP;button5=exec:$VDOWN"
-DZEN="dzen2 -dock -x $X -y $Y -w $WIDTH -fn $FONT -ta right -bg $DZEN_BG -fg $DZEN_FG -e "button3=exit;button4=exec:$VUP;button5=exec:$VDOWN""
-
-# -------------
-# Infinite loop
-# -------------
-while :; do
-sleep ${SLEEP}
-
-# ---------
-# Functions
-# ---------
-Vol ()
-{
-	ONF=$(amixer get Master | awk '/Front\ Left:/ {print $7}' | tr -d '[]')
-	VOL=$(amixer get Master | awk '/Front\ Left:/ {print $5}' | tr -d '[]%')
-		if [[ ${ONF} == 'off' ]] ; then
-		   echo -n "^fg($CRIT_COLOR)^i($ICONPATH/spkr_01.xbm)^fg()" $(echo "0"  | gdbar -fg $BAR_FG -bg $BAR_BG -h $BAR_H -w $BAR_W -s o -ss 1 -sw 2 -nonl)
-		else
-		   echo -n "^fg($COLOR_ICON)^i($ICONPATH/spkr_01.xbm)^fg()" ${VOL} $(echo $VOL | gdbar -fg $BAR_FG -bg $BAR_BG -h $BAR_H -w $BAR_W -s o -ss 1 -sw 2 -nonl)
-		fi
-    return
-}
-
 Mem ()
 {
 	MEM=$(free -m | grep '-' | awk '{print $3}')
@@ -197,12 +97,6 @@ Mem ()
 Temp ()
 {
 	TEMP=$(acpi -t | awk '{print $4}' | tr -d '.0')
-		if [[ ${TEMP} -gt 63 ]] ; then
-			echo -n "^fg($CRIT_COLOR)^i($ICONPATH/temp.xbm)^fg($CRIT_COLOR) ${TEMP}°C" $(echo ${TEMP} | gdbar -fg $CRIT_COLOR -bg $BAR_BG -h $BAR_H -s v -sw 5 -ss 0 -sh 1 -nonl)
-		else
-			echo -n "^fg($COLOR_ICON)^i($ICONPATH/temp.xbm)^fg() ${TEMP}°C" $(echo ${TEMP} | gdbar -fg $BAR_FG -bg $BAR_BG -h $BAR_H -s v -sw 5 -ss 0 -sh 1 -nonl)
-		fi
-	return
 }
 
 Disk ()
@@ -222,36 +116,85 @@ Disk ()
 	return
 }
 
+
+
+print_volume() {
+  volume="$(amixer get PCM | tail -n1 | sed -r 's/.*\[(.*)%\].*/\1/')"
+  echo -ne "${colour_dgry}${sep_solid}${colour_mag} ${glyph_vol} ${volume}% "
+}
+Vol ()
+{
+	ONF=$(amixer get Master | awk '/Front\ Left:/ {print $7}' | tr -d '[]')
+	VOL=$(amixer get Master | awk '/Front\ Left:/ {print $5}' | tr -d '[]%')
+		if [[ ${ONF} == 'off' ]] ; then
+		   echo -n "^fg($CRIT_COLOR)^i($ICONPATH/spkr_01.xbm)^fg()" $(echo "0"  | gdbar -fg $BAR_FG -bg $BAR_BG -h $BAR_H -w $BAR_W -s o -ss 1 -sw 2 -nonl)
+		else
+		   echo -n "^fg($COLOR_ICON)^i($ICONPATH/spkr_01.xbm)^fg()" ${VOL} $(echo $VOL | gdbar -fg $BAR_FG -bg $BAR_BG -h $BAR_H -w $BAR_W -s o -ss 1 -sw 2 -nonl)
+		fi
+    return
+}
+
+
+print_datetime() {
+  datetime="$(date "+%a %d %b ${sep_l_left} %H:%M")"
+  echo -ne "^bg(${colour_dgray})^fg(${colour_lgreen})$sep_left^bg(${colour_lgreen})^fg(${colour_dgray}) ${icon_clock} ${datetime} "
+}
 Date ()
 {
 	TIME=$(date +%R)
   #echo -ne "^bg($DZEN_BG)^fg($COLOR_ICON)$sep_bar^bg($COLOR_ICON)^fg($DZEN_BG)^i(/home/electro7/tmp/dzen/bitmaps/envelope.xbm) ${TIME} montaña, camión"
-  echo -ne "^bg($DZEN_BG)^fg($COLOR_ICON)$sep_bar^bg($COLOR_ICON)^fg($DZEN_BG) ${clock} ${TIME} "
+  echo -ne "^bg(${colour_dgray})^fg(${colour_green})$sep_left^bg(${colour_green})^fg(${colour_dgray}) ${icon_clock} ${TIME}"
 	return
 }
 
-Between ()
-{
-    echo -n " ^fg(#7298a9)^r(2x2)^fg() "
-	return
-}
 
-OSLogo ()
-{
-	OS=$(uname -a | awk '{print $2}')
-	echo -n " ^fg($COLOR_ICON)^i($ICONPATH/${OS}.xbm)^fg()"
-	return
-}
-# --------- End Of Functions
+# network (from: http://dzen.geekmode.org/dwiki/doku.php?id=dzen:network-meter)
+# cpu (from: https://bbs.archlinux.org/viewtopic.php?pid=661641#p661641)
+#rx_old=$(cat /sys/class/net/enp5s0/statistics/rx_bytes)
+#tx_old=$(cat /sys/class/net/enp5s0/statistics/tx_bytes)
 
-# -----
-# Print
-# -----
-Print () {
-        Date
-        echo
-    return
-}
+while :; do
+  # get new cpu idle and total usage
+#  eval $(awk '/^cpu /{print "cpu_idle_now=" $5 "; cpu_total_now=" $2+$3+$4+$5 }' /proc/stat)
+#  cpu_interval=$((cpu_total_now-${cpu_total_old:-0}))
+  # calculate cpu usage (%)
+#  let cpu_used="100 * ($cpu_interval - ($cpu_idle_now-${cpu_idle_old:-0})) / $cpu_interval"
 
-echo "$(Print)"
+  # get new rx/tx counts
+#  rx_now=$(cat /sys/class/net/enp5s0/statistics/rx_bytes)
+#  tx_now=$(cat /sys/class/net/enp5s0/statistics/tx_bytes)
+  # calculate the rate (K) and total (M)
+#  let rx_rate=($rx_now-$rx_old)/1024
+#  let tx_rate=($tx_now-$tx_old)/1024
+  #  let rx_total=$rx_now/1048576
+  #  let tx_total=$tx_now/1048576
+
+  # output vars
+#  print_cpu_used() {
+#    printf "%-14b" "${colour_dgry}${sep_solid}${colour_blu} ${glyph_cpu} ${cpu_used}%"
+#  }
+#  print_rx_rate() {
+#    printf "%-15b" "${colour_blk}${sep_solid}${colour_grn} ${glyph_dl} ${rx_rate}K"
+#  }
+#  print_tx_rate() {
+#    printf "%-14b" "${colour_gry}${sep_line}${colour_red} ${glyph_ul} ${tx_rate}K"
+#  }
+
+  # reset old rates
+#  rx_old=$rx_now
+#  tx_old=$tx_now
+#  cpu_idle_old=$cpu_idle_now
+#  cpu_total_old=$cpu_total_now
+  # loop stats every 1 second
+
+#done
+
+  print_all() {
+    print_datetime
+    echo
+  }
+
+  echo $(print_all)
+  sleep ${SLEEP}
+
 done | $DZEN &
