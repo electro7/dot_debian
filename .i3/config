@@ -50,6 +50,7 @@ set $mod Mod4
 floating_modifier $mod
 
 bindsym $mod+Return exec urxvt    # terminal
+bindsym Mod1+Ctrl+a exec lxappearance  # Color picker
 bindsym Mod1+Ctrl+g exec gcolor2  # Color picker
 bindsym Mod1+Ctrl+h exec ~/.i3/i3_focus_or_run.sh -t htop ~/bin/terminal htop
 bindsym Mod1+Ctrl+i exec ~/.i3/i3_focus_or_run.sh -t weechat ~/bin/terminal weechat
@@ -80,8 +81,9 @@ bindsym $mod+x exec dmenu_run -fn ohsnap-medium-11 -nb "$back" -nf "$white" -sb 
 #assign [class="Zathura"] → 5
 
 # Layout
-for_window [class="feh"] floating enable
-for_window [class="Gcolor2"] floating enable
+for_window [class="(?i)feh"] floating enable
+for_window [class="(?i)gcolor2"] floating enable
+for_window [class="(?i)lxappearance"] floating enable
 
 #...........
 # Keybinds i3
