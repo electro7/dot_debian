@@ -1,57 +1,79 @@
 #!/bin/bash
 #
-# Status bar for i3. Expanded from:
+# Dock statusbar for i3, using dzen2
+#
+# Expanded from:
 # https://bitbucket.org/jasonwryan/eeepc/src/73dadb289dead8ef17ef29a9315ba8f1706927cb/Scripts/dwm-status
 # and W0ng dotfiles
 
-# Colour codes (Hybrid)
-colour_gray="#373B41"     # gray
-colour_lgray="#707880"    # light gray
-colour_dgray="#282A2E"    # dark gray
-colour_white="#C5C8C6"    # white
-colour_red="#A54242"      # red
-colour_lred="#CC6666"     # light red
-colour_green="#8C9440"    # green
-colour_lgreen="#B5BD68"   # light green
-colour_orange="#CE935F"   # orange
-colour_yellow="#F0C674"   # yellow
-colour_blue="#5F819D"     # blue
-colour_lblue="#81A2BE"    # light blue
-colour_magenta="#85678F"  # magenta
-colour_lmagenta="#B294BB" # light magenta
-colour_cyan="#5E8D87"     # cyan
-colour_lcyan="#8ABEB7"    # light cyan
-
-# Icon glyphs from Terminusicons2
-icon_clock="\u00D5"       # Clock icon
-icon_cpu="\u00CF"         # CPU icon
-icon_mem="\u00DE"         # MEM icon
-icon_dl="\u00D0"          # Download icon
-icon_ul="\u00D1"          # Upload icon
-icon_vol="\u00D4"         # Volume icon
-icon_hd="\u00C0"          # HD / icon
-icon_home="\u00C6"        # HD /home icon
-icon_mail="\u00D3"        # Mail icon
-icon_chat="\u00D2"        # IRC/Chat icon
-icon_music="\u00CE"       # Music icon
-icon_prog="\u00C2"        # Window icon
-sep_left="\u00DC"         # Powerline separator left
-sep_right="\u00DA"        # Powerline separator right
-sep_l_left="\u00DD"       # Powerline light separator left
-sep_l_right="\u00DB"      # Powerline light sepatator right
+#res_w=$(xrandr | grep "current" | awk '{print $8a}')
+#res_h=$(xrandr | grep "current" | awk '{print $10}' | tr -d ',')
 
 # Settings
-DZEN_BG="#1D1F21"
-DZEN_FG="#C5C8C6"
-HEIGHT=14                 # Dzen bar height     
-RESOLUTIONW=$(xrandr | grep "current" | awk '{print $8a}')
-#RESOLUTIONH=$(xrandr | grep "current" | awk '{print $10}' | tr -d ',')
-X=0
-Y=0
-FONT="Terminusicons2"
-SLEEP=1
-DZEN="dzen2 -dock -x $X -y $Y -h $HEIGHT -fn $FONT -ta right -bg $DZEN_BG -fg $DZEN_FG"
-#DZEN="dzen2 -dock -x $X -y $Y -H $HEIGHT -fn $FONT -ta right -bg $DZEN_BG -fg $DZEN_FG"
+# ---------------------------------------------------------------------------
+colour_back="#1D1F21"             # Background
+colour_fore="#C5C8C6"             # Foreground
+interval=1                        # Update interval (seconds)
+dzen_font="Terminusicons2"        # Font
+dzen_height=14                    # Bar height
+dzen_pos="0"                      # Position. 0 = top, $res_h = bottom (uncomment)
+dzen_align="r"                    # Alignment l(eft), c(enter), r(ight)
+
+# Dzen2 command
+dzen_command="dzen2 -dock -y ${dzen_pos} -h ${dzen_height} -fn ${dzen_font} -ta ${dzen_align} -bg ${colour_back} -fg ${colour_fore}"
+
+# Colour codes (Hybrid)
+colour_sec_b1="#1C1C1C"           # Background 1
+colour_sec_b2="#262626"           # Background 2
+colour_sec_b3="#303030"           # Background 3
+colour_gray="#373B41"             # gray
+colour_lgray="#707880"            # light gray
+colour_dgray="#282A2E"            # dark gray
+colour_white="#C5C8C6"            # white
+colour_red="#A54242"              # red
+colour_lred="#CC6666"             # light red
+colour_green="#8C9440"            # green
+colour_lgreen="#B5BD68"           # light green
+colour_orange="#CE935F"           # orange
+colour_yellow="#F0C674"           # yellow
+colour_blue="#5F819D"             # blue
+colour_lblue="#81A2BE"            # light blue
+colour_magenta="#85678F"          # magenta
+colour_lmagenta="#B294BB"         # light magenta
+colour_cyan="#5E8D87"             # cyan
+colour_lcyan="#8ABEB7"            # light cyan
+
+# Icon glyphs from Terminusicons2
+icon_clock="\u00D5"               # Clock icon
+icon_cpu="\u00CF"                 # CPU icon
+icon_mem="\u00DE"                 # MEM icon
+icon_dl="\u00D0"                  # Download icon
+icon_ul="\u00D1"                  # Upload icon
+icon_vol="\u00D4"                 # Volume icon
+icon_hd="\u00C0"                  # HD / icon
+icon_home="\u00C6"                # HD /home icon
+icon_mail="\u00D3"                # Mail icon
+icon_chat="\u00D2"                # IRC/Chat icon
+icon_music="\u00CE"               # Music icon
+icon_prog="\u00C2"                # Window icon
+sep_left="\u00DC"                 # Powerline separator left
+sep_right="\u00DA"                # Powerline separator right
+sep_l_left="\u00DD"               # Powerline light separator left
+sep_l_right="\u00DB"              # Powerline light sepatator right
+
+# Print info functions
+# ---------------------------------------------------------------------------
+
+last_bg=${colour_back}
+
+# Print sections with powerline glyphs
+# $1 = background
+# $2 = foreground
+# $3 = info
+print_sec_pline() {
+  echo -ne "^bg(${last_bg})^fg($1)${sep_left}^bg($1)^fg($2) $3"
+  last_bg=$1
+}
 
 print_song_info() {
   song_info="$(mpc current -f '[[[[%artist% \uE01B ]%title%]]|[%file%]]' | head -c 75)"
@@ -119,8 +141,9 @@ Disk ()
 
 
 print_volume() {
-  volume="$(amixer get PCM | tail -n1 | sed -r 's/.*\[(.*)%\].*/\1/')"
-  echo -ne "${colour_dgry}${sep_solid}${colour_mag} ${glyph_vol} ${volume}% "
+  volume=$(amixer get Master | grep Left | awk -F'[]%[]' '/%/ {if ($5 == "off") {print "×"} else {printf "%d%%", $2}}')
+  #volume="$(amixer get PCM | tail -n1 | sed -r 's/.*\[(.*)%\].*/\1/')"
+  print_sec_pline "${colour_sec_b3}" "${colour_white}" "${icon_vol} ${volume} "
 }
 Vol ()
 {
@@ -137,16 +160,8 @@ Vol ()
 
 print_datetime() {
   datetime="$(date "+%a %d %b ${sep_l_left} %H:%M")"
-  echo -ne "^bg(${colour_dgray})^fg(${colour_lgreen})$sep_left^bg(${colour_lgreen})^fg(${colour_dgray}) ${icon_clock} ${datetime} "
+  print_sec_pline "${colour_sec_b1}" "${colour_white}" "${icon_clock} ${datetime} "
 }
-Date ()
-{
-	TIME=$(date +%R)
-  #echo -ne "^bg($DZEN_BG)^fg($COLOR_ICON)$sep_bar^bg($COLOR_ICON)^fg($DZEN_BG)^i(/home/electro7/tmp/dzen/bitmaps/envelope.xbm) ${TIME} montaña, camión"
-  echo -ne "^bg(${colour_dgray})^fg(${colour_green})$sep_left^bg(${colour_green})^fg(${colour_dgray}) ${icon_clock} ${TIME}"
-	return
-}
-
 
 # network (from: http://dzen.geekmode.org/dwiki/doku.php?id=dzen:network-meter)
 # cpu (from: https://bbs.archlinux.org/viewtopic.php?pid=661641#p661641)
@@ -166,8 +181,6 @@ while :; do
   # calculate the rate (K) and total (M)
 #  let rx_rate=($rx_now-$rx_old)/1024
 #  let tx_rate=($tx_now-$tx_old)/1024
-  #  let rx_total=$rx_now/1048576
-  #  let tx_total=$tx_now/1048576
 
   # output vars
 #  print_cpu_used() {
@@ -190,11 +203,12 @@ while :; do
 #done
 
   print_all() {
+    print_volume
     print_datetime
-    echo
   }
 
   echo $(print_all)
-  sleep ${SLEEP}
+  sleep ${interval}
 
-done | $DZEN &
+done | $dzen_command &
+#done
