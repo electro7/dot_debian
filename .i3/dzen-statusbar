@@ -13,14 +13,15 @@
 # ---------------------------------------------------------------------------
 colour_back="#1D1F21"             # Background
 colour_fore="#C5C8C6"             # Foreground
-interval=1                        # Update interval (seconds)
-dzen_font="Terminusicons2"        # Font
-dzen_height=14                    # Bar height
+interval=3                        # Update interval (seconds)
+dzen_font="DroidSans:size=8"      # Font
+dzen_ifont="Terminusicons2"       # Powerline icon font
+dzen_height=12                    # Bar height
 dzen_pos="0"                      # Position. 0 = top, $res_h = bottom (uncomment)
 dzen_align="r"                    # Alignment l(eft), c(enter), r(ight)
 
 # Dzen2 command
-dzen_command="dzen2 -dock -y ${dzen_pos} -h ${dzen_height} -fn ${dzen_font} -ta ${dzen_align} -bg ${colour_back} -fg ${colour_fore}"
+dzen_command="dzen2 -dock -y ${dzen_pos} -h ${dzen_height} -fn ${dzen_ifont} -ta ${dzen_align} -bg ${colour_back} -fg ${colour_fore}"
 
 # Colour codes (Hybrid)
 colour_sec_b1="#1C1C1C"           # Background 1
@@ -69,9 +70,11 @@ last_bg=${colour_back}
 # Print sections with powerline glyphs
 # $1 = background
 # $2 = foreground
-# $3 = info
+# $3 = Separator
+# $4 = glyph icon
+# $5 = text
 print_sec_pline() {
-  echo -ne "^bg(${last_bg})^fg($1)${sep_left}^bg($1)^fg($2) $3"
+  echo -ne "^bg(${last_bg})^fg($1)$3^bg($1)^fg($2) $4 ^fn(${dzen_font})$5^fn()"
   last_bg=$1
 }
 
@@ -141,46 +144,39 @@ Disk ()
 
 
 print_volume() {
-  volume=$(amixer get Master | grep Left | awk -F'[]%[]' '/%/ {if ($5 == "off") {print "×"} else {printf "%d%%", $2}}')
-  #volume="$(amixer get PCM | tail -n1 | sed -r 's/.*\[(.*)%\].*/\1/')"
-  print_sec_pline "${colour_sec_b3}" "${colour_white}" "${icon_vol} ${volume} "
-}
-Vol ()
-{
-	ONF=$(amixer get Master | awk '/Front\ Left:/ {print $7}' | tr -d '[]')
-	VOL=$(amixer get Master | awk '/Front\ Left:/ {print $5}' | tr -d '[]%')
-		if [[ ${ONF} == 'off' ]] ; then
-		   echo -n "^fg($CRIT_COLOR)^i($ICONPATH/spkr_01.xbm)^fg()" $(echo "0"  | gdbar -fg $BAR_FG -bg $BAR_BG -h $BAR_H -w $BAR_W -s o -ss 1 -sw 2 -nonl)
-		else
-		   echo -n "^fg($COLOR_ICON)^i($ICONPATH/spkr_01.xbm)^fg()" ${VOL} $(echo $VOL | gdbar -fg $BAR_FG -bg $BAR_BG -h $BAR_H -w $BAR_W -s o -ss 1 -sw 2 -nonl)
-		fi
-    return
+  var=$(amixer get Master | grep Left | awk -F'[]%[]' '/%/ {if ($5 == "off") {print "×"} else {printf "%d%%", $2}}')
+  print_sec_pline "${colour_sec_b3}" "${colour_white}" "${sep_left}" "${icon_vol}" "${var} "
 }
 
-
-print_datetime() {
-  datetime="$(date "+%a %d %b ${sep_l_left} %H:%M")"
-  print_sec_pline "${colour_sec_b1}" "${colour_white}" "${icon_clock} ${datetime} "
+print_date() {
+  var="$(date "+%a %d %b")"
+  print_sec_pline "${colour_sec_b1}" "${colour_white}" "${sep_left}" "${icon_clock}" "${var} "
 }
+
+print_time() {
+  var="$(date "+%H:%M")"
+  print_sec_pline "${colour_lgreen}" "${colour_dgray}" "${sep_left}" "" "${var} "
+}
+
 
 # network (from: http://dzen.geekmode.org/dwiki/doku.php?id=dzen:network-meter)
 # cpu (from: https://bbs.archlinux.org/viewtopic.php?pid=661641#p661641)
-#rx_old=$(cat /sys/class/net/enp5s0/statistics/rx_bytes)
-#tx_old=$(cat /sys/class/net/enp5s0/statistics/tx_bytes)
+rx_old=$(cat /sys/class/net/eth0/statistics/rx_bytes)
+tx_old=$(cat /sys/class/net/eth0/statistics/tx_bytes)
 
 while :; do
   # get new cpu idle and total usage
-#  eval $(awk '/^cpu /{print "cpu_idle_now=" $5 "; cpu_total_now=" $2+$3+$4+$5 }' /proc/stat)
-#  cpu_interval=$((cpu_total_now-${cpu_total_old:-0}))
+  eval $(awk '/^cpu /{print "cpu_idle_now=" $5 "; cpu_total_now=" $2+$3+$4+$5 }' /proc/stat)
+  cpu_interval=$((cpu_total_now-${cpu_total_old:-0}))
   # calculate cpu usage (%)
-#  let cpu_used="100 * ($cpu_interval - ($cpu_idle_now-${cpu_idle_old:-0})) / $cpu_interval"
+  let cpu_used="100 * ($cpu_interval - ($cpu_idle_now-${cpu_idle_old:-0})) / $cpu_interval"
 
   # get new rx/tx counts
-#  rx_now=$(cat /sys/class/net/enp5s0/statistics/rx_bytes)
-#  tx_now=$(cat /sys/class/net/enp5s0/statistics/tx_bytes)
+  rx_now=$(cat /sys/class/net/eth0/statistics/rx_bytes)
+  tx_now=$(cat /sys/class/net/eth0/statistics/tx_bytes)
   # calculate the rate (K) and total (M)
-#  let rx_rate=($rx_now-$rx_old)/1024
-#  let tx_rate=($tx_now-$tx_old)/1024
+  let rx_rate=($rx_now-$rx_old)/1024
+  let tx_rate=($tx_now-$tx_old)/1024
 
   # output vars
 #  print_cpu_used() {
@@ -194,17 +190,19 @@ while :; do
 #  }
 
   # reset old rates
-#  rx_old=$rx_now
-#  tx_old=$tx_now
-#  cpu_idle_old=$cpu_idle_now
-#  cpu_total_old=$cpu_total_now
-  # loop stats every 1 second
+  rx_old=$rx_now
+  tx_old=$tx_now
+  cpu_idle_old=$cpu_idle_now
+  cpu_total_old=$cpu_total_now
 
 #done
 
   print_all() {
+    echo -ne " cpu ${cpu_used}% "
+    echo -ne " D ${rx_rate}K U ${tx_rate}K "
     print_volume
-    print_datetime
+    print_date
+    print_time
   }
 
   echo $(print_all)
