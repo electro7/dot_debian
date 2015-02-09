@@ -1,48 +1,50 @@
 #!/bin/bash
 #
 # Dock statusbar for i3, using dzen2
+# Powerline style
 #
 # Expanded from:
 # https://bitbucket.org/jasonwryan/eeepc/src/73dadb289dead8ef17ef29a9315ba8f1706927cb/Scripts/dwm-status
 # and W0ng dotfiles
 
-#res_w=$(xrandr | grep "current" | awk '{print $8a}')
-#res_h=$(xrandr | grep "current" | awk '{print $10}' | tr -d ',')
+# Get resolution
+res_w=$(xrandr | grep "current" | awk '{print $8a}')
+res_h=$(xrandr | grep "current" | awk '{print $10}' | tr -d ',')
 
 # Settings
 # ---------------------------------------------------------------------------
-colour_back="#1D1F21"             # Background
-colour_fore="#C5C8C6"             # Foreground
+color_back="#1D1F21"              # Background
+color_fore="#C5C8C6"              # Foreground
 interval=3                        # Update interval (seconds)
 dzen_font="DroidSans:size=8"      # Font
 dzen_ifont="Terminusicons2"       # Powerline icon font
-dzen_height=12                    # Bar height
+dzen_height=14                    # Bar height
 dzen_pos="0"                      # Position. 0 = top, $res_h = bottom (uncomment)
 dzen_align="r"                    # Alignment l(eft), c(enter), r(ight)
 
 # Dzen2 command
-dzen_command="dzen2 -dock -y ${dzen_pos} -h ${dzen_height} -fn ${dzen_ifont} -ta ${dzen_align} -bg ${colour_back} -fg ${colour_fore}"
+dzen_command="dzen2 -dock -y ${dzen_pos} -h ${dzen_height} -ta ${dzen_align} -fn ${dzen_ifont} -bg ${color_back} -fg ${color_fore}"
 
 # Colour codes (Hybrid)
-colour_sec_b1="#1C1C1C"           # Background 1
-colour_sec_b2="#262626"           # Background 2
-colour_sec_b3="#303030"           # Background 3
-colour_gray="#373B41"             # gray
-colour_lgray="#707880"            # light gray
-colour_dgray="#282A2E"            # dark gray
-colour_white="#C5C8C6"            # white
-colour_red="#A54242"              # red
-colour_lred="#CC6666"             # light red
-colour_green="#8C9440"            # green
-colour_lgreen="#B5BD68"           # light green
-colour_orange="#CE935F"           # orange
-colour_yellow="#F0C674"           # yellow
-colour_blue="#5F819D"             # blue
-colour_lblue="#81A2BE"            # light blue
-colour_magenta="#85678F"          # magenta
-colour_lmagenta="#B294BB"         # light magenta
-colour_cyan="#5E8D87"             # cyan
-colour_lcyan="#8ABEB7"            # light cyan
+color_sec_b1="#1C1C1C"            # Background 1
+color_sec_b2="#262626"            # Background 2
+color_sec_b3="#303030"            # Background 3
+color_gray="#373B41"              # gray
+color_lgray="#707880"             # light gray
+color_dgray="#282A2E"             # dark gray
+color_white="#C5C8C6"             # white
+color_red="#A54242"               # red
+color_lred="#CC6666"              # light red
+color_green="#8C9440"             # green
+color_lgreen="#B5BD68"            # light green
+color_orange="#CE935F"            # orange
+color_yellow="#F0C674"            # yellow
+color_blue="#5F819D"              # blue
+color_lblue="#81A2BE"             # light blue
+color_magenta="#85678F"           # magenta
+color_lmagenta="#B294BB"          # light magenta
+color_cyan="#5E8D87"              # cyan
+color_lcyan="#8ABEB7"             # light cyan
 
 # Icon glyphs from Terminusicons2
 icon_clock="\u00D5"               # Clock icon
@@ -141,23 +143,20 @@ Disk ()
 	return
 }
 
-
-
 print_volume() {
   var=$(amixer get Master | grep Left | awk -F'[]%[]' '/%/ {if ($5 == "off") {print "×"} else {printf "%d%%", $2}}')
-  print_sec_pline "${colour_sec_b3}" "${colour_white}" "${sep_left}" "${icon_vol}" "${var} "
+  print_sec_pline "${color_sec_b3}" "${color_white}" "${sep_left}" "${icon_vol}" "${var} "
 }
 
 print_date() {
   var="$(date "+%a %d %b")"
-  print_sec_pline "${colour_sec_b1}" "${colour_white}" "${sep_left}" "${icon_clock}" "${var} "
+  print_sec_pline "${color_sec_b1}" "${color_white}" "${sep_left}" "${icon_clock}" "${var} "
 }
 
 print_time() {
   var="$(date "+%H:%M")"
-  print_sec_pline "${colour_lgreen}" "${colour_dgray}" "${sep_left}" "" "${var} "
+  print_sec_pline "${color_lgreen}" "${color_dgray}" "${sep_left}" "" "${var} "
 }
-
 
 # network (from: http://dzen.geekmode.org/dwiki/doku.php?id=dzen:network-meter)
 # cpu (from: https://bbs.archlinux.org/viewtopic.php?pid=661641#p661641)
@@ -178,31 +177,23 @@ while :; do
   let rx_rate=($rx_now-$rx_old)/1024
   let tx_rate=($tx_now-$tx_old)/1024
 
-  # output vars
-#  print_cpu_used() {
-#    printf "%-14b" "${colour_dgry}${sep_solid}${colour_blu} ${glyph_cpu} ${cpu_used}%"
-#  }
-#  print_rx_rate() {
-#    printf "%-15b" "${colour_blk}${sep_solid}${colour_grn} ${glyph_dl} ${rx_rate}K"
-#  }
-#  print_tx_rate() {
-#    printf "%-14b" "${colour_gry}${sep_line}${colour_red} ${glyph_ul} ${tx_rate}K"
-#  }
-
   # reset old rates
   rx_old=$rx_now
   tx_old=$tx_now
   cpu_idle_old=$cpu_idle_now
   cpu_total_old=$cpu_total_now
 
-#done
 
   print_all() {
+    echo -ne "^p(;_CENTER)"
     echo -ne " cpu ${cpu_used}% "
     echo -ne " D ${rx_rate}K U ${tx_rate}K "
     print_volume
     print_date
     print_time
+    #echo -ne "^p(_LEFT;_CENTER)"
+    #echo -ne "^p(+10;_CENTER)"
+    #echo "Window"
   }
 
   echo $(print_all)
