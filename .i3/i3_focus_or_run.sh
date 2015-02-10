@@ -7,12 +7,14 @@
 
 case "$3" in
   *terminal*)
-    PROG=$(ps -ef | grep -v grep | grep -v $0 | grep "$4")
+    PROG=$(pgrep -cx "$4")
     ;;
   *)
-    PROG=$(ps -ef | grep -v grep | grep -v $0 | grep "$3")
+    PROG=$(pgrep -cx "$3")
     ;;
 esac
+
+echo $PROG
 
 case "$1" in
   -t)
@@ -27,8 +29,10 @@ case "$1" in
     ;;
 esac
 
-if [ -z "$PROG" ]; then
+if [ "$PROG" -eq 0 ]; then
+  echo "running..."
   i3-msg exec $3 $4 $5
 else
+  echo "focus..."
   i3-msg [$FIND="(?i)$2"] focus
 fi
