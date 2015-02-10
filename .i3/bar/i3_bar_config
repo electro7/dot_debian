@@ -1,0 +1,28 @@
+# i3 panel config
+
+panel_fifo="/tmp/i3_bar_${USER}"
+geometry="x14"
+font="terminusicons2"
+
+# color definitions - Hybrid
+color_back="#FF1D1F21"              # Background
+color_fore="#FFC5C8C6"              # Foreground
+color_sec_b1="#FF1C1C1C"            # Background 1
+color_sec_b2="#FF262626"            # Background 2
+color_sec_b3="#FF303030"            # Background 3
+color_gray="#FF373B41"              # gray
+color_lgray="#FF707880"             # light gray
+color_dgray="#FF282A2E"             # dark gray
+color_white="#FFC5C8C6"             # white
+color_red="#FFA54242"               # red
+color_lred="#FFCC6666"              # light red
+color_green="#FF8C9440"             # green
+color_lgreen="#FFB5BD68"            # light green
+color_orange="#FFCE935F"            # orange
+color_yellow="#FFF0C674"            # yellow
+color_blue="#FF5F819D"              # blue
+color_lblue="#FF81A2BE"             # light blue
+color_magenta="#FF85678F"           # magenta
+color_lmagenta="#FFB294BB"          # light magenta
+color_cyan="#FF5E8D87"              # cyan
+color_lcyan="#FF8ABEB7"             # light cyan
