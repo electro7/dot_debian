@@ -1,0 +1,74 @@
+#
+# Conky para barra del i3
+# Hasta que i3bar deje ocultar los separadores en la versión 4.8
+#
+# Simbolos para terminess powerline font
+# 
+
+background no
+update_interval 2
+cpu_avg_samples 1
+total_run_times 0
+override_utf8_locale yes
+short_units yes
+pad_percents 2
+uppercase no
+out_to_console yes
+out_to_x no
+if_up_strictness address
+
+# color definitions - Hybrid
+#color_back="#FF1D1F21"              # Background
+#color_fore="#FFC5C8C6"              # Foreground
+#color_sec_b1="#FF16181A"            # Background 1
+#color_sec_b2="#FF36393D"            # Background 2
+#color_sec_b3="#FF4E5459"            # Background 3
+#color_gray="#FF373B41"              # gray
+#color_lgray="#FF707880"             # light gray
+#color_dgray="#FF282A2E"             # dark gray
+#color_white="#FFC5C8C6"             # white
+#color_red="#FFA54242"               # red
+#color_lred="#FFCC6666"              # light red
+#color_green="#FF8C9440"             # green
+#color_lgreen="#FFB5BD68"            # light green
+#color_orange="#FFCE935F"            # orange
+#color_yellow="#FFF0C674"            # yellow
+#color_blue="#FF5F819D"              # blue
+#color_lblue="#FF81A2BE"             # light blue
+#color_magenta="#FF85678F"           # magenta
+#color_lmagenta="#FFB294BB"          # light magenta
+#color_cyan="#FF5E8D87"              # cyan
+#color_lcyan="#FF8ABEB7"             # light cyan
+
+TEXT
+SYS\
+# CPU
+${if_match ${cpu} >= 75}\
+%{F\#FF81A2BE}%{F\#FF1D1F21 B\#FF81A2BE} %{T2}Ï%{T-} ${cpu}%% \
+${else}\
+%{F\#FF4E5459}%{F\#FF8C9440 B\#FF4E5459} %{T2}Ï%{F\#FFC5C8C6 T-} ${cpu}%% \
+${endif}\
+# MEM
+%{F\#FF36393D}%{F\#FF8C9440 B\#FF36393D} %{T2}Þ%{F\#FFC5C8C6 T-} ${mem} \
+# DISK /
+%{F\#FF16181A}%{F\#FF8C9440 B\#FF16181A} %{T2}À%{F\#FFC5C8C6 T-} ${fs_used_perc /}%% \
+# DISK HOME
+%{F\#FF8C9440} %{F\#FF8C9440 T2}Æ%{F\#FFC5C8C6 T-} ${fs_used_perc /home}%% \
+# WLAN
+%{F\#FF36393D}%{B\#FF36393D} \
+${if_up wlan0}\
+%{F\#FF8C9440 T2}Ð%{F\#FFC5C8C6 T-} ${downspeed wlan0} \
+%{F\#FF8C9440} %{T2}Ñ%{F\#FFC5C8C6 T-} ${upspeed wlan0} \
+${else}\
+%{F\#FF1D1F21 T2}Ð%{T-} ${downspeed wlan0}  %{T2}Ñ%{T-} ${upspeed wlan0} \
+${endif}\
+# ETH0
+%{F\#FF4E5459}%{B\#FF4E5459} \
+${if_up eth0}\
+%{F\#FF8C9440 T2}Ð%{F\#FFC5C8C6 T-} ${downspeed eth0} \
+%{F\#FF8C9440}  %{T2}Ñ%{F\#FFC5C8C6 T-} ${upspeed eth0} \
+${else}\
+%{F\#FF1D1F21 T2}Ð%{T-} ${downspeed wlan0}  %{T2}Ñ%{T-} ${upspeed eth0} \
+${endif}\
+#END
+%{F\#FF4E5459}\

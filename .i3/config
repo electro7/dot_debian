@@ -83,6 +83,7 @@ bindsym $mod+x exec dmenu_run -fn ohsnap-medium-11 -nb "$back" -nf "$white" -sb 
 # Layout
 for_window [class="(?i)feh"] floating enable
 for_window [class="(?i)gcolor2"] floating enable
+for_window [class="(?i)gbdfed"] floating enable
 for_window [class="(?i)lxappearance"] floating enable
 
 #...........
