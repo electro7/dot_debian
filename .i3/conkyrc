@@ -12,7 +12,7 @@ draw_graph_borders        no
 draw_outline              no
 draw_shades               no
 use_xft                   no
-font                      terminusicons2
+font                      -xos4-terminusicons2-medium-r-normal--12-120-72-72-c-60-iso8859-1
 gap_x                     0
 gap_y                     0
 minimum_size              0 0
@@ -103,4 +103,4 @@ ${else}\
 ${goto 286}${color}Ï ${cpu}%\
 ${endif}\
 # FOCUS
-${goto 2}${color1}Â   ${color9}${font ohsnap-medium-11}${execi 3 ~/bin/getfocus.sh}${font}\
+${goto 2}${color1}Â   ${color9}${font -misc-ohsnap-medium-r-normal--11-79-100-100-c-60-iso8859-1}${execi 3 ~/bin/getfocus.sh}${font}\

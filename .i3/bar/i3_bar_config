@@ -2,7 +2,7 @@
 
 panel_fifo="/tmp/i3_bar_${USER}"
 geometry="x14"
-font="terminusicons2"
+font="-misc-ohsnap-medium-r-normal--11-79-100-100-c-60-iso8859-1,-xos4-terminusicons2-medium-r-normal--12-120-72-72-c-60-iso8859-1"
 
 # color definitions - Hybrid
 color_back="#FF1D1F21"              # Background

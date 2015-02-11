@@ -1,17 +1,7 @@
-15
-anorexia.pcf anorexia
+6
 drift.pcf drift
-edges.pcf edges
-moosefont.pcf moose
-nexus.pcf nexus
 noxis.pcf noxis
-outcast.pcf outcast
-shine.pcf shine
-smooth.pcf smooth
-snap.pcf snap
-terminalpants.pcf terminalpants
-tixus.bdf tixus
-vizung.pcf vizung
-xbmicons.bdf xbmicons
-terminusicons.pcf terminusicons
-terminusicons2.pcf terminusicons2
+terminalpants.pcf -ppants-terminalpants-medium-r-normal--12-120-75-75-c-60-iso8859-1
+terminusicons.pcf -xos4-terminus2-medium-r-normal--12-120-72-72-c-60-iso8859-1
+terminusicons2.pcf -xos4-terminusicons2-medium-r-normal--12-120-72-72-c-60-iso8859-1
+terminusicons3.bdf -xos4-terminusicons3-medium-r-normal--12-120-72-72-c-60-iso8859-1

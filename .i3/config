@@ -10,7 +10,7 @@
 #set $ft pango:DejaVu Sans Mono 10
 #set $ft pango:Inconsolata:size=8
 #set $ft -xos4-terminesspowerline-medium-r-normal--12-120-72-72-c-60-iso10646-1
-set $ft ohsnap-medium-11
+set $ft -misc-ohsnap-medium-r-normal--11-79-100-100-c-60-iso8859-1
 font $ft
 
 #..........

@@ -15,7 +15,7 @@ while read -r line ; do
         A*)
             # window title
             name=$(xprop -id ${line#?} | awk '/_NET_WM_NAME/{$1=$2="";print}' | cut -d'"' -f2)
-            title="%{F${color_back} B${color_lgreen}} Ô Â %{R}Ú %{F- B- T2} ${name} Ð  "
+            title="%{F${color_back} B${color_lgreen}} %{T2}Â%{R}Ú%{F- B- T-}${name}"
             ;;
     esac
     printf "%s\n" "%{%{l}${title} %{r}$sys_infos%{B-}"
