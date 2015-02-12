@@ -184,22 +184,7 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
+# My bar
 bar {
-  i3bar_command ~/.i3/bar/i3_bar.sh
-#	position bottom
-#	mode hide
-#  modifier Mod4
-#  font $ft
-#	workspace_buttons yes
-#  status_command i3status -c ~/.i3/i3status.conf
-#  colors {
-#    background  $back
-#    statusline  $white
-#    focused_workspace    $yellow    $grey   $white
-#    active_workspace     $yellow    $red    $white
-#    inactive_workspace   $lightgrey $grey   $lightgrey 
-#    urgent_workspace     $red       $yellow $white
-#  }
+  i3bar_command ~/.i3/i3_statusbar
 }

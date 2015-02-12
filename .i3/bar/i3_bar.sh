@@ -36,7 +36,7 @@ done &
 
 # IRC
 # only for init
-$(dirname $0)/irc_warn &
+~/bin/irc_warn &
 
 # Conky
 conky -c $(dirname $0)/i3_bar_conky > "${panel_fifo}" &

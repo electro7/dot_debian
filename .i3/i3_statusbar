@@ -1,0 +1,13 @@
+#!/bin/bash
+#
+# Barra de estado para i3.
+#
+# Depende de la máquina. Pobre manzanita
+
+# Para manzanita (ppc) -> conky básico
+if [ $("hostname") == "manzanita" ];  then
+  exec conky -c ~/.i3/conkyrc &
+# Los demás -> bar
+else
+  exec ~/.i3/bar/i3_bar.sh &
+fi
