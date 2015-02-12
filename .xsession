@@ -39,8 +39,8 @@ xset fp+ $HOME/.fonts/terminesspowerline
 [[ -f $HOME/.fehbg ]] && sh $HOME/.fehbg
 
 # Programas para el i3
-exec conky -c ~/.i3/conkyrc &
-exec nm-applet &
+#exec conky -c ~/.i3/conkyrc &
+#exec nm-applet &
 
 # Notificador
 # Paquete notification-daemon, pero hace falta el xfce4-notifid
