@@ -37,7 +37,7 @@ else
 fi
 
 # Alert sound
-if [ $# -eq 0 ]; then
+if [ $# -gt 0 ]; then
   if [ -x "/usr/bin/aplay" ]; then
     /usr/bin/aplay -q $HOME/.config/sounds/chat.wav &
   fi
