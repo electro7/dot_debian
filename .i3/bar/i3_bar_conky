@@ -68,7 +68,7 @@ ${if_up eth0}\
 %{F\#FF8C9440 T2}Ð%{F\#FFC5C8C6 T-} ${downspeed eth0} \
 %{F\#FF8C9440}  %{T2}Ñ%{F\#FFC5C8C6 T-} ${upspeed eth0} \
 ${else}\
-%{F\#FF1D1F21 T2}Ð%{T-} ${downspeed wlan0}  %{T2}Ñ%{T-} ${upspeed eth0} \
+%{F\#FF1D1F21 T2}Ð%{T-} ${downspeed wlan0}  %{T2}Ñ%{T-} ${upspeed eth0}\
 ${endif}\
 #END
 %{F\#FF4E5459}\
