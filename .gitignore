@@ -34,6 +34,7 @@ downloads/*
 .ICEauthority
 .icons/*
 .lesshst
+.lftp/*
 .local/*
 mail/*
 .mailcheckrc

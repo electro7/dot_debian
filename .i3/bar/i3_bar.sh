@@ -28,6 +28,16 @@ while :; do
   sleep 30s;
 done &
 
+# GMAIL
+while :; do
+  printf "%s%s\n" "GMA" "$(~/bin/gmail.sh)" > "${panel_fifo}"
+  sleep 300s;
+done &
+
+# IRC
+# only for init
+$(dirname $0)/irc_warn &
+
 # Conky
 conky -c $(dirname $0)/i3_bar_conky > "${panel_fifo}" &
 
