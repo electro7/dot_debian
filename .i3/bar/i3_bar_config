@@ -7,11 +7,11 @@ font="-xos4-terminesspowerline-medium-r-normal--12-120-72-72-c-60-iso10646-1,-xo
 # color definitions - Hybrid
 color_back="#FF1D1F21"              # Background
 color_fore="#FFC5C8C6"              # Foreground
-color_sec_b1="#FF16181A"            # Background 1
-color_sec_b2="#FF36393D"            # Background 2
-color_sec_b3="#FF4E5459"            # Background 3
+color_sec_b1="#FF282A2E"            # Background 1
+color_sec_b2="#FF454A4F"            # Background 2
+color_sec_b3="#FF60676E"            # Background 2
 color_gray="#FF373B41"              # gray
-color_lgray="#FF707880"             # light gray
+color_lgray="#FFA1A3A2"             # light gray
 color_dgray="#FF282A2E"             # dark gray
 color_white="#FFC5C8C6"             # white
 color_red="#FFA54242"               # red

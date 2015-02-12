@@ -20,11 +20,11 @@ if_up_strictness address
 # color definitions - Hybrid
 #color_back="#FF1D1F21"              # Background
 #color_fore="#FFC5C8C6"              # Foreground
-#color_sec_b1="#FF16181A"            # Background 1
-#color_sec_b2="#FF36393D"            # Background 2
-#color_sec_b3="#FF4E5459"            # Background 3
+#color_sec_b1="#FF282A2E"            # Background 1
+#color_sec_b2="#FF454A4F"            # Background 2
+#color_sec_b3="#FF60676E"            # Background 3
 #color_gray="#FF373B41"              # gray
-#color_lgray="#FF707880"             # light gray
+#color_lgray="#FFA1A3A2"             # light gray
 #color_dgray="#FF282A2E"             # dark gray
 #color_white="#FFC5C8C6"             # white
 #color_red="#FFA54242"               # red
@@ -44,31 +44,31 @@ TEXT
 SYS\
 # CPU
 ${if_match ${cpu} >= 75}\
-%{F\#FF81A2BE}%{F\#FF1D1F21 B\#FF81A2BE} %{T2}Ï%{T-} ${cpu}%% \
+%{F\#FF81A2BE}%{F\#FF1D1F21 B\#FF81A2BE} %{T2}Ï%{T-} ${cpu}%%  \
 ${else}\
-%{F\#FF4E5459}%{F\#FF8C9440 B\#FF4E5459} %{T2}Ï%{F\#FFC5C8C6 T-} ${cpu}%% \
+%{F\#FF454A4F}%{F\#FFA1A3A2 B\#FF454A4F} %{T2}Ï%{F\#FFC5C8C6 T-} ${cpu}%%  \
 ${endif}\
 # MEM
-%{F\#FF36393D}%{F\#FF8C9440 B\#FF36393D} %{T2}Þ%{F\#FFC5C8C6 T-} ${mem} \
+%{F\#FFA1A3A2} %{F\#FFA1A3A2 T2}Þ%{F\#FFC5C8C6 T-} ${mem}  \
 # DISK /
-%{F\#FF16181A}%{F\#FF8C9440 B\#FF16181A} %{T2}À%{F\#FFC5C8C6 T-} ${fs_used_perc /}%% \
+%{F\#FF282A2E}%{F\#FFA1A3A2 B\#FF282A2E} %{T2}À%{F\#FFC5C8C6 T-} ${fs_used_perc /}%%  \
 # DISK HOME
-%{F\#FF8C9440} %{F\#FF8C9440 T2}Æ%{F\#FFC5C8C6 T-} ${fs_used_perc /home}%% \
+%{F\#FFA1A3A2} %{F\#FFA1A3A2 T2}Æ%{F\#FFC5C8C6 T-} ${fs_used_perc /home}%%  \
 # WLAN
-%{F\#FF36393D}%{B\#FF36393D} \
+%{F\#FF454A4F}%{B\#FF454A4F} \
 ${if_up wlan0}\
-%{F\#FF8C9440 T2}Ð%{F\#FFC5C8C6 T-} ${downspeed wlan0} \
-%{F\#FF8C9440} %{T2}Ñ%{F\#FFC5C8C6 T-} ${upspeed wlan0} \
+%{F\#FFA1A3A2 T2}Ð%{F\#FFC5C8C6 T-} ${downspeed wlan0}  \
+%{F\#FFA1A3A2} %{T2}Ñ%{F\#FFC5C8C6 T-} ${upspeed wlan0}  \
 ${else}\
-%{F\#FF1D1F21 T2}Ð%{T-} ${downspeed wlan0}  %{T2}Ñ%{T-} ${upspeed wlan0} \
+%{F\#FF1D1F21 T2}Ð%{T-} ${downspeed wlan0}   %{T2}Ñ%{T-} ${upspeed wlan0}  \
 ${endif}\
 # ETH0
-%{F\#FF4E5459}%{B\#FF4E5459} \
+%{F\#FF282A2E}%{B\#FF282A2E} \
 ${if_up eth0}\
-%{F\#FF8C9440 T2}Ð%{F\#FFC5C8C6 T-} ${downspeed eth0} \
-%{F\#FF8C9440}  %{T2}Ñ%{F\#FFC5C8C6 T-} ${upspeed eth0} \
+%{F\#FFA1A3A2 T2}Ð%{F\#FFC5C8C6 T-} ${downspeed eth0}  \
+%{F\#FFA1A3A2} %{T2}Ñ%{F\#FFC5C8C6 T-} ${upspeed eth0}  \
 ${else}\
-%{F\#FF1D1F21 T2}Ð%{T-} ${downspeed wlan0}  %{T2}Ñ%{T-} ${upspeed eth0}\
+%{F\#FF1D1F21 T2}Ð%{T-} ${downspeed wlan0}   %{T2}Ñ%{T-} ${upspeed eth0} \
 ${endif}\
 #END
-%{F\#FF4E5459}\
+%{F\#FF282A2E}\
