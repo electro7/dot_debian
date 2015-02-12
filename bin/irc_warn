@@ -1,0 +1,19 @@
+#!/bin/bash
+#
+# IRC highlight warn for weechat
+# Add "/exec -bg ~/bin/irc_warn ${tg_date} ${tg_tag_nick}" in weechat
+# beep trigger
+#
+# -r -> Reset highlight
+
+. ~/.i3/bar/i3_
+FILE=$HOME/.weechat/highlight
+
+if [ "$1" == "-r" ]; then
+  >$FILE
+else
+  echo "$2" "$3" >> $FILE
+  if [ -x "/usr/bin/aplay" ]; then
+    /usr/bin/aplay -q $HOME/.config/sounds/chat.wav
+  fi
+fi
