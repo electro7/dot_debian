@@ -1,28 +1,47 @@
-# i3 panel config
+# i3 panel config. Powelrine style.
 
 panel_fifo="/tmp/i3_bar_${USER}"
 geometry="x14"
 font="-xos4-terminesspowerline-medium-r-normal--12-120-72-72-c-60-iso10646-1,-xos4-terminusicons2mono-medium-r-normal--12-120-72-72-m-60-iso8859-1"
 
-# color definitions - Hybrid
-color_back="#FF1D1F21"              # Background
-color_fore="#FFC5C8C6"              # Foreground
-color_sec_b1="#FF282A2E"            # Background 1
-color_sec_b2="#FF454A4F"            # Background 2
-color_sec_b3="#FF60676E"            # Background 2
-color_gray="#FF373B41"              # gray
-color_lgray="#FFA1A3A2"             # light gray
-color_dgray="#FF282A2E"             # dark gray
-color_white="#FFC5C8C6"             # white
-color_red="#FFA54242"               # red
-color_lred="#FFCC6666"              # light red
-color_green="#FF8C9440"             # green
-color_lgreen="#FFB5BD68"            # light green
-color_orange="#FFCE935F"            # orange
-color_yellow="#FFF0C674"            # yellow
-color_blue="#FF5F819D"              # blue
-color_lblue="#FF81A2BE"             # light blue
-color_magenta="#FF85678F"           # magenta
-color_lmagenta="#FFB294BB"          # light magenta
-color_cyan="#FF5E8D87"              # cyan
-color_lcyan="#FF8ABEB7"             # light cyan
+# Alarm settings
+cpu_alert=75
+net_alert=5.0
+
+# color definitions 
+color_back="#FF1D1F21"              # Default background
+color_fore="#FFC5C8C6"              # Default foreground
+color_head="#FFB5BD68"              # Background for first element
+color_sec_b1="#FF282A2E"            # Background for section 1
+color_sec_b2="#FF454A4F"            # Background for section 2
+color_sec_b3="#FF60676E"            # Background for section 3
+color_icon="#FF979997"              # For icons
+color_mail="#FFCE935F"              # Background color for mail alert
+color_chat="#FFCC6666"              # Background color for chat alert
+color_cpu="#FF5F819D"               # Background color for cpu alert
+color_net="#FF8ABEB7"               # Background color for net alert
+color_disable="#FF1D1F21"           # Foreground for disable elements
+
+#default space between sections
+stab='  '
+
+# Char glyps for powerline fonts
+sep_left=""                        # Powerline separator left
+sep_right=""                       # Powerline separator right
+sep_l_left=""                      # Powerline light separator left
+sep_l_right=""                     # Powerline light sepatator right
+
+# Icon glyphs from Terminusicons2
+icon_clock="Õ"                      # Clock icon
+icon_cpu="Ï"                        # CPU icon
+icon_mem="Þ"                        # MEM icon
+icon_dl="Ð"                         # Download icon
+icon_ul="Ñ"                         # Upload icon
+icon_vol="Ô"                        # Volume icon
+icon_hd="À"                         # HD / icon
+icon_home="Æ"                       # HD /home icon
+icon_mail="Ó"                       # Mail icon
+icon_chat="Ò"                       # IRC/Chat icon
+icon_music="Î"                      # Music icon
+icon_prog="Â"                       # Window icon
+icon_contact="Á"                    # Contact icon

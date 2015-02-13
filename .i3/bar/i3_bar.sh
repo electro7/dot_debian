@@ -21,13 +21,6 @@ while :; do
   sleep 3s;
 done &
 
-# Datetime, "D", "T"
-while :; do
-  printf "%s%s\n" "TIM" "$(date '+%H:%M')" > "${panel_fifo}"
-  printf "%s%s\n" "DAT" "$(date '+%a %d %b')" > "${panel_fifo}"
-  sleep 30s;
-done &
-
 # GMAIL
 while :; do
   printf "%s%s\n" "GMA" "$(~/bin/gmail.sh)" > "${panel_fifo}"
