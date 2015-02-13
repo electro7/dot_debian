@@ -5,8 +5,8 @@ geometry="x14"
 font="-xos4-terminesspowerline-medium-r-normal--12-120-72-72-c-60-iso10646-1,-xos4-terminusicons2mono-medium-r-normal--12-120-72-72-m-60-iso8859-1"
 
 # Alarm settings
-cpu_alert=75
-net_alert=5.0
+cpu_alert=75                        # % cpu use
+net_alert=5                         # K net use
 
 # color definitions 
 color_back="#FF1D1F21"              # Default background
@@ -19,7 +19,7 @@ color_icon="#FF979997"              # For icons
 color_mail="#FFCE935F"              # Background color for mail alert
 color_chat="#FFCC6666"              # Background color for chat alert
 color_cpu="#FF5F819D"               # Background color for cpu alert
-color_net="#FF8ABEB7"               # Background color for net alert
+color_net="#FF5E8D87"               # Background color for net alert
 color_disable="#FF1D1F21"           # Foreground for disable elements
 
 #default space between sections

@@ -1,15 +1,16 @@
-#! /bin/bash
+#!/bin/bash
 #
-# bar input parser for bspwm  Tuesday, 01 July 2014 22:57
+# Input parser for i3 bar
 
 . $(dirname $0)/i3_bar_config
 
 irc_n_high=0
+mpc="%{F${color_sec_b3}}${sep_left}%{F${color_icon} B${color_sec_b3}} %{T2}${icon_music}%{F${color_fore} T-} U2 %{F${color_icon}}${sep_l_left} %{F${color_fore} T-} Crumbs from Your Table"
 
 while read -r line ; do
   case $line in
     SYS*)
-      # conky=, 0 = wday, 1 = mday, 2 = month, 3 = time, 4 = cpu, 5 = mem, 6 = disk /, 7 = disk /home, 8-9 = up/down wlan, 10-11 = up/down eth
+      # conky=, 0 = wday, 1 = mday, 2 = month, 3 = time, 4 = cpu, 5 = mem, 6 = disk /, 7 = disk /home, 8-9 = up/down wlan, 10-11 = up/down eth, 12-13=speed
       sys_arr=(${line#???})
       # date
       date="%{F${color_sec_b1}}${sep_left}%{F${color_icon} B${color_sec_b1}} %{T2}${icon_clock}%{F- T-} ${sys_arr[0]} ${sys_arr[1]} ${sys_arr[2]}"
@@ -33,8 +34,12 @@ while read -r line ; do
         wland_v="×"; wlanu_v="×";
         wlan_cback=${color_sec_b2}; wlan_cicon=${color_disable}; wlan_cfore=${color_disable};
       else
-        wland_v=${sys_arr[8]}; wlanu_v=${sys_arr[9]};
-        wlan_cback=${color_sec_b2}; wlan_cicon=${color_icon}; wlan_cfore=${color_fore};
+        wland_v=${sys_arr[8]}K; wlanu_v=${sys_arr[9]}K;
+        if [ ${wland_v:0:-3} -gt ${net_alert} ] || [ ${wlanu_v:0:-3} -gt ${net_alert} ]; then
+          wlan_cback=${color_net}; wlan_cicon=${color_back}; wlan_cfore=${color_back};
+        else
+          wlan_cback=${color_sec_b2}; wlan_cicon=${color_icon}; wlan_cfore=${color_fore};
+        fi
       fi
       wland="%{F${wlan_cback}}${sep_left}%{F${wlan_cicon} B${wlan_cback}} %{T2}${icon_dl}%{F${wlan_cfore} T-} ${wland_v}"
       wlanu="%{F${wlan_cicon}}${sep_l_left} %{T2}${icon_ul}%{F${wlan_cfore} T-} ${wlanu_v}"
@@ -43,8 +48,12 @@ while read -r line ; do
         ethd_v="×"; ethu_v="×";
         eth_cback=${color_sec_b1}; eth_cicon=${color_disable}; eth_cfore=${color_disable};
       else
-        ethd_v=${sys_arr[10]}; ethu_v=${sys_arr[11]};
-        eth_cback=${color_sec_b1}; eth_cicon=${color_icon}; eth_cfore=${color_fore};
+        ethd_v=${sys_arr[10]}K; ethu_v=${sys_arr[11]}K;
+        if [ ${ethd_v:0:-3} -gt ${net_alert} ] || [ ${ethu_v:0:-3} -gt ${net_alert} ]; then
+          eth_cback=${color_net}; eth_cicon=${color_back}; eth_cfore=${color_back};
+        else
+          eth_cback=${color_sec_b1}; eth_cicon=${color_icon}; eth_cfore=${color_fore};
+        fi
       fi
       ethd="%{F${eth_cback}}${sep_left}%{F${eth_cicon} B${eth_cback}} %{T2}${icon_dl}%{F${eth_cfore} T-} ${ethd_v}"
       ethu="%{F${eth_cicon}}${sep_l_left} %{T2}${icon_ul}%{F${eth_cfore} T-} ${ethu_v}"
@@ -66,7 +75,7 @@ while read -r line ; do
     IRC*)
       # IRC highlight (script irc_warn)
       if [ "${line#???}" != "0" ]; then
-        ((irc_n_high++)); irc_high="${line#???}"; 
+        ((irc_n_high++)); irc_high="${line#???}";
         irc_cback=${color_chat}; irc_cicon=${color_back}; irc_cfore=${color_back}
       else
         irc_n_high=0; [ -z "${irc_high}" ] && irc_high="none";
@@ -77,10 +86,10 @@ while read -r line ; do
     WIN*)
       # window title
       win=$(xprop -id ${line#???} | awk '/_NET_WM_NAME/{$1=$2="";print}' | cut -d'"' -f2)
-      title="%{F${color_back} B${color_head}}%{T2}${icon_prog}%{R}${sep_right}%{F- B- T-} ${win}"
+      title="%{F${color_back} B${color_head}} 1 %{R}${sep_right} 2 %{R}${sep_right} 3 %{T2}${icon_prog}%{R}${sep_right}%{F- B- T-} ${win}"
       ;;
   esac
 
   # And finally, output
-  printf "%s\n" "%{l}${title} %{r}${irc}${stab}${gmail}${stab}${cpu}${stab}${mem}${stab}${diskr}${stab}${diskh}${stab}${wland}${stab}${wlanu}${stab}${ethd}${stab}${ethu}${stab}${vol}${stab}${date}${stab}${time}"
+  printf "%s\n" "%{l}${title} %{r}${mpc}${stab}${irc}${stab}${gmail}${stab}${cpu}${stab}${mem}${stab}${diskr}${stab}${diskh}${stab}${wland}${stab}${wlanu}${stab}${ethd}${stab}${ethu}${stab}${vol}${stab}${date}${stab}${time}"
 done
