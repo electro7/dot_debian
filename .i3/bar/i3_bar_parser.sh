@@ -5,7 +5,6 @@
 . $(dirname $0)/i3_bar_config
 
 irc_n_high=0
-mpc="%{F${color_sec_b3}}${sep_left}%{F${color_icon} B${color_sec_b3}} %{T2}${icon_music}%{F${color_fore} T-} U2 %{F${color_icon}}${sep_l_left} %{F${color_fore} T-} Crumbs from Your Table"
 
 while read -r line ; do
   case $line in
@@ -83,10 +82,14 @@ while read -r line ; do
       fi
       irc="%{F${irc_cback}}${sep_left}%{F${irc_cicon} B${irc_cback}} %{T2}${icon_chat}%{F${irc_cfore} T-} ${irc_n_high} %{F${irc_cicon}}${sep_l_left} %{T2}${icon_contact}%{F${irc_cfore} T-} ${irc_high}"
       ;;
+    MPC*)
+      # Music
+      mpc="%{F${color_sec_b3}}${sep_left}%{F${color_icon} B${color_sec_b3}} %{T2}${icon_music}%{F${color_fore} T-}  ${line#???}"
+      ;;
     WIN*)
       # window title
       win=$(xprop -id ${line#???} | awk '/_NET_WM_NAME/{$1=$2="";print}' | cut -d'"' -f2)
-      title="%{F${color_back} B${color_head}} 1 %{R}${sep_right} 2 %{R}${sep_right} 3 %{T2}${icon_prog}%{R}${sep_right}%{F- B- T-} ${win}"
+      title="%{F${color_back} B${color_head}} %{T2}${icon_prog}%{R}${sep_right}%{F- B- T-} ${win}"
       ;;
   esac
 

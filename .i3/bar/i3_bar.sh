@@ -27,6 +27,12 @@ while :; do
   sleep 300s;
 done &
 
+#MPC
+#while :; do
+#  printf "%s%s\n" "MPC" "$(mpc current -f '[[[[%artist%]%title%]]|[%file%]]' | head -c 75)" > "${panel_fifo}"
+#  sleep 10s;
+#done &
+
 # IRC
 # only for init
 ~/bin/irc_warn &
