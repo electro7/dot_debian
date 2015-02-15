@@ -4,13 +4,15 @@
 
 ! XFT - Fuentes
 !----------------------------------------------------------------------
+
 Xft.dpi: 96
 Xft.antialias: 1
 Xft.rgba: rgb
 Xft.autohint: 0
-!Xft.hinting:     1
-!Xft.hintstyle:   hintfull
-!Xft.lcdfilter:	  lcddefault
+Xft.lcdfilter: lcddefault
+Xft.hinting: 1
+Xft.hintstyle: hintfull
+
 Xcursor.theme:	 Neutral
 *font: -xos4-terminesspowerline-medium-r-normal--12-120-72-72-c-60-iso10646-1
 
@@ -35,11 +37,18 @@ URxvt.colorUL: #81A2BE
 ! a tamaño 12.
 ! Uso el Inconsolata normal, con resguardo de terminespowerline y asi
 ! funcionan. :)
+
 URxvt.letterSpace: -2
 URxvt.font: xft:Inconsolata:size=10, -xos4-terminesspowerline-medium-r-normal--12-120-72-72-c-60-iso10646-1
 URxvt.boldFont: xft:Inconsolata:size=10, -xos4-terminesspowerline-medium-r-normal--12-120-72-72-c-60-iso10646-1
 URxvt.italicFont: xft:Inconsolata:size=10, -xos4-terminesspowerline-medium-r-normal--12-120-72-72-c-60-iso10646-1
 URxvt.boldItalicFont: xft:Inconsolata:size=10, -xos4-terminesspowerline-medium-r-normal--12-120-72-72-c-60-iso10646-1
+
+!URxvt.letterSpace: -1
+!URxvt*font: xft:inconsolata for Powerline:size=10
+!URxvt*boldFont: xft:inconsolata for Powerline:size=10
+!URxvt*italicFont: xft:inconsolata for Powerline:size=10
+!URxvt*bolditalicFont: xft:inconsolata for Powerline:size=10
 
 !URxvt*font: xft:terminus:hinting=true:pixelsize=12:antialias=false, -xos4-terminesspowerline-medium-r-normal--12-120-72-72-c-60-iso10646-1
 !URxvt*boldFont: xft:terminus:style=bold:hinting=true:pixelsize=12:antialias=false, -xos4-terminesspowerline-medium-r-normal--12-120-72-72-c-60-iso10646-1
@@ -56,16 +65,16 @@ URxvt*mouseWheelScrollPage: true
 ! Extensions ~/.urxvt./ext
 URxvt.perl-ext-common: default,clipboard,keyboard-select,url-select
 ! Clipboard
-URxvt.keysym.M-S-C: perl:clipboard:copy
-URxvt.keysym.M-S-V: perl:clipboard:paste
-URxvt.keysym.M-S-W: perl:clipboard:paste_escaped
+URxvt.keysym.C-S-C: perl:clipboard:copy
+URxvt.keysym.C-S-V: perl:clipboard:paste
+URxvt.keysym.C-S-W: perl:clipboard:paste_escaped
 URxvt.clipboard.copycmd:  xsel -ib
 URxvt.clipboard.pastecmd: xsel -ob
 ! Keyboard-select
-URxvt.keysym.M-Escape: perl:keyboard-select:activate
-URxvt.keysym.M-S-S: perl:keyboard-select:search
+URxvt.keysym.C-Escape: perl:keyboard-select:activate
+URxvt.keysym.C-S-S: perl:keyboard-select:search
 ! Url-select
-URxvt.keysym.M-S-U: perl:url-select:select_next
+URxvt.keysym.C-S-U: perl:url-select:select_next
 URxvt.url-select.autocopy: true
 URxvt.url-select.button: 1
 URxvt.url-select.launcher: /usr/bin/firefox
