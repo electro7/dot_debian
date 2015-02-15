@@ -4,12 +4,13 @@
 
 ! XFT - Fuentes
 !----------------------------------------------------------------------
-!Xft.dpi: 		    96
-Xft.antialias:  true
-Xft.rgba:       rgb
-!Xft.hinting:    true
-!Xft.hintstyle:  hintslight
-!Xft.lcdfilter:	 lcddefault
+Xft.dpi: 96
+Xft.antialias: 1
+Xft.rgba: rgb
+Xft.autohint: 0
+!Xft.hinting:     1
+!Xft.hintstyle:   hintfull
+!Xft.lcdfilter:	  lcddefault
 Xcursor.theme:	 Neutral
 *font: -xos4-terminesspowerline-medium-r-normal--12-120-72-72-c-60-iso10646-1
 
@@ -19,6 +20,7 @@ Xcursor.theme:	 Neutral
 !#include "/home/electro7/.config/termcolours/hybrid"
 !#include "/home/electro7/.config/termcolours/base16-solarized.light"
 #include "/home/electro7/.config/termcolours/hybrid_e7"
+!#include "/home/electro7/.config/termcolours/s3r0"
 
 ! URXVT
 !----------------------------------------------------------------------
@@ -38,8 +40,14 @@ URxvt.font: xft:Inconsolata:size=10, -xos4-terminesspowerline-medium-r-normal--1
 URxvt.boldFont: xft:Inconsolata:size=10, -xos4-terminesspowerline-medium-r-normal--12-120-72-72-c-60-iso10646-1
 URxvt.italicFont: xft:Inconsolata:size=10, -xos4-terminesspowerline-medium-r-normal--12-120-72-72-c-60-iso10646-1
 URxvt.boldItalicFont: xft:Inconsolata:size=10, -xos4-terminesspowerline-medium-r-normal--12-120-72-72-c-60-iso10646-1
+
+!URxvt*font: xft:terminus:hinting=true:pixelsize=12:antialias=false, -xos4-terminesspowerline-medium-r-normal--12-120-72-72-c-60-iso10646-1
+!URxvt*boldFont: xft:terminus:style=bold:hinting=true:pixelsize=12:antialias=false, -xos4-terminesspowerline-medium-r-normal--12-120-72-72-c-60-iso10646-1
+!URxvt*italicFont: xft:terminus:style=italic:hinting=true:pixelsize=12:antialias=false, -xos4-terminesspowerline-medium-r-normal--12-120-72-72-c-60-iso10646-1
+!URxvt*boldItalicFont: xft:terminus:style=bolditalic:hinting=true:pixelsize=12:antialias=false, -xos4-terminesspowerline-medium-r-normal--12-120-72-72-c-60-iso10646-1
+
 ! Varios
-URxvt.depth: 24
+URxvt.depth: 32
 URxvt*scrollBar: false
 URxvt.urgentOnBell: True
 URxvt.visualBell: False
