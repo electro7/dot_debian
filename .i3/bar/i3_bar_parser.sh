@@ -91,13 +91,29 @@ while read -r line ; do
       # Music
       mpc="%{F${color_sec_b3}}${sep_left}%{F${color_icon} B${color_sec_b3}} %{T2}${icon_music}%{F${color_fore} T-}  ${line#???}"
       ;;
+    WSP*)
+      # I3 Workspaces
+      wsp="%{F${color_back} B${color_head}} %{T2}${icon_wsp}${T-}"
+      set -- ${line#???}
+      while [ $# -gt 0 ] ; do
+        case $1 in
+         FOC*)
+           wsp="${wsp}%{F${color_head} B${color_wsp}}${sep_right}%{F${color_back} B${color_wsp}} ${1#???}%{F${color_wsp} B${color_head}}${sep_right}"
+           ;;
+         INA*|URG*|ACT*)
+           wsp="${wsp} ${1#???}"
+           ;;
+        esac
+        shift
+      done
+      ;;
     WIN*)
       # window title
       title=$(xprop -id ${line#???} | awk '/_NET_WM_NAME/{$1=$2="";print}' | cut -d'"' -f2)
-      title="%{F${color_back} B${color_head}} %{T2}${icon_prog}%{R}${sep_right}%{F- B- T-} ${title}"
+      title="%{F${color_sec_b2}}${sep_right}%{F${color_icon} B${color_sec_b2} %{T2}${icon_prog}%{R}${sep_right}%{F- B- T-} ${title}"
       ;;
   esac
 
   # And finally, output
-  printf "%s\n" "%{l}${title} %{r}${mpc}${stab}${irc}${stab}${gmail}${stab}${cpu}${stab}${mem}${stab}${diskr}${stab}${diskh}${stab}${wland}${stab}${wlanu}${stab}${ethd}${stab}${ethu}${stab}${vol}${stab}${date}${stab}${time}"
+  printf "%s\n" "%{l}${wsp}${title} %{r}${mpc}${stab}${irc}${stab}${gmail}${stab}${cpu}${stab}${mem}${stab}${diskr}${stab}${diskh}${stab}${wland}${stab}${wlanu}${stab}${ethd}${stab}${ethu}${stab}${vol}${stab}${date}${stab}${time}"
 done

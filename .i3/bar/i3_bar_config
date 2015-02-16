@@ -23,6 +23,7 @@ color_chat="#FFCC6666"              # Background color for chat alert
 color_cpu="#FF5F819D"               # Background color for cpu alert
 color_net="#FF5E8D87"               # Background color for net alert
 color_disable="#FF1D1F21"           # Foreground for disable elements
+color_wsp="#FF8C9440"               # Background for selected workspace
 
 #default space between sections
 if [ ${res_w} -gt 1024 ]; then
@@ -51,3 +52,4 @@ icon_chat="Ò"                       # IRC/Chat icon
 icon_music="Î"                      # Music icon
 icon_prog="Â"                       # Window icon
 icon_contact="Á"                    # Contact icon
+icon_wsp="É"                        # Workspace icon

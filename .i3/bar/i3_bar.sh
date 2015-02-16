@@ -12,16 +12,20 @@ trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
 [ -e "${panel_fifo}" ] && rm "${panel_fifo}"
 mkfifo "${panel_fifo}"
 
-# Window title, "W"
+# Window title, "WIN"
 xprop -spy -root _NET_ACTIVE_WINDOW | sed -un 's/.*\(0x.*\)/WIN\1/p' > "${panel_fifo}" &
 
-# Volume, "V"
+# i3 Workspaces, "WSP"
+# TODO : Restarting I3 breaks the IPC socket con. :(
+$(dirname $0)/i3_workspaces.py > "${panel_fifo}" &
+
+# Volume, "VOL"
 while :; do
   amixer get Master | grep Left | awk -F'[]%[]' '/%/ {if ($5 == "off") {print "VOL×\n"} else {printf "VOL%d\n", $2}}' > "${panel_fifo}" &
   sleep 3s;
 done &
 
-# GMAIL
+# GMAIL, "GMA"
 while :; do
   printf "%s%s\n" "GMA" "$(~/bin/gmail.sh)" > "${panel_fifo}"
   sleep 300s;
@@ -33,11 +37,11 @@ done &
 #  sleep 10s;
 #done &
 
-# IRC
+# IRC, "IRC"
 # only for init
 ~/bin/irc_warn &
 
-# Conky
+# Conky, "SYS"
 conky -c $(dirname $0)/i3_bar_conky > "${panel_fifo}" &
 
 $(dirname $0)/i3_bar_parser.sh < "${panel_fifo}" \

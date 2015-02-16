@@ -2,7 +2,7 @@
 # out simple text to console
 
 background no
-update_interval 1
+update_interval 2
 total_run_times 0
 override_utf8_locale yes
 short_units yes
