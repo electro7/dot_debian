@@ -1,8 +1,10 @@
-# i3 panel config. Powelrine style.
+#!\bin\bash
+# i3 panel config. Powerline style.
 
 panel_fifo="/tmp/i3_bar_${USER}"
 geometry="x14"
 font="-xos4-terminesspowerline-medium-r-normal--12-120-72-72-c-60-iso10646-1,-xos4-terminusicons2mono-medium-r-normal--12-120-72-72-m-60-iso8859-1"
+res_w=$(xrandr | grep "current" | awk '{print $8a}')
 
 # Alarm settings
 cpu_alert=75                        # % cpu use
@@ -23,7 +25,7 @@ color_net="#FF5E8D87"               # Background color for net alert
 color_disable="#FF1D1F21"           # Foreground for disable elements
 
 #default space between sections
-stab='  '
+[ ${res_w} -gt 1024 ] && stab='  '
 
 # Char glyps for powerline fonts
 sep_left=""                        # Powerline separator left

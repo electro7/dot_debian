@@ -12,7 +12,12 @@ while read -r line ; do
       # conky=, 0 = wday, 1 = mday, 2 = month, 3 = time, 4 = cpu, 5 = mem, 6 = disk /, 7 = disk /home, 8-9 = up/down wlan, 10-11 = up/down eth, 12-13=speed
       sys_arr=(${line#???})
       # date
-      date="%{F${color_sec_b1}}${sep_left}%{F${color_icon} B${color_sec_b1}} %{T2}${icon_clock}%{F- T-} ${sys_arr[0]} ${sys_arr[1]} ${sys_arr[2]}"
+      if [ ${res_w} -gt 1024 ]; then
+        date="${sys_arr[0]} ${sys_arr[1]} ${sys_arr[2]}"
+      else
+        date="${sys_arr[1]} ${sys_arr[2]}"
+      fi
+      date="%{F${color_sec_b1}}${sep_left}%{F${color_icon} B${color_sec_b1}} %{T2}${icon_clock}%{F- T-} ${date}"
       # time
       time="%{F${color_head}}${sep_left}%{F${color_back} B${color_head}} ${sys_arr[3]} %{F- B-}"
       # cpu
@@ -63,13 +68,13 @@ while read -r line ; do
       ;;
     GMA*)
       # Gmail
-      n_mail="${line#???}"
-      if [ "${n_mail}" != "0" ]; then
+      gmail="${line#???}"
+      if [ "${gmail}" != "0" ]; then
         mail_cback=${color_mail}; mail_cicon=${color_back}; mail_cfore=${color_back}
       else
         mail_cback=${color_sec_b1}; mail_cicon=${color_icon}; mail_cfore=${color_fore}
       fi
-      gmail="%{F${mail_cback}}${sep_left}%{F${mail_cicon} B${mail_cback}} %{T2}${icon_mail}%{F${mail_cfore} T-} ${n_mail}"
+      gmail="%{F${mail_cback}}${sep_left}%{F${mail_cicon} B${mail_cback}} %{T2}${icon_mail}%{F${mail_cfore} T-} ${gmail}"
       ;;
     IRC*)
       # IRC highlight (script irc_warn)
@@ -88,8 +93,8 @@ while read -r line ; do
       ;;
     WIN*)
       # window title
-      win=$(xprop -id ${line#???} | awk '/_NET_WM_NAME/{$1=$2="";print}' | cut -d'"' -f2)
-      title="%{F${color_back} B${color_head}} %{T2}${icon_prog}%{R}${sep_right}%{F- B- T-} ${win}"
+      title=$(xprop -id ${line#???} | awk '/_NET_WM_NAME/{$1=$2="";print}' | cut -d'"' -f2)
+      title="%{F${color_back} B${color_head}} %{T2}${icon_prog}%{R}${sep_right}%{F- B- T-} ${title}"
       ;;
   esac
 
