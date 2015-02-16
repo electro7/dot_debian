@@ -25,7 +25,11 @@ color_net="#FF5E8D87"               # Background color for net alert
 color_disable="#FF1D1F21"           # Foreground for disable elements
 
 #default space between sections
-[ ${res_w} -gt 1024 ] && stab='  '
+if [ ${res_w} -gt 1024 ]; then
+  stab='  '
+else
+  stab=' '
+fi
 
 # Char glyps for powerline fonts
 sep_left=""                        # Powerline separator left
