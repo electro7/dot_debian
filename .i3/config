@@ -1,7 +1,7 @@
-# i3 config file (v4.2)
+# i3 config file (v4.8)
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
-# 02 ene 2015 - E7
+# 17 feb 2015 - E7
 
 #.......
 # Font
@@ -10,15 +10,16 @@
 #set $ft xft:DroidSans:size=8
 #set $ft pango:Inconsolata:size=8
 #set $ft -xos4-terminesspowerline-medium-r-normal--12-120-72-72-c-60-iso10646-1
-set $ft -misc-ohsnap-medium-r-normal--11-79-100-100-c-60-iso8859-1
-font $ft
+font pango:Droid Sans 8
+set $ft terminus12
+#font $ft
 
 #..........
 # Look
 #..........
 
-new_window 1pixel
-new_float 1pixel
+new_window pixel 2
+new_float pixel 2
 
 # Hybrid colors
 set $back               #1d1F21
@@ -42,33 +43,42 @@ client.background       $back
 # Applications
 #..........
 
+# Using bindcode for compatibility
+
 # Principal mod key (Super = Win key)
 # mod1 = Alt (xmodmap to show)
 # mod4 = Winkey (xmodmap to show)
 set $mod Mod4
+
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-bindsym $mod+Return exec urxvt    # terminal
-bindsym $mod+Mod1+a exec lxappearance  # Color picker
-bindsym $mod+Mod1+g exec gcolor2  # Color picker
-bindsym $mod+Mod1+h exec ~/.i3/i3_focus_or_run.sh -t htop ~/bin/terminal htop
-bindsym $mod+Mod1+i exec ~/.i3/i3_focus_or_run.sh -t weechat ~/bin/terminal weechat
-bindsym $mod+Mod1+m exec ~/.i3/i3_focus_or_run.sh -c iceweasel iceweasel
-bindsym $mod+Mod1+t exec ~/.i3/i3_focus_or_run.sh -t mldonkey ~/bin/terminal mldonkey
-
-# start dmenu (a program launcher)
-bindsym $mod+x exec dmenu_run -fn "$ft" -nb "$back" -nf "$white" -sb "$yellow" -sf "$black"
+# Terminal (mod+Enter)
+bindcode $mod+36 exec urxvt
+# GTK Theme sector (mod+winkey+a)
+bindcode $mod+Mod1+38 exec lxappearance 
+# Color picker (mod+winkey+g)
+bindcode $mod+Mod1+42 exec gcolor2
+# htop (mod+winkey+h)
+bindcode $mod+Mod1+43 exec ~/.i3/i3_focus_or_run.sh -t htop ~/bin/terminal htop
+# weechat (mod+winkey+i)
+bindcode $mod+Mod1+31 exec ~/.i3/i3_focus_or_run.sh -t weechat ~/bin/terminal weechat
+# iceweasel (mod+winkey+m)
+bindcode $mod+Mod1+58 exec ~/.i3/i3_focus_or_run.sh -c iceweasel iceweasel
+# mldonky (mod+winkey+t)
+bindcode $mod+Mod1+28 exec ~/.i3/i3_focus_or_run.sh -t mldonkey ~/bin/terminal mldonkey
+# start dmenu (mod+x)
+bindcode $mod+53 exec dmenu_run -fn "$ft" -nb "$back" -nf "$white" -sb "$yellow" -sf "$black"
 
 # Media keys
 # En Manzanita ya lo hace solo el pbbuttons
-#bindsym XF86AudioRaiseVolume exec --no-startud-id "amixer sset Master 5%+"
-#bindsym XF86AudioLowerVolume exec --no-startud-id "amixer sset Master 5%-"
-#bindsym XF86AudioMute exec --no-startud-id "amixer -q sset Master toggle"
-#bindsym XF86AudioPlay exec ncmpcpp toggle
-#bindsym XF86AudioStop exec ncmpcpp stop
-#bindsym XF86AudioPrev exec ncmpcpp prev
-#bindsym XF86AudioNext exec ncmpcpp next
+#bindcode 123 exec --no-startud-id "amixer sset Master 5%+"
+#bindcode 122 exec --no-startud-id "amixer sset Master 5%-"
+#bindcode 121 exec --no-startud-id "amixer -q sset Master toggle"
+#bindcode XF86AudioPlay exec ncmpcpp toggle
+#bindcode XF86AudioStop exec ncmpcpp stop
+#bindcode XF86AudioPrev exec ncmpcpp prev
+#bindcode XF86AudioNext exec ncmpcpp next
 
 #assign application to workspace
 #assign [class="Iceweasel"] → 2
@@ -89,77 +99,86 @@ for_window [class="(?i)lxappearance"] floating enable
 #...........
 # Keybinds i3
 #...........
-# kill focused window
-bindsym $mod+q kill
 
-# alternatively, you can use the cursor keys:
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
+# kill focused window (mod+q)
+bindcode $mod+24 kill
 
-# move focused window
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
+# Cursor key for focus
+bindcode $mod+113 focus left
+bindcode $mod+116 focus down
+bindcode $mod+111 focus up
+bindcode $mod+114 focus right
 
-# split in horizontal orientation
-bindsym $mod+h split h
-bindsym $mod+Mod1+Left split h
-bindsym $mod+Mod1+Right split h
+# Shitf+cursor for move windows
+bindcode $mod+Shift+113 move left
+bindcode $mod+Shift+116 move down
+bindcode $mod+Shift+111 move up
+bindcode $mod+Shift+114 move right
 
-# split in vertical orientation
-bindsym $mod+v split v
-bindsym $mod+Mod1+Up split v
-bindsym $mod+Mod1+Down split v
+# split in horizontal orientation (mod+h)
+bindcode $mod+43 split h
+bindcode $mod+Mod1+113 split h
+bindcode $mod+Mod1+114 split h
 
-# enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen
+# split in vertical orientation (mod+v)
+bindcode $mod+55 split v
+bindcode $mod+Mod1+116 split v
+bindcode $mod+Mod1+111 split v
 
-# change container layout (stacked, tabbed, default)
-bindsym $mod+s layout stacking
-bindsym $mod+t layout tabbed
-bindsym $mod+d layout default
-bindsym $mod+w layout toggle split
+# enter fullscreen mode for the focused container (mod+f)
+bindcode $mod+41 fullscreen
 
-# toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
-bindsym $mod+Mod1+space floating toggle
+# change container layout (stacked (mod+s), tabbed (mod+t), default(mod+e))
+bindcode $mod+39 layout stacking
+bindcode $mod+28 layout tabbed
+bindcode $mod+40 layout default
+bindcode $mod+25 layout toggle split
 
-# change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+# toggle tiling / floating (mod+shitf+space)
+bindcode $mod+Shift+65 floating toggle
+bindcode $mod+Mod1+65 floating toggle
 
-# focus the parent container
-bindsym $mod+a focus parent
+# change focus between tiling / floating windows (mod+space)
+bindcode $mod+65 focus mode_toggle
+
+# focus the parent container (mod+a)
+bindcode $mod+38 focus parent
 
 # focus the child container
-bindsym $mod+z focus child
+bindcode $mod+52 focus child (mod+z)
 
 # switch to workspace
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
-bindsym $mod+5 workspace 5
-bindsym $mod+6 workspace 6
+bindcode $mod+10 workspace 1
+bindcode $mod+11 workspace 2
+bindcode $mod+12 workspace 3
+bindcode $mod+13 workspace 4
+bindcode $mod+14 workspace 5
+bindcode $mod+15 workspace 6
+bindcode $mod+16 workspace 7
+bindcode $mod+17 workspace 8
+bindcode $mod+18 workspace 9
+bindcode $mod+19 workspace 10
 
 # move focused container to workspace
-bindsym $mod+Shift+exclam move container to workspace 1
-bindsym $mod+Shift+quotedbl move container to workspace 2
-bindsym $mod+Shift+periodcentered move container to workspace 3
-bindsym $mod+Shift+dollar move container to workspace 4
-bindsym $mod+Shift+percent move container to workspace 5
-bindsym $mod+Shift+ampersand move container to workspace 6
+bindcode $mod+Shift+10 move container to workspace 1
+bindcode $mod+Shift+11 move container to workspace 2
+bindcode $mod+Shift+12 move container to workspace 3
+bindcode $mod+Shift+13 move container to workspace 4
+bindcode $mod+Shift+14 move container to workspace 5
+bindcode $mod+Shift+15 move container to workspace 6
+bindcode $mod+Shift+16 move container to workspace 7
+bindcode $mod+Shift+17 move container to workspace 8
+bindcode $mod+Shift+18 move container to workspace 9
+bindcode $mod+Shift+19 move container to workspace 10
 
-# reload the configuration file
-bindsym $mod+Shift+C reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+R restart
-# exit i3 (logs you out of your X session)
-#bindsym $mod+Shift+E exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+# reload the configuration file (mod+shitf+c)
+bindcode $mod+Shift+54 reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3) (mod+shitf+r)
+bindcode $mod+Shift+27 restart
+# exit i3 (logs you out of your X session) (mod+shitf+e)
+#bindcode $mod+Shift+26 exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
-# resize window (you can also use the mouse for that)
+# resize window (you can also use the mouse for that) (mod+r)
 mode "resize" {
   # These bindings trigger as soon as you enter the resize mode
 
@@ -167,22 +186,22 @@ mode "resize" {
   # Pressing right will grow the window’s width.
   # Pressing up will shrink the window’s height.
   # Pressing down will grow the window’s height.
-  bindsym h resize shrink width 10 px or 10 ppt
-  bindsym j resize grow height 10 px or 10 ppt
-  bindsym k resize shrink height 10 px or 10 ppt
-  bindsym l resize grow width 10 px or 10 ppt
+  bindcode 44 resize shrink width 10 px or 10 ppt
+  bindcode 45 resize grow height 10 px or 10 ppt
+  bindcode 46 resize shrink height 10 px or 10 ppt
+  bindcode 47 resize grow width 10 px or 10 ppt
 
   # same bindings, but for the arrow keys
-  bindsym Right resize shrink width 1 px or 1 ppt
-  bindsym Left resize grow width 1 px or 1 ppt
-  bindsym Up resize grow height 1 px or 1 ppt
-  bindsym Down resize shrink height 1 px or 1 ppt
+  bindcode 113 resize shrink width 1 px or 1 ppt
+  bindcode 116 resize grow height 1 px or 1 ppt
+  bindcode 111 resize shrink height 1 px or 1 ppt
+  bindcode 114 resize grow width 1 px or 1 ppt
 
   # back to normal: Enter or Escape
-  bindsym Return mode "default"
-  bindsym Escape mode "default"
+  bindcode 36 mode "default"
+  bindcode 9 mode "default"
 }
-bindsym $mod+r mode "resize"
+bindcode $mod+27 mode "resize"
 
 # My bar
 bar {
