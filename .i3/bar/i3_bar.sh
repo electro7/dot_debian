@@ -1,4 +1,6 @@
 #! /bin/bash
+#
+# I3 bar with https://github.com/LemonBoy/bar
 
 . $(dirname $0)/i3_bar_config
 
@@ -17,11 +19,12 @@ xprop -spy -root _NET_ACTIVE_WINDOW | sed -un 's/.*\(0x.*\)/WIN\1/p' > "${panel_
 
 # i3 Workspaces, "WSP"
 # TODO : Restarting I3 breaks the IPC socket con. :(
-$(dirname $0)/i3_workspaces.py > "${panel_fifo}" &
+#$(dirname $0)/i3_workspaces.py > "${panel_fifo}" &
+$(dirname $0)/i3_workspaces.pl > "${panel_fifo}" &
 
 # Volume, "VOL"
 while :; do
-  amixer get Master | grep Left | awk -F'[]%[]' '/%/ {if ($5 == "off") {print "VOL×\n"} else {printf "VOL%d\n", $2}}' > "${panel_fifo}" &
+  amixer get Master | grep Left | awk -F'[]%[]' '/%/ {if ($5 == "off") {print "VOL×\n"} else {printf "VOL%d%%\n", $2}}' > "${panel_fifo}" &
   sleep 3s;
 done &
 
@@ -44,6 +47,7 @@ done &
 # Conky, "SYS"
 conky -c $(dirname $0)/i3_bar_conky > "${panel_fifo}" &
 
+# Loop fifo
 $(dirname $0)/i3_bar_parser.sh < "${panel_fifo}" \
   | bar -p -f "${font}" -g "${geometry}" -B "${color_back}" -F "${color_fore}" \
   | while read line; do eval "$line"; done &

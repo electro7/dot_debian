@@ -10,7 +10,7 @@
 #set $ft xft:DroidSans:size=8
 #set $ft pango:Inconsolata:size=8
 #set $ft -xos4-terminesspowerline-medium-r-normal--12-120-72-72-c-60-iso10646-1
-font pango:Droid Sans 8
+font pango:Terminus 8
 set $ft terminus12
 #font $ft
 
@@ -205,5 +205,5 @@ bindcode $mod+27 mode "resize"
 
 # My bar
 bar {
-  i3bar_command ~/.i3/i3_statusbar
+  i3bar_command ~/.i3/bar/i3_bar.sh
 }

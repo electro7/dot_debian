@@ -1,11 +1,16 @@
 #!/bin/bash
 #
 # Input parser for i3 bar
+# 17 feb 2015 - Electro7
 
+# config
 . $(dirname $0)/i3_bar_config
 
+# min init
 irc_n_high=0
+title="%{F${color_head} B${color_sec_b2}}${sep_right}%{F${color_head} B${color_sec_b2}%{T2} ${icon_prog} %{F${color_sec_b2} B-}${sep_right}%{F- B- T-}"
 
+# parser
 while read -r line ; do
   case $line in
     SYS*)
@@ -64,7 +69,7 @@ while read -r line ; do
       ;;
     VOL*)
       # Volume
-      vol="%{F${color_sec_b2}}${sep_left}%{F${color_icon} B${color_sec_b2}} %{T2}${icon_vol}%{F- T-} ${line#???}%%"
+      vol="%{F${color_sec_b2}}${sep_left}%{F${color_icon} B${color_sec_b2}} %{T2}${icon_vol}%{F- T-} ${line#???}"
       ;;
     GMA*)
       # Gmail
