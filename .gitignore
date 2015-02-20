@@ -68,3 +68,6 @@ tmp/*
 .xscreensaver
 .xsel.log
 .xsession-*
+.zprezto/*
+.zcompdump
+.zhistory
