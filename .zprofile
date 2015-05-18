@@ -1,1 +1,0 @@
-/home/electro7/.zprezto/runcoms/zprofile
