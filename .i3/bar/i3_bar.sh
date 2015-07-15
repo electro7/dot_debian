@@ -49,7 +49,7 @@ conky -c $(dirname $0)/i3_bar_conky > "${panel_fifo}" &
 
 # Loop fifo
 $(dirname $0)/i3_bar_parser.sh < "${panel_fifo}" \
-  | bar -p -f "${font}" -g "${geometry}" -B "${color_back}" -F "${color_fore}" \
+  | lemonbar -p -f "${font}" -f "${iconfont}" -g "${geometry}" -B "${color_back}" -F "${color_fore}" \
   | while read line; do eval "$line"; done &
 
 wait
