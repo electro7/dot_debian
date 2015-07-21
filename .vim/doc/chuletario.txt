@@ -28,6 +28,7 @@ CONTENIDO                                                 *chuleta_contenido*
   - Debian en Powerbook                             |chuleta_powerbook|
   - Versionitis con GIT                             |chuleta_git|
   - Instalando fuentes                              |chuleta_checkinstall|
+  - Instalando Linux en SSD                         |disco_ssd|
 
 ==============================================================================
 ==============================================================================
@@ -643,5 +644,30 @@ CHECKINSTALL                                          *chuleta_checkinstall*
 - checkinstall -D <make install> ~
   Creará el .deb y lo instalará. En el proceso preguntará por ciertos datos
   para incluir en el paquete, como las dependencias.
+
+==============================================================================
+DISCO SSD                                                     *disco_ssd*
+
+Consejos para instalar linux en unidad SSD:
+
+- Crear partición separada para /home y /var en disco duro normal.
+
+- Instalar el sistema en /. En las opciones de {/etc/fstab} añadir "discard" y
+  "noatime". Esto hace que el sistema ext4 tenga soporte para el TRIM en esa
+  partición.
+>
+  /dev/sda2   ext4 discard,noatime,errors=remount-ro 0 1
+
+- En vez de usar el "discard" en el {/etc/fstab} podemos optar por ejecutar
+  cada día un "fstrim -v /" añadiendo un script al cron.daily.
+
+- Para los archivos temporales en {/tmp}, editar el {/etc/default/tmpfs} y
+  poner el "RAMTMP" a "yes", luego añadir la siguiente línea al {/etc/fstab}
+>
+  tmpfs /tmp tmpfs noatime,nodiratime,nodev,nosuid,mode=1777,defaults 0 0
+<
+  De esta manera se usa un RAMDISK para el /tmp.
+
+
 
 vim:tw=78:ts=8:wrap:ft=help:norl:
