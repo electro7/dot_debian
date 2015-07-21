@@ -1,4 +1,4 @@
-﻿*chuletario.txt*  Chuletario personal     Last change: 23 ene 2015
+﻿*chuletario.txt*  Chuletario personal     Last change: 21 jul 2015 
 
 chuletario                                              *chuletario* *chuleta*
 
@@ -29,6 +29,7 @@ CONTENIDO                                                 *chuleta_contenido*
   - Versionitis con GIT                             |chuleta_git|
   - Instalando fuentes                              |chuleta_checkinstall|
   - Instalando Linux en SSD                         |disco_ssd|
+  - Weechat + BitlBee (IRC + Mensajería)            |weechat_bitlbee|
 
 ==============================================================================
 ==============================================================================
@@ -668,6 +669,47 @@ Consejos para instalar linux en unidad SSD:
 <
   De esta manera se usa un RAMDISK para el /tmp.
 
+==============================================================================
+WEECHAT + BITLBEE                                         *weechat_bitlbee*
 
+Con esta combinación conseguimos IRC, TWITTER, y acceso a cuentas de
+mensajería como Google Talk, Jabber, ICQ, etc...
+
+- weechat ~
+  - Instalar con "apt-get install weechat".
+  - La configuración actualizada ya esta en la cuenta de GitHub.
+  - Los scripts se instalan con "/script". "buffers.pl", "iset.pl", "beep.pl
+    son los inprescindibles.
+
+- bitlbee ~
+  - Aunque Debian lleva paquetes, vamos a por los últimos. Añadir lo siguiente
+    a {/etc/apt/source.list} (cambiar jessie por la distribución usada, necesita 
+    firma de repositorio, ver la página web de bitlbee).
+>
+    deb http://code.bitlbee.org/debian/master/jessie/amd64/ ./
+<
+  - Tras el correspondiente "apt-get update; apt-get upgrade", instalar con
+    "apt-get install bitlbee".
+  - El instalador crea el usuario y el grupo <bitlbee>.
+  - Instalar el inetd. "apt-get install openbsd-inetd".
+  - Editar el {/etc/inetd.conf}, añadiendo:
+>
+    6667 stream tcp nowait bitlbee /usr/sbin/tcpd /usr/sbin/bitlbee
+<
+  - Reiniciar el inetd con "/etc/init.d/openbsd-inetd restart".
+  - La configuración de cuentas del bitlbee está en el fichero
+    {/var/lib/bitlbee/electro7.xml}. Basta con copiarla y darle permisos de
+    lectura/escritura solo al usuario/grupo bitlbee.
+
+- Resumen final ~
+  - Arrancar el weechat y ya debería conectarse a las cuentas de twitter y
+    mensajería a través del bitlbee.
+  - Las alertas de privados se ejecutan con un trigger de weechat que llama al
+    script {$HOME/bin/irc_warn}.
+  - Alt+R en weechat resetea las alertas.
+  - El weechat está configurado para usar algunas cosas como el vim:
+      - :c -> limpia ventana
+      - :q -> cierra canal
+      - :x -> cierra programa
 
 vim:tw=78:ts=8:wrap:ft=help:norl:
