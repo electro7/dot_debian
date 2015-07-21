@@ -24,7 +24,7 @@ $(dirname $0)/i3_workspaces.pl > "${panel_fifo}" &
 
 # Volume, "VOL"
 while :; do
-  amixer get Master | grep Left | awk -F'[]%[]' '/%/ {if ($5 == "off") {print "VOL×\n"} else {printf "VOL%d%%%%\n", $2}}' > "${panel_fifo}" &
+  amixer get Master | grep "${snd_cha}" | awk -F'[]%[]' '/%/ {if ($7 == "off") {print "VOL×\n"} else {printf "VOL%d%%%%\n", $2}}' > "${panel_fifo}" &
   sleep 3s;
 done &
 
