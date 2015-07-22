@@ -1,7 +1,7 @@
 # i3 config file (v4.8)
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
-# 17 feb 2015 - E7
+# 22 jul 2015 - E7
 
 #.......
 # Font
@@ -81,7 +81,8 @@ bindcode $mod+53 exec dmenu_run -fn "$ft" -nb "$back" -nf "$white" -sb "$yellow"
 #bindcode XF86AudioNext exec ncmpcpp next
 
 #assign application to workspace
-#assign [class="Iceweasel"] → 2
+assign [class="Iceweasel"] 2:www
+assign [instance="(?i)TeamViewer.exe"] 4:vnc
 #assign [class="Firefox"] → 2
 #assign [class="Google-chrome"] → 2
 #assign [class="vlc"] → 4
@@ -95,6 +96,7 @@ for_window [class="(?i)feh"] floating enable
 for_window [class="(?i)gcolor2"] floating enable
 for_window [class="(?i)gbdfed"] floating enable
 for_window [class="(?i)lxappearance"] floating enable
+for_window [instance="(?i)TeamViewer.exe"] floating enable
 
 #...........
 # Keybinds i3
@@ -144,8 +146,8 @@ bindcode $mod+65 focus mode_toggle
 # focus the parent container (mod+a)
 bindcode $mod+38 focus parent
 
-# focus the child container
-bindcode $mod+52 focus child (mod+z)
+# focus the child container (mod+z)
+bindcode $mod+52 focus child
 
 # switch to workspace
 bindcode $mod+10 workspace 1:term
@@ -163,8 +165,8 @@ bindcode $mod+19 workspace 10
 bindcode $mod+Shift+10 move container to workspace 1:term
 bindcode $mod+Shift+11 move container to workspace 2:www
 bindcode $mod+Shift+12 move container to workspace 3:vbox
-bindcode $mod+Shift+13 move container to workspace 4:team
-bindcode $mod+Shift+14 move container to workspace 5:vnc
+bindcode $mod+Shift+13 move container to workspace 4:vnc
+bindcode $mod+Shift+14 move container to workspace 5:doc
 bindcode $mod+Shift+15 move container to workspace 6:img
 bindcode $mod+Shift+16 move container to workspace 7:misc
 bindcode $mod+Shift+17 move container to workspace 8
