@@ -39,10 +39,10 @@ URxvt.colorUL: #81A2BE
 ! funcionan. :)
 
 URxvt.letterSpace: -2
-URxvt.font: xft:Inconsolata:size=10, -xos4-terminesspowerline-medium-r-normal--12-120-72-72-c-60-iso10646-1
-URxvt.boldFont: xft:Inconsolata:size=10, -xos4-terminesspowerline-medium-r-normal--12-120-72-72-c-60-iso10646-1
-URxvt.italicFont: xft:Inconsolata:size=10, -xos4-terminesspowerline-medium-r-normal--12-120-72-72-c-60-iso10646-1
-URxvt.boldItalicFont: xft:Inconsolata:size=10, -xos4-terminesspowerline-medium-r-normal--12-120-72-72-c-60-iso10646-1
+URxvt.font: xft:Inconsolata:size=10:hintstyle=hintfull, -xos4-terminesspowerline-medium-r-normal--12-120-72-72-c-60-iso10646-1
+URxvt.boldFont: xft:Inconsolata:size=10:hintstyle=hintfull, -xos4-terminesspowerline-medium-r-normal--12-120-72-72-c-60-iso10646-1
+URxvt.italicFont: xft:Inconsolata:size=10:hintstyle=hintfull, -xos4-terminesspowerline-medium-r-normal--12-120-72-72-c-60-iso10646-1
+URxvt.boldItalicFont: xft:Inconsolata:size=10:hintstyle=hintfull, -xos4-terminesspowerline-medium-r-normal--12-120-72-72-c-60-iso10646-1
 
 !URxvt.letterSpace: -1
 !URxvt*font: xft:inconsolata for Powerline:size=10
