@@ -37,3 +37,5 @@
   helper = cache --timeout=3600
 [format]
   pretty = oneline
+[push]
+	default = matching
