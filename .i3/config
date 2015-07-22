@@ -148,25 +148,25 @@ bindcode $mod+38 focus parent
 bindcode $mod+52 focus child (mod+z)
 
 # switch to workspace
-bindcode $mod+10 workspace 1
-bindcode $mod+11 workspace 2
-bindcode $mod+12 workspace 3
-bindcode $mod+13 workspace 4
-bindcode $mod+14 workspace 5
-bindcode $mod+15 workspace 6
-bindcode $mod+16 workspace 7
+bindcode $mod+10 workspace 1:term
+bindcode $mod+11 workspace 2:www
+bindcode $mod+12 workspace 3:vbox
+bindcode $mod+13 workspace 4:vnc
+bindcode $mod+14 workspace 5:doc
+bindcode $mod+15 workspace 6:img
+bindcode $mod+16 workspace 7:misc
 bindcode $mod+17 workspace 8
 bindcode $mod+18 workspace 9
 bindcode $mod+19 workspace 10
 
 # move focused container to workspace
-bindcode $mod+Shift+10 move container to workspace 1
-bindcode $mod+Shift+11 move container to workspace 2
-bindcode $mod+Shift+12 move container to workspace 3
-bindcode $mod+Shift+13 move container to workspace 4
-bindcode $mod+Shift+14 move container to workspace 5
-bindcode $mod+Shift+15 move container to workspace 6
-bindcode $mod+Shift+16 move container to workspace 7
+bindcode $mod+Shift+10 move container to workspace 1:term
+bindcode $mod+Shift+11 move container to workspace 2:www
+bindcode $mod+Shift+12 move container to workspace 3:vbox
+bindcode $mod+Shift+13 move container to workspace 4:team
+bindcode $mod+Shift+14 move container to workspace 5:vnc
+bindcode $mod+Shift+15 move container to workspace 6:img
+bindcode $mod+Shift+16 move container to workspace 7:misc
 bindcode $mod+Shift+17 move container to workspace 8
 bindcode $mod+Shift+18 move container to workspace 9
 bindcode $mod+Shift+19 move container to workspace 10

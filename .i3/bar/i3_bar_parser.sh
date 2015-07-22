@@ -98,15 +98,15 @@ while read -r line ; do
       ;;
     WSP*)
       # I3 Workspaces
-      wsp="%{F${color_back} B${color_head}} %{T2}${icon_wsp}${T1}"
+      wsp="%{F${color_back} B${color_head}} %{T2}${icon_wsp}%{T1}"
       set -- ${line#???}
       while [ $# -gt 0 ] ; do
         case $1 in
          FOC*)
-           wsp="${wsp}%{F${color_head} B${color_wsp}}${sep_right}%{F${color_back} B${color_wsp}} ${1#???}%{F${color_wsp} B${color_head}}${sep_right}"
+           wsp="${wsp}%{F${color_head} B${color_wsp}}${sep_right}%{F${color_back} B${color_wsp} T1} ${1#???} %{F${color_wsp} B${color_head}}${sep_right}"
            ;;
          INA*|URG*|ACT*)
-           wsp="${wsp}%{F${color_disable}} ${1#???}"
+           wsp="${wsp}%{F${color_disable} T1} ${1#???} "
            ;;
         esac
         shift
@@ -116,7 +116,7 @@ while read -r line ; do
       # window title
       title=$(xprop -id ${line#???} | awk '/_NET_WM_NAME/{$1=$2="";print}' | cut -d'"' -f2)
       #title="%{F${color_head} B${color_sec_b2}}${sep_right}%{F${color_head} B${color_sec_b2}%{T2} ${icon_prog} %{F${color_sec_b2} B-}${sep_right}%{F- B- T1} ${title}"
-      title="%{F${color_head} B${color_sec_b2}}${sep_right}%{F${color_head} B${color_sec_b2}%{T2} ${icon_prog} %{F${color_sec_b2} B-}${sep_right}%{F- B- T1} ${title}"
+      title="%{F${color_head} B${color_sec_b2}}${sep_right}%{F${color_head} B${color_sec_b2} T2} ${icon_prog} %{F${color_sec_b2} B-}${sep_right}%{F- B- T1} ${title}"
       ;;
   esac
 
