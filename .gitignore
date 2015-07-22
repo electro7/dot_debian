@@ -8,6 +8,7 @@ backup/*
 !.config/termcolours/
 !.config/sounds/
 !.config/user-dirs*
+!.config/fontconfig/
 .dbus/*
 .dmenu_cache
 .dmrc

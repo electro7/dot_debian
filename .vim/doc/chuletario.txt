@@ -67,10 +67,13 @@ EL FSTAB                                                     *chuleta_fstab*
 Para que los usuarios puedan montar el cdrom y el floppy hay que añadir
 la opción "user". Se montaria con "mount /cdrom".
 
-Para que puedan escribir en vfat (del root) hay que poner en las opciones
-"gid=6,umask=007" y añadir el usuario al grupo disk (6). La opción "quiet"
+Para que puedan escribir en vfat/ntfs (del root) hay que poner en las opciones
+"gid=6,umask=0007,fmask=0117" y añadir el usuario al grupo disk (6). La opción "quiet"
 sirve para que al mover o copiar los archivos no aparezcan un mensaje de error
-al no poder mantener permisos.
+al no poder mantener permisos. Con "utf8" funcionan algunos caracteres raros
+como la ñ.
+
+Para soporte ntfs hay que instalar el paquete "ntfs-3g".
 
 Ejemplo:
 >
@@ -78,8 +81,8 @@ Ejemplo:
   /dev/hda3   /           ext2    defaults,errors=remount-ro  0       1
   /dev/hda2   none        swap    sw                          0       0
   proc        /proc       proc    defaults                    0       0
-  /dev/hda1   /hdwin      vfat    defaults,gid=6,umask=007,quiet    0       0
-  /dev/hdd1   /hdextra    vfat    defaults,gid=6,umask=007,quiet    0       0
+  /dev/hda1   /hdwin      ntfs-3g gid=6,umask=0007,fmask=0117,utf8,quiet    0       0
+  /dev/hdd1   /hdextra    vfat    gid=6,umask=0007,fmask=0117,utf8,quiet    0       0
   /dev/fd0    /floppy     auto    defaults,noauto,user        0       0
   /dev/cdrom  /cdrom      iso9660 defaults,ro,noauto,user     0       0
   /dev/cdrw   /cdrw       iso9660 defaults,ro,noauto,user     0       0
@@ -463,6 +466,9 @@ FUENTES TEMAS ICONOS GTK                          *chuleta_fuentes_temas_gtk*
 - Temas: Copiar a ".themes".
 - Iconos: Copiar a ".icons".
 - Selección de colores: Usar el gcolor2.
+- Selección de temas GTK: Usar el lxapareance.
+- Para instalar las fuentes de windows en Debian, añadir la rama "contrib" al
+  {/etc/apt/source.list} e instalar el paquete "ttf-mscorefonts-instaler".
 
 ==============================================================================
 DRIVERS NVIDIA                                               *chuleta_nvidia*
@@ -680,6 +686,7 @@ mensajería como Google Talk, Jabber, ICQ, etc...
   - La configuración actualizada ya esta en la cuenta de GitHub.
   - Los scripts se instalan con "/script". "buffers.pl", "iset.pl", "beep.pl
     son los inprescindibles.
+  - Registrarse en freenode con "/msg NickServ identify <password>"
 
 - bitlbee ~
   - Aunque Debian lleva paquetes, vamos a por los últimos. Añadir lo siguiente
