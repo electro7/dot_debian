@@ -43,9 +43,15 @@ xset fp+ $HOME/.fonts/terminesspowerline
 #exec nm-applet &
 
 # Notificador
-# Paquete notification-daemon, pero hace falta el xfce4-notifid
-# Probar con notify-send
+# Paquete notification-daemon
+# Probar con notify-send (paquete libnotify-bim)
 exec /usr/lib/notification-daemon/notification-daemon &
+
+# Remapear los botones del ratón extendido
+# Paquete xinput
+# "xinput list" -> muestra los dispositivos
+# Cambia el Wheel Left (6) por el Middle click (2)
+xinput set-button-map 10 1 2 3 4 5 2 7 8 9
 
 # Gestor de ventanas
 exec i3
