@@ -65,6 +65,8 @@ bindcode $mod+Mod1+43 exec ~/.i3/i3_focus_or_run.sh -t htop ~/bin/terminal htop
 bindcode $mod+Mod1+31 exec ~/.i3/i3_focus_or_run.sh -t weechat ~/bin/terminal weechat
 # iceweasel (mod+winkey+m)
 bindcode $mod+Mod1+58 exec ~/.i3/i3_focus_or_run.sh -c iceweasel iceweasel
+# virtualbox (mod+winkey+v)
+bindcode $mod+Mod1+55 exec ~/.i3/i3_focus_or_run.sh -c VirtualBox VirtualBox
 # mldonky (mod+winkey+t)
 bindcode $mod+Mod1+28 exec ~/.i3/i3_focus_or_run.sh -t mldonkey ~/bin/terminal mldonkey
 # start dmenu (mod+x)
@@ -82,13 +84,13 @@ bindcode $mod+53 exec dmenu_run -fn "$ft" -nb "$back" -nf "$white" -sb "$yellow"
 
 #assign application to workspace
 assign [class="Iceweasel"] 2:www
+assign [class="(i)VirtualBox"] 3:vbox
 assign [instance="(?i)TeamViewer.exe"] 4:vnc
 #assign [class="Firefox"] → 2
 #assign [class="Google-chrome"] → 2
 #assign [class="vlc"] → 4
 #assign [class="xv/mplayer"] → 4
 #assign [class="Gimp"] → 3
-#assign [class="Virtualbox"] → 5
 #assign [class="Zathura"] → 5
 
 # Layout
@@ -97,6 +99,7 @@ for_window [class="(?i)gcolor2"] floating enable
 for_window [class="(?i)gbdfed"] floating enable
 for_window [class="(?i)lxappearance"] floating enable
 for_window [instance="(?i)TeamViewer.exe"] floating enable
+for_window [class="(?i)VirtualBox"] floating enable
 
 #...........
 # Keybinds i3
