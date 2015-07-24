@@ -12,6 +12,7 @@ Escritorio
 .gconf
 .gnome2*
 .gimp*
+.git
 .gphoto*
 .gstreamer*
 .gvfs
