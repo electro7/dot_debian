@@ -10,6 +10,7 @@ downloads
 Escritorio
 .fontconfig
 .gconf
+.git
 .gnome2*
 .gimp*
 .gphoto*
