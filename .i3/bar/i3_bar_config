@@ -6,12 +6,12 @@ geometry="x14"
 font="-xos4-terminesspowerline-medium-r-normal--12-120-72-72-c-60-iso10646-1"
 iconfont="-xos4-terminusicons2mono-medium-r-normal--12-120-72-72-m-60-iso8859-1"
 res_w=$(xrandr | grep "current" | awk '{print $8a}')
-snd_cha=$(amixer get Master | grep "Playback channels:" | awk '{printf "%s%s: Playback", $3, $4}')
+snd_cha=$(amixer get Master | grep "Playback channels:" | awk '{if ($4 == "") {printf "%s: Playback", $3} else {printf "%s %s: Playback", $3, $4}}')
 
 # Alarm settings
 cpu_alert=75                        # % cpu use
 net_alert=5                         # K net use
-
+#
 # color definitions 
 color_back="#FF1D1F21"              # Default background
 color_fore="#FFC5C8C6"              # Default foreground
