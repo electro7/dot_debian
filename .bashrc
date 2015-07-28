@@ -36,8 +36,8 @@ case "$TERM" in
     {
       XTITLE='\[\e]0;\s (\w)\a\]'
       # Conexión remota
-      if [ -n "$REMOTEHOST" ]; then
-        PS1="$XTITLE$PS1\n$COL1 [$COL2\h$COL1]$COL \\$ $COLN"
+      if [[ -n "$REMOTEHOST" || -n "$SSH_CLIENT" ]]; then
+        PS1="$XTITLE$PS1\n$COLA \h$COL \\$ $COLN"
       else
         PS1="$XTITLE$PS1\n$COL \\$ $COLN"
       fi
