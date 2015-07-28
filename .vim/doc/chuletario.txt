@@ -623,6 +623,12 @@ REMOTO                                                    *chuleta_git_remoto*
 - git pull ~
   Recibe del remoto y actualiza el repositorio local.
 
+- git remote -v ~
+  Muestra los repositorios remotos configurados
+
+- git remote set-url origin git@github.com:electro7/dotfiles.git ~
+  Cambia el acceso remoto a GIT con SSH para el repositorio "origin".
+
 VARIOS                                                    *chuleta_git_varios*
 
 - git tag ~
