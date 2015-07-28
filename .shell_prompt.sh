@@ -110,7 +110,7 @@ function __promptline_wrapper {
 function __promptline_git_status {
   [[ $(git rev-parse --is-inside-work-tree 2>/dev/null) == true ]] || return 1
 
-  local added_symbol="●"
+  local added_symbol="·"
   local unmerged_symbol="✗"
   local modified_symbol="+"
   local clean_symbol="="
