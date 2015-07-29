@@ -125,7 +125,7 @@ if &term == "xterm"
   set background=dark
   colorscheme base16-default
 else
-  " Theme setting. 
+  " Theme setting.
   " Two principal themes for dark and light background
   " Function ToggleColours
   " See comments in theme
@@ -341,7 +341,7 @@ autocmd BufNewFile,BufRead *.prg,*.dev set ft=prg
 " Toggle Colours
 function! ToggleColours()
   if &background  == 'dark'
-    set background=light 
+    set background=light
     let g:solarized_bold=0
     colorscheme solarized
     AirlineTheme base16
@@ -353,7 +353,7 @@ function! ToggleColours()
   endif
 
   " Reconfigure term colors
-  if !has('gui_running') 
+  if !has('gui_running')
     if &background == 'light'
       if filereadable($HOME."/.config/termcolours/light.sh")
         execute "silent !/bin/sh ".$HOME."/.config/termcolours/light.sh"

@@ -9,6 +9,7 @@ backup/*
 !.config/sounds/
 !.config/user-dirs*
 !.config/fontconfig/
+!.config/mpd/mpd.conf
 .dbus/*
 .dmenu_cache
 .dmrc
@@ -38,10 +39,12 @@ downloads/*
 .lftp/*
 .local/*
 mail/*
+music
 .mailcheckrc
 .mldonkey/*
 .mozilla/*
 .mplayer/*
+.ncmpcpp/*.log
 .pki/*
 .profile
 .pulse/*

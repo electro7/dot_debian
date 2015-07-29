@@ -100,20 +100,22 @@ contiene los servidores de donde pillar los paquetes con el formato:
   deb ftp://ulises.adi.uam.es/debian stable main contrib non-free
 <
 
-Lo tipico con el apt es hacer un "apt-get update" para bajarse la lista
-de paquetes y hacer un "apt-get install {paquete]" para instalar. Con "apt-get
-check" y "apt-get -f install" nos aseguramos que todas las dependencias estan
-bien. Con "apt-get upgrade" se actualiza todo el sistema.
+- update ~
+  Lo tipico con el apt es hacer un "apt-get update" para bajarse la lista
+  de paquetes y hacer un "apt-get install {paquete]" para instalar. Con "apt-get
+  check" y "apt-get -f install" nos aseguramos que todas las dependencias estan
+  bien. Con "apt-get upgrade" se actualiza todo el sistema.
 
-Para buscar paquetes disponibles en los servidores tenemos el "apt-cache
-search {paquete}" y para buscar algún paquete el en sistema se usa el "dpkg -l
-{paquete]"
+- search ~
+  Para buscar paquetes disponibles en los servidores tenemos el "apt-cache
+  search {paquete}" y para buscar algún paquete el en sistema se usa el "dpkg -l
+  {paquete]"
 
-Para mantener limpito el sistema se usa "apt-get clean" y el "apt-get
-autoremove".
+- clean ~
+  Para mantener limpito el sistema se usa "apt-get clean" y el "apt-get
+  autoremove".
 
-El dpkg:
-
+- dpkg ~
   dpkg -i -» instalar
   dpkg -r -» desinstalar
   dpkg -P -» desinstalar hasta los ficheros de configuración
@@ -125,16 +127,22 @@ El dpkg:
   dpkg -c -» muestra los archivos de un .deb
   dpkg -I -» muestra info de un .deb
 
-Para marcar algún paquete para que no se actualize se utiliza "dpkg
---set-selections".
+- hold ~
+  Para marcar algún paquete para que no se actualize se utiliza "dpkg
+  --set-selections".
 >
-  dpkg --set-selections
-  mutt hold
-  [CTRL+D]
+    dpkg --set-selections
+    mutt hold
+    [CTRL+D]
 >
->
-En Debian existen tareas para actualizar grandes sistemas de paquetes.
-Normalmente depende de un paquete global llamado "task".
+- task ~
+  En Debian existen tareas para actualizar grandes sistemas de paquetes.
+  Normalmente depende de un paquete global llamado "task".
+
+- apt-file ~
+  Para buscar en el contenido de los paquetes instalamos el apt-file.
+  Hay que hacer un "apt-file update" para descargar el gz del contenido, luego
+  usar con  "apt-file search <fichero>"
 
 ==============================================================================
 COMPILAR KERNEL EN DEBIAN                          *chuleta_debian_kernel*

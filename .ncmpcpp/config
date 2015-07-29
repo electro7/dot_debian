@@ -1,0 +1,53 @@
+#
+# ~/.ncmpcpp/config
+#
+
+# connection settings
+mpd_host = "localhost"
+mpd_port = "6600"
+mpd_music_dir = "/home/electro7/music"
+mpd_crossfade_time = "5"
+
+# Visualizer
+visualizer_fifo_path = "/tmp/mpd_fifo"
+visualizer_output_name = "fifo"
+visualizer_type = "wave" (spectrum/wave)
+
+# Playlist
+song_columns_list_format = "(4f)[white]{n} (25)[cyan]{a} (30)[blue]{b} (40)[default]{t|f} (6f)[white]{l}"
+now_playing_prefix = "$b→ "
+now_playing_suffix = "$/b"
+playlist_display_mode = "columns" (classic/columns)
+autocenter_mode = "yes"
+centered_cursor = "yes"
+
+# Bars
+#song_status_format = "$0%t $8• $7%a $8•{ $5%b $8• }$5%y$0"
+progressbar_look = "─╼·"
+titles_visibility = "no"
+header_visibility = "yes"
+
+# Browser
+browser_playlist_prefix = "82plist »$9 "
+browser_display_mode = "columns" (classic/columns)
+
+# Colors
+discard_colors_if_item_is_selected = "yes"
+header_window_color = "white"
+volume_color = "cyan"
+state_line_color = "default"
+state_flags_color = "red"
+main_window_color = "default"
+color1 = "default"
+color2 = "gray"
+main_window_highlight_color = "green"
+progressbar_color = "green"
+statusbar_color = "default"
+active_column_color = "cyan"
+visualizer_color = "cyan"
+
+# Others
+song_window_title_format = "MPD: {%a > }{%t}{ [%b{ Disc %d}]}|{%f}"
+search_engine_display_mode = "columns" (classic/columns)
+follow_now_playing_lyrics = "yes"
+display_screens_numbers_on_start = "no"
