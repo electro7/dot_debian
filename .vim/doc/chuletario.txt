@@ -770,7 +770,9 @@ Instalar reproductor de música para consola:
 - Instalar los paquetes "mpd" y "ncmpcpp".
 
 - mpd ~
-  - Quitar el demonio general del MPD del arranque con "systemctl disable mpd".
+  - Quitar el demonio general del MPD del arranque con "systemctl disable mpd" 
+    y un "sustemctl disable mpd.socket". Un "netstat -lntp" ya no debería listar
+    el puerto 6600.
   - Lo arrancaremos como usuario con un simple "mpd" desde .bash_rc mismo.
   - El fichero de configuración va en {.config/mpd/mpd.conf}
     - Lo más importante es poner el path con la líbrería de música.

@@ -92,9 +92,9 @@ while read -r line ; do
       fi
       irc="%{F${irc_cback}}${sep_left}%{F${irc_cicon} B${irc_cback}} %{T2}${icon_chat}%{F${irc_cfore} T1} ${irc_n_high} %{F${irc_cicon}}${sep_l_left} %{T2}${icon_contact}%{F${irc_cfore} T1} ${irc_high}"
       ;;
-    MPC*)
+    MPD*)
       # Music
-      mpc="%{F${color_sec_b3}}${sep_left}%{F${color_icon} B${color_sec_b3}} %{T2}${icon_music}%{F${color_fore} T1}  ${line#???}"
+      mpd="%{F${color_sec_b3}}${sep_left}%{F${color_icon} B${color_sec_b3}} %{T2}${icon_music}%{F${color_fore} T1}  ${line#???}"
       ;;
     WSP*)
       # I3 Workspaces
@@ -121,6 +121,6 @@ while read -r line ; do
   esac
 
   # And finally, output
-  printf "%s\n" "%{l}${wsp}${title} %{r}${mpc}${stab}${irc}${stab}${gmail}${stab}${cpu}${stab}${mem}${stab}${diskr}${stab}${diskh}${stab}${wland}${stab}${wlanu}${stab}${ethd}${stab}${ethu}${stab}${vol}${stab}${date}${stab}${time}"
+  printf "%s\n" "%{l}${wsp}${title} %{r}${mpd}${stab}${irc}${stab}${gmail}${stab}${cpu}${stab}${mem}${stab}${diskr}${stab}${diskh}${stab}${wland}${stab}${wlanu}${stab}${ethd}${stab}${ethu}${stab}${vol}${stab}${date}${stab}${time}"
   #printf "%s\n" "%{l}${wsp}${title}"
 done
