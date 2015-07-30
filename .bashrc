@@ -218,10 +218,13 @@ esac
 # SSH KEY
 #----------------------------------------------------------------------#
 
+# Init ssg-agent if not exist
 if [ -z "$SSH_AUTH_SOCK" ] ; then
   eval `ssh-agent -s`
-  ssh-add
 fi
 
-
+# Add identities if not exist
+if [[ -n $(ssh-add -l | grep 'The agent has no identities') ]] ; then
+  ssh-add 2> /dev/null
+fi
 
