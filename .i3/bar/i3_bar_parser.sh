@@ -94,7 +94,15 @@ while read -r line ; do
       ;;
     MPD*)
       # Music
-      mpd="%{F${color_sec_b3}}${sep_left}%{F${color_icon} B${color_sec_b3}} %{T2}${icon_music}%{F${color_fore} T1}  ${line#???}"
+      mpd_arr=(${line#???})
+      if [ -z "${line#???}" ]; then
+        song="none";
+      elif [ "${mpd_arr[0]}" == "Couldn't" ]; then
+        song="mpd off";
+      else
+        song="${line#???}";
+      fi
+      mpd="%{F${color_sec_b2}}${sep_left}%{B${color_sec_b2}}%{F${color_sec_b1}}${sep_left}%{F${color_icon} B${color_sec_b1}} %{T2}${icon_music}%{F${color_fore} T1}  ${song}"
       ;;
     WSP*)
       # I3 Workspaces

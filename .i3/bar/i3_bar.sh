@@ -35,10 +35,10 @@ while :; do
 done &
 
 #MPD
-#while :; do
-#  printf "%s%s\n" "MPD" "$(ncmpcpp --now-playing '{{"%a"} {"%f"}}' | head -c 60)" > "${panel_fifo}"
-#  sleep 10s;
-#done &
+while :; do
+  printf "%s%s\n" "MPD" "$(ncmpcpp --now-playing '{%a - %t}|{%f}' | head -c 60)" > "${panel_fifo}"
+  sleep 10s;
+done &
 
 # IRC, "IRC"
 # only for init
