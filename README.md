@@ -1,13 +1,13 @@
-# dotfiles
+# E7 dotfiles
 Config files for a minimalist X desktop; i3wm & lemonbar, rxvt, bitlbee & weechat, vim, git, cnmpcpp...
 
-## Last screenshot
+### Last screenshot
 
 Change every day. Something like this:
 
 ![last screenshot] (https://dl.dropboxusercontent.com/u/60065791/2015-02-13-184028_1920x986_scrot.png)
 
-## Clean install (debian jessie):
+### Clean install (debian jessie):
 
 * Install debian base (without X desktop).
 
