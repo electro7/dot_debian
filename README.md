@@ -5,7 +5,7 @@ Config files for a minimalist X desktop; i3wm & lemonbar, rxvt, bitlbee & weecha
 
 Change every day. Something like this:
 
-![last screenshot] (https://dl.dropboxusercontent.com/u/60065791/2015-02-13-184028_1920x986_scrot.png)
+![last screenshot] (https://dl.dropboxusercontent.com/u/60065791/2015-08-13.png)
 
 ### Clean install (debian jessie):
 
