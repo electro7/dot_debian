@@ -2,6 +2,8 @@
 
 A functional config for lemonbar to work with i3wm. 
 
+![lemonbar full] (https://dl.dropboxusercontent.com/u/60065791/screenshots/lemonbar/i3bar_full.png)
+
 ### Requeriments
 
 * Of course, [lemonbar] (https://github.com/LemonBoy/bar)
@@ -51,9 +53,10 @@ meter, and converts it with lemonbar format.
     * Specials symbols for separator (powerline).
     * Icons glyps.
 
+
     > Two fonts are needed. A font for normal text and separator symbols, and
     > another for icons.
-    > [Here ara my fonts] (https://github.com/electro7/dotfiles/tree/master/.fonts)
+    > [Here are my fonts used] (https://github.com/electro7/dotfiles/tree/master/.fonts)
 
 ### Sections
 
@@ -61,20 +64,28 @@ meter, and converts it with lemonbar format.
 
 Workspace changes are received from ***i3_workspace.pl*** perl script.
 
+![lemonbar wsp] (https://dl.dropboxusercontent.com/u/60065791/screenshots/lemonbar/i3bar_wsp.png)
+
 #### Focus window title
 
 Window title is received from xprop spy process.
+
+![lemonbar title] (https://dl.dropboxusercontent.com/u/60065791/screenshots/lemonbar/i3bar_title.png)
 
 #### Time and date
 
 Time and date is received from conky process. Conky config file is
 ***i3_lemonbar_conky*** and refresh meters every 2 seconds.
 
+![lemonbar date] (https://dl.dropboxusercontent.com/u/60065791/screenshots/lemonbar/i3bar_date.png)
+
 #### Volume
 
 Volume is received asking amixer every 3 seconds. If is muted show a cross.
 
 Volume channel can be set in "snd_cha" variable at config file.
+
+![lemonbar volume] (https://dl.dropboxusercontent.com/u/60065791/screenshots/lemonbar/i3bar_vol.png)
 
 #### Net use
 
@@ -83,14 +94,22 @@ section is displayed gray with cross.
 
 Net use alert can be set in "net_alert" var at config file (Kb).
 
+![lemonbar net off] (https://dl.dropboxusercontent.com/u/60065791/screenshots/lemonbar/i3bar_net_off.png)
+![lemonbar net on] (https://dl.dropboxusercontent.com/u/60065791/screenshots/lemonbar/i3bar_net_on.png)
+
 #### Disk use
 
 Show HOME and / disk use, in %. Meter is received fron conky process.
+
+![lemonbar disk] (https://dl.dropboxusercontent.com/u/60065791/screenshots/lemonbar/i3bar_disk.png)
 
 #### RAM and CPU use
 
 Is received from conky process. CPU use alert can be set at "cpu_alert" var in
 config file.
+
+![lemonbar cpu off] (https://dl.dropboxusercontent.com/u/60065791/screenshots/lemonbar/i3bar_cpu_off.png)
+![lemonbar cpu on] (https://dl.dropboxusercontent.com/u/60065791/screenshots/lemonbar/i3bar_cpu_on.png)
 
 #### GMAIL unread message count
 
@@ -104,6 +123,9 @@ The account user and password are read from ***~/.private/accounts***, example:
     MAIL_USER="guest"
     MAL_PASS="1234"
     ```
+
+![lemonbar mail off] (https://dl.dropboxusercontent.com/u/60065791/screenshots/lemonbar/i3bar_mail_off.png)
+![lemonbar mail on] (https://dl.dropboxusercontent.com/u/60065791/screenshots/lemonbar/i3bar_mail_on.png)
 
 #### IRC private warning
 
@@ -121,42 +143,13 @@ For this, a beep trigger in weechat must be set with this:
 
 For reset the warning, run ***irc_warn*** without parameters.
 
+![lemonbar irc off] (https://dl.dropboxusercontent.com/u/60065791/screenshots/lemonbar/i3bar_irc_off.png)
+![lemonbar irc on] (https://dl.dropboxusercontent.com/u/60065791/screenshots/lemonbar/i3bar_irc_on.png)
+
 #### MPD song info
 
 Show autor and title of current song. Use mpd and ncmpcpp.
 
-
-
-
-
-
-
-
-
-
-* Delete all files in $HOME and clone git:
-
-    ```sh
-    $ git clone https://github.com/electro7/dotfiles.dot .
-    ```
-
-* Install vim plugins:
-
-    ```sh
-    $ git clone https://github.com/gmarik/Vundle.git ~/.vim/bundle/Vundle.vim
-    $ vim +PluginInstall +qall
-    ```
-
-* Install lemonbar:
-
-    ```sh
-    $ mkdir tmp; cd tmp
-    $ git clone  https://github.com/LemonBoy/bar.git
-    $ apt-get install build-essential checkinstall
-    $ apt-get install libxcb1-dev libxcb-xinerama0-dev libxcb-randr0-dev
-    $ make
-    $ checkinstall -D make install
-    ```
-
-* Restart lightdm.    
+![lemonbar mpd off] (https://dl.dropboxusercontent.com/u/60065791/screenshots/lemonbar/i3bar_mpd_off.png)
+![lemonbar mpd on] (https://dl.dropboxusercontent.com/u/60065791/screenshots/lemonbar/i3bar_mpd_on.png)
 
