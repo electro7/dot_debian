@@ -48,9 +48,8 @@ meter, and converts it with lemonbar format.
     * Fifo file.
     * Bar geometry.
     * Normal and icon font.
-    > Two fonts are needed. A font for normal text and separator symbols, and
-    > another for icons.
-    > [Here are my fonts used] (https://github.com/electro7/dotfiles/tree/master/.fonts)
+        Two fonts are needed. A font for normal text and separator symbols, and  another for icons.
+        [Here are my fonts used] (https://github.com/electro7/dotfiles/tree/master/.fonts)
     * CPU and NET usage alerts.
     * Colors
     * Specials symbols for separator (powerline).
