@@ -47,16 +47,14 @@ meter, and converts it with lemonbar format.
 
     * Fifo file.
     * Bar geometry.
-    * Normal and icon font. [My fonts] (https://github.com/electro7/dotfiles/tree/master/.fonts)
+    * Normal and icon font.
+    > Two fonts are needed. A font for normal text and separator symbols, and
+    > another for icons.
+    > [Here are my fonts used] (https://github.com/electro7/dotfiles/tree/master/.fonts)
     * CPU and NET usage alerts.
     * Colors
     * Specials symbols for separator (powerline).
     * Icons glyps.
-
-
-    > Two fonts are needed. A font for normal text and separator symbols, and
-    > another for icons.
-    > [Here are my fonts used] (https://github.com/electro7/dotfiles/tree/master/.fonts)
 
 ### Sections
 
@@ -119,10 +117,8 @@ can block the gmail external check.
 
 The account user and password are read from ***~/.private/accounts***, example:
 
-    ```
-    MAIL_USER="guest"
-    MAL_PASS="1234"
-    ```
+    > MAIL_USER="guest"
+    > MAL_PASS="1234"
 
 ![lemonbar mail off] (https://dl.dropboxusercontent.com/u/60065791/screenshots/lemonbar/i3bar_mail_off.png)
 ![lemonbar mail on] (https://dl.dropboxusercontent.com/u/60065791/screenshots/lemonbar/i3bar_mail_on.png)
@@ -137,9 +133,7 @@ received.
 
 For this, a beep trigger in weechat must be set with this:
 
-    ```
-    "/exec -bg ~/bin/irc_warn ${tg_date} ${tg_tag_nick}"
-    ```
+    > "/exec -bg ~/bin/irc_warn ${tg_date} ${tg_tag_nick}"
 
 For reset the warning, run ***irc_warn*** without parameters.
 
