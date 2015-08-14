@@ -7,6 +7,12 @@ Change every day. Something like this:
 
 ![last screenshot] (https://dl.dropboxusercontent.com/u/60065791/screenshots/2015-08-13.png)
 
+### I3 LemonBar
+
+![lemonbar full] (https://dl.dropboxusercontent.com/u/60065791/screenshots/lemonbar/i3bar_full.png)
+
+Config files [here] (https://github.com/electro7/dotfiles/tree/master/.i3/lemonbar)
+
 ### Clean install (debian jessie):
 
 * Install debian base (without X desktop).
