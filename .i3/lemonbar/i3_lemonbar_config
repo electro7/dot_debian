@@ -1,7 +1,7 @@
 #!\bin\bash
 # i3 panel config. Powerline style.
 
-panel_fifo="/tmp/i3_bar_${USER}"
+panel_fifo="/tmp/i3_lemonbar_${USER}"
 geometry="x14"
 font="-xos4-terminesspowerline-medium-r-normal--12-120-72-72-c-60-iso10646-1"
 iconfont="-xos4-terminusicons2mono-medium-r-normal--12-120-72-72-m-60-iso8859-1"
@@ -11,7 +11,7 @@ snd_cha=$(amixer get Master | grep "Playback channels:" | awk '{if ($4 == "") {p
 # Alarm settings
 cpu_alert=75                        # % cpu use
 net_alert=5                         # K net use
-#
+
 # color definitions 
 color_back="#FF1D1F21"              # Default background
 color_fore="#FFC5C8C6"              # Default foreground

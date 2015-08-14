@@ -2,7 +2,7 @@
 #
 # I3 bar with https://github.com/LemonBoy/bar
 
-. $(dirname $0)/i3_bar_config
+. $(dirname $0)/i3_lemonbar_config
 
 if [ $(pgrep -cx $(basename $0)) -gt 1 ] ; then
     printf "%s\n" "The status bar is already running." >&2
@@ -45,10 +45,10 @@ done &
 ~/bin/irc_warn &
 
 # Conky, "SYS"
-conky -c $(dirname $0)/i3_bar_conky > "${panel_fifo}" &
+conky -c $(dirname $0)/i3_lemonbar_conky > "${panel_fifo}" &
 
 # Loop fifo
-$(dirname $0)/i3_bar_parser.sh < "${panel_fifo}" \
+$(dirname $0)/i3_lemonbar_parser.sh < "${panel_fifo}" \
   | lemonbar -p -f "${font}" -f "${iconfont}" -g "${geometry}" -B "${color_back}" -F "${color_fore}" \
   | while read line; do eval "$line"; done &
 
