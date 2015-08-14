@@ -11,7 +11,7 @@ Change every day. Something like this:
 
 ![lemonbar full] (https://dl.dropboxusercontent.com/u/60065791/screenshots/lemonbar/i3bar_full.png)
 
-Config files [here] (https://github.com/electro7/dotfiles/tree/master/.i3/lemonbar)
+Config files and help [here] (https://github.com/electro7/dotfiles/tree/master/.i3/lemonbar)
 
 ### Clean install (debian jessie):
 
