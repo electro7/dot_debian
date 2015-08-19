@@ -115,7 +115,7 @@ can block the gmail external check.
 The account user and password are read from ***~/.private/accounts***, example:
 
     MAIL_USER="guest"
-    MAL_PASS="1234"
+    MAIL_PASS="1234"
 
 ![lemonbar mail off] (https://dl.dropboxusercontent.com/u/60065791/screenshots/lemonbar/i3bar_mail_off.png)
 ![lemonbar mail on] (https://dl.dropboxusercontent.com/u/60065791/screenshots/lemonbar/i3bar_mail_on.png)
