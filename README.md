@@ -28,7 +28,7 @@ Config files and help [here] (https://github.com/electro7/dotfiles/tree/master/.
 * Delete all files in $HOME and clone git:
 
     ```sh
-    $ git clone https://github.com/electro7/dotfiles.dot .
+    $ git clone https://github.com/electro7/dotfiles.git .
     ```
 
 * Install vim plugins:
