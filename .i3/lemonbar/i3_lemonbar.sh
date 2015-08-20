@@ -21,7 +21,6 @@ xprop -spy -root _NET_ACTIVE_WINDOW | sed -un 's/.*\(0x.*\)/WIN\1/p' > "${panel_
 
 # i3 Workspaces, "WSP"
 # TODO : Restarting I3 breaks the IPC socket con. :(
-#$(dirname $0)/i3_workspaces.py > "${panel_fifo}" &
 $(dirname $0)/i3_workspaces.pl > "${panel_fifo}" &
 
 # IRC, "IRC"
@@ -64,9 +63,8 @@ done &
 
 #### LOOP FIFO
 
-$(dirname $0)/i3_lemonbar_parser.sh < "${panel_fifo}" \
-  | lemonbar -p -f "${font}" -f "${iconfont}" -g "${geometry}" -B "${color_back}" -F "${color_fore}" \
-  | while read line; do eval "$line"; done &
+cat "${panel_fifo}" | $(dirname $0)/i3_lemonbar_parser.sh \
+  | lemonbar -p -f "${font}" -f "${iconfont}" -g "${geometry}" -B "${color_back}" -F "${color_fore}" &
 
 wait
 
