@@ -23,6 +23,7 @@ Config files and help [here] (https://github.com/electro7/dotfiles/tree/master/.
     $ apt-get install i3 rxvt-unicode-256color lightdm x11-xserver-utils
     $ apt-get install git vim
     $ apt-get install conky curl alsautils
+    $ apt-get install mpd mpc ncmpcpp
     ```
 
 * Delete all files in $HOME and clone git:
