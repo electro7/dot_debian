@@ -17,7 +17,7 @@ A functional config for lemonbar to work with i3wm.
 * Weechat for private messages alert. Bitlbee for twitter and chat protocols
   integration.
 
-* MPD and ncmpcpp for song info.
+* MPD and mpc for song info.
 
 * xprop for focus app indicator.
 
@@ -139,7 +139,7 @@ For reset the warning, run ***irc_warn*** without parameters.
 
 #### MPD song info
 
-Show autor and title of current song. Use mpd and ncmpcpp.
+Show autor and title of current song. Use mpd and mpc.
 
 ![lemonbar mpd off] (https://dl.dropboxusercontent.com/u/60065791/screenshots/lemonbar/i3bar_mpd_off.png)
 ![lemonbar mpd on] (https://dl.dropboxusercontent.com/u/60065791/screenshots/lemonbar/i3bar_mpd_on.png)

@@ -97,7 +97,7 @@ while read -r line ; do
       mpd_arr=(${line#???})
       if [ -z "${line#???}" ]; then
         song="none";
-      elif [ "${mpd_arr[0]}" == "Couldn't" ]; then
+      elif [ "${mpd_arr[0]}" == "error:" ]; then
         song="mpd off";
       else
         song="${line#???}";
