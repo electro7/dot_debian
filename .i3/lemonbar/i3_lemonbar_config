@@ -12,6 +12,11 @@ snd_cha=$(amixer get Master | grep "Playback channels:" | awk '{if ($4 == "") {p
 cpu_alert=75                        # % cpu use
 net_alert=5                         # K net use
 
+# update setting, in seconds (conky update in i3_lemonbar_conky
+upd_vol=3                           # Volume update
+upd_mail=300                        # Mail check update
+upd_mpd=5                           # MPD song update
+
 # color definitions 
 color_back="#FF1D1F21"              # Default background
 color_fore="#FFC5C8C6"              # Default foreground
