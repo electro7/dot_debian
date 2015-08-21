@@ -23,6 +23,7 @@ Xcursor.theme:	 Neutral
 !#include "/home/electro7/.config/termcolours/base16-solarized.light"
 #include "/home/electro7/.config/termcolours/hybrid_e7"
 !#include "/home/electro7/.config/termcolours/s3r0"
+##include "/home/electro7/.config/termcolours/nix_e7"
 
 ! URXVT
 !----------------------------------------------------------------------
