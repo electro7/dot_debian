@@ -100,6 +100,8 @@ for_window [class="(?i)gbdfed"] floating enable
 for_window [class="(?i)lxappearance"] floating enable
 for_window [instance="(?i)TeamViewer.exe"] floating enable
 for_window [class="(?i)VirtualBox"] floating enable
+for_window [class="(?i)mplayer2"] floating enable
+for_window [instance="(?i)mplayer2"] floating enable
 
 #...........
 # Keybinds i3
