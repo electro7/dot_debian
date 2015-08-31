@@ -23,6 +23,7 @@ xset dpms 3600 3600 3600
 xset fp+ $HOME/.fonts/misc
 xset fp+ $HOME/.fonts/ohsnap
 xset fp+ $HOME/.fonts/terminesspowerline
+xset fp+ $HOME/.fonts/tewi
 # TTF se cargan automaticamente en .fonts
 
 # Mis teclas
