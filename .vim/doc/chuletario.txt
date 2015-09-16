@@ -783,4 +783,4 @@ Instalar reproductor de música para consola:
 - ncmpcpp ~
   - El fichero de configuración va en {.ncmpcpp/config}
 
-vim:tw=78:ts=8:wrap:ft=help:norl:
+/* vim:tw=78:ts=8:wrap:ft=help:norl: */
