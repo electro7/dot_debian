@@ -5,25 +5,25 @@
 " Trato que funcione tanto en WIN (con gvim) como en LINUX (vim y gvim)
 " Configuración ontenida de W0ng -> https://github.com/w0ng
 "
-" Vicente Gimeno Morales - E7 Version 2.8 - 22 ene 2015
+" Vicente Gimeno Morales - E7 Version 2.8 - 16 sep 2015
 "======================================================================#
 "
 " Compability {{{
 " -----------------------------------------------------------------------------
 "
-set nocompatible					" use vim defaults instead of vi
-set encoding=utf-8					" always encode in utf
+set nocompatible		" use vim defaults instead of vi
+set encoding=utf-8		" always encode in utf
 
 "}}}
 " Vim Plugins {{{
 " -----------------------------------------------------------------------------
 "
 " Brief help
-" :PluginList						- lists configured plugins
-" :PluginInstall					- installs plugins
-" :PluginUpdate						- Update Plugins
-" :PluginSearch foo					- searches for foo; append `!` to refresh local cache
-" :PluginClean						- confirms removal of unused plugins
+" :PluginList			- lists configured plugins
+" :PluginInstall		- installs plugins
+" :PluginUpdate			- Update Plugins
+" :PluginSearch foo		- searches for foo; append `!` to refresh local cache
+" :PluginClean			- confirms removal of unused plugins
 "
 " see :h vundle for more details or wiki for FAQ
 
@@ -44,12 +44,12 @@ call vundle#begin()
 	Plugin 'tpope/vim-surround'					" Manipulate quotes and brackets
 	Plugin 'bling/vim-airline'					" Pretty statusbar
 	Plugin 'terryma/vim-multiple-cursors'		" Multiple cursors work
-	 Plugin 'edkolev/promptline.vim'			" Prompt generator for bash
+	Plugin 'edkolev/promptline.vim'				" Prompt generator for bash
 	Plugin 'altercation/vim-colors-solarized.git'	" Solarized theme
 	"Plugin 'nathanaelkane/vim-indent-guides.git'	" Show tab/space guides
 
   " All of your Plugins must be added before the following line
-call vundle#end()					  " required
+call vundle#end()
 
 if has("win32")
 	set runtimepath+=~/.vim
@@ -337,7 +337,7 @@ autocmd BufNewFile,BufRead *.markdown,*.md,*.mdown,*.mkd,*.mkdn
 	\	setf markdown |
 	\ endif
 
-"Set filetype for prg
+" Set filetype for prg
 autocmd BufNewFile,BufRead *.prg,*.dev,*.act,*.cas set ft=prg
 
 "}}}
@@ -356,9 +356,9 @@ function! ToggleColours()
 		let g:hybrid_use_Xresources = 1
 		colorscheme hybrid_e7
 		AirlineTheme air_e7
-	 endif
+	endif
 
-  " Reconfigure term colors
+" Reconfigure term colors
 	if !has('gui_running')
 		if &background == 'light'
 			if filereadable($HOME."/.config/termcolours/light.sh")
