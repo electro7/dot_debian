@@ -358,7 +358,7 @@ function! ToggleColours()
 		AirlineTheme air_e7
 	endif
 
-" Reconfigure term colors
+	" Reconfigure term colors
 	if !has('gui_running')
 		if &background == 'light'
 			if filereadable($HOME."/.config/termcolours/light.sh")
