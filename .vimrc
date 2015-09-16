@@ -47,6 +47,7 @@ call vundle#begin()
   Plugin 'terryma/vim-multiple-cursors'           " Multiple cursors work
   Plugin 'edkolev/promptline.vim'                 " Prompt generator for bash
   Plugin 'altercation/vim-colors-solarized.git'   " Solarized theme
+  "Plugin 'nathanaelkane/vim-indent-guides.git'    " Show tab/space guides
 
   " All of your Plugins must be added before the following line
 call vundle#end()                     " required
@@ -99,11 +100,11 @@ set foldnestmax=1         " limit max folds for indent and syntax methods
 
 " Tabs
 set autoindent            " copy indent from previous line
-set expandtab             " replace tabs with spaces
-set shiftwidth=2          " spaces for autoindenting
+set noexpandtab           " replace tabs with spaces
+set shiftwidth=8          " spaces for autoindenting
 set smarttab              " <BS> removes shiftwidth worth of spaces
-set softtabstop=2         " spaces for editing, e.g. <Tab> or <BS>
-set tabstop=2             " spaces for <Tab>
+set softtabstop=8         " spaces for editing, e.g. <Tab> or <BS>
+set tabstop=8             " spaces for <Tab>
 
 " Searches
 set hlsearch              " highlight search results
@@ -206,16 +207,19 @@ nnoremap <M-p> :bp<CR>
 
 " Spell checking
 nnoremap <leader>s :set spell!<CR>
+" Show tabs
+nmap <Leader>t :set list lcs=tab:+·<CR>
+nmap <Leader>nt :set nolist<CR>
 " Prepare tabularize
-nmap <Leader>t :'<,'> Tabularize /
-vmap <Leader>t :Tabularize /
+nmap <Leader>ta :'<,'> Tabularize /
+vmap <Leader>ta :Tabularize /
 " vsplit
 nnoremap <leader>v :vsplit<CR>
 " Edit .vimrc
 nnoremap <leader>vi :e $HOME/.vimrc<CR>
 nnoremap <leader>vr :source $HOME/.vimrc<CR>
-" Search for trailing spaces
-nnoremap <leader>w :%s/\s\+$//gc<CR>
+" Search and delete for trailing spaces and spaces before a tab
+nnoremap <leader>w :%s/\s\+$\\| \+\ze\t//gc<CR>
 
 " Next window
 nnoremap <tab> <C-W>w
@@ -306,14 +310,17 @@ autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=python3complete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
-" Indent rules
+" Indent rules, Linux Kernel Coding Style
 autocmd FileType c
-      \ setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+      \ setlocal noexpandtab tabstop=8 shiftwidth=8 softtabstop=8
+      \ list lcs=tab:+·
 autocmd FileType cpp,java,javascript,json,markdown,php,python
-      \ setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
-autocmd FileType markdown setlocal textwidth=79
+      \ setlocal noexpandtab tabstop=8 shiftwidth=8 softtabstop=8
+      \ list lcs=tab:+·
+autocmd FileType markdown setlocal textwidth=80
 autocmd FileType prg
-      \ setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4 cindent
+      \ setlocal noexpandtab tabstop=8 shiftwidth=8 softtabstop=8 cindent
+      \ list lcs=tab:+·
 
 " Txt
 autocmd FileType text setlocal textwidth=79 wrap
@@ -332,7 +339,7 @@ autocmd BufNewFile,BufRead *.markdown,*.md,*.mdown,*.mkd,*.mkdn
             \ endif
 
 "Set filetype for prg
-autocmd BufNewFile,BufRead *.prg,*.dev set ft=prg
+autocmd BufNewFile,BufRead *.prg,*.dev,*.act,*.cas set ft=prg
 
 "}}}
 " Functions {{{

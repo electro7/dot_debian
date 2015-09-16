@@ -1,6 +1,8 @@
 Recomendaciones de estilo para el desarrollo de código
 -------------------------------------------------------
-E7 - 03 feb 2015 
+E7 - 16 sep 2015 
+
+Base -> https://www.kernel.org/doc/Documentation/doc/CodingStyle
 
 1.- Introducción
 
@@ -10,7 +12,7 @@ ficheros fuente.
 
 2.-	Estructura del fichero
 
-- Usar indentación con 4 espacios.No usar tab's son el demonio.
+- Usar indentación con 8 espacios.No usar tab's son el demonio.
 - La línea no debe superar las 80 columnas.
 - Al principio del fichero se coloca una cabecera específica del fichero.
 - El primer elemento de código del programa son los #includes.
