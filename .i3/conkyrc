@@ -61,7 +61,7 @@ ${goto 0}${color4}ßßÚ\
 ${goto 976}${color1}Õ ${time %H:%M}\
 ${goto 922}${color9} ${time %d %b}\
 # Vol
-${goto 868}${color}Ô ${execi 3 amixer get Master | grep Left | awk -F'[]%[]' '/%/ {if ($5 == "off") {print "×"} else {printf "%d%%", $2}}'}\
+${goto 868}${color}Ô ${execi 3 amixer get 'Master Surround' | grep Left | awk -F'[]%[]' '/%/ {if ($5 == "off") {print "×"} else {printf "%d%%", $2}}'}\
 # ETH
 ${goto 748}\
 ${if_up eth0}${color}${else}${color0}${endif}Ð ${downspeed eth0}${color0} Ý \
