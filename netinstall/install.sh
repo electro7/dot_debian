@@ -6,7 +6,7 @@ apt-get install -y mpd mpc ncmpcpp
 apt-get install -y notification-daemon xinput alsa-utils
 apt-get update && apt-get upgrade -y && apt-get dist-upgrade -y 
 adduser electro7
-su electro7 -c "bash <(curl files.domi.ninja/lol2.sh)"
+su electro7 -c "bash <(curl https://raw.githubusercontent.com/mope1/dotfiles/master/netinstall/install2.sh)"
 
 mkdir /tmp; cd /tmp
 git clone  https://github.com/LemonBoy/bar.git
