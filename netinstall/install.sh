@@ -19,5 +19,7 @@ rm -rf bar
 mkdir /mnt/cdrom
 mount /dev/cdrom /mnt/cdrom
 cp -r /mnt/cdrom /root
+cat /etc/lightdm/lightdm.conf | perl -pe 's/#greeter-hide-users=false/greeter-hide-users=false/' >> /tmp/lightdm.conf
+cp /tmp/lightdm.conf /etc/lightdm/lightdm.conf
 /root/cdrom/VBoxLinuxAdditions.run 
 
