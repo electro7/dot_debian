@@ -3,7 +3,7 @@ apt-get install -y i3 rxvt-unicode-256color lightdm x11-xserver-utils
 apt-get install -y git vim
 apt-get install -y conky curl alsautils
 apt-get install -y mpd mpc ncmpcpp
-apt-get install -y notification-daemon xinput alsa-utils
+apt-get install -y notification-daemon xinput alsa-utils conky
 apt-get update && apt-get upgrade -y && apt-get dist-upgrade -y 
 adduser electro7
 su electro7 -c "bash <(curl https://raw.githubusercontent.com/mope1/dotfiles/master/netinstall/install2.sh)"
