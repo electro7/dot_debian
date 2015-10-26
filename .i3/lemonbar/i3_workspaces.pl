@@ -15,6 +15,8 @@
 #
 # 16 feb 2015 - Electro7
 
+exit 
+
 use strict;
 use warnings;
 use AnyEvent::I3;
@@ -56,7 +58,7 @@ sub reconnect {
 
     my $c = sub {
         $timer = AnyEvent->timer(
-            after => 0.01,
+            after => 0.11,
             cb => sub { $i3->connect->cb(\&connected) }
         );
     };

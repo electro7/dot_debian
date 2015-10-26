@@ -24,7 +24,6 @@ Config files and help [here] (https://github.com/electro7/dotfiles/tree/master/.
     $ apt-get install git vim
     $ apt-get install conky curl alsautils
     $ apt-get install mpd mpc ncmpcpp
-    $ apt-get install notification-daemon xinput alsa-utils
     ```
 
 * Delete all files in $HOME and clone git:

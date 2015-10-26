@@ -10,7 +10,7 @@
 #set $ft xft:DroidSans:size=8
 #set $ft pango:Inconsolata:size=8
 #set $ft -xos4-terminesspowerline-medium-r-normal--12-120-72-72-c-60-iso10646-1
-font pango:Terminus 8
+font pango:Terminus 10
 set $ft terminus12
 #font $ft
 
@@ -214,3 +214,6 @@ bindcode $mod+27 mode "resize"
 bar {
   i3bar_command ~/.i3/lemonbar/i3_lemonbar.sh
 }
+
+
+bindcode $mod+p exec 'keepass2 ~/Database.kdbx -keyfile:~/Database.key'
