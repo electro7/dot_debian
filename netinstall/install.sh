@@ -8,6 +8,9 @@ apt-get update && apt-get upgrade -y && apt-get dist-upgrade -y
 adduser electro7
 su electro7 -c "bash <(curl https://raw.githubusercontent.com/mope1/dotfiles/master/netinstall/install2.sh)"
 
+apt-get install ruby-dev
+gem install bropages
+
 mkdir /tmp; cd /tmp
 git clone  https://github.com/LemonBoy/bar.git
 cd bar
