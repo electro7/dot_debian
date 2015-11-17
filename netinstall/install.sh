@@ -8,7 +8,7 @@ apt-get update && apt-get upgrade -y && apt-get dist-upgrade -y
 adduser electro7
 su electro7 -c "bash <(curl https://raw.githubusercontent.com/mope1/dotfiles/master/netinstall/install2.sh)"
 
-apt-get install ruby-dev
+apt-get install ruby-dev -y
 gem install bropages
 
 mkdir /tmp; cd /tmp
@@ -19,6 +19,15 @@ apt-get install -y libxcb1-dev libxcb-xinerama0-dev libxcb-randr0-dev
 make install
 cd ..
 rm -rf bar
+
+echo 'if ! shopt -oq posix; then\
+  if [ -f /usr/share/bash-completion/bash_completion ]; then\
+    source /usr/share/bash-completion/bash_completion\
+  elif [ -f /etc/bash_completion ]; then\
+    source /etc/bash_completion\
+  fi\
+fi\' >> /root/.bashrc
+
 mkdir /mnt/cdrom
 mount /dev/cdrom /mnt/cdrom
 cp -r /mnt/cdrom /root

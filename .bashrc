@@ -148,7 +148,7 @@ alias col_default="sh ~/.config/termcolours/default.sh"
 alias wifi_on="nmcli nm wifi on"
 alias wifi_off="nmcli nm wifi off"
 
-alias u='apt-get udpate && apt-get upgrade -y && apt-get dist-upgrade -y'
+alias u='sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get dist-upgrade -y'
 #----------------------------------------------------------------------#
 # OTROS
 #----------------------------------------------------------------------#
