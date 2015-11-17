@@ -1,16 +1,29 @@
+#basics
+apt-get update
 apt-get install -y sudo
-apt-get install -y i3 rxvt-unicode-256color lightdm x11-xserver-utils
 apt-get install -y git vim
-apt-get install -y conky curl alsautils
+
+#x
+apt-get install -y i3 rxvt-unicode-256color lightdm x11-xserver-utils
+
+#sound stuff
+apt-get install -y alsautils
 apt-get install -y mpd mpc ncmpcpp
 apt-get install -y notification-daemon xinput alsa-utils conky
-apt-get update && apt-get upgrade -y && apt-get dist-upgrade -y 
+
+#user home directory setup
 adduser electro7
+apt-get install -y curl
 su electro7 -c "bash <(curl https://raw.githubusercontent.com/mope1/dotfiles/master/netinstall/install2.sh)"
 
+#bropages
 apt-get install ruby-dev -y
 gem install bropages
 
+#browsing
+apt-get install iceweasel icedove keepass2
+
+#lemonbar
 mkdir /tmp; cd /tmp
 git clone  https://github.com/LemonBoy/bar.git
 cd bar
@@ -20,18 +33,27 @@ make install
 cd ..
 rm -rf bar
 
-echo 'if ! shopt -oq posix; then\
-  if [ -f /usr/share/bash-completion/bash_completion ]; then\
-    source /usr/share/bash-completion/bash_completion\
-  elif [ -f /etc/bash_completion ]; then\
-    source /etc/bash_completion\
-  fi\
-fi\' >> /root/.bashrc
+#autocompletion for root
+echo 'if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    source /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    source /etc/bash_completion
+  fi
+fi' >> /root/.bashrc
 
+#lightdm
+cat /etc/lightdm/lightdm.conf | perl -pe 's/#greeter-hide-users=false/greeter-hide-users=false/' >> /tmp/lightdm.conf
+
+#update system
+apt-get update && apt-get upgrade -y && apt-get dist-upgrade -y 
+
+#vbox quest additions
 mkdir /mnt/cdrom
 mount /dev/cdrom /mnt/cdrom
 cp -r /mnt/cdrom /root
-cat /etc/lightdm/lightdm.conf | perl -pe 's/#greeter-hide-users=false/greeter-hide-users=false/' >> /tmp/lightdm.conf
 cp /tmp/lightdm.conf /etc/lightdm/lightdm.conf
 /root/cdrom/VBoxLinuxAdditions.run 
+
+
 
