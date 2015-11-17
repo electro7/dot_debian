@@ -20,18 +20,19 @@ make install
 cd ..
 rm -rf bar
 
-echo 'if ! shopt -oq posix; then\
-  if [ -f /usr/share/bash-completion/bash_completion ]; then\
-    source /usr/share/bash-completion/bash_completion\
-  elif [ -f /etc/bash_completion ]; then\
-    source /etc/bash_completion\
-  fi\
-fi\' >> /root/.bashrc
+echo 'if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    source /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    source /etc/bash_completion
+  fi
+fi' >> /root/.bashrc
+
+cat /etc/lightdm/lightdm.conf | perl -pe 's/#greeter-hide-users=false/greeter-hide-users=false/' >> /tmp/lightdm.conf
 
 mkdir /mnt/cdrom
 mount /dev/cdrom /mnt/cdrom
 cp -r /mnt/cdrom /root
-cat /etc/lightdm/lightdm.conf | perl -pe 's/#greeter-hide-users=false/greeter-hide-users=false/' >> /tmp/lightdm.conf
 cp /tmp/lightdm.conf /etc/lightdm/lightdm.conf
 /root/cdrom/VBoxLinuxAdditions.run 
 
