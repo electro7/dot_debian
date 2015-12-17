@@ -52,17 +52,6 @@ echo 'electro7	ALL=(ALL:ALL) ALL' >> /etc/sudoers
 #update system
 apt-get update && apt-get upgrade -y && apt-get dist-upgrade -y 
 
-#node.js
-apt-get install lynx python-dev g++ make
-URL=$(lynx --dump --listonly https://nodejs.org/dist/latest/ | tail -2 | head -1 | perl -pe 's/[0-9]+\.\s//')
-cd /tmp
-rm -rfv *
-wget --no-clobber $URL
-tar xzvf node*.tar.gz
-cd node*
-./configure
-make install
-
 #vbox quest additions
 mkdir /mnt/cdrom
 mount /dev/cdrom /mnt/cdrom
