@@ -21,7 +21,7 @@ apt-get install ruby-dev -y
 gem install bropages
 
 #browsing
-apt-get install iceweasel icedove keepass2 links
+apt-get install -y iceweasel icedove keepass2 links
 
 #lemonbar
 mkdir /tmp; cd /tmp
