@@ -228,3 +228,6 @@ if [[ -n $(ssh-add -l | grep 'The agent has no identities') ]] ; then
   ssh-add 2> /dev/null
 fi
 
+#clipboarding stuff
+alias xclip='xclip -i -sel c -f | xclip -i -sel -p'
+
