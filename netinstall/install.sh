@@ -40,7 +40,7 @@ apt-get install -y curl
 su electro7 -c "bash <(curl https://raw.githubusercontent.com/mope1/dotfiles/master/netinstall/install2.sh)"
 
 #bropages
-apt-get install -y ruby-dev ruby
+apt-get install -y ruby xclip
 gem install bropages
 
 #browsing
