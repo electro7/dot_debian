@@ -1,7 +1,31 @@
 #basics
 apt-get update
 apt-get install -y sudo
-apt-get install -y git vim
+apt-get install -y git
+
+#vim
+apt-get install -y libncurses5-dev libgnome2-dev libgnomeui-dev \
+    libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
+    libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev \
+    ruby-dev git
+
+apt-get remove vim vim-runtime gvim
+apt-get remove vim-tiny vim-common vim-gui-common
+
+mkdir /opt
+cd /opt
+git clone https://github.com/vim/vim.git
+cd vim
+./configure --with-features=huge \
+            --enable-multibyte \
+            --enable-rubyinterp \
+            --enable-pythoninterp \
+            --with-python-config-dir=/usr/lib/python2.7/config \
+            --enable-perlinterp \
+            --enable-luainterp \
+            --enable-gui=gtk2 --enable-cscope --prefix=/usr
+make VIMRUNTIMEDIR=/usr/share/vim/vim74
+make install
 
 #x
 apt-get install -y i3 rxvt-unicode-256color lightdm x11-xserver-utils
