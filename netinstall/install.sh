@@ -1,16 +1,15 @@
 #basics
 apt-get update
-apt-get install -y sudo
-apt-get install -y git
+apt-get install -y sudo git
 
-#vim
+#compile a custom vim
 apt-get install -y libncurses5-dev libgnome2-dev libgnomeui-dev \
     libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
     libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev \
     ruby-dev git
 
-apt-get remove vim vim-runtime gvim
-apt-get remove vim-tiny vim-common vim-gui-common
+apt-get remove -y vim vim-runtime gvim
+apt-get remove -y vim-tiny vim-common vim-gui-common
 
 mkdir /opt
 cd /opt
@@ -41,7 +40,7 @@ apt-get install -y curl
 su electro7 -c "bash <(curl https://raw.githubusercontent.com/mope1/dotfiles/master/netinstall/install2.sh)"
 
 #bropages
-apt-get install ruby-dev -y
+apt-get install -y ruby-dev ruby
 gem install bropages
 
 #browsing
@@ -58,6 +57,7 @@ cd ..
 rm -rf bar
 
 #autocompletion for root
+#TODO replace this with a bashrc that gets copied
 echo 'if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
     source /usr/share/bash-completion/bash_completion
