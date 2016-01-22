@@ -70,6 +70,7 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 alias lsmp3='ls -1 --indicator-style=none *.mp3'
+alias lsepub='ls -1 -R --indicator-style=none | grep epub'
 export GREP_COLOR="1;31"
 alias grep='grep --color=auto'
 export LESS="-R"
@@ -206,13 +207,13 @@ fi
 # MI LOGO
 #----------------------------------------------------------------------#
 
-case "$TERM" in
-xterm*|rxvt*)
-  if [ -f $HOME/bin/archey ]; then $HOME/bin/archey ; fi
-	;;
-*)
-	;;
-esac
+#case "$TERM" in
+#xterm*|rxvt*)
+#  if [ -f $HOME/bin/archey ]; then $HOME/bin/archey ; fi
+#	;;
+#*)
+#	;;
+#esac
 
 #----------------------------------------------------------------------#
 # SSH KEY
