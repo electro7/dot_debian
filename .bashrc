@@ -202,15 +202,3 @@ if [ $TERM = vt100 ]; then
         alias ls='ls -F --color=never';
 fi
 
-#----------------------------------------------------------------------#
-# MI LOGO
-#----------------------------------------------------------------------#
-
-case "$TERM" in
-xterm*|rxvt*)
-  if [ -f $HOME/bin/archey ]; then $HOME/bin/archey ; fi
-	;;
-*)
-	;;
-esac
-
