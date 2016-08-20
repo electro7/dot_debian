@@ -40,7 +40,7 @@ meter, and converts it with lemonbar format.
 
     ```
     bar {
-        i3_bar_command ~./.i3/lemonbar/i3_lemonbar.sh
+        i3bar_command ~./.i3/lemonbar/i3_lemonbar.sh
     }
     ```
 * Adjust bar settings editing i3_lemonnar_config. Settings for:
