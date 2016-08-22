@@ -13,7 +13,7 @@ Change every day. Something like this:
 
 Config files and help [here] (https://github.com/electro7/dotfiles/tree/master/.i3/lemonbar)
 
-### Clean install (debian jessie):
+### Clean install (debian jessie 8.5):
 
 * Install debian base (without X desktop).
 
@@ -24,6 +24,8 @@ Config files and help [here] (https://github.com/electro7/dotfiles/tree/master/.
     $ apt-get install git vim
     $ apt-get install conky curl alsa-utils
     $ apt-get install mpd mpc ncmpcpp
+    $ apt-get install notification-daemon xinput
+
     ```
 
 * Delete all files in $HOME and clone git:
