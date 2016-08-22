@@ -8,7 +8,7 @@ A functional config for lemonbar to work with i3wm.
 
 * Of course, [lemonbar] (https://github.com/LemonBoy/bar)
 
-* Alsautils for volume indicator.
+* Alsa-utils for volume indicator.
 
 * Conky for CPU, MEM, NET and DISK usage.
 
