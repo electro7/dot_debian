@@ -94,7 +94,6 @@ export BROWSER="firefox"
 
 # Alias contra borrados accidentales.
 alias rm='rm -i'
-alias cp='cp -i'
 alias mv='mv -i'
 
 # Alias de limpieza
@@ -150,6 +149,7 @@ alias col_default="sh ~/.config/termcolours/default.sh"
 alias wifi_on="nmcli nm wifi on"
 alias wifi_off="nmcli nm wifi off"
 
+alias u='sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get dist-upgrade -y'
 #----------------------------------------------------------------------#
 # OTROS
 #----------------------------------------------------------------------#
@@ -228,4 +228,7 @@ fi
 if [[ -n $(ssh-add -l | grep 'The agent has no identities') ]] ; then
   ssh-add 2> /dev/null
 fi
+
+#clipboarding stuff
+alias xclip='xclip -i -sel c -f | xclip -i -sel -p'
 

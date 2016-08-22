@@ -1,0 +1,13 @@
+#!/bin/bash
+touch /tmp/temp
+cd "$1"
+for file in $( find . -type f ); do
+	if [[ $(cat $file | grep -c "$2") -gt "0" ]]; then
+		read -p "replace $2->$3 in $file y/n?"
+		if [ "$REPLY" == "y" ]; then
+			rm /tmp/temp
+			cat "$file" | perl -pe "s/$2/$3/g" >> /tmp/temp
+			cp /tmp/temp "$file"
+		fi
+	fi
+done

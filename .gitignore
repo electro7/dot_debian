@@ -75,3 +75,10 @@ tmp/*
 .zprezto/*
 .zcompdump
 .zhistory
+.icedove/*
+.links2/
+.vifm/*
+.recently-used
+Documents/*
+s/*
+.bro/*
