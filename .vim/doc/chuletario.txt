@@ -24,7 +24,7 @@ CONTENIDO                                                 *chuleta_contenido*
   - Ordenar MP3                                     |chuleta_mp3|
   - Fuentes, temas, iconos                          |chuleta_fuentes_temas_gtk|
   - Drivers NVIDIA                                  |chuleta_nvidia|
-  - Airport Extreme                                 |chuleta_airport|
+  - Wireless	                                    |chuleta_wireless|
   - Debian en Powerbook                             |chuleta_powerbook|
   - Versionitis con GIT                             |chuleta_git|
   - Instalando fuentes                              |chuleta_checkinstall|
@@ -32,6 +32,7 @@ CONTENIDO                                                 *chuleta_contenido*
   - Weechat + BitlBee (IRC + Mensajería)            |weechat_bitlbee|
   - Samba fácil                                     |samba_facil|
   - MPD y ncmpcpp                                   |mpd_ncmpcpp|
+  - Systemd en Debian				    |systemd|
 
 ==============================================================================
 ==============================================================================
@@ -789,5 +790,19 @@ Instalar reproductor de música para consola:
 
 - ncmpcpp ~
   - El fichero de configuración va en {.ncmpcpp/config}
+
+==============================================================================
+SYSTEMD		                                                 *systemd*
+
+Al final han quitado nuestro querido systemv en debian y han puesto en
+systemd.
+
+Cosillas:
+
+- El update-rc.d sigue funcionando, pero solo para ciertas cosas.
+- Por ejemplo, para no arrancar las X en el inicio hay que hacer:
+  "systemctl set-default multi-user.target" 
+- Para volverlas a poner:
+  "systemctl set-default graphical.target"
 
 vim:tw=78:ts=8:wrap:ft=help:norl
