@@ -491,14 +491,19 @@ DRIVERS NVIDIA                                               *chuleta_nvidia*
 - Relanzar el gdm/lightdm
 
 ==============================================================================
-AIRPORT EXTREME                                             *chuleta_airport*
+WIRELESS						  *chuleta_wireless*
 
 ----------------------------------------------------------------------------
-EN DEBIAN
+EN MANZANITA
 
 - Añadir los paquetes contrib y nonfree a las fuentes del repositorio.
 - "apt-get install firmware-b43-installer"
 - Se debe cargar solo el modulo, sino "modprobe b43".
+
+EN HP
+- Añadir los paquetes contrib y nonfree a las fuentes del repositorio.
+ - "apt-get install firmware-ipw2x00 wireless-tools"
+- Se debe cargar solo el modulo, sino "modprobe ipw2200".
 
 La red wifi se configura con "iwconfig" y "iwlist." Pero mejor hacerlo
 automático en "/etc/network/interfaces".
@@ -524,6 +529,8 @@ el "nm-applet" y au!.
 - Desde las X podemos cambiar de redes con el "nm-applet". Solo se
 	puede arrancar si el gestos de ventanas tiene un systray. Si no lo
 	tiene (fvwm) usar el "stalonetray" que es estandar.
+- Se puede configurar desde la X con "nm-conection-editor".
+- Desde consola podemos usar el nm-tool, el nmcli y el nm-online.
 
 ==============================================================================
 DEBIAN EN POWERBOOK                                     *chuleta_powerbook*
@@ -783,4 +790,4 @@ Instalar reproductor de música para consola:
 - ncmpcpp ~
   - El fichero de configuración va en {.ncmpcpp/config}
 
-/* vim:tw=78:ts=8:wrap:ft=help:norl: */
+vim:tw=78:ts=8:wrap:ft=help:norl
