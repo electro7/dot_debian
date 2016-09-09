@@ -663,6 +663,12 @@ VARIOS                                                    *chuleta_git_varios*
   puedes traer la última versión del servidor y apuntar a tu copia  local
   principal de esta forma "git fetch origin" "git reset --hard origin/master"
 
+- Clonar un repositorio en un directorio NO vacio ~
+>
+  git init
+  git remote add origin "repositorio remoto"
+  git pull origin master
+
 ==============================================================================
 CHECKINSTALL                                          *chuleta_checkinstall*
 
