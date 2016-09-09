@@ -668,7 +668,8 @@ VARIOS                                                    *chuleta_git_varios*
   git init
   git remote add origin "repositorio remoto"
   git pull origin master
-
+  git branch --set-upstream-to=origin/master master
+<
 ==============================================================================
 CHECKINSTALL                                          *chuleta_checkinstall*
 
