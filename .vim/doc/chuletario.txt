@@ -771,7 +771,7 @@ Instalar y configurar Samba en comodos pasos:
     writable = yes
     browseable = yes
     create mask = 0660
-    directorio mask = 0770
+    directory mask = 0770
     group = disk
     valid users = electro7
 >
