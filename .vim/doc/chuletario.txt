@@ -68,16 +68,20 @@ Para añadir varias IP a la misma interfaces, basta con crear un alias.
 ==============================================================================
 EL FSTAB                                                     *chuleta_fstab*
 
-Para que los usuarios puedan montar el cdrom y el floppy hay que añadir
+- Para que los usuarios puedan montar el cdrom y el floppy hay que añadir
 la opción "user". Se montaria con "mount /cdrom".
 
-Para que puedan escribir en vfat/ntfs (del root) hay que poner en las opciones
+- Para que puedan escribir en vfat/ntfs (del root) hay que poner en las opciones
 "gid=6,umask=0007,fmask=0117" y añadir el usuario al grupo disk (6). La opción "quiet"
 sirve para que al mover o copiar los archivos no aparezcan un mensaje de error
 al no poder mantener permisos. Con "utf8" funcionan algunos caracteres raros
 como la ñ.
 
-Para soporte ntfs hay que instalar el paquete "ntfs-3g".
+- Para soporte ntfs hay que instalar el paquete "ntfs-3g".
+
+- Añadir una nueva unidad con formato linux (ext3, ext4, etc...) solo hay que
+  poner "defaults" en opciones, dar permiso a grupo "disk" en el directorio y
+  añadir los usuarios pertinentes al mismo grupo
 
 Ejemplo:
 >
@@ -91,6 +95,7 @@ Ejemplo:
   /dev/cdrom  /cdrom      iso9660 defaults,ro,noauto,user     0       0
   /dev/cdrw   /cdrw       iso9660 defaults,ro,noauto,user     0       0
   /dev/sda1   /mnt/PenDrive       auto    defaults,noauto,user        0 0
+  /dev/sdb3   /mnt/hdextra ext4 default 0 0 
   linuxe7:/home   /mnt/LinuxE7    nfs defaults,rw,noauto,user 0       0
 <
 ==============================================================================
@@ -663,6 +668,13 @@ VARIOS                                                    *chuleta_git_varios*
   puedes traer la última versión del servidor y apuntar a tu copia  local
   principal de esta forma "git fetch origin" "git reset --hard origin/master"
 
+- Clonar un repositorio en un directorio NO vacio ~
+>
+  git init
+  git remote add origin "repositorio remoto"
+  git pull origin master
+  git branch --set-upstream-to=origin/master master
+<
 ==============================================================================
 CHECKINSTALL                                          *chuleta_checkinstall*
 
@@ -764,7 +776,7 @@ Instalar y configurar Samba en comodos pasos:
     writable = yes
     browseable = yes
     create mask = 0660
-    directorio mask = 0770
+    directory mask = 0770
     group = disk
     valid users = electro7
 >
