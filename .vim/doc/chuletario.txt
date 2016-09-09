@@ -821,6 +821,8 @@ el chromecast, por ejemplo:
   - Poner el "inotify=yes".
   - Hacer un "servide minidlna restart"
 
+- Se usan los puertos 1900 y 8200.
+
 - Listo. Se puede ver el estado desde web al puerto 8200 del servidor.
 
 vim:tw=78:ts=8:wrap:ft=help:norl
