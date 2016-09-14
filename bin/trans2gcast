@@ -11,8 +11,8 @@
 
 SOUR=$1
 DEST=$2
-BUFSIZE=16000
-MAXRATE=16000
+BUFSIZE=20000
+MAXRATE=20000
 
 if [[ -z $SOUR ]]; then
   echo 'No source specified'
@@ -25,10 +25,10 @@ if [[ -z $DEST ]]; then
 fi
 
 TITLE=$(basename -s .mkv $DEST)
+DEST="$TITLE [Gcast].mkv"
 
 echo "Transcoding..."
 HandBrakeCLI -i "$SOUR" -t 1 -o "$DEST" -f mkv --crop 0:0:0:0 --loose-anamorphic --modulus 2 -e x264 -q 21 --vfr -a 1 -E av_aac -6 5point1 -R Auto -B 320 -D 0 --gain 0 --audio-fallback ac3 -x vbv-bufsize=$BUFSIZE:vbv-maxrate=$MAXRATE --encoder-level="4.2" --encoder-profile=high --verbose=1
 echo -n "Metadata..."
 mkvpropedit -e info --set title=$TITLE "$DEST"
 
-echo $TITLE
