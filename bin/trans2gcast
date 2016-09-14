@@ -5,6 +5,9 @@
 # Use:
 # - handbrake-cli
 # - mkvtoolnix
+# For info:
+# - mediainfo
+#
 
 SOUR=$1
 DEST=$2
