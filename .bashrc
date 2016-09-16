@@ -116,6 +116,7 @@ alias j="jobs -l"
 alias psl='ps -aux | less'
 alias ..='cd ..'
 alias 'cd..'='cd ..'
+alias df="df -h"
 
 # Alias para el su (root)
 alias reboot="sudo /sbin/reboot"
