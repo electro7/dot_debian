@@ -5,30 +5,64 @@
 # Use:
 # - handbrake-cli
 # - mkvtoolnix
+# - ffmpeg
 # For info:
 # - mediainfo
 #
 
-SOUR=$1
-DEST=$2
+# Video rate Kbits
 BUFSIZE=20000
 MAXRATE=20000
 
-if [[ -z $SOUR ]]; then
-  echo 'No source specified'
-  exit 1
+# Audio Rate
+AUDRATE=320
+
+# Uso
+function usage() {
+  echo "Recodificar video para compatibilizar con ChomeCast."
+  echo "	- video: X264 4.2, audio: AAC o MP3."
+  echo
+  echo "Uso:" 
+  echo "	$HOWCALLED <opción> <fuente> <destino>"
+  echo
+  echo "Opciones:"
+  echo " 	-va -> Convierte todo, video y audio."
+  echo " 	-a -> Solo convierte audio"
+}
+
+HOWCALLED=`basename $0`
+
+if [ $# -eq 0 ]
+ then
+   usage 
+   exit 1
 fi
 
-if [[ -z $DEST ]]; then
-  echo 'No detination specified'
-  exit 1
+
+OPT=$1
+SOUR=$2
+DEST=$3
+
+if [[ -z $SOUR || -z $DEST ]]; then
+	usage
+	exit 1
 fi
 
 TITLE=$(basename -s .mkv "$DEST")
 DEST=""$TITLE" [gcast].mkv"
 
-echo "Transcoding..."
-HandBrakeCLI -i "$SOUR" -t 1 -o "$DEST" -f mkv --crop 0:0:0:0 --loose-anamorphic --modulus 2 -e x264 -q 21 --vfr -a 1 -E av_aac -6 5point1 -R Auto -B 320 -D 0 --gain 0 --audio-fallback ac3 -x vbv-bufsize=$BUFSIZE:vbv-maxrate=$MAXRATE --encoder-level="4.2" --encoder-profile=high --verbose=1
-echo -n "Metadata..."
-mkvpropedit -e info --set title="$TITLE" "$DEST"
+if [[ "$OPT" == "-va" ]] ; then
+	echo "Convirtiendo AUDIO Y VIDEO..."
+	HandBrakeCLI -i "$SOUR" -t 1 -o "$DEST" -f mkv --crop 0:0:0:0 --loose-anamorphic --modulus 2 -e x264 -q 21 --cfr -a 1 -E av_aac -6 5point1 -R Auto -B "$AUDRATE" -D 0 --gain 0 --audio-fallback ac3 -x vbv-bufsize=$BUFSIZE:vbv-maxrate=$MAXRATE --encoder-level="4.2" --encoder-profile=high --verbose=1
+	mkvpropedit -e info --set title="$TITLE" "$DEST"
+	exit 0
+elif [[ "$OPT" == "-a" ]] ; then
+	echo "Convirtiendo SOLO AUDIO..."
+	ffmpeg -i "$SOUR" -c:v copy -c:a libfdk_aac -b:a "$AUDRATE"k -sn "$DEST"
+	mkvpropedit -e info --set title="$TITLE" "$DEST"
+	exit 0
+else
+	usage
+	exit 1
+fi
 
