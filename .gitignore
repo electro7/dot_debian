@@ -39,6 +39,7 @@ downloads/*
 .lftp/*
 .local/*
 mail/*
+mbox
 music
 .mailcheckrc
 .mldonkey/*
