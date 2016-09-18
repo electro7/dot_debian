@@ -832,6 +832,9 @@ el chromecast, por ejemplo:
     permisos de lectura a ese directorio.
   - Poner el "inotify=yes".
   - Hacer un "servide minidlna restart"
+  - Añadir "fs.inotify.max_user_watches = 100000" a {/etc/sysctl.conf} para
+    que minidlna pueda vigilar el cambio de hasta 100000 archivos de los
+    directorios especificados y actualizar su BD.
 
 - Se usan los puertos 1900 y 8200.
 
