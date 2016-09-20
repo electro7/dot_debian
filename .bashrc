@@ -152,7 +152,6 @@ alias wifi_on="nmcli nm wifi on"
 alias wifi_off="nmcli nm wifi off"
 
 # App varias
-alias donkey="mldonkey -stdout -verbosity verb"
 alias mldonkey="mldonkey -stdout -verbosity verb"
 alias netload="speedometer -r eth0 -t eth0"
 
