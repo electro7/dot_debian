@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # Script que convierte espacios a subrayado (_) en el nombre de los archivo
 #
