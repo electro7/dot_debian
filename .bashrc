@@ -225,11 +225,19 @@ fi
 #----------------------------------------------------------------------#
 
 # Init ssg-agent if not exist
-if [ -z "$SSH_AUTH_SOCK" ] ; then
-  eval `ssh-agent -s`
-fi
+#if [ -z "$SSH_AUTH_SOCK" ] ; then
+#  eval `ssh-agent -s`
+#fi
 
-# Add identities if not exist
+# attempt to connect to a running agent, sharing over sessions (putty)
+check-ssh-agent() {
+    [ -S "$SSH_AUTH_SOCK" ] && { ssh-add -l >& /dev/null || [ $? -ne 2 ]; }
+}
+
+check-ssh-agent || export SSH_AUTH_SOCK=/tmp/ssh-agent.sock_$USER
+check-ssh-agent || eval "$(ssh-agent -s -a /tmp/ssh-agent.sock_$USER)" > /dev/null
+
+#Add identities if not exist
 if [[ -n $(ssh-add -l | grep 'The agent has no identities') ]] ; then
   ssh-add 2> /dev/null
 fi
