@@ -461,10 +461,11 @@ ORDENAR MP3                                                   *chuleta_mp3*
 
 - Formato tipo -» "Nº pista - Autor - Canción.mp3".
 - Lo hacemos "Shell friendly" convirtiendo espacios a subrayados.
-- Utilizar el "mp3mover.pl" y el "mvmore".
+- Utilizar el "mp3mover.pl". Lo hace todo. Se basa en el .mp3moverrc.
+  - Necesita instalar el libmp3-tag-perl para modificar los tags de MP3.
 - Crear un lista de reproducción con el nombre "000_Playlist.m3u". Usar el
   alias "lsmp3" para hacer el volcado del directorio.
-- Utilizar el script "mp3id3". Necesita de "id3ren" y "id3v2".
+- Utilizar "id3v2" para ver y editar los tags mp3 en caso necesario.
 - Las carátulas, pues simplemente "back.jpg" y "cover.jpg".
 
 ==============================================================================

@@ -1,0 +1,31 @@
+<options>
+
+FILEMASK='%n_-_%r_-_%t'
+#key
+#----------------------------------------------------------
+#%r = Artist, %a = Album, %n = song number, %t = Song Title
+#%ur = ARTIST, %ua = ALBUM, %ut = SONG TITLE
+#%lr = artist, %la = album, %lt = song title
+#%fr = first character of artist's name
+
+
+DIRECTORYMASK='%r_-_%a'
+#this is like the FILEMASK, you want to use "/" as the delimeter, trust me.
+#if the album isn't found in the song title then that directory just won't be
+#created
+
+ID3TITLEMASK='%n - %t'
+#title doesn't include the filename extension for this one
+#also behaves sensibly as FILEMASK does
+
+-p
+-D
+-S
+-X
+-i2
+-x
+-T
+#Options set here are overridden by options set on the command line.
+
+</options>
+
