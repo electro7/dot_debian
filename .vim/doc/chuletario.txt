@@ -95,7 +95,7 @@ Ejemplo:
   /dev/cdrom  /cdrom      iso9660 defaults,ro,noauto,user     0       0
   /dev/cdrw   /cdrw       iso9660 defaults,ro,noauto,user     0       0
   /dev/sda1   /mnt/PenDrive       auto    defaults,noauto,user        0 0
-  /dev/sdb3   /mnt/hdextra ext4 default 0 0 
+  /dev/sdb3   /mnt/hdextra ext4 default 0 0
   linuxe7:/home   /mnt/LinuxE7    nfs defaults,rw,noauto,user 0       0
 <
 ==============================================================================
@@ -392,6 +392,8 @@ TUNELES
 ==============================================================================
 NFS                                                            *chuleta_nfs*
 
+SERVIDOR
+
 Compilar el kernel con soporte de NFS. Filesystem -» Network
 Filesystem en el cliente y el servidor. En el servidor también incluir
 soporte de servidor NFS. Instalar en el servidor el "nfs-kernel-server".
@@ -406,13 +408,7 @@ mirar gracias al portmapper. No se puede utilizar nombres de hosts, solo ALL
 o direcciones IP completas para el portmapper, sino da "RPC: programa no
 registrado".
 
-Instalar en el cliente el nfs-common. Montar las unidades con
-"mount -t nfs linuxe7:/home /mnt/Linuxe7".
-
-Para que cualquier usuario pueda desmontar y montar las unidades añadir
-al /etc/fstab lo siguiente:
->
-  linuxe7:/home   /mnt/LinuxE7    nfs     rw,noauto,user 0       0
+Reiniciar el servidor: "/etc/init.d/nfs-kernel-server restart"
 
 Los directorios exportados en el servidor se ven en /proc/fs/nfs/exports
 o con un "exportfs" y se ve si el nfs está rulando con "rpcinfo -p".
@@ -423,6 +419,16 @@ Para que los archivos copiados o creados en un directorio nfs se creen
 siempre con el mismo uid y gid hay que exportarlos de la siguiente manera:
 >
   /home/www morgana(rw,all_squash,anonuid=33,anongid=33)
+
+CLIENTE
+
+Instalar en el cliente el nfs-common. Montar las unidades con
+"mount -t nfs linuxe7:/home /mnt/Linuxe7".
+
+Para que cualquier usuario pueda desmontar y montar las unidades añadir
+al /etc/fstab lo siguiente:
+>
+  linuxe7:/home   /mnt/LinuxE7    nfs     rw,noauto,user 0       0
 
 ==============================================================================
 COMPILAR PAQUETE DEBIAN                           *chuleta_compilar_debian*
