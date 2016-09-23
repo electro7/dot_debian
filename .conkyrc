@@ -8,23 +8,23 @@ net_avg_samples 2
 out_to_console no
 
 # X font when Xft is disabled, you can pick one with program xfontsel
-font noxis
+#font noxis
 
 # Use Xft?
 use_xft no
 
 # Xft font when Xft is enabled
-xftfont monospace-8
+#xftfont monospace-8
 
 # Transparencia total o color de fondo
-own_window_hints sticky,skip_taskbar,undecorated
+#own_window_hints sticky,skip_taskbar,undecorated
 own_window_colour grey20
 own_window_transparent no
 
 # Opacidad en ventana
-#own_window_type override
-#own_window_argb_visual true
-#own_window_argb_value 0
+own_window_type override
+own_window_argb_visual true
+own_window_argb_value 0
 
 # Text alpha when using Xft
 xftalpha 0.8
@@ -36,11 +36,11 @@ update_interval 2
 own_window yes
 
 # Use double buffering (reduces flicker, may not work for everyone)
-double_buffer yes
+#double_buffer yes
 
 # Minimum size of text area
 minimum_size 5 5
-maximum_width 150
+maximum_width 170
 
 # Draw shades?
 draw_shades no
@@ -197,10 +197,10 @@ ${color grey80}Uptime: ${color LightBlue3}$uptime
 
 ${color grey90}SISTEMA ${color grey60}${hr 1}
 
-${color grey80}Temp: CPU ${color LightBlue3}${execi 10 cat /sys/devices/temperatures/sensor1_temperature}º \
-${color grey80}GPU ${color LightBlue3}${execi 10 cat /sys/devices/temperatures/sensor2_temperature}º 
-${color grey80}Fan : ${color LightBlue3}${execi 10 cat /sys/devices/temperatures/sensor1_fan_speed}
-${color grey80}Batt: ${color LightBlue3}${pb_battery status}${color grey80} - ${color LightBlue3}${pb_battery percent}
+#${color grey80}Temp: CPU ${color LightBlue3}${execi 10 cat /sys/devices/temperatures/sensor1_temperature}º \
+#${color grey80}GPU ${color LightBlue3}${execi 10 cat /sys/devices/temperatures/sensor2_temperature}º 
+#${color grey80}Fan : ${color LightBlue3}${execi 10 cat /sys/devices/temperatures/sensor1_fan_speed}
+#${color grey80}Batt: ${color LightBlue3}${pb_battery status}${color grey80} - ${color LightBlue3}${pb_battery percent}
 ${color grey60}${cpugraph 20 78bce8 c8c800}
 ${color grey80}CPU : ${color LightBlue3}$freq_g GHz ${color grey80} - \
 ${color LightBlue3}${cpu}%${alignr}${color grey60}${cpubar 8,40}
@@ -217,11 +217,11 @@ ${color grey80}W: ${color LightBlue3}${diskio_write}
 ${color grey60}${diskiograph 20 78bce8 c8c800}
 ${color grey80}Root: ${color LightBlue3}${fs_used /}${color grey80} / \
 ${color LightBlue3}${fs_size /}${alignr}${color grey60}${fs_bar 8,40 /}
-${color grey80}USB : ${color LightBlue3}\
-${if_mounted /media/usb}\
-${fs_used /media/usb}${color grey80} / \
-${color LightBlue3}${fs_size /media/usb}${alignr}${color grey60}${fs_bar 8,40 /media/usb}\
-${else}Sin montar ${endif}
+#${color grey80}USB : ${color LightBlue3}\
+#${if_mounted /media/usb}\
+#${fs_used /media/usb}${color grey80} / \
+#${color LightBlue3}${fs_size /media/usb}${alignr}${color grey60}${fs_bar 8,40 /media/usb}\
+#${else}Sin montar ${endif}
 
 ${color grey90}ETHERNET ${color grey60}${hr 1}
 
@@ -234,19 +234,19 @@ ${color grey80}Subida: ${color LightBlue3}${upspeed eth0} \
 ${color grey80}Total: ${color LightBlue3}${totalup eth0}
 ${color grey60}${upspeedgraph eth0 20 78bce8 c8c800}
 
-${color grey90}WIFI ${color grey60}${hr 1}
-
-${color grey80}AP   : ${color LightBlue3}${wireless_essid wlan0}
-${color grey80}IP   : ${color LightBlue3}${addr wlan0}
-${color grey80}Señal: ${color LightBlue3}${wireless_bitrate wlan0}${alignr}${color grey60}${wireless_link_bar 8,40 wlan0}
-
-${color grey80}Bajada: ${color LightBlue3}${downspeed wlan0} \
-${color grey80}Total: ${color LightBlue3}${totaldown wlan0}
-${color grey60}${downspeedgraph wlan0 20 78bce8 c8c800}
-${color grey80}Subida: ${color LightBlue3}${upspeed wlan0} \
-${color grey80}Total: ${color LightBlue3}${totalup wlan0}
-${color grey60}${upspeedgraph wlan0 20 78bce8 c8c800}
-
+#${color grey90}WIFI ${color grey60}${hr 1}
+#
+#${color grey80}AP   : ${color LightBlue3}${wireless_essid wlan0}
+#${color grey80}IP   : ${color LightBlue3}${addr wlan0}
+#${color grey80}Señal: ${color LightBlue3}${wireless_bitrate wlan0}${alignr}${color grey60}${wireless_link_bar 8,40 wlan0}
+#
+#${color grey80}Bajada: ${color LightBlue3}${downspeed wlan0} \
+#${color grey80}Total: ${color LightBlue3}${totaldown wlan0}
+#${color grey60}${downspeedgraph wlan0 20 78bce8 c8c800}
+#${color grey80}Subida: ${color LightBlue3}${upspeed wlan0} \
+#${color grey80}Total: ${color LightBlue3}${totalup wlan0}
+#${color grey60}${upspeedgraph wlan0 20 78bce8 c8c800}
+#
 ${color grey90}PROCESOS ${color grey60}${hr 1}
 
 ${color grey80}Load: ( ${color LightBlue3}$loadavg ${color grey80})

@@ -389,6 +389,17 @@ TUNELES
   Túnel inverso, el remoto se conecta al puerto 80 del local al acceder al
   puerto 33000 de localhost.
 
+----------------------------------------------------------------------------
+SERVIDOR X EN WIN
+
+- Se usa el putty y el VcXsrv (GPL).
+- En putty:
+    - Activar la opción "Allow agent forwardinf" en Connection->SSH->Auth.
+    - Activar la opción "Enable X11 forwardinf" en Connection->SSH->X11 y en
+      "X display location" poner "localhost:0".
+- En VcXsrv:
+    - Arrancarlo y punto. Multiventana y a rular.
+
 ==============================================================================
 NFS                                                            *chuleta_nfs*
 
