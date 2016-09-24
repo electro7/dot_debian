@@ -8,13 +8,13 @@ net_avg_samples 2
 out_to_console no
 
 # X font when Xft is disabled, you can pick one with program xfontsel
-#font noxis
+font noxis
 
 # Use Xft?
 use_xft no
 
 # Xft font when Xft is enabled
-#xftfont monospace-8
+xftfont monospace-8
 
 # Transparencia total o color de fondo
 #own_window_hints sticky,skip_taskbar,undecorated
@@ -36,7 +36,7 @@ update_interval 2
 own_window yes
 
 # Use double buffering (reduces flicker, may not work for everyone)
-#double_buffer yes
+double_buffer yes
 
 # Minimum size of text area
 minimum_size 5 5

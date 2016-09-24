@@ -1,0 +1,48 @@
+alignment                 top_right
+background                yes
+border_width              0
+cpu_avg_samples           5
+default_color             grey80
+default_outline_color     white
+draw_borders              no
+draw_graph_borders        no
+draw_outline              no
+draw_shades               no
+use_xft                   no
+#font                	  noxis
+gap_x                     20
+gap_y                     0
+minimum_size              0 0
+maximum_width             1024
+net_avg_samples           2
+no_buffers                yes
+out_to_console            no
+own_window                yes
+own_window_class          Conky
+own_window_title 		  Meters
+own_window_type           normal
+own_window_transparent    yes
+own_window_colour         grey10
+own_window_hints          undecorated,skip_taskbar
+update_interval           2
+uppercase                 no
+use_spacer                left
+use_spacer                right
+double_buffer             no
+short_units               yes
+pad_percents              1
+text_buffer_size          512
+
+TEXT
+${nodename} ${color grey60}|${color} \
+${uptime} ${color grey60}|${color} \
+CPU: ${freq_g} GHz ${cpugraph 8,50 000000 78bce8} \
+${color yellow3}${cpu}%${color} ${color grey60}|${color} \
+Mem: ${color yellow3}${memperc}%${color} ${color grey60}|${color} \
+Disk: ${color yellow3}${fs_used_perc /}%${color} \
+${diskiograph 8,50 000000 78bce8} ${color yellow3}${diskio}${color} \
+${color grey60}|${color} \
+Down: ${downspeedgraph eth0 8,50 000000 78bce8} \
+${color yellow3}${downspeed eth0}${color} ${color grey60}|${color} \
+Up: ${upspeedgraph eth0 8,50 000000 78bce8} \
+${color yellow3}${upspeed eth0}${color}
