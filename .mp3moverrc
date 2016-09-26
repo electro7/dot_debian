@@ -23,7 +23,6 @@ ID3TITLEMASK='%n - %t'
 -S
 -X
 -i2
--x
 -T
 #Options set here are overridden by options set on the command line.
 
