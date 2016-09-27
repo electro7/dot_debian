@@ -45,6 +45,7 @@ function usage() {
 # check number of arguments
 if [[ $# -lt 1 || $# -gt 3 ]]; then
 	usage
+	unset IFS
 	exit 1
 fi
 
@@ -86,6 +87,7 @@ echo -e "${CYAN}Checking ffmpeg ...${NC}"
 FFMPEG=`which avconv || which ffmpeg`
 if [ -z $FFMPEG ]; then
 	echo -e '${RED}ERROR: ffmpeg is not available, please install it!${NC}'
+	unset IFS
 	exit 1
 fi
 
@@ -98,6 +100,7 @@ if [ `ffmpeg -hide_banner -formats | grep -c "E matroska"` -gt 0 ]; then
 else
 	echo -e "${RED}FAIL!${NC}"
 	echo '  ERROR: ffmpeg without matroska format!'
+	unset IFS
 	exit 1
 fi
 
@@ -107,6 +110,7 @@ if [ `ffmpeg -hide_banner -codecs | grep -c "libx264"` -gt 0 ]; then
 else
 	echo -e "${RED}FAIL!${NC}"
 	echo '  ERROR: ffmpeg without H264 codec!'
+	unset IFS
 	exit 1
 fi
 
@@ -129,11 +133,16 @@ echo -e "${BLUE}----------------------------------------------------------------
 echo -e "${CYAN}Source processing. Parsing source streams ...${NC}"
 
 # Put streams in array off lines (trim leading spaces)
+S=1
 for STR in $(ffmpeg -hide_banner -i "$SOUR" 2>&1 | sed 's/^ *//g')
 do
 	STREAM=$(echo "$STR" | grep Stream)
+	T_STR=$(echo "$STR" | grep "title           :" | cut -c 19-)
 	if [ -n "$STREAM" ]; then 
 		echo "* $STREAM" 
+	fi
+	if [ -n "$T_STR" ]; then 
+		echo "  [$T_STR]"
 	fi
 	V_INFO="${V_INFO}\n${STR}"
 done
@@ -141,6 +150,7 @@ done
 # Error in file
 if [ $(echo -e ${V_INFO} | grep -c "Invalid data found") -gt 0 ]; then
 	echo -e "${RED}ERROR: File $SOUR is NOT A VALID VIDEO FILE!${NC}"
+	unset IFS
 	exit 1
 fi
 
@@ -196,6 +206,14 @@ fi
 # ----------------------------------------------------------------------------
 
 echo -e "${BLUE}------------------------------------------------------------------------------${NC}"
+
+# Sure?
+if [[ "$VIDEO" == "-c:v copy" ]] && [[ "$AUDIO" == "-c:a copy" ]]; then
+	echo -e "${YELLOW}Source codecs are in supported formats. Nothing to do!${NC}"
+	unset IFS
+	exit 0
+fi
+
 echo -e "${CYAN}Starting transcoding ...${NC}"
 
 CMDLINE="ffmpeg -loglevel error -stats -hide_banner -i \"$SOUR\" -map 0 $VIDEO $AUDIO $SUBTITLE -metadata title=\"$TITLE\" $EXTRA \"$DEST\""
@@ -205,5 +223,30 @@ echo -e "* ${GREEN}$(echo -e ${V_INFO} | grep Duration:)${NC}"
 echo -e "${YELLOW}Options: [q] quit, [+] more info, [-] less info, [?] help.${NC}"
 
 eval $CMDLINE
+
+# And the reward is?
+# ----------------------------------------------------------------------------
+
+echo -e "${BLUE}------------------------------------------------------------------------------${NC}"
+
+if [ $? -eq 0 ] ; then
+	echo -e "${CYAN}Transcoding process succesfull!${NC}"
+	echo -e "${GREEN}Output streams :${NC}"
+	for STR in $(ffmpeg -hide_banner -i "$DEST" 2>&1 | sed 's/^ *//g')
+	do
+		STREAM=$(echo "$STR" | grep Stream)
+		T_STR=$(echo "$STR" | grep "title           :" | cut -c 19-)
+		if [ -n "$STREAM" ]; then 
+			echo "* $STREAM" 
+		fi
+		if [ -n "$T_STR" ]; then 
+			echo "  [$T_STR]"
+		fi
+	done
+else
+	echo -e "${RED}Transcofing process FAILED! :(${NC}"
+	unset IFS
+	exit 1
+fi
 
 unset IFS
