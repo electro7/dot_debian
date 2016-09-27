@@ -133,16 +133,11 @@ echo -e "${BLUE}----------------------------------------------------------------
 echo -e "${CYAN}Source processing. Parsing source streams ...${NC}"
 
 # Put streams in array off lines (trim leading spaces)
-S=1
 for STR in $(ffmpeg -hide_banner -i "$SOUR" 2>&1 | sed 's/^ *//g')
 do
 	STREAM=$(echo "$STR" | grep Stream)
-	T_STR=$(echo "$STR" | grep "title           :" | cut -c 19-)
 	if [ -n "$STREAM" ]; then 
 		echo "* $STREAM" 
-	fi
-	if [ -n "$T_STR" ]; then 
-		echo "  [$T_STR]"
 	fi
 	V_INFO="${V_INFO}\n${STR}"
 done
@@ -235,12 +230,8 @@ if [ $? -eq 0 ] ; then
 	for STR in $(ffmpeg -hide_banner -i "$DEST" 2>&1 | sed 's/^ *//g')
 	do
 		STREAM=$(echo "$STR" | grep Stream)
-		T_STR=$(echo "$STR" | grep "title           :" | cut -c 19-)
 		if [ -n "$STREAM" ]; then 
 			echo "* $STREAM" 
-		fi
-		if [ -n "$T_STR" ]; then 
-			echo "  [$T_STR]"
 		fi
 	done
 else
