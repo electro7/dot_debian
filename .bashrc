@@ -120,7 +120,8 @@ alias df="df -h"
 
 # Alias para el su (root)
 alias reboot="sudo /sbin/reboot"
-alias halt="sudo /sbin/halt"
+alias halt="sudo /sbin/poweroff"
+alias poweroff="sudo /sbin/poweroff"
 alias xcdroast="sudo /usr/bin/xcdroast"
 alias gtkam="sudo /usr/bin/gtkam"
 
