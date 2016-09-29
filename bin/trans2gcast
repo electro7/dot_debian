@@ -39,7 +39,7 @@ function usage() {
 	echo "	- Video: X264 4.2"
 	echo "	- Audio: AAC or MP3."
 	echo
-	echo "Usage: $HOWCALLED [-e <more ffmpeg options>] <input video> [output video]"
+	echo "Usage: $HOWCALLED [-e <more ffmpeg options>] <input video> [output video] [title]"
 	echo
 }
 # check number of arguments
@@ -54,18 +54,23 @@ if [ "$1" == "-e" ]; then
 	EXTRA="$2"
 	SOUR=$3
 	DEST=$4
+	TITLE=$5
 else
 	EXTRA=""
 	SOUR=$1
 	DEST=$2
+	TITLE=$3
 fi
 
 if [ -z "$DEST" ]; then
 	DEST=$SOUR
 fi
 FILE=$(basename "$DEST")
-TITLE="${FILE%.*}"
-DEST=""$TITLE" [gcast].mkv"
+FILE="${FILE%.*}"
+DEST=""$FILE" [gcast].mkv"
+if [ -z "$TITLE" ]; then
+	TITLE="$FILE"
+fi
 
 echo -e "${MAG}Transcoding video for ChromeCast v2 compatibility...${NC}"
 echo -e "${BLUE}------------------------------------------------------------------------------${NC}"
