@@ -1,0 +1,19 @@
+#!/bin/bash
+#
+# Inicializa algunas opciones para unas X remotas
+# - Carga .Xresources
+# - Añade algunas fuentes
+# - Arrancar el terminal (por defecto rxvt)
+#
+# Probado con VcXsrv en windows
+# - Para que funcione en VcXsrv hay que copiar el directorio de fuentes al
+#    directorio de instalación de VcXsrv/fonts
+
+# Carga recursos
+[[ -n "xrdb -query | grep URxvt" ]] && xrdb -merge ~/.Xresources
+
+# Carga fuentes
+[[ -n "xlsfonts | grep terminess" ]] && xset fp+ fonts/terminesspowerline/
+
+# Arranca terminal
+rxvt  -geometry 120x40 &
