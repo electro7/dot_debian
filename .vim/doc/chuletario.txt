@@ -399,7 +399,14 @@ SERVIDOR X EN WIN
       "X display location" poner "localhost:0".
 - En VcXsrv:
     - Arrancarlo y punto. Multiventana y a rular.
-
+- Arrancar directamente un RXVT bonito:
+    - Usar el script X_remote en bin.
+    - Copiar las fuentes necesarias al directorio fonts de VcXsrv y hacer un
+      xset fp+ fonts/<font dir>/ (ya lo hace el scrip).
+    - Desde windows usar el "plink.exe" en un acceso directo. Ej:
+>
+    plink.exe -ssh <ip_maquina> -l <user> -pw <password> -X "~/bin/X_remote"
+<
 ==============================================================================
 NFS                                                            *chuleta_nfs*
 
@@ -548,12 +555,11 @@ O también, dejarlo de la mano del demonio network-manager de gnome. Arrancar
 el "nm-applet" y au!.
 
 - "apt-get install gnome-network-manager"
-- Dejar el fichero "/etc/network/interfaces" solo con la entrada del
-	loopback.
+- Dejar el fichero "/etc/network/interfaces" solo con la entrada del loopback.
 - Reiniciar.
-- Desde las X podemos cambiar de redes con el "nm-applet". Solo se
-	puede arrancar si el gestos de ventanas tiene un systray. Si no lo
-	tiene (fvwm) usar el "stalonetray" que es estandar.
+- Desde las X podemos cambiar de redes con el "nm-applet". Solo se puede
+  arrancar si el gestos de ventanas tiene un systray. Si no lo tiene (fvwm)
+  usar el "stalonetray" que es estandar.
 - Se puede configurar desde la X con "nm-conection-editor".
 - Desde consola podemos usar el nm-tool, el nmcli y el nm-online.
 

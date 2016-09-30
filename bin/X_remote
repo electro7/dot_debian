@@ -5,6 +5,8 @@
 # - Añade algunas fuentes
 # - Arrancar el terminal (por defecto rxvt)
 #
+# - Necesario instalar el rxvt-unicode-256colors y el x11-xserver-utils
+
 # Probado con VcXsrv en windows
 # - Para que funcione en VcXsrv hay que copiar el directorio de fuentes al
 #    directorio de instalación de VcXsrv/fonts
