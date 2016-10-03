@@ -21,7 +21,8 @@ NC='\033[0m' # No Color
 # ----------------------------------------------------------------------------
 
 # x264 options
-X264_OPTIONS="-profile:v high -level 4.2 -preset medium -crf 20 -maxrate 16M -bufsize 20M"
+#X264_OPTIONS="-profile:v high -level 4.2 -preset medium -crf 20 -maxrate 16M -bufsize 20M"
+X264_OPTIONS="-profile:v high -level 4.2 -preset slow -crf 20"
 
 # AAC options
 AUDRATE=320k
