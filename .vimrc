@@ -227,7 +227,7 @@ nnoremap <space> za
 " Search command history
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
-" Repace (:help substitute) (:help regular)
+" Replace (:help substitute) (:help regular)
 nnoremap <C-R> :%s///gic
 
 " Autocomplete with Ctrl+space o C-N
@@ -245,6 +245,10 @@ set pastetoggle=<F2>
 noremap <F4> :call ToggleColours()<CR>
 " Ctags Bar
 noremap <F9> :TagbarToggle<CR>
+
+" vimgrep (** para recursico. Ej ../**/*.prg)
+nnoremap <C-F> :noautocmd lvim //j * <Bar> lw
+nnoremap <F3> :execute 'noautocmd lvim /'.expand('<cword>').'/j '.expand('%') <Bar> lw<CR>
 
 " Run compiler
 nnoremap <silent> <F5> :call ExecCompiler()<CR>
