@@ -159,6 +159,16 @@ if &diff
 	set diffopt=filler,foldcolumn:0
 endif
 
+" tmux + ctrl + alt keys
+" in .tmux.conf -> set-window-option -g xterm-keys on
+if &term =~ '^screen'
+	execute "set <xUp>=\e[1;*A"
+	execute "set <xDown>=\e[1;*B"
+	execute "set <xRight>=\e[1;*C"
+	execute "set <xLeft>=\e[1;*D"
+endif
+
+
 "}}}
 " Mappings {{{
 " -----------------------------------------------------------------------------
@@ -238,20 +248,28 @@ inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
 inoremap <expr> <C-Space> pumvisible() ? '<C-n>' :
   \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
-" Paste mode for terminal
+" F Function keys
+" ---------------
+" F2 - Paste mode for terminal
 nnoremap <F2> :set invpaste paste?<CR>
 set pastetoggle=<F2>
-" Toggle colors
+" F3 - vimgrep (** para recursico. Ej ../**/*.prg)
+nnoremap <F3> :execute 'noautocmd lvim /'.expand('<cword>').'/j '.expand('%') <Bar> lw<CR>
+nnoremap <C-F> :noautocmd lvim //j * <Bar> lw
+" F4 - Toggle colors
 noremap <F4> :call ToggleColours()<CR>
-" Ctags Bar
+" F5 - Run compiler
+nnoremap <silent> <F5> :call ExecCompiler()<CR>
+" F9 - Ctags Bar
 noremap <F9> :TagbarToggle<CR>
 
-" vimgrep (** para recursico. Ej ../**/*.prg)
-nnoremap <C-F> :noautocmd lvim //j * <Bar> lw
-nnoremap <F3> :execute 'noautocmd lvim /'.expand('<cword>').'/j '.expand('%') <Bar> lw<CR>
-
-" Run compiler
-nnoremap <silent> <F5> :call ExecCompiler()<CR>
+" tmux + ctrl + alt keys
+if &term =~ '^screen'
+	execute "set <xUp>=\e[1;*A"
+	execute "set <xDown>=\e[1;*B"
+	execute "set <xRight>=\e[1;*C"
+	execute "set <xLeft>=\e[1;*D"
+endif
 
 "}}}
 " Abreviations {{{
