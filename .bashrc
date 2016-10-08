@@ -25,7 +25,7 @@ COL="$COLC"           # Usuario normal
 
 [[ "$UID" = "0" ]] && COL=$COLR	# Rojo para root
 
-case "$TERM" in
+case "$COLORTERM" in
   rxvt*)
     # Prompt a traves de promptline.vim
     # Es un plugin de VIM para crear un prompt con simbolos powerline.
@@ -36,11 +36,12 @@ case "$TERM" in
     {
       XTITLE='\[\e]0;\s (\w)\a\]'
       # Conexión remota
-      if [[ -n "$REMOTEHOST" || -n "$SSH_CLIENT" ]]; then
-        PS1="$XTITLE$PS1\n$COLA \h$COL \\$ $COLN"
-      else
+	  # Ya lo hace .shell_prompt.sh en nueva versión
+      #if [[ -n "$REMOTEHOST" || -n "$SSH_CLIENT" ]]; then
+      #  PS1="$XTITLE$PS1\n$COLA \h$COL \\$ $COLN"
+      #else
         PS1="$XTITLE$PS1\n$COL \\$ $COLN"
-      fi
+      #fi
     }
     PROMPT_COMMAND="$PROMPT_COMMAND __promptadd;"
     ;;

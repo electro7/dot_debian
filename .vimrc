@@ -314,8 +314,10 @@ endif
 " Promptline
 " \'b': [ promptline#slices#host(), promptline#slices#user() ],
 let g:promptline_preset = {
-	\'b': [ promptline#slices#cwd() ],
-	\'c': [ promptline#slices#vcs_branch() ],
+	\'a': [ promptline#slices#host({ 'only_if_ssh': 1 }) ],
+	\'b': [ promptline#slices#user() ],
+	\'c': [ promptline#slices#cwd() ],
+	\'x': [ promptline#slices#vcs_branch() ],
 	\'z': [ promptline#slices#git_status() ],
 	\'warn' : [ promptline#slices#last_exit_code() ]}
 let g:promptline_theme = 'air_e7'
