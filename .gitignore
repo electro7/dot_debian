@@ -58,7 +58,6 @@ music
 .turses/token
 tmp/*
 .vim/bundle/*
-.vim/plugin/*
 .vim/spell/*
 .vim/.netrwhist
 .viminfo

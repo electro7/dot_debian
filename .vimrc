@@ -5,7 +5,7 @@
 " Trato que funcione tanto en WIN (con gvim) como en LINUX (vim y gvim)
 " Configuración ontenida de W0ng -> https://github.com/w0ng
 "
-" Vicente Gimeno Morales - E7 Version 2.8 - 16 sep 2015
+" Vicente Gimeno Morales - E7 Version 2.9 - 09 oct 2016
 "======================================================================#
 "
 " Compability {{{
@@ -36,6 +36,7 @@ call vundle#begin()
 	"Plugin 'Shougo/neocomplete'				" Automatic keyword completion
 	"Plugin 'Shougo/unite.vim'					" Find files and buffers using ag
 	"Plugin 'Shougo/vimfiler.vim'				" File Explorer :VimFiler
+	Plugin 'scrooloose/nerdtree'				" File Explorer
 	Plugin 'jlanzarotta/bufexplorer'			" Buffer Explorer :BufExplore
 	Plugin 'godlygeek/tabular'					" Text alignment
 	Plugin 'majutsushi/tagbar'					" Display tags in a window
@@ -137,7 +138,9 @@ endif
 " gVim
 if has('gui_running')
 	if has("win32")
-		set guifont=Lucida_Console:h8
+		"set guifont=Lucida_Console:h8
+		"set guifont=DejaVu_Sans_Mono:h8
+		set guifont=Source_Code_Pro:h9
 		set lines=40							" Nº lines
 		set columns=90							" Nº columns
 	else
@@ -199,7 +202,8 @@ nnoremap <leader>b :BufExplorer<CR>
 " Open diff vertical
 nnoremap <leader>d :vertical diffsplit<CR>
 " Open file browser
-nnoremap <leader>f :Explore<CR>
+"nnoremap <leader>f :Explore<CR>
+nnoremap <leader>f :NERDTree<CR>
 
 " Buffer selection
 nnoremap <leader>n :bn<CR>
@@ -213,6 +217,10 @@ nnoremap <M-Right> :bn<CR>
 nnoremap <M-Left> :bp<CR>
 nnoremap <M-n> :bn<CR>
 nnoremap <M-p> :bp<CR>
+
+" Buffer deletion (buffkill plugin)
+nnoremap <leader>x :BD<CR>
+nnoremap <C-X> :BD<CR>
 
 " Spell checking
 nnoremap <leader>s :set spell!<CR>
@@ -262,14 +270,6 @@ noremap <F4> :call ToggleColours()<CR>
 nnoremap <silent> <F5> :call ExecCompiler()<CR>
 " F9 - Ctags Bar
 noremap <F9> :TagbarToggle<CR>
-
-" tmux + ctrl + alt keys
-if &term =~ '^screen'
-	execute "set <xUp>=\e[1;*A"
-	execute "set <xDown>=\e[1;*B"
-	execute "set <xRight>=\e[1;*C"
-	execute "set <xLeft>=\e[1;*D"
-endif
 
 "}}}
 " Abreviations {{{
@@ -321,6 +321,9 @@ let g:promptline_preset = {
 	\'z': [ promptline#slices#git_status() ],
 	\'warn' : [ promptline#slices#last_exit_code() ]}
 let g:promptline_theme = 'air_e7'
+
+" NERDTree
+let g:NERDTreeShowHidden = 1
 
 "}}}
 " Autocommands {{{
