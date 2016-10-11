@@ -138,10 +138,12 @@ endif
 " gVim
 if has('gui_running')
 	if has("win32")
+		set guifont=Consolas:h9
 		"set guifont=Lucida_Console:h8
 		"set guifont=DejaVu_Sans_Mono:h8
-		set guifont=Source_Code_Pro:h9
-		set lines=40							" Nº lines
+		"set guifont=Source_Code_Pro:h9
+		"set guifont=Inconsolata:h10
+		set lines=50							" Nº lines
 		set columns=90							" Nº columns
 	else
 		set guifont=Inconsolata\ for\ Powerline\ 10
@@ -199,11 +201,13 @@ nnoremap <leader><leader> :nohlsearch<CR>
 nnoremap <leader>a	qaYp<C-A>q1@a
 " Open buff explorer
 nnoremap <leader>b :BufExplorer<CR>
+" Set columns to doble panel
+nnoremap <leader>c :set columns=170<CR>
 " Open diff vertical
 nnoremap <leader>d :vertical diffsplit<CR>
 " Open file browser
 "nnoremap <leader>f :Explore<CR>
-nnoremap <leader>f :NERDTree<CR>
+nnoremap <leader>f :NERDTreeFind<CR>
 
 " Buffer selection
 nnoremap <leader>n :bn<CR>
@@ -217,19 +221,14 @@ nnoremap <M-Right> :bn<CR>
 nnoremap <M-Left> :bp<CR>
 nnoremap <M-n> :bn<CR>
 nnoremap <M-p> :bp<CR>
-
-" Buffer deletion (buffkill plugin)
-nnoremap <leader>x :BD<CR>
-nnoremap <C-X> :BD<CR>
-
 " Spell checking
 nnoremap <leader>s :set spell!<CR>
 " Show tabs
-nmap <Leader>t :set list lcs=tab:+·<CR>
-nmap <Leader>nt :set nolist<CR>
+nmap <leader>t :set list lcs=tab:+·<CR>
+nmap <leader>nt :set nolist<CR>
 " Prepare tabularize
-nmap <Leader>ta :'<,'> Tabularize /
-vmap <Leader>ta :Tabularize /
+nmap <leader>ta :'<,'> Tabularize /
+vmap <leader>ta :Tabularize /
 " vsplit
 nnoremap <leader>v :vsplit<CR>
 " Edit .vimrc
@@ -237,6 +236,11 @@ nnoremap <leader>vi :e $HOME/.vimrc<CR>
 nnoremap <leader>vr :source $HOME/.vimrc<CR>
 " Search and delete for trailing spaces and spaces before a tab
 nnoremap <leader>w :%s/\s\+$\\| \+\ze\t//gc<CR>
+
+
+" Buffer deletion (buffkill plugin)
+nnoremap <leader>x :BD<CR>
+nnoremap <C-X> :BD<CR>
 
 " Next window
 nnoremap <tab> <C-W>w
@@ -270,6 +274,8 @@ noremap <F4> :call ToggleColours()<CR>
 nnoremap <silent> <F5> :call ExecCompiler()<CR>
 " F9 - Ctags Bar
 noremap <F9> :TagbarToggle<CR>
+" F10 - Explorer
+noremap <F10> :NERDTreeFind<CR>
 
 "}}}
 " Abreviations {{{
@@ -299,6 +305,7 @@ let g:airline_inactive_collapse = 0
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tagbar#enabled = 1
 if has("gui_win32") || &term == "xterm"
+"if &term == "xterm"
 	let g:airline_powerline_fonts = 0
 	let g:airline_symbols = {}
 	let g:airline_left_sep = ''
@@ -324,6 +331,7 @@ let g:promptline_theme = 'air_e7'
 
 " NERDTree
 let g:NERDTreeShowHidden = 1
+let g:NERDTreeQuitOnOpen = 1
 
 "}}}
 " Autocommands {{{
