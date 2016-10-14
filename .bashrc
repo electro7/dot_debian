@@ -53,7 +53,7 @@ function prompt_term
 
     # Prompt final
 	PROMPT_COMMAND=""
-    PS1="$COLV--[$COL\u$COLV]-[$COLC\h$COLV]-[$COLA\w$COLV]\$(__git_ps1)\n$COL \\$ $COLN"
+    PS1="$COLV--[$COLC\h$COLV]-[$COLA\w$COLV]\$(__git_ps1)\n$COL \\$ $COLN"
 }
 
 # Selección de prompt según el tipo de terminal
