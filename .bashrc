@@ -21,39 +21,48 @@ COLB="\[\033[0;34m\]" # Blue
 COLP="\[\033[0;35m\]" # Purple
 COLR="\[\033[0;31m\]" # Rojo
 COLN="\[\033[0m\]"	  # Reset
-COL="$COLC"           # Usuario normal
 
+# Colores según usuario
+COL="$COLC"						# Usuario normal
 [[ "$UID" = "0" ]] && COL=$COLR	# Rojo para root
 
-case "$COLORTERM" in
-  rxvt*)
-    # Prompt a traves de promptline.vim
-    # Es un plugin de VIM para crear un prompt con simbolos powerline.
-    # Entrar en vim y hacer un :PromptlineSnapShot ~/.shell_prompt.sh
+# Añade retorno de carro y el cambio del titulo de la ventana al P1 actual
+function __promptadd
+{
+	XTITLE='\[\e]0;\s (\w)\a\]'
+    PS1="$XTITLE$PS1\n$COL \\$ $COLN"
+}
+
+# Prompt a traves de promptline.vim
+# Es un plugin de VIM para crear un prompt con simbolos powerline.
+# Entrar en vim y hacer un :PromptlineSnapShot ~/.shell_prompt.sh
+function prompt_line
+{
     source ~/.shell_prompt.sh
-    # Añado retorno de carro y señal de usuario/root
-    function __promptadd
-    {
-      XTITLE='\[\e]0;\s (\w)\a\]'
-      # Conexión remota
-	  # Ya lo hace .shell_prompt.sh en nueva versión
-      #if [[ -n "$REMOTEHOST" || -n "$SSH_CLIENT" ]]; then
-      #  PS1="$XTITLE$PS1\n$COLA \h$COL \\$ $COLN"
-      #else
-        PS1="$XTITLE$PS1\n$COL \\$ $COLN"
-      #fi
-    }
     PROMPT_COMMAND="$PROMPT_COMMAND __promptadd;"
-    ;;
-  *)
-    # Opciones para el git
+}
+
+# Prompt "normal" sin carácteres raros
+function prompt_term
+{
+	# Opciones para el git
     GIT_PS1_SHOWDIRTYSTATE=1
     GIT_PS1_SHOWSTASHSTATE=1
     GIT_PS1_SHOWUNTRACKEDFILES=1
     GIT_PS1_SHOWUPSTREAM="auto"
 
     # Prompt final
+	PROMPT_COMMAND=""
     PS1="$COLV--[$COL\u$COLV]-[$COLC\h$COLV]-[$COLA\w$COLV]\$(__git_ps1)\n$COL \\$ $COLN"
+}
+
+# Selección de prompt según el tipo de terminal
+case "$COLORTERM" in
+  rxvt*)
+	  prompt_line
+    ;;
+  *)
+	  prompt_term
     ;;
 esac
 
