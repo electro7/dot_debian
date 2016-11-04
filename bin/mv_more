@@ -17,6 +17,7 @@ function usage() {
   echo " 	-2 -> Convierte subrayados a espacios."
   echo " 	-3 -> Convierte minúsculas a máyusculas."
   echo " 	-4 -> Convierte mayúsculas a minúsculas."
+  echo " 	-5 -> Convierte puntos a espacios."
 }
 
 HOWCALLED=`basename $0`
@@ -30,7 +31,9 @@ fi
 # Renombrar
 for i in "$@" ; do
 
-  if [ "$1" == "-4" ] ; then
+  if [ "$1" == "-5" ] ; then
+	NEW="`echo "$i" | tr '.' '\ '`"
+  elif [ "$1" == "-4" ] ; then
 	NEW="`echo "$i" | tr '[A-Z]' '[a-z]'`"
   elif [ "$1" == "-3" ] ; then
 	NEW="`echo "$i" | tr '[a-z]' '[A-Z]'`"
