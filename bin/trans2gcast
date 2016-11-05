@@ -1,10 +1,26 @@
 #!/bin/bash
 #
 # Transcode video script for ChromeCast 2 compatibily
+# Output -> MKV, X264 high 4.2, AAC 320k
 #
-# Using ffmpeg!
+# Using only ffmpeg!
 #
 
+# Options
+# ----------------------------------------------------------------------------
+
+# x264 options
+#X264_OPTIONS="-profile:v high -level 4.2 -preset medium -crf 20 -maxrate 16M -bufsize 20M"
+X264_OPTIONS="-profile:v high -level 4.2 -preset slow -crf 20"
+
+# AAC options
+AUDRATE=320k
+
+# Transcoded file suffix
+SUFIX="[gcast]"
+
+# COLORS
+# ----------------------------------------------------------------------------
 # Internal field separator -> "for" statement = new lines
 IFS=$'\n'
 
@@ -17,16 +33,6 @@ MAG='\033[0;35m'
 CYAN='\033[0;36m'
 NC='\033[0m' # No Color
 
-# Transcoder options
-# ----------------------------------------------------------------------------
-
-# x264 options
-#X264_OPTIONS="-profile:v high -level 4.2 -preset medium -crf 20 -maxrate 16M -bufsize 20M"
-X264_OPTIONS="-profile:v high -level 4.2 -preset slow -crf 20"
-
-# AAC options
-AUDRATE=320k
-
 HOWCALLED=`basename $0`
 
 # Usage
@@ -34,18 +40,25 @@ HOWCALLED=`basename $0`
 function usage() {
 	echo
 	echo -e "${CYAN}Transcode video for ChromeCast v2 compatibility${NC}"
-	echo "	- Container: MKV."
-	echo "	- Video: X264 4.2"
-	echo "	- Audio: AAC or MP3."
+	echo "  - Container: MKV."
+	echo "  - Video: X264 4.2"
+	echo "  - Audio: AAC or MP3."
 	echo
-	echo "Single file:"
-	echo	"$HOWCALLED [-e <more ffmpeg options>] <input video> [output video] [title]"
+	echo "Single file (interactive):"
+	echo "  $HOWCALLED [-e <more ffmpeg options>] <input video> [output video] [title]"
 	echo 
-	echo "Multple files:"
-	echo	"$HOWCALLED -b <files>"
+	echo "Multiple files (automatic):"
+	echo "  $HOWCALLED -b <files>"
+	echo 
 }
 
-# Comandline Options for single file
+# Separator
+# ----------------------------------------------------------------------------
+function sep() {
+	echo -e "${BLUE}------------------------------------------------------------------------------${NC}"
+}
+
+# Comandline options for single file
 # ----------------------------------------------------------------------------
 function opts() {
 	if [ -z "$DEST" ]; then
@@ -53,13 +66,12 @@ function opts() {
 	fi
 	FILE=$(basename "$DEST")
 	FILE="${FILE%.*}"
-	DEST=""$FILE" [gcast].mkv"
+	DEST=""$FILE" "$SUFIX".mkv"
 	if [ -z "$TITLE" ]; then
 		TITLE="$FILE"
 	fi
 
-	echo -e "${MAG}Transcoding video for ChromeCast v2 compatibility...${NC}"
-	echo -e "${BLUE}------------------------------------------------------------------------------${NC}"
+	sep
 	echo -e "${CYAN}Checking filename ...${NC}"
 	echo -e "* Input video: ${GREEN}$SOUR${NC}"
 	echo -e "* Output video: ${GREEN}$DEST${NC}"
@@ -74,7 +86,7 @@ function opts() {
 # Checks necessary utilities and ffmpeg options
 # ----------------------------------------------------------------------------
 function chk_ffmpeg() {
-	echo -e "${BLUE}------------------------------------------------------------------------------${NC}"
+	sep
 	echo -e "${CYAN}Checking ffmpeg ...${NC}"
 
 	# test if `ffmpeg` is available
@@ -122,10 +134,10 @@ function chk_ffmpeg() {
 }
 
 # Get video info 
-# arg1 = 1 -> imprime información
+# arg1 > 0 -> print infortmation
 # ----------------------------------------------------------------------------
 function get_info() {
-	[ -n "$1" ] && echo -e "${BLUE}------------------------------------------------------------------------------${NC}"
+	[ -n "$1" ] && sep
 	[ -n "$1" ] && echo -e "${CYAN}Source processing. Parsing source streams ...${NC}"
 
 	# Put streams in array off lines (trim leading spaces)
@@ -139,7 +151,6 @@ function get_info() {
 		V_INFO="${V_INFO}\n${STR}"
 	done
 
-
 	# Error in file
 	if [ $(echo -e ${V_INFO} | grep -c "Invalid data found") -gt 0 ]; then
 		echo -e "${RED}ERROR: File $SOUR is NOT A VALID VIDEO FILE!${NC}"
@@ -149,7 +160,6 @@ function get_info() {
 		echo -e "${RED}ERROR: File $SOUR is NOT A VALID FILE!${NC}"
 		return 1
 	fi
-
 
 	# Video
 	if [ $(echo -e ${V_INFO} | grep Video: | grep -c h264) -gt 0 ]; then
@@ -203,10 +213,10 @@ function get_info() {
 }
 
 # And finaly, do job
-# arg1 = 1 -> imprime información
+# arg1 > 0 -> print infortmation
 # ----------------------------------------------------------------------------
 function transcode() {
-	[ -n "$1" ] && (echo -e "${BLUE}------------------------------------------------------------------------------${NC}")
+	[ -n "$1" ] && sep
 
 	# Sure?
 	if [[ "$VIDEO" == "-c:v copy" ]] && [[ "$AUDIO" == "-c:a copy" ]]; then
@@ -228,7 +238,7 @@ function transcode() {
 # And the reward is?
 # ----------------------------------------------------------------------------
 function reward() {
-	echo -e "${BLUE}------------------------------------------------------------------------------${NC}"
+	sep
 
 	if [ $? -eq 0 ] ; then
 		echo -e "${CYAN}Transcoding process succesfull!${NC}"
@@ -259,59 +269,62 @@ if [[ $# -lt 1 ]]; then
 	exit 1
 fi
 
+echo -e "${MAG}Transcoding video for ChromeCast v2 compatibility...${NC}"
+
 # check ffmpeg
 chk_ffmpeg
 
 # Multiple archives
 if [ "$1" == "-b" ]; then
-	(echo -e "${BLUE}------------------------------------------------------------------------------${NC}")
+	sep
 	let N_FILE=$#-1
-	echo -e "${CYAN}Transcoding ${N_FILE} files...${NC}"
-	i=0;
+	i=0
 	ok=0
+	echo -e "${CYAN}Transcoding ${N_FILE} files...${NC}"
 	for file in "$@" ; do
 		if [ "$file" == "-b" ]; then 
-			continue;
+			continue
 		fi
 		let i=i+1
 		SOUR=$file
 		DEST=$SOUR
 		FILE=$(basename "$DEST")
 		FILE="${FILE%.*}"
-		DEST=""$FILE" [gcast].mkv"
+		DEST=""$FILE" "$SUFIX".mkv"
 		TITLE="$FILE"
 		get_info
-		[ $? -eq 1 ] && continue;
-		echo -e "* ${YELLOW}File $i of ${N_FILE} ${NC}-${CYAN} \"$SOUR\"${NC}"
+		[ $? -eq 1 ] && continue
+		echo -e "* ${YELLOW}File $i of ${N_FILE} - \"$SOUR\"${NC}"
 		echo -e "* ${GREEN}$(echo -e ${V_INFO} | grep Duration:)${NC}"
 		transcode
-		[ $? -eq 1 ] && continue;
+		[ $? -eq 1 ] && continue
 		let ok=ok+1
 	done
-	(echo -e "${BLUE}------------------------------------------------------------------------------${NC}")
+	sep
 	echo -e "${CYAN}Bach transcode completed. $ok of $i files processed sucessfull!.${NC}"
-	unset IFS
-	exit 0
 # Single archive
-elif [ "$1" == "-e" ]; then
-	EXTRA="$2"
-	SOUR=$3
-	DEST=$4
-	TITLE=$5
 else
-	EXTRA=""
-	SOUR=$1
-	DEST=$2
-	TITLE=$3
+	if [ "$1" == "-e" ]; then
+		EXTRA="$2"
+		SOUR=$3
+		DEST=$4
+		TITLE=$5
+	else
+		EXTRA=""
+		SOUR=$1
+		DEST=$2
+		TITLE=$3
+	fi
+
+	# Parse options
+	opts
+	# Get file info
+	get_info 1
+	# Transcode
+	[ $? -eq 0 ] && transcode 1
+	# Result
+	[ $? -eq 0 ] && reward
 fi
 
-# Parse options
-opts
-# Get file info
-get_info 1
-# Transcode
-[ $? -eq 1 ] || transcode 1
-# Result
-[ $? -eq 1 ] || reward
-
+exit $?
 unset IFS
