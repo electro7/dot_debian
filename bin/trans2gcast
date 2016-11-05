@@ -177,7 +177,7 @@ function get_info() {
 	if [ $N_AUD_STR -eq $N_AUD_OK ] ; then
 		AUDIO="-c:a copy"
 		[ -n "$1" ] && (echo -e "${GREEN}AUDIO:${NC} Already in compatible format. No transcoding.")
-	elif [[ $N_AUD_STR -eq 1 ]] || [[ -n "$1" ]] ; then
+	elif [[ $N_AUD_STR -eq 1 ]] || [[ -z "$1" ]] ; then
 		[ -n "$1" ] && (echo -e "${GREEN}AUDIO:${NC} Transcoding activated to AAC.")
 		AUDIO="-c:a $A_CODEC -b:a $AUDRATE"
 	else
@@ -213,7 +213,7 @@ function get_info() {
 }
 
 # And finaly, do job
-# arg1 > 0 -> print infortmation
+# arg1 > 0 -> print information
 # ----------------------------------------------------------------------------
 function transcode() {
 	[ -n "$1" ] && sep
