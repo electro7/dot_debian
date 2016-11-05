@@ -67,6 +67,8 @@ function opts() {
 	if [ -n "$EXTRA" ]; then
 		echo -e "* Extra ffmpeg options: ${GREEN}$EXTRA${NC}"
 	fi
+
+	return 0
 }
 
 # Checks necessary utilities and ffmpeg options
@@ -196,12 +198,15 @@ function get_info() {
 		SUBTITLE="-sn"
 		[ -n "$1" ] && (echo -e "${GREEN}SUBTITLE:${NC} No subtitles found. :(")
 	fi
+
+	return 0
 }
 
 # And finaly, do job
+# arg1 = 1 -> imprime información
 # ----------------------------------------------------------------------------
 function transcode() {
-	echo -e "${BLUE}------------------------------------------------------------------------------${NC}"
+	[ -n "$1" ] && (echo -e "${BLUE}------------------------------------------------------------------------------${NC}")
 
 	# Sure?
 	if [[ "$VIDEO" == "-c:v copy" ]] && [[ "$AUDIO" == "-c:a copy" ]]; then
@@ -209,13 +214,13 @@ function transcode() {
 		return 1
 	fi
 
-	echo -e "${CYAN}Starting transcoding ...${NC}"
+	[ -n "$1" ] && (echo -e "${CYAN}Starting transcoding ...${NC}")
 
 	CMDLINE="ffmpeg -loglevel error -stats -hide_banner -i \"$SOUR\" -map 0 $VIDEO $AUDIO $SUBTITLE -metadata title=\"$TITLE\" $EXTRA \"$DEST\""
 
-	echo -e "* ${GREEN}CMD:${NC} $CMDLINE"
-	echo -e "* ${GREEN}$(echo -e ${V_INFO} | grep Duration:)${NC}"
-	echo -e "${YELLOW}Options: [q] quit, [+] more info, [-] less info, [?] help.${NC}"
+	[ -n "$1" ] && (echo -e "* ${GREEN}CMD:${NC} $CMDLINE")
+	[ -n "$1" ] && (echo -e "* ${GREEN}$(echo -e ${V_INFO} | grep Duration:)${NC}")
+	[ -n "$1" ] && (echo -e "${YELLOW}Options: [q] quit, [+] more info, [-] less info, [?] help.${NC}")
 
 	eval $CMDLINE
 }
@@ -239,6 +244,8 @@ function reward() {
 		echo -e "${RED}Transcofing process FAILED! :(${NC}"
 		return 1
 	fi
+
+	return 0
 }
 
 
@@ -257,12 +264,16 @@ chk_ffmpeg
 
 # Multiple archives
 if [ "$1" == "-b" ]; then
+	(echo -e "${BLUE}------------------------------------------------------------------------------${NC}")
 	let N_FILE=$#-1
-	echo $N_FILE
+	echo -e "${CYAN}Transcoding ${N_FILE} files...${NC}"
+	i=0;
+	ok=0
 	for file in "$@" ; do
 		if [ "$file" == "-b" ]; then 
 			continue;
 		fi
+		let i=i+1
 		SOUR=$file
 		DEST=$SOUR
 		FILE=$(basename "$DEST")
@@ -270,8 +281,15 @@ if [ "$1" == "-b" ]; then
 		DEST=""$FILE" [gcast].mkv"
 		TITLE="$FILE"
 		get_info
-		echo $SOUR $DEST $TITLE $VIDEO $AUDIO $SUBTITLE
+		[ $? -eq 1 ] && continue;
+		echo -e "* ${YELLOW}File $i of ${N_FILE} ${NC}-${CYAN} \"$SOUR\"${NC}"
+		echo -e "* ${GREEN}$(echo -e ${V_INFO} | grep Duration:)${NC}"
+		transcode
+		[ $? -eq 1 ] && continue;
+		let ok=ok+1
 	done
+	(echo -e "${BLUE}------------------------------------------------------------------------------${NC}")
+	echo -e "${CYAN}Bach transcode completed. $ok of $i files processed sucessfull!.${NC}"
 	unset IFS
 	exit 0
 # Single archive
@@ -292,7 +310,7 @@ opts
 # Get file info
 get_info 1
 # Transcode
-[ $? -eq 1 ] || transcode
+[ $? -eq 1 ] || transcode 1
 # Result
 [ $? -eq 1 ] || reward
 
