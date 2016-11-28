@@ -50,9 +50,9 @@ function usage() {
 	echo
 	echo "Single file (interactive):"
 	echo "  $HOWCALLED [-p] <input video> [output video] [title]"
-	echo "              -p high  -- high x263 profile"
-	echo "              -p mid   -- mid x263 profile (default)"
-	echo "              -p low   -- low x263 profile"
+	echo "              -p high  -- high x264 profile"
+	echo "              -p mid   -- mid x264 profile (default)"
+	echo "              -p low   -- low x264 profile"
 	echo 
 	echo "Multiple files (automatic):"
 	echo "  $HOWCALLED -b <files>"
