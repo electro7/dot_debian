@@ -366,7 +366,7 @@ ACTUALIZACIÓN
 
 - Para utilizar el ssh con protocolo 2 basta con poner en
   "/etc/ssh/sshd_config" la opción "protocol=2".
-- La autentifiación con ssh2 se realiza con RSA siempre. Hay que generar la
+- La autentifiación con ssh2 se realizaon RSA siempre. Hay que generar la
   clave con "ssh-keygen -t rsa".
 - La clave en el remoto se sigue poniendo en "$HOME/.ssh/authorized_keys".
   Cada clave se pone en una solo línea, sin retornos de carro.
@@ -401,6 +401,8 @@ SERVIDOR X EN WIN
     - Arrancarlo y punto. Multiventana y a rular.
 - Arrancar directamente un RXVT bonito:
     - Usar el script X_remote en bin.
+    - Activar el "ForwardAgent yes" y "ForwardX11 yes" en
+      {/etc/ssh/ssh_config}.
     - Copiar las fuentes necesarias al directorio fonts de VcXsrv y hacer un
       xset fp+ fonts/<font dir>/ (ya lo hace el scrip).
     - Desde windows usar el "plink.exe" en un acceso directo. Ej:
