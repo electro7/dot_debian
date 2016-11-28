@@ -10,8 +10,12 @@
 # ----------------------------------------------------------------------------
 
 # x264 options
-#X264_OPTIONS="-profile:v high -level 4.2 -preset medium -crf 20 -maxrate 16M -bufsize 20M"
-X264_OPTIONS="-profile:v high -level 4.2 -preset slow -crf 20"
+X264_OPTIONS_HIGH="-profile:v high -level 4.2 -preset slow"
+X264_OPTIONS_MID="-profile:v high -level 4.2 -preset medium"
+X264_OPTIONS_LOW="-profile:v high -level 4.2 -preset faster"
+
+# Por defecto medio
+X264_OPTIONS="$X264_OPTIONS_MID"
 
 # AAC options
 AUDRATE=320k
@@ -45,7 +49,10 @@ function usage() {
 	echo "  - Audio: AAC or MP3."
 	echo
 	echo "Single file (interactive):"
-	echo "  $HOWCALLED [-e <more ffmpeg options>] <input video> [output video] [title]"
+	echo "  $HOWCALLED [-p] <input video> [output video] [title]"
+	echo "              -p high  -- high x263 profile"
+	echo "              -p mid   -- mid x263 profile (default)"
+	echo "              -p low   -- low x263 profile"
 	echo 
 	echo "Multiple files (automatic):"
 	echo "  $HOWCALLED -b <files>"
@@ -76,9 +83,6 @@ function opts() {
 	echo -e "* Input video: ${GREEN}$SOUR${NC}"
 	echo -e "* Output video: ${GREEN}$DEST${NC}"
 	echo -e "* Metadata title: ${GREEN}$TITLE${NC}"
-	if [ -n "$EXTRA" ]; then
-		echo -e "* Extra ffmpeg options: ${GREEN}$EXTRA${NC}"
-	fi
 
 	return 0
 }
@@ -226,7 +230,7 @@ function transcode() {
 
 	[ -n "$1" ] && (echo -e "${CYAN}Starting transcoding ...${NC}")
 
-	CMDLINE="ffmpeg -loglevel error -stats -hide_banner -i \"$SOUR\" -map 0 $VIDEO $AUDIO $SUBTITLE -metadata title=\"$TITLE\" $EXTRA \"$DEST\""
+	CMDLINE="ffmpeg -loglevel error -stats -hide_banner -i \"$SOUR\" -map 0 $VIDEO $AUDIO $SUBTITLE -metadata title=\"$TITLE\" \"$DEST\""
 
 	[ -n "$1" ] && (echo -e "* ${GREEN}CMD:${NC} $CMDLINE")
 	[ -n "$1" ] && (echo -e "* ${GREEN}$(echo -e ${V_INFO} | grep Duration:)${NC}")
@@ -304,13 +308,19 @@ if [ "$1" == "-b" ]; then
 	echo -e "${CYAN}Bach transcode completed. $ok of $i files processed sucessfull!.${NC}"
 # Single archive
 else
-	if [ "$1" == "-e" ]; then
-		EXTRA="$2"
+	if [ "$1" == "-p" ]; then
+		 if [[ $# -lt 3 ]]; then
+			usage
+			unset IFS
+			exit 1
+		fi
+		[ "$2" == "high" ] && X264_OPTIONS="$X264_OPTIONS_HIGH"
+		[ "$2" == "mid" ] && X264_OPTIONS="$X264_OPTIONS_MID"
+		[ "$2" == "low" ] && X264_OPTIONS="$X264_OPTIONS_LOW"
 		SOUR=$3
 		DEST=$4
 		TITLE=$5
 	else
-		EXTRA=""
 		SOUR=$1
 		DEST=$2
 		TITLE=$3
