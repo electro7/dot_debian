@@ -809,6 +809,11 @@ Instalar y configurar Samba en comodos pasos:
 - Reiniciar con "etc/init.d/samba restart"
 - "smbclient -L 127.0.0.1" ya debería mostrar bien los recursos compartidos.
 
+- Para montar un directorio externo hay que instalar el paquete "cifs-utils" y
+  editar el fstab añadiendo algo así:
+>
+    //titan/work /mnt/work cifs noauto,user,username=<user>,paswword=<pass> 0 0
+<
 ==============================================================================
 MPD Y NCMPCPP                                                   *mpd_ncmpcpp*
 
