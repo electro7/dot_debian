@@ -253,3 +253,11 @@ if [[ -n $(ssh-add -l | grep 'The agent has no identities') ]] ; then
   ssh-add 2> /dev/null
 fi
 
+#----------------------------------------------------------------------#
+# JARVIS
+#----------------------------------------------------------------------#
+
+OBJDIR=obj32; export OBJDIR; MOXA=Debian; export MOXA
+
+
+
