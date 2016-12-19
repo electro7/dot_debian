@@ -411,17 +411,17 @@ endfunction
 function! ExecCompiler()
 	" Autom
 	if &ft == "prg"
-		if filereadable(getcwd() . "/siga.prg")
+		if filereadable(getcwd() . "/jarvis.prg")
 			if has("win32")
-			:!start c:\winsiga\ucsiga\ucWin.exe "%:p:h\siga.prg"
+			:!start "c:\work\soft\jarvis\kernel\release\jarvis_w32.exe" "%:p:h\jarvis.prg"
 			else
-			:!/root/siga/siga "%:p:h/siga.prg"
+			:!/root/jarvis\jarvis "%:p:h/jarvis.prg"
 			endif
 		else
 			if has("win32")
-			:!start c:\winsiga\ucsiga\ucWin.exe "%:p"
+			:!start "c:\work\soft\jarvis\kernel\release\jarvis_w32.exe" "%:p"
 			else
-			:!/root/siga/siga "%:p"
+			:!/root/jarvis/jarvis "%:p"
 			endif
 		endif
 	endif
