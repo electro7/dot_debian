@@ -143,7 +143,7 @@ if has('gui_running')
 		"set guifont=DejaVu_Sans_Mono:h8
 		"set guifont=Source_Code_Pro:h9
 		"set guifont=Inconsolata:h10
-		set lines=50							" Nº lines
+		set lines=60							" Nº lines
 		set columns=90							" Nº columns
 	else
 		set guifont=Inconsolata\ for\ Powerline\ 10
@@ -202,7 +202,7 @@ nnoremap <leader>a	qaYp<C-A>q1@a
 " Open buff explorer
 nnoremap <leader>b :BufExplorer<CR>
 " Set columns to doble panel
-nnoremap <leader>c :set columns=170<CR>
+nnoremap <leader>c :set columns=200<CR>
 " Open diff vertical
 nnoremap <leader>d :vertical diffsplit<CR>
 " Open file browser
@@ -416,6 +416,12 @@ function! ExecCompiler()
 			:!start "c:\work\soft\jarvis\kernel\release\jarvis_w32.exe" "%:p:h\jarvis.prg"
 			else
 			:!/root/jarvis\jarvis "%:p:h/jarvis.prg"
+			endif
+		elseif filereadable(getcwd() . "/siga.prg")
+			if has("win32")
+			:!start "c:\work\soft\jarvis\kernel\release\jarvis_w32.exe" "%:p:h\siga.prg"
+			else
+			:!/root/jarvis\jarvis "%:p:h/siga.prg"
 			endif
 		else
 			if has("win32")
