@@ -63,8 +63,10 @@ done &
 
 #### LOOP FIFO
 
-cat "${panel_fifo}" | $(dirname $0)/i3_lemonbar_parser.sh \
-  | lemonbar -p -f "${font}" -f "${iconfont}" -g "${geometry}" -B "${color_back}" -F "${color_fore}" &
+for geometry in $(xrandr | grep -Pow "connected[^\+]*\K\+[0-9]+\+[0-9]+"); do
+	cat "${panel_fifo}" | $(dirname $0)/i3_lemonbar_parser.sh \
+		| lemonbar -p -f "${font}" -f "${iconfont}" -g "${geometry}" -B "${color_back}" -F "${color_fore}" &
+done
 
 wait
 
