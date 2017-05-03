@@ -9,7 +9,7 @@ Change every day. Something like this:
 
 ### I3 LemonBar
 
-![lemonbar full] (https://dl.dropboxusercontent.com/u/60065791/screenshots/lemonbar/i3bar_full.png)
+![lemonbar full] (http://i.imgur.com/9G8W9gv.png)
 
 Config files and help [here] (https://github.com/electro7/dotfiles/tree/master/.i3/lemonbar)
 
