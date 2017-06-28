@@ -18,12 +18,12 @@ Xcursor.theme:	 Neutral
 
 ! Colores
 !----------------------------------------------------------------------
-!#include "/home/electro7/.config/termcolours/jellybeans"
-!#include "/home/electro7/.config/termcolours/hybrid"
-!#include "/home/electro7/.config/termcolours/base16-solarized.light"
-#include "/home/electro7/.config/termcolours/hybrid_e7"
-!#include "/home/electro7/.config/termcolours/s3r0"
-##include "/home/electro7/.config/termcolours/nix_e7"
+!#include ".config/termcolours/jellybeans"
+!#include ".config/termcolours/hybrid"
+!#include ".config/termcolours/base16-solarized.light"
+#include ".config/termcolours/hybrid_e7"
+!#include ".config/termcolours/s3r0"
+##include ".config/termcolours/nix_e7"
 
 ! URXVT
 !----------------------------------------------------------------------
@@ -134,11 +134,11 @@ URxvt.keysym.M-C-S-End        : \033[1;8F
 ! XMAILBOX
 !----------------------------------------------------------------------
 !XMailbox*update: 60
-!XMailbox*mailXpmFile: /home/electro7/X/pixmaps/mail1.xpm
-!XMailbox*nomailXpmFile: /home/electro7/X/pixmaps/mail0.xpm
-!XMailbox*mailapp: $HOME/bin/terminal mutt
+!XMailbox*mailXpmFile: X/pixmaps/mail1.xpm
+!XMailbox*nomailXpmFile: X/pixmaps/mail0.xpm
+!XMailbox*mailapp: bin/terminal mutt
 !XMailbox*volume: 66
-!xmailbox*mailSndFile: /home/electro7/X/sounds/mail.wav
+!xmailbox*mailSndFile: X/sounds/mail.wav
 !xmailbox*mailSndComm: /usr/bin/play %s
 
 ! XMIX
