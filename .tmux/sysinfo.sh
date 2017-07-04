@@ -67,8 +67,16 @@ if [ -n "$disk_extra" ]; then
 	disk_extra="#[fg=${disk_bg},bg=black]${sep_left}#[fg=${disk_fg},bg=${disk_bg}] /extra ${disk_extra}% #[fg=black,bg=${disk_bg}]${sep_left}"
 	echo -n "${disk_extra}"
 fi
-
-
+disk_multi=`df | grep -w multi | awk '{print $5;}' | grep -oEi '[0-9]+'`
+if [ -n "$disk_multi" ]; then
+	if [ ${disk_multi} -gt ${disk_alert} ]; then
+		disk_fg=black; disk_bg=yellow;
+	else
+		disk_fg=brightwhite; disk_bg=brightblack;
+	fi
+	disk_multi="#[fg=${disk_bg},bg=black]${sep_left}#[fg=${disk_fg},bg=${disk_bg}] /multi ${disk_multi}% #[fg=black,bg=${disk_bg}]${sep_left}"
+	echo -n "${disk_multi}"
+fi
 
 #NETSPEED
 #case "$OSTYPE" in
