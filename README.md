@@ -5,13 +5,13 @@ Config files for a minimalist X desktop; i3wm & lemonbar, rxvt, bitlbee & weecha
 
 Change every day. Something like this:
 
-![last screenshot] (http://i.imgur.com/tzez5a7.png)
+![last screenshot](http://i.imgur.com/tzez5a7.png)
 
 ### I3 LemonBar
 
-![lemonbar full] (http://i.imgur.com/9G8W9gv.png)
+![lemonbar full](http://i.imgur.com/9G8W9gv.png)
 
-Config files and help [here] (https://github.com/electro7/dotfiles/tree/master/.i3/lemonbar)
+Config files and help [here](https://github.com/electro7/dotfiles/tree/master/.i3/lemonbar)
 
 ### Clean install (debian jessie 8.5):
 
