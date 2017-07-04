@@ -134,13 +134,13 @@ For this, a beep trigger in weechat must be set with this:
 
 For reset the warning, run ***irc_warn*** without parameters.
 
-![lemonbar irc off] (http://i.imgur.com/TxnlC6x.png)
-![lemonbar irc on] (http://i.imgur.com/76mYgmf.png)
+![lemonbar irc off](http://i.imgur.com/TxnlC6x.png)
+![lemonbar irc on](http://i.imgur.com/76mYgmf.png)
 
 #### MPD song info
 
 Show autor and title of current song. Use mpd and mpc.
 
-![lemonbar mpd off] (http://i.imgur.com/WQk703j.png)
-![lemonbar mpd on] (http://i.imgur.com/iUkqoms.png)
+![lemonbar mpd off](http://i.imgur.com/WQk703j.png)
+![lemonbar mpd on](http://i.imgur.com/iUkqoms.png)
 
