@@ -6,7 +6,7 @@
 # Para startx se usa el .xinitrc.
 
 # Carga recursos
-[[ -f $HOME/.Xresources ]] && xrdb -merge $HOME/.Xresources
+[[ -f $HOME/.Xresources ]] && xrdb -I$HOME -merge $HOME/.Xresources
 #$HOME/bin/loadresources
 
 # Velocidad y puntero del ratón
