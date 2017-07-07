@@ -43,7 +43,7 @@ meter, and converts it with lemonbar format.
         i3bar_command ~./.i3/lemonbar/i3_lemonbar.sh
     }
     ```
-* Adjust bar settings editing i3_lemonnar_config. Settings for:
+* Adjust bar settings editing ***i3_lemonbar_config***. Settings for:
 
     * Fifo file.
     * Bar geometry.
