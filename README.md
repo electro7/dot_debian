@@ -13,7 +13,7 @@ Change every day. Something like this:
 
 Config files and help [here](https://github.com/electro7/dotfiles/tree/master/.i3/lemonbar)
 
-### Clean install (debian jessie 8.5):
+### Clean install (debian strech 9.3):
 
 * Install debian base (without X desktop).
 
@@ -48,7 +48,7 @@ Config files and help [here](https://github.com/electro7/dotfiles/tree/master/.i
     $ git clone  https://github.com/LemonBoy/bar.git
     $ apt-get install build-essential checkinstall
     $ apt-get install libxcb1-dev libxcb-xinerama0-dev libxcb-randr0-dev
-    $ make
+    $ cd bar; make
     $ checkinstall -D make install
     ```
 
