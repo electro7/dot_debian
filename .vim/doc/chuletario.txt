@@ -873,4 +873,36 @@ el chromecast, por ejemplo:
 
 - Listo. Se puede ver el estado desde web al puerto 8200 del servidor.
 
+==============================================================================
+VIRTUALBOX CONSOLA						 *virtualbox*
+
+Se hace la administración desde "VboxManage":
+
+- VBoxManage list vms ~
+  Muestra las máquinas virtuales disponibles.
+
+- VBoxManage startvm <maquina>~
+  Arranca la máquina.
+
+- VBoxManage showvinfo <maquina>~
+  Muestra la configuración de la máquina.
+
+- VBoxManage controlvm <maquina> <comando> ~
+  Permite manejar la máquina en marcha. <pause> <resume> <reset> <poweroff>
+  <savestate>
+
+- VBoxManage modifyvm <maquina> ~
+  Modifica opciones de una maquina. -> Ej: "VBoxManage modifyvm "Win" - memory
+  "1024MB"
+
+- VBoxManage registervm ~
+  Permite registrar una máquina de un fichero .vbox (XML)
+
+- VBoxManage modifyvm <maquina> --vrde on ~
+  Activa el escritorio remoto (mstsc) en el puerto 3389 para la máquina. El
+  puerto se puede cambiar con --vrderproperty "TCP/Ports|Address=<value>"
+
+
+
+
 vim:tw=78:ts=8:wrap:ft=help:norl
