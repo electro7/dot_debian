@@ -56,4 +56,5 @@ exec /usr/lib/notification-daemon/notification-daemon &
 xinput set-button-map 10 1 2 3 4 5 2 7 8 9
 
 # Gestor de ventanas
+exec kodi -fs &
 exec i3

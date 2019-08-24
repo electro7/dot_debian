@@ -146,6 +146,7 @@ alias xbithcx="terminal bithcx"
 alias xt="terminal"
 
 # Alias del git
+alias gs="git status"
 alias gia="git add"
 alias gcm="git commit -a -m"
 alias gp="git push"

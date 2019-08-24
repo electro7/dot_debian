@@ -35,6 +35,7 @@ downloads/*
 .gvfs/*
 .ICEauthority
 .icons/*
+.kodi/*
 .lesshst
 .lftp/*
 .local/*
@@ -46,6 +47,7 @@ music
 .mozilla/*
 .mplayer/*
 .ncmpcpp/*.log
+.nv/*
 .pki/*
 .profile
 .pulse/*
@@ -75,3 +77,4 @@ tmp/*
 .zprezto/*
 .zcompdump
 .zhistory
+.uuid

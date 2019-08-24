@@ -211,6 +211,6 @@ mode "resize" {
 bindcode $mod+27 mode "resize"
 
 # My bar
-bar {
-  i3bar_command ~/.i3/lemonbar/i3_lemonbar.sh
-}
+#bar {
+#  i3bar_command ~/.i3/lemonbar/i3_lemonbar.sh
+#}
