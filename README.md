@@ -1,4 +1,13 @@
-# E7 dotfiles
+# NOTE
+This repo is out of date. I'm use only for historical reasons and one old
+machine with kodi. 
+
+At the moment i'm using archlinux in my principal desktop PC.
+[here](https://github.com/electro7/dot_arch) the repo.
+
+Thanks for the interest.
+
+# E7 OLD dotfiles
 Config files for a minimalist X desktop; i3wm & lemonbar, rxvt, bitlbee & weechat, vim, git, cnmpcpp...
 
 ### Last screenshot
