@@ -1,18 +1,24 @@
-Recomendaciones de estilo para el desarrollo de código
--------------------------------------------------------
-E7 - 16 sep 2015 
+------------------------------------------------------------------------------
+ Recomendaciones de estilo para el desarrollo de código
+ 1.1 - 20 ago. 2019  
+------------------------------------------------------------------------------
 
-Base -> https://www.kernel.org/doc/Documentation/doc/CodingStyle
+Importante: He creado una configuración para uncrustify para realizar los
+cambios automáticamente. Ejecutar el script code_format en el $HOME/bin de
+cyrgwin. El archivo de configuración de uncrustify está en
+$HOME/uncrustify.cfg.
+
+Base -> https://www.kernel.org/doc/html/v4.10/process/coding-style.html
 
 1.- Introducción
 
-	El objetivo de este documento es definir un conjunto de reglas que
+    El objetivo de este documento es definir un conjunto de reglas que
 permitan dar un buen nivel de homogeneidad al código común de todos los
 ficheros fuente.
 
-2.-	Estructura del fichero
+2.- Estructura del fichero
 
-- Usar indentación con 8 espacios.No usar tab's son el demonio.
+- Usar indentación con 4 espacios. No usar tab's son el demonio.
 - La línea no debe superar las 80 columnas.
 - Al principio del fichero se coloca una cabecera específica del fichero.
 - El primer elemento de código del programa son los #includes.
@@ -33,33 +39,33 @@ ficheros fuente.
 
 - Debe separarse con espacios. Ejemplo:
 
-	if (x < y) {
-		x++;
-	}
+    if (x < y) {
+        x++;
+    }
 
 - En las estructuras de control (if, while, for, etc.), y declaraciones (struct,
   enum, typedef) se añade la llave de apertura al final de la primera línea
   y la llave de cerrado sola en la última línea. Ejemplos:
 
-	if (x == y) {
-		...
-	} else if {
-		---
-	} else {
-		---
-	{
+    if (x == y) {
+        ...
+    } else if {
+        ---
+    } else {
+        ---
+    {
 
-	do {
-		cuerpo de do ...
-	} white (condicion);
+    do {
+        cuerpo de do ...
+    } white (condicion);
 
 - Sin embargo, en las funciones la apertura y el cerrado se hacen en una
   nueva línea. Elemplo:
 
-	int function(int x)
-	{
-		...
-	}
+    int function(int x)
+    {
+        ...
+    }
 
 5.- Nomenclatura
 
@@ -73,66 +79,67 @@ ficheros fuente.
   colisiones de nombres de símbolos entre módulos. Es muy importante para las
   bibliotecas.
 - Las variables globales serán descriptivas. No es lo mismo
-  "count_active_users" que "cntusr".
+  "gCountActiveUsers" que "cntusr". Normalmente empezaran con "g_".
+- Los punteros deben empezar con "p_" o "lp_".
 - Las variables locales deben ser cortas. Por ejemplo los contadores "i" o
   el buffer temportal "buf".
 - Las macros, los defines y los enum siempre en mayúsculas. Ejemplo:
-	
-	/* Tipo de sombra */
-	typedef enum {
-		GTK_SHADOW_NONE,
-		GTK_SHADOW_IN,
-		GTK_SHADOW_OUT,
-		GTK_SHADOW_ETCHED_IN,
-		GTK_SHADOW_ETCHED_OUT
-	} GtkShadowType;
+    
+    /* Tipo de sombra */
+    typedef enum {
+        GTK_SHADOW_NONE,
+        GTK_SHADOW_IN,
+        GTK_SHADOW_OUT,
+        GTK_SHADOW_ETCHED_IN,
+        GTK_SHADOW_ETCHED_OUT
+    } GtkShadowType;
 
 - Los nombre de typedef y struct se usa una mezcla de mayúsculas y
   minúsculas. Ejemplo:
-	
-	struct IconList {
-		char buf[BINPRM_BUF_SIZE];
-		struct page *page[MAX_ARG_PAGES];
-		struct mm_struct *mm;
-	};
+    
+    struct IconList {
+        char buf[BINPRM_BUF_SIZE];
+        struct page *page[MAX_ARG_PAGES];
+        struct mm_struct *mm;
+    };
 
 6.- Comentarios
 
-- No se usa "//" para los comentarios, siempre "/* */".
+- Se usa comentarios tipo C -> /**/
 - Las variables globales se explican brevemente.
 - Los bloques de comentarios seguirán un formato general de facil
   portabilidad. El formato propuesto es el siguiente:
 
-	/*
-	 *  Inicio del comentario
-	 *  que concluye en la próxima línea
-	 */
+    /*
+    *  Inicio del comentario
+    *  que concluye en la próxima línea
+    */
 
 - Cada fichero fuente debe comenzar con el nombre del fichero, el autor, la
   versión, la fecha, el copyright (GPL) y posiblemente un lista de cambios.
 
-	/*
-	 * ARCHIVO		: <nombre de archivo>
-   * AUTOR		: Vicente Gimeno
-   * VERSIÓN      : 1.0
-	 * DESCRIPCIóN	: <descripción>
-	 *                <...>
-	 *                <...>
-	 *
-	 * LOG          : Primera versión
-	 *
-	 */
+    /************************************************************************
+    * NOMBRE DEL PROYECTO
+    * -----------------------------------------------------------------------
+    * Descripción de lo que hace el archivo.
+    *************************************************************************/
 
 - Se añadiran solo los comentarios realmente necesarios. Cada función debe
   ser precedida con un comentario que comente brevemente lo que hace. Si es
   necesario se incluirá una explicación de sus parámetros y su valor de
   retorno. Ejemplo:
 
-	/* Ordena la lista de memorias */
-	int list_sort(int base, int number)
-	{
-		...
-	}
+    /* Ordena la lista de memorias */
+    int list_sort(int base, int number)
+    {
+        ...
+    }
+
+- Para separar grupos de funciones se usa una línea. Ejemplo:
+
+    /* Archivo SVI
+    *  ---------------------------------------------------------------------- 
+    */
 
 7.-  Ficheros de cabeceras
 
@@ -143,3 +150,5 @@ ficheros fuente.
     #define __FICHERO_H
     ...
     #endif
+
+vim:tw=78:nowrap:ft=help

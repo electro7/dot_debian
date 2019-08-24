@@ -24,16 +24,19 @@ CONTENIDO                                                 *chuleta_contenido*
   - Ordenar MP3                                     |chuleta_mp3|
   - Fuentes, temas, iconos                          |chuleta_fuentes_temas_gtk|
   - Drivers NVIDIA                                  |chuleta_nvidia|
-  - Wireless	                                    |chuleta_wireless|
-  - Debian en Powerbook                             |chuleta_powerbook|
+  - Wireless                                        |chuleta_wireless|
   - Versionitis con GIT                             |chuleta_git|
   - Instalando fuentes                              |chuleta_checkinstall|
   - Instalando Linux en SSD                         |disco_ssd|
   - Weechat + BitlBee (IRC + Mensajería)            |weechat_bitlbee|
   - Samba fácil                                     |samba_facil|
   - MPD y ncmpcpp                                   |mpd_ncmpcpp|
-  - Systemd en Debian				    |systemd|
-  - Servidor DLNA en Debian			    |dlna|
+  - Systemd en Debian                               |systemd|
+  - Servidor DLNA en Debian                         |dlna|
+  - systemctl en archlinux                          |systemctl| |arch|
+  - Red en archlinux                                |netctl| |arch|
+  - Paquetes archlinux                              |pacman| |arch|
+  - Bluetooth archlinux                             |bluez| |arch|
 
 ==============================================================================
 ==============================================================================
@@ -525,7 +528,7 @@ DRIVERS NVIDIA                                               *chuleta_nvidia*
 - Relanzar el gdm/lightdm
 
 ==============================================================================
-WIRELESS						  *chuleta_wireless*
+WIRELESS                                                  *chuleta_wireless*
 
 ----------------------------------------------------------------------------
 EN MANZANITA
@@ -564,32 +567,6 @@ el "nm-applet" y au!.
   usar el "stalonetray" que es estandar.
 - Se puede configurar desde la X con "nm-conection-editor".
 - Desde consola podemos usar el nm-tool, el nmcli y el nm-online.
-
-==============================================================================
-DEBIAN EN POWERBOOK                                     *chuleta_powerbook*
-
-- El control de temperatura viene con el módulo "therm_adt746x". Poner
-  la carga manualmente en "/etc/modules".
-
-- Cambiar entre consolas virtuales -> ctrl + alt + fn + manzana izq.
-
-- X (ver xorg.conf). Las ultimas debian no llevan xorg.conf, pero basta con
-  copiarlo en "/etc/X11".
-
-----------------------------------------------------------------------------
-Botón izquierdo (3) y central del ratón (2).
-
-- Añadir esto en /etc/sysctl.conf
->
-  dev.mac_hid.mouse_button3_keycode = 126
-  dev.mac_hid.mouse_button2_keycode = 127
-  dev.mac_hid.mouse_button_emulation = 1
-
-- Luego hacer "sysctl -p /etc/sysctl.conf"
-- Ya funciona el botón izquierdo con la tecla Fn+ manzana y el botón central
-  con la tecla Fn+^(enter al lado de la manzana).
-- Si no va, averiguar el código de la tecla desde una consola fuera de
-  X con "showkey".
 
 ==============================================================================
 GIT                                                              *chuleta_git*
@@ -836,7 +813,7 @@ Instalar reproductor de música para consola:
   - El fichero de configuración va en {.ncmpcpp/config}
 
 ==============================================================================
-SYSTEMD		                                                 *systemd*
+SYSTEMD                                                          *systemd*
 
 Al final han quitado nuestro querido systemv en debian y han puesto en
 systemd.
@@ -851,7 +828,7 @@ Cosillas:
   "systemctl set-default graphical.target"
 
 ==============================================================================
-SERVIDOR DLNA							 *dlna*
+SERVIDOR DLNA                                                    *dlna*
 
 Sirve para compartir multimedia para aplicaciones clientes DLNA y uPNP, para
 el chromecast, por ejemplo:
@@ -874,7 +851,7 @@ el chromecast, por ejemplo:
 - Listo. Se puede ver el estado desde web al puerto 8200 del servidor.
 
 ==============================================================================
-VIRTUALBOX CONSOLA						 *virtualbox*
+VIRTUALBOX CONSOLA                                               *virtualbox*
 
 Se hace la administración desde "VboxManage":
 
@@ -902,7 +879,135 @@ Se hace la administración desde "VboxManage":
   Activa el escritorio remoto (mstsc) en el puerto 3389 para la máquina. El
   puerto se puede cambiar con --vrderproperty "TCP/Ports|Address=<value>"
 
+==============================================================================
+SYSTEMCTL ARCHLINUX                                      *systemctl* *arch*
 
+Activa "servicios" (demonios):
+
+- systemctl enable <servicio> ~
+  Activa el servicio en el arranque.
+
+- systemctl disable <servicio>~
+  Arranca la máquina.
+
+- systemctl start/stop/restart/reload <servicio>~
+  Arranca/para el servicio manualmente.
+
+- systemctl list-units ~
+  Lista servicios. Con <-all> se listan hasta los inactivos.
+>
+  systemctl list-units lightdm*
+<
+
+==============================================================================
+RED EN ARCHLINUX                                         *netctl* *arch*
+
+Para el manejo de la red en archlinux, nada mejor que el netctl, tanto para
+wifi (wlan) como por cable (eth).
+
+Es necesario instalar el "wpa_suplicant" para que funcione la autentificación
+WPA en wifi.
+
+Es necesario instalar el "dhcpcd" para DHCP. Quitar si existiese el servicio
+dhcpcd de los servicios en el arranque.
+
+Es necesario el "dialog" para el "wifi-menu".
+
+Se basa en archivos de "profile" que van en {/etc/netctl}. Existen varios ejemplos
+en {/etc/netctl/examples}
+
+Por ejemplo, para ip fija en eth0:
+>
+    Description='A basic static ethernet connection'
+    Interface=eth0
+    Connection=ethernet
+    IP=static
+    Address=('192.168.7.11/24')
+    Gateway='192.168.7.1'
+    DNS=('8.8.8.8')
+<
+Las conexiones de wifi se pueden generar simplemente ejecutando "wifi-menu". Es
+necesario que antes no exista ninguna conexión wifi activa o fallará.
+
+Uso básico:
+
+- netctl start/stop <profile> ~
+  Arranca/para un profile.
+
+- netctl enable/disable <profile>~
+  Activa/desactiva un profile en el arranque con systemctl.
+
+- ip addr ~
+  Lista las IP's
+
+- iw dev wlan0 info~
+  Muestra el estado de la conexión wifi.
+
+==============================================================================
+PAQUETES EN ARCHLINUX                                    *pacman* *arch*
+
+- pacman -S <paquete>~
+  Instalar un paquete.
+
+- pacman -Ss <paquete>~
+  Buscar un paquete.
+
+- pacman -Rs <paquete>~
+  Borra un paquete y sus dependencias que no son necesarias por otro paquete.
+
+- pacman -Syyu ~
+  Actualiza el sistema.
+
+- pacman -Qs <paquete> ~
+  Busca en paquetes instalados.
+
+- pacman -Qu~
+  Lista paquetes para actualizar.
+
+- pacman -Scc~
+  Limpia la cache.
+
+Archlinux tiene un sistema llamado AUR donde los usuarios pueden aportar
+paquetes. Se descargan con "git clone", donde se baja un fichero llamado
+"PKGBUILD" que se compila e instala con "makepkg -si". Para manejar este
+repositorio existen varias herramientas, la que uso hasta el momento es "yay"
+que tiene la misma sintaxis que "pacman". "yay" se encarga de todo, bajar del
+git, instalar dependencias, compilar e instalar.
+
+Ejemplos:
+
+- yay Qu ~
+  Lista paquetes para actualizar.
+
+==============================================================================
+BLUETOOTH EN ARCHLINUX                                   *bluez* *arch*
+
+- Instalar los paquetes "bluez", "bluez-libs" y "bluez-utils".
+- El servicio no arranca por defecto. Arrancarlo con "sudo systemctl start
+  bluetooth.service"
+
+- Se controla todo desde el comando "bluetoothctl". Principales comandos:
+
+    - power on~
+    Enciende el bluetooth
+
+    - scan on/off~
+    Empieza el escaneo de dispositivos bluetooth.
+
+    - pair <dev>~
+    Empareja un dispositivo y lo guarda en conocidos.
+
+    - paired-devices ~
+    Lista dispositivos emparejados.
+
+    - connect <dev> / disconnect <dev>  ~
+    Conecta o desconecta con dispositivo.
+
+- Para hacer funcionar cascos bluetooth hay que instalar el "pulseaudio",
+  "pulseaudio-alsa" y "pulseaudio-bluetooth".
+- El servicio de pulseaudio corre en systemctl solo para el usuario.
+  "systemctl --user start pulseaudio.service" lo arranca.
+- "pulsemixer" es un buen mixer para consola.
 
 
 vim:tw=78:ts=8:wrap:ft=help:norl

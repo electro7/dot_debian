@@ -50,10 +50,11 @@ function prompt_term
     GIT_PS1_SHOWSTASHSTATE=1
     GIT_PS1_SHOWUNTRACKEDFILES=1
     GIT_PS1_SHOWUPSTREAM="auto"
+	GIT_PS1_SHOWCOLORHINTS=1
 
     # Prompt final
 	PROMPT_COMMAND=""
-    PS1="$COLV--[$COLC\h$COLV]-[$COLA\w$COLV]\$(__git_ps1)\n$COL \\$ $COLN"
+    PS1="$COLV--[$COLC\h$COLV]-[$COLA\w$COLV]$COLP\$(__git_ps1 ["%s"])\n$COL \\$ $COLN"
 }
 
 # Selección de prompt según el tipo de terminal
