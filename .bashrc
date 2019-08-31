@@ -2,8 +2,9 @@
 # .bashrc
 # Fichero de opciones del shell bash
 #
-# Vicente Gimeno Morales - Electro7
-# 04 ene 2015
+# Electro7
+# 31 ago. 2019
+# Versión para WSL
 #======================================================================#
 
 # If not running interactively, don't do anything
@@ -14,23 +15,25 @@
 #----------------------------------------------------------------------#
 
 # Colores a utilizar
+COLR="\[\033[0;31m\]" # Rojo
 COLV="\[\033[0;32m\]" # Verde
-COLC="\[\033[0;36m\]" # Cyan
 COLA="\[\033[0;33m\]" # Amarillo
 COLB="\[\033[0;34m\]" # Blue
 COLP="\[\033[0;35m\]" # Purple
-COLR="\[\033[0;31m\]" # Rojo
-COLN="\[\033[0m\]"	  # Reset
+COLC="\[\033[0;36m\]" # Cyan
+COLG="\[\033[0;37m\]" # Gray
+COLN="\[\033[0m\]"    # Reset
+COL="$COLC"           # Usuario normal
 
-# Colores según usuario
-COL="$COLC"						# Usuario normal
-[[ "$UID" = "0" ]] && COL=$COLR	# Rojo para root
+[[ "$UID" = "0" ]] && COL=$COLR # Rojo para root
+
+# Título para las ventanas de consola en la X
+XTITLE='\[\e]0;\h : \s (\w)\a\]'
 
 # Añade retorno de carro y el cambio del titulo de la ventana al P1 actual
 function __promptadd
 {
-	XTITLE='\[\e]0;\s (\w)\a\]'
-    PS1="$XTITLE$PS1\n$COL \\$ $COLN"
+  PS1="$XTITLE$PS1\n$COL \\$ $COLN"
 }
 
 # Prompt a traves de promptline.vim
@@ -38,46 +41,53 @@ function __promptadd
 # Entrar en vim y hacer un :PromptlineSnapShot ~/.shell_prompt.sh
 function prompt_line
 {
-    source ~/.shell_prompt.sh
-    PROMPT_COMMAND="$PROMPT_COMMAND __promptadd;"
+  source ~/bin/shell_prompt.sh
+  PROMPT_COMMAND="$PROMPT_COMMAND __promptadd"
 }
 
 # Prompt "normal" sin carácteres raros
 function prompt_term
 {
-	# Opciones para el git
-    GIT_PS1_SHOWDIRTYSTATE=1
-    GIT_PS1_SHOWSTASHSTATE=1
-    GIT_PS1_SHOWUNTRACKEDFILES=1
-    GIT_PS1_SHOWUPSTREAM="auto"
-	GIT_PS1_SHOWCOLORHINTS=1
+  # Opciones para el git
+  source ~/bin/git-prompt.sh
+  GIT_PS1_SHOWDIRTYSTATE=1
+  GIT_PS1_SHOWSTASHSTATE=1
+  GIT_PS1_SHOWUNTRACKEDFILES=1
+  GIT_PS1_SHOWUPSTREAM="auto"
+  GIT_PS1_SHOWCOLORHINTS=1
 
-    # Prompt final
-	PROMPT_COMMAND=""
-    PS1="$COLV--[$COLC\h$COLV]-[$COLA\w$COLV]$COLP\$(__git_ps1 ["%s"])\n$COL \\$ $COLN"
+  # Prompt final
+  if [ -n "$SSH_CONNECTION" ]; then
+    PS="$COLG┌[$COLB\h$COLG]─[$COLC\w$COLG]"
+  else
+    PS="$COLG┌[$COLC\w$COLG]"
+  fi
+  PSE="$COLG\n└ $COL\\$ $COLN"
+  PROMPT_COMMAND='__git_ps1 "$XTITLE$PS" "$PSE" "─[$COLV"%s"$COLG]" '
+
+  #PS1="$COLV--[$COLC\h$COLV]-[$COLA\w$COLV]$COLP\$(__git_ps1 ["%s"])\n$COL \\$ $COLN"
 }
 
 # Selección de prompt según el tipo de terminal
-case "$COLORTERM" in
+case "$TERM" in
   rxvt*)
-	  prompt_line
+    prompt_line
     ;;
   *)
-	  prompt_term
+    prompt_term
     ;;
 esac
-
 
 #----------------------------------------------------------------------#
 # Colores
 #----------------------------------------------------------------------#
 
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-	export LS_OPTIONS='--color=auto'
-	alias l='ls $LS_OPTIONS'
-	alias ll='ls $LS_OPTIONS -l -N -F'
-	alias ls='ls $LS_OPTIONS -A -N -hF'
+  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+  export LS_OPTIONS='--color=auto'
+  alias l='ls $LS_OPTIONS'
+  alias ll='ls $LS_OPTIONS -l -N -F'
+  alias ls='ls $LS_OPTIONS -A -N -hF'
 fi
 
 alias lsmp3='ls -1 --indicator-style=none *.mp3'
@@ -98,75 +108,55 @@ export PATH="$PATH:$HOME/bin"
 # Por defecto.
 export EDITOR="vim"
 export BROWSER="firefox"
+#export QT_STYLE_OVERRIDE=GTK
+export QT_QPA_PLATFORMTHEME=qt5ct
+export QT_AUTO_SCREEN_SCALE_FACTOR=0
 
 #----------------------------------------------------------------------#
 # Alias
 #----------------------------------------------------------------------#
+
+#Alias WSL
+alias start="/mnt/c/Windows/System32/cmd.exe /c "start""
+alias s="start"
+alias gv="start gvim.exe"
 
 # Alias contra borrados accidentales.
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 
-# Alias de limpieza
-alias texclean='rm -f *.toc *.aux *.log *.cp *.fn *.tp *.vr *.pg *.ky'
-alias clean='echo -n "¿Desea borrar todos los ficheros temporales (s/N)? ";
-	read si;
-	if test "$si" = "y" -o "$si" = "s" ; then
-    rm -f \#* *~ .*~ *.bak .*.bak  *.tmp .*.tmp core a.out;
-    echo "Hecho.";
-	else
-    echo "Cancelado.";
-	fi'
-
 # Alias del shell
 alias h='history'
-alias v='vi'
-alias gv='gvim'
+alias v='vim'
+alias vi='vim'
 alias j="jobs -l"
 alias psl='ps -aux | less'
 alias ..='cd ..'
 alias 'cd..'='cd ..'
 alias df="df -h"
-
-# Alias para el su (root)
-alias reboot="sudo /sbin/reboot"
-alias halt="sudo /sbin/poweroff"
-alias poweroff="sudo /sbin/poweroff"
-alias xcdroast="sudo /usr/bin/xcdroast"
-alias gtkam="sudo /usr/bin/gtkam"
-
-# Alias para las X
-alias xvi="terminal vim"
-alias xslrn="terminal slrn"
-alias xmutt="terminal mutt"
-alias xnetstat="terminal netstat"
-alias xnetmasq="terminal netmasq"
-alias xiptraf="terminal iptraf"
-alias xbithcx="terminal bithcx"
-alias xt="terminal"
+alias more='less'
+alias du='du -h'
 
 # Alias del git
-alias gs="git status"
 alias gia="git add"
 alias gcm="git commit -a -m"
 alias gp="git push"
+alias gs="git status"
 
 # Mis chuletas
 alias chuleta="vim ~/.vim/doc/chuletario.txt"
 
-# Cambio colores de terminal
-alias col_dark="sh ~/.config/termcolours/dark.sh"
-alias col_light="sh ~/.config/termcolours/light.sh"
-alias col_default="sh ~/.config/termcolours/default.sh"
-
-# Wifi on/off
-alias wifi_on="nmcli nm wifi on"
-alias wifi_off="nmcli nm wifi off"
-
 # App varias
 alias mldonkey="mldonkey -stdout -verbosity verb"
 alias netload="speedometer -r eth0 -t eth0"
+
+# SSH
+alias pi="ssh electro7@pi"
+alias pi_work="ssh electro7@pi"
+#alias pi_work="ssh tunelia@pi_work"
+alias nexus="ssh electro7@nexus"
+alias casiopea="ssh electro7@casiopea"
 
 #----------------------------------------------------------------------#
 # OTROS
@@ -181,70 +171,29 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# Man coloreador - hay que instalar less
-man() {
-	env \
-		LESS_TERMCAP_mb=$(printf "\e[1;31m") \
-		LESS_TERMCAP_md=$(printf "\e[1;31m") \
-		LESS_TERMCAP_me=$(printf "\e[0m") \
-		LESS_TERMCAP_se=$(printf "\e[0m") \
-		LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
-		LESS_TERMCAP_ue=$(printf "\e[0m") \
-		LESS_TERMCAP_us=$(printf "\e[1;32m") \
-		man "$@"
-}
-
-# Extraer comprimidos
-extract () {
-    if [ -f $1 ] ; then
-      case $1 in
-        *.tar.bz2)   tar xjvf $1    ;;
-        *.tar.gz)    tar xzvf $1    ;;
-        *.bz2)       bunzip2 $1     ;;
-        *.rar)       unrar e $1     ;;
-        *.gz)        gunzip $1      ;;
-        *.tar)       tar xvf $1     ;;
-        *.tbz2)      tar xjvf $1    ;;
-        *.tgz)       tar xzvf $1    ;;
-        *.zip)       unzip $1       ;;
-        *.Z)         uncompress $1  ;;
-        *.7z)        7z x $1        ;;
-        *)     echo "'$1' cannot be extracted via extract()" ;;
-         esac
-     else
-         echo "'$1' is not a valid file"
-     fi
-}
-
 # Para que a los VT100 no se les fastidie el terminal con los colores
 if [ $TERM = vt100 ]; then
-        alias ls='ls -F --color=never';
+  alias ls='ls -F --color=never';
 fi
 
 #----------------------------------------------------------------------#
-# MI LOGO
+# Jarvis
 #----------------------------------------------------------------------#
 
-#case "$TERM" in
-#xterm*|rxvt*)
-#  if [ -f $HOME/bin/archey ]; then $HOME/bin/archey ; fi
-#	;;
-#*)
-#	;;
-#esac
+export SYS="Debian"
 
 #----------------------------------------------------------------------#
 # SSH KEY
 #----------------------------------------------------------------------#
 
-# Init ssg-agent if not exist
-#if [ -z "$SSH_AUTH_SOCK" ] ; then
-#  eval `ssh-agent -s`
-#fi
+# Borra temporal si existe
+if [ `ps -ef | grep ssh-agent | grep -v grep | wc -l` -eq 0 ]; then
+  rm -f /tmp/ssh-agent*
+fi
 
 # attempt to connect to a running agent, sharing over sessions (putty)
 check-ssh-agent() {
-    [ -S "$SSH_AUTH_SOCK" ] && { ssh-add -l >& /dev/null || [ $? -ne 2 ]; }
+  [ -S "$SSH_AUTH_SOCK" ] && { ssh-add -l >& /dev/null || [ $? -ne 2 ]; }
 }
 
 check-ssh-agent || export SSH_AUTH_SOCK=/tmp/ssh-agent.sock_$USER
@@ -255,3 +204,4 @@ if [[ -n $(ssh-add -l | grep 'The agent has no identities') ]] ; then
   ssh-add 2> /dev/null
 fi
 
+# vim: ts=2:sw=2:
