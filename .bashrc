@@ -4,7 +4,7 @@
 #
 # Electro7
 # 31 ago. 2019
-# Versión para WSL
+# Versión para WSL y debian
 #======================================================================#
 
 # If not running interactively, don't do anything
@@ -58,7 +58,7 @@ function prompt_term
 
   # Prompt final
   if [ -n "$SSH_CONNECTION" ]; then
-    PS="$COLG┌[$COLB\h$COLG]─[$COLC\w$COLG]"
+    PS="$COLG┌[$COLA\h$COLG]─[$COLC\w$COLG]"
   else
     PS="$COLG┌[$COLC\w$COLG]"
   fi
@@ -138,6 +138,14 @@ alias df="df -h"
 alias more='less'
 alias du='du -h'
 
+# Alias para el su (root)
+alias reboot="sudo /sbin/reboot"
+alias halt="sudo /sbin/poweroff"
+alias poweroff="sudo /sbin/poweroff"
+alias pacman="sudo pacman"
+alias paclean="sudo pacman -S --clean --clean"
+alias dpkg="sudo dpkg"
+
 # Alias del git
 alias gia="git add"
 alias gcm="git commit -a -m"
@@ -150,6 +158,11 @@ alias chuleta="vim ~/.vim/doc/chuletario.txt"
 # App varias
 alias mldonkey="mldonkey -stdout -verbosity verb"
 alias netload="speedometer -r eth0 -t eth0"
+alias ko="export DISPLAY=:0.0; kodi &"
+alias vbox="export DISPLAY=:0.0; virtualbox &"
+alias vbox_start="VBoxManage startvm"
+alias vbox_ctrl="VBoxManage controlvm"
+alias vbox_ls="VBoxManage list vms"
 
 # SSH
 alias pi="ssh electro7@pi"

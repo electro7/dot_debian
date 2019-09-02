@@ -1,9 +1,9 @@
 " ~/.vimrc      -> linux $VIM/.vimrc    -> win
 "
-" Archivo de configuración del editor VIM (er mejo!)
+" Archivo de configuraciÃ³n del editor VIM (er mejo!)
 "
 " Trato que funcione tanto en WIN (con gvim) como en LINUX (vim y gvim)
-" Configuración ontenida de W0ng -> https://github.com/w0ng
+" ConfiguraciÃ³n ontenida de W0ng -> https://github.com/w0ng
 "
 " Vicente Gimeno Morales - E7 Version 3.0 - 23 ago. 2019
 "======================================================================#
@@ -29,27 +29,25 @@ set encoding=utf-8      " always encode in utf
 
 set runtimepath+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-    " let Vundle manage Vundle, required
-    Plugin 'gmarik/Vundle.vim'
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
 
-    "Put your non-Plugin stuff after this line
-    "Plugin 'Shougo/neocomplete'                " Automatic keyword completion
-    "Plugin 'Shougo/unite.vim'                  " Find files and buffers using ag
-    "Plugin 'Shougo/vimfiler.vim'               " File Explorer :VimFiler
-    Plugin 'scrooloose/nerdtree'                " File Explorer
-    Plugin 'jlanzarotta/bufexplorer'            " Buffer Explorer :BufExplore
-    Plugin 'godlygeek/tabular'                  " Text alignment
-    Plugin 'majutsushi/tagbar'                  " Display tags in a window
-    "Plugin 'scrooloose/syntastic'              " Syntax checking on write
-    Plugin 'tpope/vim-fugitive'                 " Git wrapper
-    Plugin 'tpope/vim-surround'                 " Manipulate quotes and brackets
-    Plugin 'bling/vim-airline'                  " Pretty statusbar
-    Plugin 'terryma/vim-multiple-cursors'       " Multiple cursors work
-    Plugin 'edkolev/promptline.vim'             " Prompt generator for bash
-    Plugin 'altercation/vim-colors-solarized.git'   " Solarized theme
-    "Plugin 'nathanaelkane/vim-indent-guides.git'   " Show tab/space guides
+"Put your non-Plugin stuff after this line
+"Plugin 'Shougo/neocomplete'                " Automatic keyword completion
+"Plugin 'Shougo/unite.vim'                  " Find files and buffers using ag
+"Plugin 'Shougo/vimfiler.vim'               " File Explorer :VimFiler
+Plugin 'scrooloose/nerdtree'                " File Explorer
+Plugin 'jlanzarotta/bufexplorer'            " Buffer Explorer :BufExplore
+Plugin 'godlygeek/tabular'                  " Text alignment
+Plugin 'majutsushi/tagbar'                  " Display tags in a window
+"Plugin 'scrooloose/syntastic'              " Syntax checking on write
+Plugin 'tpope/vim-fugitive'                 " Git wrapper
+Plugin 'tpope/vim-surround'                 " Manipulate quotes and brackets
+Plugin 'bling/vim-airline'                  " Pretty statusbar
+Plugin 'terryma/vim-multiple-cursors'       " Multiple cursors work
+Plugin 'edkolev/promptline.vim'             " Prompt generator for bash
 
-  " All of your Plugins must be added before the following line
+" All of your Plugins must be added before the following line
 call vundle#end()
 
 if has("win32")
@@ -105,7 +103,7 @@ set shiftwidth=4                    " spaces for autoindenting
 set smarttab                        " <BS> removes shiftwidth worth of spaces
 set softtabstop=4                   " spaces for editing, e.g. <Tab> or <BS>
 set tabstop=4                       " spaces for <Tab>
-set list lcs=tab:+·                 " show tabs
+set list lcs=tab:+Â·                 " show tabs
 
 " Searches
 set hlsearch                        " highlight search results
@@ -144,8 +142,8 @@ if has('gui_running')
         "set guifont=DejaVu_Sans_Mono:h8
         "set guifont=Source_Code_Pro:h9
         "set guifont=Inconsolata:h10
-        set lines=60                            " Nº lines
-        set columns=90                          " Nº columns
+        set lines=60                            " NÂº lines
+        set columns=90                          " NÂº columns
     else
         set guifont=Inconsolata\ for\ Powerline\ 10
     endif
@@ -225,7 +223,7 @@ nnoremap <M-p> :bp<CR>
 " Spell checking
 nnoremap <leader>s :set spell!<CR>
 " Show tabs
-nmap <leader>t :set list lcs=tab:+·<CR>
+nmap <leader>t :set list lcs=tab:+Â·<CR>
 nmap <leader>nt :set nolist<CR>
 " Prepare tabularize
 nmap <leader>ta :'<,'> Tabularize /
@@ -242,6 +240,8 @@ nnoremap <leader>vr :source $HOME/.vimrc<CR>
 endif
 " Search and delete for trailing spaces and spaces before a tab
 nnoremap <leader>w :%s/\s\+$\\| \+\ze\t//gc<CR>
+" Indent file
+nnoremap <leader>i gg=G
 
 " Buffer deletion (buffkill plugin)
 nnoremap <leader>x :BD<CR>
@@ -278,11 +278,9 @@ noremap <F4> :call ToggleColours()<CR>
 " F5 - Run compiler
 nnoremap <silent> <F5> :call ExecCompiler()<CR>
 " F9 - Ctags Bar
-noremap <F9> :TagbarOpen fj<CR>
-noremap <C-F9> :TagbarClose<CR>
+noremap <F9> :TagbarTogle<CR>
 " F10 - Explorer
-noremap <F10> :NERDTreeFind<CR>
-noremap <C-F10> :NERDTreeClose<CR>
+noremap <F10> :NERDTreeToggle<CR>
 
 "}}}
 " Abreviations {{{
@@ -299,6 +297,7 @@ iab _mail vgimeno@grupocener.com
 
 " Heads
 iab _ct -----------------------------------------------------------------------------<ESC>ki
+iab _cp // --------------------------------------------------------------------------<ESC>ki
 iab _cc /* <CR>*****************************************************************************/<ESC>ki
 iab _cc1 /* <CR>----------------------------------------------------------------------------*/<ESC>ki
 
@@ -310,22 +309,33 @@ iab _home ~/
 " -----------------------------------------------------------------------------
 "  vim-airline
 let g:airline_inactive_collapse = 0
+let g:airline_skip_empty_sections = 1
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#tagbar#enabled = 1
+call airline#parts#define_accent('mode', 'none')        " Quita fuentes en bold
+call airline#parts#define_accent('linenr', 'none')      " Quita fuentes en bold
+call airline#parts#define_accent('maxlinenr', 'none')   " Quita fuentes en bold
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
 if has("win32") || &term != "rxvt-unicode-256color"
     let g:airline_powerline_fonts = 0
-    let g:airline_symbols_ascii = 1
-    let g:airline_symbols = {}
-    let g:airline_left_sep = ''
+    let g:airline_powerline_ascii = 1
     let g:airline_left_sep = ''
     let g:airline_right_sep = ''
-    let g:airline_right_sep = ''
-    let g:airline_theme = 'air_e7'
+    let g:airline#extensions#tabline#left_sep = ''
+    let g:airline#extensions#tabline#left_alt_sep = ''
+    let g:airline#extensions#tabline#right_sep = ''
+    let g:airline#extensions#tabline#right_alt_sep = ''
+    let g:airline_symbols.maxlinenr = ''
+    let g:airline_symbols.linenr = ''
+    let g:airline_symbols.branch = ''
+    let g:airline_symbols.whitespace = ''
+    let g:airline_theme = 'e7_s_hybrid'
 else
     let g:airline_powerline_fonts = 1
+    let g:airline_symbols.maxlinenr = ''
     let g:airline_symbols.linenr = ''
     let g:airline_symbols.whitespace = ''
     let g:airline_theme = 'air_e7'
@@ -353,7 +363,6 @@ let g:tagbar_show_linenumbers = 1
 let g:tagbar_left = 1
 
 
-"
 "}}}
 " Autocommands {{{
 " -----------------------------------------------------------------------------
@@ -368,14 +377,14 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 " Indent rules, Linux Kernel Coding Style
 autocmd FileType c
     \ setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
-    \ list lcs=tab:+·
+    \ list lcs=tab:+Â·
 autocmd FileType cpp,java,javascript,json,markdown,php,python
     \ setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
-    \ list lcs=tab:+·
+    \ list lcs=tab:+Â·
 autocmd FileType markdown setlocal textwidth=80
 autocmd FileType prg
     \ setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4 cindent
-    \ list lcs=tab:+·
+    \ list lcs=tab:+Â·
 
 " Txt
 autocmd FileType text setlocal textwidth=79 wrap
