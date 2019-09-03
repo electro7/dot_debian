@@ -205,7 +205,7 @@ exe "let s:bg_none       = ' ".s:vmode."bg=".s:none      ."'"
 exe "let s:bg_foreground = ' ".s:vmode."bg=".s:foreground."'"
 exe "let s:bg_background = ' ".s:vmode."bg=".s:background."'"
 exe "let s:bg_selection  = ' ".s:vmode."bg=".s:selection ."'"
-exe "let s:bg_line       = ' ".s:vmode."bg=".s:line      ."'"
+exe "let s:bg_line       = ' ".s:vmode."bg=".s:none      ."'"
 exe "let s:bg_comment    = ' ".s:vmode."bg=".s:comment   ."'"
 exe "let s:bg_red        = ' ".s:vmode."bg=".s:red       ."'"
 exe "let s:bg_orange     = ' ".s:vmode."bg=".s:orange    ."'"
@@ -316,13 +316,13 @@ endif
 " Vim Highlighting: (see :help highlight-groups)"{{{
 " ----------------------------------------------------------------------------
 exe "hi! ColorColumn"   .s:fg_none        .s:bg_darkcolumn  .s:fmt_none
-"		Conceal"
-"		Cursor"
+"       Conceal"
+"       Cursor"
 exe "hi! Cursor"        .s:fg_background  .s:bg_green       .s:fmt_none
 exe "hi! lCursor"       .s:fg_background  .s:bg_green       .s:fmt_none
-"		CursorIM"
-exe "hi! CursorColumn"  .s:fg_none        .s:bg_line        .s:fmt_none
-exe "hi! CursorLine"    .s:fg_none        .s:bg_line        .s:fmt_none
+"       CursorIM"
+exe "hi! CursorColumn"  .s:fg_green       .s:bg_line        .s:fmt_none
+exe "hi! CursorLine"    .s:fg_none        .s:bg_none        .s:fmt_none
 exe "hi! Directory"     .s:fg_blue        .s:bg_none        .s:fmt_none
 exe "hi! DiffAdd"       .s:fg_addfg       .s:bg_addbg       .s:fmt_none
 exe "hi! DiffChange"    .s:fg_changefg    .s:bg_changebg    .s:fmt_none
@@ -333,17 +333,17 @@ exe "hi! VertSplit"     .s:fg_line        .s:bg_line        .s:fmt_none
 exe "hi! Folded"        .s:fg_comment     .s:bg_darkcolumn  .s:fmt_none
 exe "hi! FoldColumn"    .s:fg_none        .s:bg_darkcolumn  .s:fmt_none
 exe "hi! SignColumn"    .s:fg_none        .s:bg_darkcolumn  .s:fmt_none
-"		Incsearch"
+"       Incsearch"
 exe "hi! LineNr"        .s:fg_window      .s:bg_darkcolumn  .s:fmt_none
-exe "hi! CursorLineNr"  .s:fg_yellow      .s:bg_none        .s:fmt_bold
+exe "hi! CursorLineNr"  .s:fg_green       .s:bg_none        .s:fmt_none
 exe "hi! MatchParen"    .s:fg_background  .s:bg_changebg    .s:fmt_none
 exe "hi! ModeMsg"       .s:fg_green       .s:bg_none        .s:fmt_none
 exe "hi! MoreMsg"       .s:fg_green       .s:bg_none        .s:fmt_none
 exe "hi! NonText"       .s:fg_selection   .s:bg_none        .s:fmt_none
 exe "hi! Pmenu"         .s:fg_foreground  .s:bg_selection   .s:fmt_none
 exe "hi! PmenuSel"      .s:fg_foreground  .s:bg_selection   .s:fmt_revr
-"		PmenuSbar"
-"		PmenuThumb"
+"       PmenuSbar"
+"       PmenuThumb"
 exe "hi! Question"      .s:fg_green       .s:bg_none        .s:fmt_none
 exe "hi! Search"        .s:fg_background  .s:bg_darkgreen   .s:fmt_none
 exe "hi! SpecialKey"    .s:fg_selection   .s:bg_none        .s:fmt_none
@@ -354,13 +354,13 @@ exe "hi! SpellRare"     .s:fg_purple      .s:bg_darkpurple  .s:fmt_undr
 exe "hi! StatusLine"    .s:fg_comment     .s:bg_background  .s:fmt_revr
 exe "hi! StatusLineNC"  .s:fg_darkcolumn  .s:bg_comment     .s:fmt_revr
 exe "hi! TabLine"       .s:fg_foreground  .s:bg_darkcolumn  .s:fmt_revr
-"		TabLineFill"
-"		TabLineSel"
+"       TabLineFill"
+"       TabLineSel"
 exe "hi! Title"         .s:fg_yellow      .s:bg_none        .s:fmt_none
 exe "hi! Visual"        .s:fg_none        .s:bg_selection   .s:fmt_none
-"		VisualNos"
+"       VisualNos"
 exe "hi! WarningMsg"    .s:fg_red         .s:bg_none        .s:fmt_none
-"		WildMenu"
+"       WildMenu"
 
 " Use Xresources for background colour
 if has('gui_running') || (g:hybrid_use_Xresources != 1 && g:hybrid_use_iTerm_colors != 1)
@@ -386,29 +386,29 @@ exe "hi! Function"        .s:fg_yellow      .s:bg_none        .s:fmt_none
 
 exe "hi! Statement"       .s:fg_blue        .s:bg_none        .s:fmt_none
 exe "hi! Conditional"     .s:fg_blue        .s:bg_none        .s:fmt_none
-"		Repeat"
-"		Label"
+"       Repeat"
+"       Label"
 exe "hi! Operator"        .s:fg_blue        .s:bg_none        .s:fmt_none
-"		Keyword"
-"		Exception"
+"       Keyword"
+"       Exception"
 
 exe "hi! PreProc"         .s:fg_darkcyan    .s:bg_none        .s:fmt_none
-"		Include"
-"		Define"
-"		Macro"
-"		PreCondit"
+"       Include"
+"       Define"
+"       Macro"
+"       PreCondit"
 
 exe "hi! Type"            .s:fg_aqua        .s:bg_none        .s:fmt_none
-"		StorageClass"
+"       StorageClass"
 exe "hi! Structure"       .s:fg_aqua        .s:bg_none        .s:fmt_none
-"		Typedef"
+"       Typedef"
 
 exe "hi! Special"         .s:fg_orange      .s:bg_none        .s:fmt_none
-"		SpecialChar"
-"		Tag"
-"		Delimiter"
-"		SpecialComment"
-"		Debug"
+"       SpecialChar"
+"       Tag"
+"       Delimiter"
+"       SpecialComment"
+"       Debug"
 "
 exe "hi! Underlined"      .s:fg_blue        .s:bg_none        .s:fmt_undr
 
@@ -428,22 +428,22 @@ exe "hi! qfLineNr"        .s:fg_yellow      .s:bg_none        .s:fmt_none
 " Diff Syntax Highlighting:"{{{
 " ----------------------------------------------------------------------------
 " Diff
-"		diffOldFile
-"		diffNewFile
-"		diffFile
-"		diffOnly
-"		diffIdentical
-"		diffDiffer
-"		diffBDiffer
-"		diffIsA
-"		diffNoEOL
-"		diffCommon
+"       diffOldFile
+"       diffNewFile
+"       diffFile
+"       diffOnly
+"       diffIdentical
+"       diffDiffer
+"       diffBDiffer
+"       diffIsA
+"       diffNoEOL
+"       diffCommon
 hi! link diffRemoved Constant
-"		diffChanged
+"       diffChanged
 hi! link diffAdded Special
-"		diffLine
-"		diffSubname
-"		diffComment
+"       diffLine
+"       diffSubname
+"       diffComment
 
 "}}}
 " Legal:"{{{

@@ -1,11 +1,14 @@
-" ~/.vimrc      -> linux $VIM/.vimrc    -> win
+" ~/.vimrc
 "
 " Archivo de configuración del editor VIM (er mejo!)
 "
 " Trato que funcione tanto en WIN (con gvim) como en LINUX (vim y gvim)
 " Configuración ontenida de W0ng -> https://github.com/w0ng
 "
-" Vicente Gimeno Morales - E7 Version 3.0 - 23 ago. 2019
+" - linux -> ~/.vimrc
+" - win -> $HOME/_vimrc
+"
+" Electro7 - Version 3.1 - 03 sep 2019
 "======================================================================#
 "
 " Compability {{{
@@ -42,6 +45,7 @@ Plugin 'godlygeek/tabular'                  " Text alignment
 Plugin 'majutsushi/tagbar'                  " Display tags in a window
 "Plugin 'scrooloose/syntastic'              " Syntax checking on write
 Plugin 'tpope/vim-fugitive'                 " Git wrapper
+"Plugin 'airblade/vim-gitgutter'            " Show git diffs
 Plugin 'tpope/vim-surround'                 " Manipulate quotes and brackets
 Plugin 'bling/vim-airline'                  " Pretty statusbar
 Plugin 'terryma/vim-multiple-cursors'       " Multiple cursors work
@@ -65,8 +69,10 @@ syntax on
 
 " General
 set backspace=2                     " enable <BS> for everything
+set fillchars+=vert:┃               " separator for vsplit column
 set colorcolumn=80                  " visual indicator of column
 set number                          " Show line numbers
+set cursorline                      " Color current line number
 set completeopt=longest,menuone     " Autocompletion options
 set complete=.,w,b,u,t,i,d          " autocomplete options (:help 'complete')
 set hidden                          " hide when switching buffers, don't unload
@@ -89,6 +95,7 @@ set wildmenu                        " enhanced cmd line completion
 set wildchar=<TAB>                  " key for line completion
 set noerrorbells                    " no error sound
 set splitright                      " Split new buffer at right
+set updatetime=1000                 " MS to update swap file
 
 " Folding
 set foldignore=                     " don't ignore anything when folding
@@ -114,8 +121,8 @@ set more                            " Stop in list
 
 " Status bar -> Replace with vim-airplane plugin
 set laststatus=2                    " show ever
-set showmode                        " show mode
-set showcmd                         " show cmd
+"set showmode                        " show mode
+"set showcmd                         " show cmd
 set ruler                           " show cursor line number
 set shm=atI                         " cut large messages
 
@@ -138,10 +145,6 @@ endif
 if has('gui_running')
     if has("win32")
         set guifont=Consolas:h9
-        "set guifont=Lucida_Console:h8
-        "set guifont=DejaVu_Sans_Mono:h8
-        "set guifont=Source_Code_Pro:h9
-        "set guifont=Inconsolata:h10
         set lines=60                            " Nº lines
         set columns=90                          " Nº columns
     else
@@ -153,9 +156,6 @@ if has('gui_running')
     set guioptions-=b                           " remove bottom scrollbar
     set guioptions-=L                           " remove left scrollbar
     set guicursor+=a:block-blinkon0             " use solid block cursor
-    "Paste from PRIMARY and CLIPBOARD
-    "inoremap <silent> <M-v> <Esc>"+p`]a
-    "inoremap <silent> <S-Insert> <Esc>"*p`]a
 endif
 
 " vimdiff
@@ -278,9 +278,11 @@ noremap <F4> :call ToggleColours()<CR>
 " F5 - Run compiler
 nnoremap <silent> <F5> :call ExecCompiler()<CR>
 " F9 - Ctags Bar
-noremap <F9> :TagbarTogle<CR>
-" F10 - Explorer
+noremap <F9> :TagbarToggle<CR>
+" F10 - File Explorer
 noremap <F10> :NERDTreeToggle<CR>
+" F11 - Buf Explorer
+noremap <F11> :ToggleBufExplorer<CR>
 
 "}}}
 " Abreviations {{{
@@ -292,8 +294,8 @@ iab _time <C-R>=strftime("%H:%M")<CR>
 iab _date <C-R>=strftime("%d %b %Y")<CR>
 
 " Personal
-iab _name Vicente Gimeno Morales - Electro7
-iab _mail vgimeno@grupocener.com
+iab _name Vicente Gimeno Morales
+iab _mail vgimeno@tunelia.com
 
 " Heads
 iab _ct -----------------------------------------------------------------------------<ESC>ki
@@ -312,7 +314,7 @@ let g:airline_inactive_collapse = 0
 let g:airline_skip_empty_sections = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
-let g:airline#extensions#tagbar#enabled = 1
+let g:airline#extensions#tagbar#enabled = 0
 call airline#parts#define_accent('mode', 'none')        " Quita fuentes en bold
 call airline#parts#define_accent('linenr', 'none')      " Quita fuentes en bold
 call airline#parts#define_accent('maxlinenr', 'none')   " Quita fuentes en bold
@@ -321,7 +323,7 @@ if !exists('g:airline_symbols')
 endif
 if has("win32") || &term != "rxvt-unicode-256color"
     let g:airline_powerline_fonts = 0
-    let g:airline_powerline_ascii = 1
+    let g:airline_powerline_ascii = 0
     let g:airline_left_sep = ''
     let g:airline_right_sep = ''
     let g:airline#extensions#tabline#left_sep = ''
@@ -332,13 +334,10 @@ if has("win32") || &term != "rxvt-unicode-256color"
     let g:airline_symbols.linenr = ''
     let g:airline_symbols.branch = ''
     let g:airline_symbols.whitespace = ''
-    let g:airline_theme = 'e7_s_hybrid'
+    let g:airline_theme = 'e7_hybrid'
 else
     let g:airline_powerline_fonts = 1
-    let g:airline_symbols.maxlinenr = ''
-    let g:airline_symbols.linenr = ''
-    let g:airline_symbols.whitespace = ''
-    let g:airline_theme = 'air_e7'
+    let g:airline_theme = 'e7_hybrid'
 endif
 
 " Promptline
@@ -362,6 +361,8 @@ let g:NERDTreeDirArrowCollapsible = '-'
 let g:tagbar_show_linenumbers = 1
 let g:tagbar_left = 1
 
+" BufExplorer
+let g:bufExplorerShowRelativePath=1
 
 "}}}
 " Autocommands {{{

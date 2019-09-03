@@ -4,7 +4,7 @@
 #
 # Electro7
 # 31 ago. 2019
-# Versión para WSL y debian
+# Versión para WSL y Debian
 #======================================================================#
 
 # If not running interactively, don't do anything
@@ -62,7 +62,7 @@ function prompt_term
   else
     PS="$COLG┌[$COLC\w$COLG]"
   fi
-  PSE="$COLG\n└ $COL\\$ $COLN"
+  PSE="\n$COLG└ $COL\\$ $COLN"
   PROMPT_COMMAND='__git_ps1 "$XTITLE$PS" "$PSE" "─[$COLV"%s"$COLG]" '
 
   #PS1="$COLV--[$COLC\h$COLV]-[$COLA\w$COLV]$COLP\$(__git_ps1 ["%s"])\n$COL \\$ $COLN"
@@ -188,6 +188,9 @@ fi
 if [ $TERM = vt100 ]; then
   alias ls='ls -F --color=never';
 fi
+
+# Check umask
+if [[ $(umask) != "0022" ]]; then umask 0022; fi
 
 #----------------------------------------------------------------------#
 # Jarvis
