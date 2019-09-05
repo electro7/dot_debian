@@ -9,7 +9,7 @@
 " - win -> $HOME/_vimrc
 "
 " Electro7 - Version 3.1 - 03 sep 2019
-"======================================================================#
+"==============================================================================
 "
 " Compability {{{
 " -----------------------------------------------------------------------------
@@ -70,7 +70,7 @@ syntax on
 " General
 set backspace=2                     " enable <BS> for everything
 set fillchars+=vert:┃               " separator for vsplit column
-set colorcolumn=80                  " visual indicator of column
+set colorcolumn=0                   " No column (using matchadd)
 set number                          " Show line numbers
 set cursorline                      " Color current line number
 set completeopt=longest,menuone     " Autocompletion options
@@ -79,7 +79,7 @@ set hidden                          " hide when switching buffers, don't unload
 set laststatus=2                    " always show status line
 set lazyredraw                      " don't update screen when executing macros
 set mouse=a                         " enable mouse in all modes
-set noshowmode                      " don't show mode, since I'm already using airline
+set noshowmode                      " don't show mode, using airline
 set nowrap                          " disable word wrap
 set showbreak="+++ "                " String to show with wrap lines
 set number                          " show line numbers
@@ -88,7 +88,7 @@ set showmatch                       " show bracket matches
 set spelllang=es                    " spell
 set spellfile=~/.vim/spell/es.utf-8.add
 set textwidth=0                     " don't break lines after some maximum width
-set ttyfast                         " increase chars sent to screen for redrawing
+set ttyfast                         " increase chars sent to screen for redraw
 "set ttyscroll=3                    " limit lines to scroll to speed up display
 set title                           " use filename in window title
 set wildmenu                        " enhanced cmd line completion
@@ -101,7 +101,7 @@ set updatetime=1000                 " MS to update swap file
 set foldignore=                     " don't ignore anything when folding
 set foldlevelstart=99               " no folds closed on open
 set foldmethod=marker               " collapse code using markers
-set foldnestmax=1                   " limit max folds for indent and syntax methods
+set foldnestmax=1                   " limit max folds for indent
 
 " Tabs to spaces (use :retab in existing file)
 set autoindent                      " copy indent from previous line
@@ -128,23 +128,24 @@ set shm=atI                         " cut large messages
 
 " Colours
 set t_Co=256
-if &term == "xterm"
-    set background=dark
-    colorscheme base16-default
-else
-    " Theme setting.
-    " Two principal themes for dark and light background
-    " Function ToggleColours
-    " See comments in theme
+set background=dark
+if has("win32")
     let g:hybrid_use_Xresources = 1
-    set background=dark
-    colorscheme hybrid_e7
+    colorscheme e7_hybrid
+elseif stridx(&term, "256color") > 0
+    let g:skyfall_use_Xresources = 1
+     colorscheme e7_skyfall
+elseif stridx(&term, "rxvt") > 0
+    let g:hybrid_use_Xresources = 1
+    colorscheme e7_hybrid
+else
+    colorscheme base16-default
 endif
 
 " gVim
 if has('gui_running')
     if has("win32")
-        set guifont=Consolas:h9
+        set guifont=Consolas\ NF:h9
         set lines=60                            " Nº lines
         set columns=90                          " Nº columns
     else
@@ -201,7 +202,7 @@ nnoremap <leader>a  qaYp<C-A>q1@a
 " Open buff explorer
 nnoremap <leader>b :BufExplorer<CR>
 " Set columns to doble panel
-nnoremap <leader>c :set columns=200<CR>
+nnoremap <leader>c :set columns=174<CR>
 " Open diff vertical
 nnoremap <leader>d :vertical diffsplit<CR>
 " Open file browser
@@ -273,8 +274,6 @@ set pastetoggle=<F2>
 " F3 - vimgrep (** para recursico. Ej ../**/*.prg)
 nnoremap <F3> :execute 'noautocmd lvim /'.expand('<cword>').'/j '.expand('%') <Bar> lw<CR>
 nnoremap <C-F> :noautocmd lvim //j * <Bar> lw
-" F4 - Toggle colors
-noremap <F4> :call ToggleColours()<CR>
 " F5 - Run compiler
 nnoremap <silent> <F5> :call ExecCompiler()<CR>
 " F9 - Ctags Bar
@@ -321,7 +320,9 @@ call airline#parts#define_accent('maxlinenr', 'none')   " Quita fuentes en bold
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
-if has("win32") || &term != "rxvt-unicode-256color"
+let g:airline_theme = 'e7_hybrid'
+if stridx(&term, "256color") > 0
+    let g:airline_theme = 'e7_skyfall'
     let g:airline_powerline_fonts = 0
     let g:airline_powerline_ascii = 0
     let g:airline_left_sep = ''
@@ -334,14 +335,15 @@ if has("win32") || &term != "rxvt-unicode-256color"
     let g:airline_symbols.linenr = ''
     let g:airline_symbols.branch = ''
     let g:airline_symbols.whitespace = ''
-    let g:airline_theme = 'e7_hybrid'
-else
+elseif stridx(&term, "rxvt") > 0
     let g:airline_powerline_fonts = 1
-    let g:airline_theme = 'e7_hybrid'
+elseif has('gui_running')
+    let g:airline_powerline_fonts = 1
+else
+    let g:airline_powerline_ascii = 1
 endif
 
 " Promptline
-" \'b': [ promptline#slices#host(), promptline#slices#user() ],
 let g:promptline_preset = {
     \'a': [ promptline#slices#host({ 'only_if_ssh': 1 }) ],
     \'b': [ promptline#slices#user() ],
@@ -349,7 +351,7 @@ let g:promptline_preset = {
     \'x': [ promptline#slices#vcs_branch() ],
     \'z': [ promptline#slices#git_status() ],
     \'warn' : [ promptline#slices#last_exit_code() ]}
-let g:promptline_theme = 'air_e7'
+let g:promptline_theme = 'e7_hybrid'
 
 " NERDTree
 let g:NERDTreeShowHidden = 1
@@ -406,37 +408,12 @@ autocmd BufNewFile,BufRead *.markdown,*.md,*.mdown,*.mkd,*.mkdn
 " Set filetype for prg
 autocmd BufNewFile,BufRead *.prg,*.dev,*.act,*.cas set ft=prg
 
+au BufWinEnter *
+    \ call matchadd('ColorColumn', '\%81v', 100)     " mark char > column 80
+
 "}}}
 " Functions {{{
 " -----------------------------------------------------------------------------
-
-" Toggle Colours
-function! ToggleColours()
-    if &background  == 'dark'
-        set background=light
-        let g:solarized_bold=0
-        colorscheme solarized
-        AirlineTheme base16
-    else
-        set background=dark
-        let g:hybrid_use_Xresources = 1
-        colorscheme hybrid_e7
-        AirlineTheme air_e7
-    endif
-
-    " Reconfigure term colors
-    if !has('gui_running')
-        if &background == 'light'
-            if filereadable($HOME."/.config/termcolours/light.sh")
-                execute "silent !/bin/sh ".$HOME."/.config/termcolours/light.sh"
-            endif
-        else
-            if filereadable($HOME."/.config/termcolours/dark.sh")
-                execute "silent !/bin/sh ".$HOME."/.config/termcolours/dark.sh"
-            endif
-        endif
-    endif
-endfunction
 
 " Open compiler for filetype
 function! ExecCompiler()

@@ -37,6 +37,7 @@ CONTENIDO                                                 *chuleta_contenido*
   - Red en archlinux                                |netctl| |arch|
   - Paquetes archlinux                              |pacman| |arch|
   - Bluetooth archlinux                             |bluez| |arch|
+  - WSL en windows 10                               |wsl| |win10| 
 
 ==============================================================================
 ==============================================================================
@@ -258,7 +259,7 @@ Configuramos .fechmailrc tal que así:
   fechall flush
   set postmaster "electro7"
   poll pop.gmail.com with proto POP3
-    user 'agmviv@gmail.com' there with password '<pass>' is electro7 here optins ssl
+  user 'agmviv@gmail.com' there with password '<pass>' is electro7 here optins ssl
 
 Probamos con "fetchmail -d0 -vk pop.gmail.com". Las trazas van al syslog.
 
@@ -1009,5 +1010,47 @@ BLUETOOTH EN ARCHLINUX                                   *bluez* *arch*
   "systemctl --user start pulseaudio.service" lo arranca.
 - "pulsemixer" es un buen mixer para consola.
 
+Tethering a través de bluetooth de Android~
 
-vim:tw=78:ts=8:wrap:ft=help:norl
+  - Conectar por Bluetooth el PC con el móvil.
+  - En Android activar compartir conexión por Bluetooth. Redes e e internet -> 
+    Zona Wifi -> Compartir conexión por Bluetooth.
+  - Ejecutar el siguiente comando como root:
+    (Cambiar dev_"" por la mac del Bluetooth del movil)
+>
+    dbus-send --system --type=method_call
+    --dest=org.bluez /org/bluez/hci0/dev_18_01_F1_4C_91_AD
+    org.bluez.Network1.Connect string:'nap'
+<
+  - Se crea un enlace llamado <bnet0>.
+  - Darle IP por dhcp con "dhcpcd bnep0".
+
+==============================================================================
+WSL EN WINDOWS 10                                          *WSL* *win10*
+
+- Abrir "powershell" como administrador y ejecutar (pide reiniciar):
+  >
+  Enable-WindowsOptionalFeature -Online -FeatureName  Microsoft-Windows-Subsystem-Linux
+
+- Instalar la distribución deseada desde la Microsoft Store.
+- Abrir la consola instalada y dar password a root con "sudo passwd root".
+- Las unidades de Win10 se montan en "/mnt" (c: -> /mnt/c).
+- Por defecto el directorio HOME se situa en %localappdata% junto a los
+  directorios de la distribución.
+- Como root, borrar el directorio home del usuario y hacer un enlace a la
+  nueva situación (d:/work/home).
+- Usar la consola wsltty -> https://github.com/mintty/wsltty
+- En el directorio "d:/work/home" se encuentran todos los archivos de
+  configureción: *.bashrc* *.minttyrc* *.dircolors* , etc...
+- Para que funcionen correctamente el chmod y los permisos, crear el fichero
+  WSL.conf en /etc con:
+  >
+  [automount]
+  enable = true
+  options = "metadata,umask=22,fmask=11"
+
+- Reiniciar los servicios LxssManager para que se remonten las unidades y tome
+  los nuevos parámetros.
+
+   
+vim:tw=78:sw=2:ts=2:nowrap:ft=help:norl

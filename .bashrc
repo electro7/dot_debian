@@ -15,13 +15,14 @@
 #----------------------------------------------------------------------#
 
 # Colores a utilizar
-COLR="\[\033[0;31m\]" # Rojo
-COLV="\[\033[0;32m\]" # Verde
-COLA="\[\033[0;33m\]" # Amarillo
-COLB="\[\033[0;34m\]" # Blue
-COLP="\[\033[0;35m\]" # Purple
-COLC="\[\033[0;36m\]" # Cyan
+COLR="\[\033[1;31m\]" # Rojo
+COLV="\[\033[1;32m\]" # Verde
+COLA="\[\033[1;33m\]" # Amarillo
+COLB="\[\033[1;34m\]" # Blue
+COLP="\[\033[1;35m\]" # Purple
+COLC="\[\033[1;36m\]" # Cyan
 COLG="\[\033[0;37m\]" # Gray
+COLD="\[\033[1;30m\]" # DarkGray
 COLN="\[\033[0m\]"    # Reset
 COL="$COLC"           # Usuario normal
 
@@ -58,12 +59,12 @@ function prompt_term
 
   # Prompt final
   if [ -n "$SSH_CONNECTION" ]; then
-    PS="$COLG┌[$COLA\h$COLG]─[$COLC\w$COLG]"
+    PS="$COLD┌[$COLA\h$COLD]─[$COLG\w$COLD]"
   else
-    PS="$COLG┌[$COLC\w$COLG]"
+    PS="$COLD┌[$COLG\w$COLD]"
   fi
-  PSE="\n$COLG└ $COL\\$ $COLN"
-  PROMPT_COMMAND='__git_ps1 "$XTITLE$PS" "$PSE" "─[$COLV"%s"$COLG]" '
+  PSE="\n$COLD└ $COL\\$ $COLN"
+  PROMPT_COMMAND='__git_ps1 "$XTITLE$PS" "$PSE" "─[$COLD"%s"$COLD]" '
 
   #PS1="$COLV--[$COLC\h$COLV]-[$COLA\w$COLV]$COLP\$(__git_ps1 ["%s"])\n$COL \\$ $COLN"
 }
@@ -170,6 +171,15 @@ alias pi_work="ssh electro7@pi"
 #alias pi_work="ssh tunelia@pi_work"
 alias nexus="ssh electro7@nexus"
 alias casiopea="ssh electro7@casiopea"
+
+#----------------------------------------------------------------------#
+# Funiones propias
+#----------------------------------------------------------------------#
+
+# Cambiar a directori obras
+cdc() {
+  cd $(find /mnt/d/work/obras -maxdepth 1 -name *$1*)
+}
 
 #----------------------------------------------------------------------#
 # OTROS
