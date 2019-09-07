@@ -256,7 +256,7 @@ nnoremap <space> za
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
 " Replace (:help substitute) (:help regular)
-nnoremap <C-R> :%s///gic
+nnoremap <C-R> :%s/<C-r><C-w>//gic
 
 " Autocomplete with Ctrl+space o C-N
 inoremap <C-F> <C-X><C-F>
@@ -419,29 +419,32 @@ au BufWinEnter *
 function! ExecCompiler()
     " Autom
     if &ft == "prg"
-        if filereadable(getcwd() . "/jarvis.prg")
-            if has("win32")
-            :!start "c:\work\soft\jarvis\kernel\release\jarvis_w32.exe" "%:p:h\jarvis.prg"
-            else
-            :!/root/jarvis\jarvis "%:p:h/jarvis.prg"
-            endif
-        elseif filereadable(getcwd() . "/siga.prg")
-            if has("win32")
-            :!start "c:\work\soft\jarvis\kernel\release\jarvis_w32.exe" "%:p:h\siga.prg"
-            else
-            :!/root/jarvis\jarvis "%:p:h/siga.prg"
-            endif
+        let l:path = expand('%:p:h')
+        let l:file = expand('%:p')
+
+        " Instalación competa de Jarvis/Siga
+        if filereadable(l:path . "/jarvis.prg")
+            let l:file=l:path . "/jarvis.prg"
+        elseif filereadable(l:path . "/siga.prg")
+            let l:file=l:path . "/siga.prg"
+        endif
+
+        " Win32 >  wsl / gvim
+        if strlen($WSL_DISTRO_NAME) > 0
+            let l:file = substitute(l:file, "/mnt/d", "d:", "g")
+            :silent exe "!jarvis_w32.exe" l:file "&"
+            :redraw!
+        elseif has("win32")
+            :silent exe "!jarvis_w32.exe" l:file
+            :redraw!
+        " Linux
         else
-            if has("win32")
-            :!start "c:\work\soft\jarvis\kernel\release\jarvis_w32.exe" "%:p"
-            else
-            :!/root/jarvis/jarvis "%:p"
-            endif
+            :silent exe "!jarvis " l:file "&"
+            :redraw!
         endif
     endif
 endfunction
 
 "}}}
 
-
-" vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4:
+" vim:expandtab:tabstop=4:shiftwidth=4:softtabstop=4

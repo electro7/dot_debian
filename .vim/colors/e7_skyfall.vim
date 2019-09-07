@@ -261,7 +261,7 @@ exe "hi! SignColumn"    .s:fg_none        .s:bg_darkcolumn  .s:fmt_none
 "       Incsearch"
 exe "hi! LineNr"        .s:fg_selection   .s:bg_darkcolumn  .s:fmt_none
 exe "hi! CursorLineNr"  .s:fg_blue        .s:bg_none        .s:fmt_none
-exe "hi! MatchParen"    .s:fg_background  .s:bg_changebg    .s:fmt_none
+exe "hi! MatchParen"    .s:fg_background  .s:bg_blue        .s:fmt_none
 exe "hi! ModeMsg"       .s:fg_blue        .s:bg_none        .s:fmt_none
 exe "hi! MoreMsg"       .s:fg_blue        .s:bg_none        .s:fmt_none
 exe "hi! NonText"       .s:fg_selection   .s:bg_none        .s:fmt_none

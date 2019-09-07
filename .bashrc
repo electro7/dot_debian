@@ -14,27 +14,17 @@
 # Prompt
 #----------------------------------------------------------------------#
 
-# Colores a utilizar
-COLR="\[\033[1;31m\]" # Rojo
-COLV="\[\033[1;32m\]" # Verde
-COLA="\[\033[1;33m\]" # Amarillo
-COLB="\[\033[1;34m\]" # Blue
-COLP="\[\033[1;35m\]" # Purple
-COLC="\[\033[1;36m\]" # Cyan
-COLG="\[\033[0;37m\]" # Gray
-COLD="\[\033[1;30m\]" # DarkGray
-COLN="\[\033[0m\]"    # Reset
-COL="$COLC"           # Usuario normal
-
-[[ "$UID" = "0" ]] && COL=$COLR # Rojo para root
-
 # Título para las ventanas de consola en la X
-XTITLE='\[\e]0;\h : \s (\w)\a\]'
+TW_TITLE='\[\e]0;\h : \s (\w)\a\]'
 
 # Añade retorno de carro y el cambio del titulo de la ventana al P1 actual
 function __promptadd
 {
-  PS1="$XTITLE$PS1\n$COL \\$ $COLN"
+  local col_n="\[\033[0m\]"                     # Reset
+  local col_u="\[\033[1;36m\]"                  # User > cyan
+  [[ "$UID" = "0" ]] && col_u="\[\033[1;31m\]"  # Root > red
+
+  PS1="$TW_TITLE$PS1\n${col_u} \\$ ${coln}"
 }
 
 # Prompt a traves de promptline.vim
@@ -42,31 +32,15 @@ function __promptadd
 # Entrar en vim y hacer un :PromptlineSnapShot ~/.shell_prompt.sh
 function prompt_line
 {
-  source ~/bin/shell_prompt.sh
+  source ~/bin/prompt_powerline.sh
   PROMPT_COMMAND="$PROMPT_COMMAND __promptadd"
 }
 
 # Prompt "normal" sin carácteres raros
 function prompt_term
 {
-  # Opciones para el git
-  source ~/bin/git-prompt.sh
-  GIT_PS1_SHOWDIRTYSTATE=1
-  GIT_PS1_SHOWSTASHSTATE=1
-  GIT_PS1_SHOWUNTRACKEDFILES=1
-  GIT_PS1_SHOWUPSTREAM="auto"
-  GIT_PS1_SHOWCOLORHINTS=1
-
-  # Prompt final
-  if [ -n "$SSH_CONNECTION" ]; then
-    PS="$COLD┌[$COLA\h$COLD]─[$COLG\w$COLD]"
-  else
-    PS="$COLD┌[$COLG\w$COLD]"
-  fi
-  PSE="\n$COLD└ $COL\\$ $COLN"
-  PROMPT_COMMAND='__git_ps1 "$XTITLE$PS" "$PSE" "─[$COLD"%s"$COLD]" '
-
-  #PS1="$COLV--[$COLC\h$COLV]-[$COLA\w$COLV]$COLP\$(__git_ps1 ["%s"])\n$COL \\$ $COLN"
+  # Mi chequeo de git propio
+  source ~/bin/prompt_e7.sh
 }
 
 # Selección de prompt según el tipo de terminal
