@@ -70,6 +70,7 @@ alias lsepub='ls -1 -R --indicator-style=none | grep epub'
 export GREP_COLOR="1;31"
 alias grep='grep --color=auto'
 export LESS="-R"
+export PAGER="most"
 
 #----------------------------------------------------------------------#
 # PATH
@@ -112,6 +113,7 @@ alias 'cd..'='cd ..'
 alias df="df -h"
 alias more='less'
 alias du='du -h'
+alias rs='rsync -ahvzi'
 
 # Alias para el su (root)
 alias reboot="sudo /sbin/reboot"
@@ -129,6 +131,7 @@ alias gs="git status"
 
 # Mis chuletas
 alias chuleta="vim ~/.vim/doc/chuletario.txt"
+alias todo="vim ~/work/ToDo.txt"
 
 # App varias
 alias mldonkey="mldonkey -stdout -verbosity verb"

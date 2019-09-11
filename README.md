@@ -30,7 +30,7 @@ Config files and help [here](https://github.com/electro7/dotfiles/tree/master/.i
 
     ```sh
     $ apt-get install i3 rxvt-unicode-256color lightdm x11-xserver-utils
-    $ apt-get install git vim
+    $ apt-get install *git* vim
     $ apt-get install conky curl alsa-utils
     $ apt-get install mpd mpc ncmpcpp
     $ apt-get install notification-daemon xinput

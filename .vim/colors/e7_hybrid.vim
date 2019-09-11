@@ -18,8 +18,8 @@ if !has("gui_running") && &t_Co < 256
   finish
 endif
 
-if !exists("g:hybrid_use_Xresources")
-  let g:hybrid_use_Xresources = 0
+if !exists("g:use_Xresources")
+  let g:use_Xresources = 0
 endif
 
 set background=dark
@@ -70,8 +70,8 @@ else
   let s:changebg   = "0"
   let s:changefg   = "NONE"
 
-  " With hybrid resources
-  if g:hybrid_use_Xresources == 1
+  " With X resources
+  if g:use_Xresources == 1
     let s:foreground = "15"   " White
     let s:selection  = "8"    " DarkGrey
     let s:line       = "0"    " Black
@@ -254,7 +254,7 @@ exe "hi! DiffDelete"    .s:fg_background  .s:bg_red         .s:fmt_none
 exe "hi! DiffText"      .s:fg_red         .s:bg_addbg       .s:fmt_none
 exe "hi! ErrorMsg"      .s:fg_background  .s:bg_red         .s:fmt_stnd
 exe "hi! VertSplit"     .s:fg_line        .s:bg_none        .s:fmt_none
-exe "hi! Folded"        .s:fg_comment     .s:bg_darkcolumn  .s:fmt_none
+exe "hi! Folded"        .s:fg_green       .s:bg_none        .s:fmt_none
 exe "hi! FoldColumn"    .s:fg_none        .s:bg_darkcolumn  .s:fmt_none
 exe "hi! SignColumn"    .s:fg_none        .s:bg_darkcolumn  .s:fmt_none
 "       Incsearch"
@@ -280,14 +280,14 @@ exe "hi! StatusLineNC"  .s:fg_darkcolumn  .s:bg_comment     .s:fmt_revr
 exe "hi! TabLine"       .s:fg_foreground  .s:bg_darkcolumn  .s:fmt_revr
 "       TabLineFill"
 "       TabLineSel"
-exe "hi! Title"         .s:fg_yellow      .s:bg_none        .s:fmt_none
+exe "hi! Title"         .s:fg_blue        .s:bg_none        .s:fmt_none
 exe "hi! Visual"        .s:fg_none        .s:bg_selection   .s:fmt_none
 "       VisualNos"
 exe "hi! WarningMsg"    .s:fg_red         .s:bg_none        .s:fmt_none
 "       WildMenu"
 
 " Use Xresources for background colour
-if has('gui_running') || (g:hybrid_use_Xresources != 1)
+if has('gui_running') || (g:use_Xresources != 1)
   exe "hi! Normal"        .s:fg_foreground  .s:bg_background  .s:fmt_none
 else
   exe "hi! Normal"        .s:fg_foreground  .s:bg_none        .s:fmt_none
@@ -347,6 +347,24 @@ exe "hi! qfLineNr"        .s:fg_yellow      .s:bg_none        .s:fmt_none
 "   qfFileName"
 "   qfLineNr"
 "   qfError"
+
+"}}}
+" HTML and Markdown Syntax:"{{{
+" ----------------------------------------------------------------------------
+
+" HTML highlighting
+exe "hi! htmlBold"        .s:fg_yellow      .s:bg_none        .s:fmt_none
+exe "hi! htmlItalic"      .s:fg_aqua        .s:bg_none        .s:fmt_none
+exe "hi! htmlEndTag"      .s:fg_purple      .s:bg_none        .s:fmt_none
+exe "hi! htmlTag"         .s:fg_purple      .s:bg_none        .s:fmt_none
+
+" Markdown highlighting
+exe "hi! markdownCode"    .s:fg_selection   .s:bg_none        .s:fmt_none
+exe "hi! markdownError"   .s:fg_red         .s:bg_none        .s:fmt_none
+
+exe "hi! markdownCodeBlock"         .s:fg_selection .s:bg_none  .s:fmt_none
+exe "hi! markdownHeadingDelimiter"  .s:fg_red       .s:bg_none  .s:fmt_none
+
 
 "}}}
 " Diff Syntax Highlighting:"{{{

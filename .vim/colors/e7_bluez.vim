@@ -1,4 +1,4 @@
-" File:       e7_skyfall.vim
+" File:       e7_bluez.vim
 " Maintainer: Electro7
 " Modified:   08 sep 2019
 " License:    MIT
@@ -11,9 +11,9 @@
 " :help cterm-colors
 " :help group-name
 "
-"}}}
+" }}}
 " Initialisation:"{{{
-" ----------------------------------------------------------------------------
+"  ---------------------------------------------------------------------------
 if !has("gui_running") && &t_Co < 256
   finish
 endif
@@ -29,20 +29,20 @@ if exists("syntax_on")
   syntax reset
 endif
 
-let colors_name = "skyfall_e7"
+let colors_name = "e7_bluez"
 
 "}}}
 " GUI And Cterm Palettes:"{{{
 " ----------------------------------------------------------------------------
 if has("gui_running")
   let s:vmode      = "gui"
-  let s:background = "#28323e"
-  let s:foreground = "#e0e5eb"
-  let s:selection  = "#5a708c"
-  let s:line       = "#1e252f"
-  let s:comment    = "#637C9C"
+  let s:background = "#213145"
+  let s:foreground = "#cbd7E6"
+  let s:selection  = "#3A5678"
+  let s:line       = "#293e56"
+  let s:comment    = "#607c9f"
   let s:red        = "#ee4f84"
-  let s:orange     = "#f6dc8e"
+  let s:orange     = "#f1cb5d"
   let s:yellow     = "#edf68e"
   let s:green      = "#a1edf3"
   let s:aqua       = "#87dfeb"
@@ -50,15 +50,15 @@ if has("gui_running")
   let s:purple     = "#c1a6f2"
   let s:window     = "#5a708c"
   let s:darkcolumn = "#28323e"
-  let s:addbg      = "#5F875F"
-  let s:addfg      = "#d7ffaf"
-  let s:changebg   = "#5F5F87"
-  let s:changefg   = "#d7d7ff"
-  let s:darkblue   = "#6498ef"
-  let s:darkcyan   = "#35c2d4"
-  let s:darkred    = "#ee4f84"
-  let s:darkpurple = "#985eff"
-  let s:darkgreen  = "#53e2ae"
+  let s:addbg      = "#293e56"
+  let s:addfg      = "NONE"
+  let s:changebg   = "#293E56"
+  let s:changefg   = "NONE"
+  let s:darkblue   = "#4583ed"
+  let s:darkcyan   = "#3bcbde"
+  let s:darkred    = "#ed457d"
+  let s:darkpurple = "#824de6"
+  let s:darkgreen  = "#51e1ac"
 else
   let s:vmode      = "cterm"
   let s:background = "0"
@@ -69,7 +69,7 @@ else
   let s:changebg   = "0"
   let s:changefg   = "NONE"
 
-  " With skyfall resources
+  " With X resources
   if g:use_Xresources == 1
     let s:foreground = "15"   " White
     let s:selection  = "8"    " DarkGrey
@@ -255,8 +255,8 @@ exe "hi! DiffDelete"    .s:fg_background  .s:bg_red         .s:fmt_none
 exe "hi! DiffText"      .s:fg_red         .s:bg_addbg       .s:fmt_none
 exe "hi! ErrorMsg"      .s:fg_background  .s:bg_red         .s:fmt_stnd
 exe "hi! VertSplit"     .s:fg_line        .s:bg_none        .s:fmt_none
-exe "hi! Folded"        .s:fg_selection   .s:bg_none        .s:fmt_none
-exe "hi! FoldColumn"    .s:fg_none        .s:bg_darkcolumn  .s:fmt_none
+exe "hi! Folded"        .s:fg_blue        .s:bg_none        .s:fmt_none
+exe "hi! FoldColumn"    .s:fg_selection   .s:bg_none        .s:fmt_none
 exe "hi! SignColumn"    .s:fg_none        .s:bg_darkcolumn  .s:fmt_none
 "       Incsearch"
 exe "hi! LineNr"        .s:fg_selection   .s:bg_darkcolumn  .s:fmt_none
@@ -270,7 +270,7 @@ exe "hi! PmenuSel"      .s:fg_foreground  .s:bg_selection   .s:fmt_revr
 "       PmenuSbar"
 "       PmenuThumb"
 exe "hi! Question"      .s:fg_blue        .s:bg_none        .s:fmt_none
-exe "hi! Search"        .s:fg_yellow      .s:bg_none        .s:fmt_undr
+exe "hi! Search"        .s:fg_background  .s:bg_orange      .s:fmt_none
 exe "hi! SpecialKey"    .s:fg_selection   .s:bg_none        .s:fmt_none
 exe "hi! SpellCap"      .s:fg_blue        .s:bg_darkblue    .s:fmt_undr
 exe "hi! SpellLocal"    .s:fg_aqua        .s:bg_darkcyan    .s:fmt_undr
@@ -366,6 +366,16 @@ exe "hi! markdownError"   .s:fg_red         .s:bg_none        .s:fmt_none
 exe "hi! markdownCodeBlock"         .s:fg_selection .s:bg_none  .s:fmt_none
 exe "hi! markdownHeadingDelimiter"  .s:fg_red       .s:bg_none  .s:fmt_none
 
+
+"}}}
+" Plugins:"{{{
+" ----------------------------------------------------------------------------
+
+" GitGutter
+exe "hi! GitGutterAdd"          .s:fg_green       .s:bg_none        .s:fmt_none
+exe "hi! GitGutterChange"       .s:fg_blue        .s:bg_none        .s:fmt_none
+exe "hi! GitGutterDelete"       .s:fg_red         .s:bg_none        .s:fmt_none
+exe "hi! GitGutterChangeDelete" .s:fg_yellow      .s:bg_none        .s:fmt_none
 
 "}}}
 " Diff Syntax Highlighting:"{{{

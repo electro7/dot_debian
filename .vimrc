@@ -8,7 +8,7 @@
 " - linux -> ~/.vimrc
 " - win -> $HOME/_vimrc
 "
-" Electro7 - Version 3.1 - 03 sep 2019
+" Electro7 - Version 3.2 - 11 sep 2019
 "==============================================================================
 "
 " Compability {{{
@@ -43,13 +43,16 @@ Plugin 'scrooloose/nerdtree'                " File Explorer
 Plugin 'jlanzarotta/bufexplorer'            " Buffer Explorer :BufExplore
 Plugin 'godlygeek/tabular'                  " Text alignment
 Plugin 'majutsushi/tagbar'                  " Display tags in a window
-"Plugin 'scrooloose/syntastic'              " Syntax checking on write
+"Plugin 'scrooloose/syntastic'              "  checking on write
 Plugin 'tpope/vim-fugitive'                 " Git wrapper
-"Plugin 'airblade/vim-gitgutter'            " Show git diffs
+Plugin 'airblade/vim-gitgutter'             " Show git diffs
 Plugin 'tpope/vim-surround'                 " Manipulate quotes and brackets
 Plugin 'bling/vim-airline'                  " Pretty statusbar
 Plugin 'terryma/vim-multiple-cursors'       " Multiple cursors work
 Plugin 'edkolev/promptline.vim'             " Prompt generator for bash
+Plugin 'plasticboy/vim-markdown'            " Markdown integration
+Plugin 'christoomey/vim-tmux-navigator'     " Move easy between tmux and vim
+Plugin 'tmux-plugins/vim-tmux-focus-events' " Best tmux+vim integration
 
 " All of your Plugins must be added before the following line
 call vundle#end()
@@ -66,6 +69,8 @@ endif
 filetype on
 filetype plugin indent on
 syntax on
+set synmaxcol=256
+syntax sync minlines=512
 
 " General
 set backspace=2                     " enable <BS> for everything
@@ -96,6 +101,9 @@ set wildchar=<TAB>                  " key for line completion
 set noerrorbells                    " no error sound
 set splitright                      " Split new buffer at right
 set updatetime=1000                 " MS to update swap file
+set conceallevel=2                  " Don't show conceal marks (:help conceal)
+set concealcursor=ni                " Don't show conceal on line cursor
+set noshowcmd                       " Don't show cmd: faster cursor
 
 " Folding
 set foldignore=                     " don't ignore anything when folding
@@ -130,13 +138,13 @@ set shm=atI                         " cut large messages
 set t_Co=256
 set background=dark
 if has("win32")
-    let g:hybrid_use_Xresources = 1
+    let g:use_Xresources = 1
     colorscheme e7_hybrid
 elseif stridx(&term, "256color") > 0
-    let g:skyfall_use_Xresources = 1
-     colorscheme e7_skyfall
+    let g:use_Xresources = 1
+     colorscheme e7_bluez
 elseif stridx(&term, "rxvt") > 0
-    let g:hybrid_use_Xresources = 1
+    let g:use_Xresources = 1
     colorscheme e7_hybrid
 else
     colorscheme base16-default
@@ -173,12 +181,14 @@ if &term =~ '^screen'
     execute "set <xLeft>=\e[1;*D"
 endif
 
-
 "}}}
-" Mappings {{{
+" Mappings :help key-notation  {{{
 " -----------------------------------------------------------------------------
 
-" Fixes linux console keys
+" Mapping timeour
+set timeoutlen=500
+
+" Fixes linux control console keys
 " "od -a" and get the code
 " "^[" is <ESC> at vim
 map <ESC>Ob <C-Down>
@@ -195,70 +205,9 @@ map! <C-@> <C-Space>
 " Map leader
 let mapleader = ','
 
-" Toggle hlsearh for results
-nnoremap <leader><leader> :nohlsearch<CR>
-" Increment on cursor in new line
-nnoremap <leader>a  qaYp<C-A>q1@a
-" Open buff explorer
-nnoremap <leader>b :BufExplorer<CR>
-" Set columns to doble panel
-nnoremap <leader>c :set columns=174<CR>
-" Open diff vertical
-nnoremap <leader>d :vertical diffsplit<CR>
-" Open file browser
-"nnoremap <leader>f :Explore<CR>
-nnoremap <leader>f :NERDTreeFind<CR>
-
-" Buffer selection
-nnoremap <leader>n :bn<CR>
-nnoremap <leader>p :bp<CR>
-nnoremap <leader><Tab> :b#<CR>
-nnoremap <C-Tab> :bn<CR>
-nnoremap <C-S-Tab> :bp<CR>
-nnoremap <C-Right> :bn<CR>
-nnoremap <C-Left> :bp<CR>
-nnoremap <M-Right> :bn<CR>
-nnoremap <M-Left> :bp<CR>
-nnoremap <M-n> :bn<CR>
-nnoremap <M-p> :bp<CR>
-" Spell checking
-nnoremap <leader>s :set spell!<CR>
-" Show tabs
-nmap <leader>t :set list lcs=tab:+·<CR>
-nmap <leader>nt :set nolist<CR>
-" Prepare tabularize
-nmap <leader>ta :'<,'> Tabularize /
-vmap <leader>ta :Tabularize /
-" vsplit
-nnoremap <leader>v :vsplit<CR>
-" Edit .vimrc/_vimrc
-if has("win32")
-nnoremap <leader>vi :e $HOME/_vimrc<CR>
-nnoremap <leader>vr :source $HOME/_vimrc<CR>
-else
-nnoremap <leader>vi :e $HOME/.vimrc<CR>
-nnoremap <leader>vr :source $HOME/.vimrc<CR>
-endif
-" Search and delete for trailing spaces and spaces before a tab
-nnoremap <leader>w :%s/\s\+$\\| \+\ze\t//gc<CR>
-" Indent file
-nnoremap <leader>i gg=G
-
-" Buffer deletion (buffkill plugin)
-nnoremap <leader>x :BD<CR>
-nnoremap <C-X> :BD<CR>
-
-" Next window
-nnoremap <tab> <C-W>w
-" Togle fold
-nnoremap <space> za
-" Search command history
-cnoremap <C-p> <Up>
-cnoremap <C-n> <Down>
-" Replace (:help substitute) (:help regular)
-nnoremap <C-R> :%s/<C-r><C-w>//gic
-
-" Autocomplete with Ctrl+space o C-N
+" Ctrl +
+" ·············································
+" Autocomplete
 inoremap <C-F> <C-X><C-F>
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
@@ -266,20 +215,70 @@ inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
 inoremap <expr> <C-Space> pumvisible() ? '<C-n>' :
   \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
+" <C-N> -> multiple cursors plugin (help vim-multiple-cursors)
+" <C-S-N> -> multiple cursors plugin (help vim-multiple-cursors)
+
+" Alt +
+" ···············································
+nnoremap <M-Right> :bn<CR>|                      " Next buffer
+nnoremap <M-Left> :bp<CR>|                       " Prev buffer
+nnoremap <M-Up> :b#<CR>|                         " Last buffer
+
+" Specials keys
+" ···············································
+nnoremap <tab> <C-W>w|                           " Next window
+
+" leader + chars (:h map-comments)
+" ···············································
+nnoremap <leader><leader> :nohlsearch<CR>|       " Toggle hlsearh for results
+nnoremap <leader>a  qaYp<C-A>q1@a|               " Increment on cursor in new line
+nnoremap <leader>b :BufExplorer<CR>|             " Open buff explorer
+nnoremap <leader>bn :bn<CR>|                     " Next Buffer
+nnoremap <leader>bp :bp<CR>|                     " Prev Buffer
+nnoremap <leader>c :set columns=174<CR>|         " Set columns to doble panel
+nnoremap <leader>d :vertical diffsplit<CR>|      " Open diff vertical
+nnoremap <leader>f za|                           " Toggle fold
+nnoremap <leader>fo zR|                          " Open all folds
+nnoremap <leader>fc zM|                          " Close all fods
+nnoremap <leader>fr zO|                          " Open folds recursive
+nnoremap <leader>fR zO|                          " Close folds recursive
+nmap <leader>gn <Plug>(GitGutterNextHunk)|       " Next git change (gitgutter)
+nmap <leader>gp <Plug>(GitGutterPrevHunk)|       " Prev git change (gitgutter)
+nmap <leader>gu <Plug>(GitGutterUndoHunk)|       " Undo change (gitgutter)
+nmap <leader>gd <Plug>(GitGutterPreviewHunk)|    " Diff change (gitgutter)
+nnoremap <leader>i gg=G|                         " Indent file
+nnoremap <leader>ju :m-2<CR>:join<CR>|           " Join line with prev at end
+nnoremap <leader>r :%s/<C-r><C-w>//gic|          " Replace (:h substitute)
+nnoremap <leader>to :set list lcs=tab:+·<CR>|    " Show tabs
+nnoremap <leader>tc :set nolist<CR>|             " Don't show tabs
+nnoremap <leader>ta :'<,'> Tabularize /|         " Prepare tabularize (:h tabular)
+vnoremap <leader>ta :Tabularize /|               " Tabularize in visual mode
+nnoremap <leader>v :vsplit<CR>|                  " Vertical split
+nnoremap <leader>vm :wincmd =<CR>|               " Vertical split at 50%
+nnoremap <leader>vi :call VimConfig()<CR>|       " Edit .vimrc/_vimrc
+nnoremap <leader>vr :call VimSource()<CR>|       " Reload vim config
+nnoremap <leader>w :%s/\s\+$\\| \+\ze\t//gc<CR>| " Delete trailing spaces
+nnoremap <leader>x :BD<CR>|                      " Buffer deletion (buffkill)
+
+" Chars as is
+" ···············································
+nnoremap gt <C-]>|                               " Goto TAG
+"
 " F Function keys
-" ---------------
+" ···············································
 " F2 - Paste mode for terminal
 nnoremap <F2> :set invpaste paste?<CR>
 set pastetoggle=<F2>
-" F3 - vimgrep (** para recursico. Ej ../**/*.prg)
-nnoremap <F3> :execute 'noautocmd lvim /'.expand('<cword>').'/j '.expand('%') <Bar> lw<CR>
+": F3 - vimgrep (** para recursico. Ej ../**/*.prg)
+:nnoremap <F3> :execute 'noautocmd lvim /'.expand('<cword>').'/j '.expand('%')
+    \ <Bar> lw<CR>
 nnoremap <C-F> :noautocmd lvim //j * <Bar> lw
 " F5 - Run compiler
 nnoremap <silent> <F5> :call ExecCompiler()<CR>
 " F9 - Ctags Bar
 noremap <F9> :TagbarToggle<CR>
 " F10 - File Explorer
-noremap <F10> :NERDTreeToggle<CR>
+noremap <F10> :NERDTreeFind<CR>
 " F11 - Buf Explorer
 noremap <F11> :ToggleBufExplorer<CR>
 
@@ -311,20 +310,22 @@ iab _home ~/
 "  vim-airline
 let g:airline_inactive_collapse = 0
 let g:airline_skip_empty_sections = 1
-let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#enabled = 1            " Lista de buffers
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#tagbar#enabled = 0
 call airline#parts#define_accent('mode', 'none')        " Quita fuentes en bold
 call airline#parts#define_accent('linenr', 'none')      " Quita fuentes en bold
 call airline#parts#define_accent('maxlinenr', 'none')   " Quita fuentes en bold
+let g:airline#extensions#hunks#enabled = 1              " Cambios de git
+let g:airline#extensions#hunks#non_zero_only = 0
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
 let g:airline_theme = 'e7_hybrid'
 if stridx(&term, "256color") > 0
-    let g:airline_theme = 'e7_skyfall'
+    let g:airline_theme = 'e7_bluez'
     let g:airline_powerline_fonts = 0
-    let g:airline_powerline_ascii = 0
+    let g:airline_powerline_ascii = 1
     let g:airline_left_sep = ''
     let g:airline_right_sep = ''
     let g:airline#extensions#tabline#left_sep = ''
@@ -366,6 +367,23 @@ let g:tagbar_left = 1
 " BufExplorer
 let g:bufExplorerShowRelativePath=1
 
+" GitGutter
+let g:gitgutter_map_keys = 0
+let g:gitgutter_sign_added = '●'
+let g:gitgutter_sign_modified = '●'
+let g:gitgutter_sign_removed = '●'
+let g:gitgutter_sign_removed_first_line = '●'
+let g:gitgutter_sign_modified_removed = '●'
+
+" Multiple cursos keymap redefine
+let g:multi_cursor_use_default_mapping=0
+let g:multi_cursor_start_word_key      = '<C-n>'
+let g:multi_cursor_select_all_word_key = '<C-S-N>'
+let g:multi_cursor_next_key            = '<C-n>'
+let g:multi_cursor_prev_key            = '<C-p>'
+let g:multi_cursor_skip_key            = '<C-x>'
+let g:multi_cursor_quit_key            = '<Esc>'
+
 "}}}
 " Autocommands {{{
 " -----------------------------------------------------------------------------
@@ -384,7 +402,7 @@ autocmd FileType c
 autocmd FileType cpp,java,javascript,json,markdown,php,python
     \ setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
     \ list lcs=tab:+·
-autocmd FileType markdown setlocal textwidth=80
+autocmd FileType markdown setlocal textwidth=80 sw=2 st=2 ts=2
 autocmd FileType prg
     \ setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4 cindent
     \ list lcs=tab:+·
@@ -393,9 +411,11 @@ autocmd FileType prg
 autocmd FileType text setlocal textwidth=79 wrap
 
 " Folding rules
-autocmd FileType c,cpp,java,prg setlocal foldmethod=syntax foldnestmax=5
+autocmd FileType c,cpp,java,prg
+    \ setlocal foldmethod= foldnestmax=2 foldlevel=0
+
 autocmd FileType css,html,htmldjango,xhtml
-    \ setlocal foldmethod=indent foldnestmax=20
+    \ setlocal foldmethod=indent foldnestmax=20 foldlevel=0
 
 " Set correct markdown extensions
 autocmd BufNewFile,BufRead *.markdown,*.md,*.mdown,*.mkd,*.mkdn
@@ -414,6 +434,28 @@ au BufWinEnter *
 "}}}
 " Functions {{{
 " -----------------------------------------------------------------------------
+
+" Open and reload vimrc
+if !exists ('*VimConfig')
+    function! VimConfig()
+        if has("win32")
+            :e $HOME/_vimrc
+        else
+            :e $HOME/.vimrc
+        endif
+    endfunction
+endif
+
+" Reload vimrc
+if !exists ('*VimSource')
+    function! VimSource()
+        if has("win32")
+            :source $HOME/_vimrc
+        else
+            :source $HOME/.vimrc
+        endif
+    endfunction
+endif
 
 " Open compiler for filetype
 function! ExecCompiler()
@@ -447,4 +489,4 @@ endfunction
 
 "}}}
 
-" vim:expandtab:tabstop=4:shiftwidth=4:softtabstop=4
+" vim:expandtab:tabstop=4:shiftwidth=4:softtabstop=4:foldlevel=0
