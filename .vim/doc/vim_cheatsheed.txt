@@ -1,0 +1,31 @@
+﻿*vim_cheatsheet.txt*    Combinación teclas de VIM   Last change: 12 sep 2019
+
+cheatsheet                                         *cheat* *cheatsheet* *keys*
+
+Mi chuletario personal para las combinaciones de teclas de VIM
+
+==============================================================================
+==============================================================================
+CONTENIDO                                               *cheatsheet_contenido*
+
+- Movimiento                                            |keys_movement|
+
+
+==============================================================================
+==============================================================================
+MOVIMIENTO                                              *keys_movement*
+
+  [w] 		  : Salto entre palabras puntuadas
+  [W] 		  : Salto entre palabras separadas por espacios
+  [e] 		  : Salto al final de la palabra puntuadas
+  [E] 		  : Salto al final de la palabra sin puntuar
+  [b] 		  : Salto atrás entre palabras puntuadas
+  [B] 		  : Salto atrás entre palabras separadas por espacios
+  [0] 		  : Principio de la línea
+  [$] 		  : Final de la línea
+
+  Ctrl+d]  : Scroll abajo Aa mitad de la página
+  [Ctrl+u]  : Scroll a la mitad de la página
+
+
+vim:tw=78:sw=2:ts=2:nowrap:ft=help:norl

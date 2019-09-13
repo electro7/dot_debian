@@ -1,0 +1,87 @@
+#!/bin/bash
+# Script para formatear archivos fuente
+# Usando vim o usando uncrustify
+#
+# Configuración uncrustify -> $HOME\uncrustify.cnf
+
+HOWCALLED=`basename $0`
+
+# Colores
+C_G="\033[0;32m"    # Verde
+C_C="\033[0;36m"    # Cyan
+C_Y="\033[0;33m"    # Amarillo
+C_B="\033[0;34m"    # Blue
+C_P="\033[0;35m"    # Purple
+C_R="\033[0;31m"    # Rojo
+C_N="\033[0m"       # None
+
+# Uso
+function usage() {
+    echo -e "${C_Y}Formateador de archivos fuente${C_N}"
+    echo
+    echo -e "Uso: ${C_B}${HOWCALLED} [-s] [-f] [ficheros]${C_N}"
+    echo
+    echo -e "    ${C_R}-s${C_N} : Modo simple"
+    echo -e "        - Tabs a 4 espacios"
+    echo -e "        - Codificación a utf-8"
+    echo -e "        - Sin reformateo del código"
+    echo
+    echo -e "    ${C_R}-f${C_N} : Modo competo"
+    echo -e "        - Tabs a 4 espacios"
+    echo -e "        - Comentarios a estilo c /**/"
+    echo -e "        - Formateo completo"
+    echo
+    echo -e "Crea copia de cada archivo con extensión .bak"
+    echo
+    exit 1
+}
+
+# Opciones
+while getopts "sf" o; do
+    case "${o}" in
+        s)
+            TYPE="Simple"
+            ;;
+        p)
+            TYPE="Completo"
+            ;;
+        *)
+            usage
+            ;;
+    esac
+done
+
+if [ $# -lt 2 ] || [ -z "${TYPE}" ]; then
+   usage
+fi
+
+# Ignora el primer parámetro
+shift $((OPTIND-1))
+
+FILES="${@}"
+
+# Hace el trabajo
+echo -e "${C_Y}Formateador de archivos fuente.${C_N}"
+echo
+echo -e "${C_B}Archivos a formatear:${C_N}"
+echo $FILES
+echo
+echo -n -e "${C_B}¿Confimar formateo automático en modo ${TYPE}? ${C_Y}[s/N]:${C_N} "
+read si;
+if test "$si" = "y" -o "$si" = "s"; then
+    for F in ${FILES}
+    do
+        cp -f "${F}" "${F}".bak
+        if [ ${TYPE} = "Simple" ]; then
+            echo -n "Convirtiendo ${F}..."
+            #vim ${F} --clean -c "set fileencoding=utf-8 | silent! %s#noet#et#g | set et | retab | silent! %s#\/\/\(.*\)#\/*\1 *\/#g | wq"
+            vim ${F} --clean -c "set fileencoding=utf-8 | set fileformat=unix | silent! %s#noet#et#g | set et | retab | wq"
+            #vim -s "$HOME/bin/code_format.vim" ${F}
+            echo -e "${C_G} OK${C_N}"
+        else
+            uncrustify.exe -c %HOME/cnf/uncrustify.cnf --no-backup --replace ${F}
+        fi
+    done
+else
+    echo -e "${C_R}Cancelando...${C_N}";
+fi

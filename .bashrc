@@ -155,7 +155,7 @@ alias casiopea="ssh electro7@casiopea"
 
 # Cambiar a directori obras
 cdc() {
-  cd $(find /mnt/d/work/obras -maxdepth 1 -name *$1*)
+  cd $(find /mnt/d/work/obras -maxdepth 3 -type d -name *$1* | tail -n 1)
 }
 
 #----------------------------------------------------------------------#

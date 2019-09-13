@@ -241,7 +241,7 @@ endif
 " ----------------------------------------------------------------------------
 "
 exe "hi! ColorColumn"   .s:fg_darkred     .s:bg_selection   .s:fmt_none
-"       Conceal"
+exe "hi!  Conceal"      .s:fg_background  .s:bg_none        .s:fmt_none
 "       Cursor"
 exe "hi! Cursor"        .s:fg_background  .s:bg_blue        .s:fmt_none
 exe "hi! lCursor"       .s:fg_background  .s:bg_blue        .s:fmt_none

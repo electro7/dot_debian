@@ -1,0 +1,66 @@
+#!/bin/bash
+# Script para limpiar directorios recursivamente
+
+HOWCALLED=`basename $0`
+
+# Colores
+C_G="\033[0;32m"    # Verde
+C_C="\033[0;36m"    # Cyan
+C_Y="\033[0;33m"    # Amarillo
+C_B="\033[0;34m"    # Blue
+C_P="\033[0;35m"    # Purple
+C_R="\033[0;31m"    # Rojo
+C_N="\033[0m"       # None
+
+# Uso
+function usage() {
+  echo -e "${C_Y}Limpieza de archivos y directorios basura recursivamente${C_N}"
+  echo
+  echo -e "Uso: ${C_B}$HOWCALLED [directorio]${C_N}"
+  echo
+  echo "Directorios:"
+  echo -e "    ${C_R}work${C_N} : Limpia el directorio D:/WORK"
+  echo
+}
+
+WORK="*.blg *.ilk *.idb *.obj *.pch *.pdb *.ncb *.opt *.plg *.dvg *.sdf cas.blg cas.trp .*.swp"
+WORK_DIRS=".vs .gimp* .thumbnails .cache"
+
+if [ $# -eq 0 ]
+ then
+   usage
+   exit 1
+fi
+
+case "$1" in
+    work)
+        DIR="/cygdrive/c/work"
+        FILES="$WORK"
+        DIRS="$WORK_DIRS"
+        ;;
+esac
+
+echo
+echo -n -e "${C_B}¿Desea borrar todos los ficheros temporales en $DIR? ${C_Y}[s/N]:${C_N} "
+read si;
+if test "$si" = "y" -o "$si" = "s"; then
+    cd $DIR
+    for F in $FILES
+        do find . -name "$F" -type f -delete -print
+    done
+else
+    echo -e "${C_R}Cancelando...${C_N}";
+fi
+
+echo
+echo -n -e "${C_B}¿Desea borrar todos los directorios temporales en $DIR? ${C_Y}[s/N]:${C_N} "
+read si;
+if test "$si" = "y" -o "$si" = "s"; then
+    cd $DIR
+    for F in $WORK_DIRS
+        do find . -name "$F" -type d -print -exec rm -rf {} +
+    done
+else
+    echo -e "${C_R}Cancelado...${C_N}";
+fi
+

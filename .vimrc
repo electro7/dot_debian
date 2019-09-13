@@ -8,7 +8,7 @@
 " - linux -> ~/.vimrc
 " - win -> $HOME/_vimrc
 "
-" Electro7 - Version 3.2 - 11 sep 2019
+" Electro7 - Version 3.2 - 13 sep 2019
 "==============================================================================
 "
 " Compability {{{
@@ -38,21 +38,20 @@ Plugin 'gmarik/Vundle.vim'
 "Put your non-Plugin stuff after this line
 "Plugin 'Shougo/neocomplete'                " Automatic keyword completion
 "Plugin 'Shougo/unite.vim'                  " Find files and buffers using ag
-"Plugin 'Shougo/vimfiler.vim'               " File Explorer :VimFiler
 Plugin 'scrooloose/nerdtree'                " File Explorer
-Plugin 'jlanzarotta/bufexplorer'            " Buffer Explorer :BufExplore
-Plugin 'godlygeek/tabular'                  " Text alignment
+Plugin 'godlygeek/tabular'                  " Text alignment (:h tabular)
 Plugin 'majutsushi/tagbar'                  " Display tags in a window
-"Plugin 'scrooloose/syntastic'              "  checking on write
-Plugin 'tpope/vim-fugitive'                 " Git wrapper
-Plugin 'airblade/vim-gitgutter'             " Show git diffs
-Plugin 'tpope/vim-surround'                 " Manipulate quotes and brackets
-Plugin 'bling/vim-airline'                  " Pretty statusbar
-Plugin 'terryma/vim-multiple-cursors'       " Multiple cursors work
+Plugin 'tpope/vim-fugitive'                 " Git wrapper (:h fugitive)
+Plugin 'airblade/vim-gitgutter'             " Show git diffs (:h gitgutter)
+Plugin 'tpope/vim-surround'                 " Quotes and brackets(:h surround)
+Plugin 'bling/vim-airline'                  " Pretty statusbar :h vim-airline
+Plugin 'terryma/vim-multiple-cursors'       " :h vim-multiple-cursors-intro
 Plugin 'edkolev/promptline.vim'             " Prompt generator for bash
 Plugin 'plasticboy/vim-markdown'            " Markdown integration
 Plugin 'christoomey/vim-tmux-navigator'     " Move easy between tmux and vim
 Plugin 'tmux-plugins/vim-tmux-focus-events' " Best tmux+vim integration
+Plugin 'Yggdroot/indentLine'                " Show indent lines
+Plugin 'ctrlpvim/ctrlp.vim'                 " file, buffer, tag... finder
 
 " All of your Plugins must be added before the following line
 call vundle#end()
@@ -101,8 +100,8 @@ set wildchar=<TAB>                  " key for line completion
 set noerrorbells                    " no error sound
 set splitright                      " Split new buffer at right
 set updatetime=1000                 " MS to update swap file
-set conceallevel=2                  " Don't show conceal marks (:help conceal)
-set concealcursor=ni                " Don't show conceal on line cursor
+set conceallevel=1                  " Don't show conceal marks (:help conceal)
+set concealcursor=n                 " Don't show conceal on line cursor
 set noshowcmd                       " Don't show cmd: faster cursor
 
 " Folding
@@ -126,6 +125,13 @@ set incsearch                       " search whilst typing
 set ignorecase                      " case insensitive searching
 set smartcase                       " override ignorecase if upper case typed
 set more                            " Stop in list
+
+" Files to ignore
+if has("win32")
+  set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
+else
+  set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
+endif
 
 " Status bar -> Replace with vim-airplane plugin
 set laststatus=2                    " show ever
@@ -185,7 +191,7 @@ endif
 " Mappings :help key-notation  {{{
 " -----------------------------------------------------------------------------
 
-" Mapping timeour
+" Mapping timeout
 set timeoutlen=500
 
 " Fixes linux control console keys
@@ -217,6 +223,7 @@ inoremap <expr> <C-Space> pumvisible() ? '<C-n>' :
 
 " <C-N> -> multiple cursors plugin (help vim-multiple-cursors)
 " <C-S-N> -> multiple cursors plugin (help vim-multiple-cursors)
+" <C-P> -> CtrlP
 
 " Alt +
 " ···············································
@@ -232,7 +239,7 @@ nnoremap <tab> <C-W>w|                           " Next window
 " ···············································
 nnoremap <leader><leader> :nohlsearch<CR>|       " Toggle hlsearh for results
 nnoremap <leader>a  qaYp<C-A>q1@a|               " Increment on cursor in new line
-nnoremap <leader>b :BufExplorer<CR>|             " Open buff explorer
+nnoremap <leader>b :CtrlPBuffer<CR>|             " Open buff explorer
 nnoremap <leader>bn :bn<CR>|                     " Next Buffer
 nnoremap <leader>bp :bp<CR>|                     " Prev Buffer
 nnoremap <leader>c :set columns=174<CR>|         " Set columns to doble panel
@@ -241,7 +248,7 @@ nnoremap <leader>f za|                           " Toggle fold
 nnoremap <leader>fo zR|                          " Open all folds
 nnoremap <leader>fc zM|                          " Close all fods
 nnoremap <leader>fr zO|                          " Open folds recursive
-nnoremap <leader>fR zO|                          " Close folds recursive
+nnoremap <leader>fR zC|                          " Close folds recursive
 nmap <leader>gn <Plug>(GitGutterNextHunk)|       " Next git change (gitgutter)
 nmap <leader>gp <Plug>(GitGutterPrevHunk)|       " Prev git change (gitgutter)
 nmap <leader>gu <Plug>(GitGutterUndoHunk)|       " Undo change (gitgutter)
@@ -280,7 +287,7 @@ noremap <F9> :TagbarToggle<CR>
 " F10 - File Explorer
 noremap <F10> :NERDTreeFind<CR>
 " F11 - Buf Explorer
-noremap <F11> :ToggleBufExplorer<CR>
+noremap <F11> :CtrlPBuffer<CR>
 
 "}}}
 " Abreviations {{{
@@ -318,6 +325,7 @@ call airline#parts#define_accent('linenr', 'none')      " Quita fuentes en bold
 call airline#parts#define_accent('maxlinenr', 'none')   " Quita fuentes en bold
 let g:airline#extensions#hunks#enabled = 1              " Cambios de git
 let g:airline#extensions#hunks#non_zero_only = 0
+let g:airline#extensions#ctrlp#color_template = 'normal'
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
@@ -384,6 +392,14 @@ let g:multi_cursor_prev_key            = '<C-p>'
 let g:multi_cursor_skip_key            = '<C-x>'
 let g:multi_cursor_quit_key            = '<Esc>'
 
+" Indent Line
+let g:indentLine_setColors = 0
+let g:indentLine_char = '┃'
+
+" CtrlP
+let g:ctrlp_show_hidden = 1
+let g:ctrlp_match_window = 'bottom,order:ttd,min:20,max:20,results:20'
+
 "}}}
 " Autocommands {{{
 " -----------------------------------------------------------------------------
@@ -408,14 +424,12 @@ autocmd FileType prg
     \ list lcs=tab:+·
 
 " Txt
-autocmd FileType text setlocal textwidth=79 wrap
+autocmd FileType text,changelog,help
+    \ setlocal textwidth=80 wrap expandtab sw=2 ts=2 st=2
 
 " Folding rules
-autocmd FileType c,cpp,java,prg
-    \ setlocal foldmethod= foldnestmax=2 foldlevel=0
-
-autocmd FileType css,html,htmldjango,xhtml
-    \ setlocal foldmethod=indent foldnestmax=20 foldlevel=0
+"autocmd FileType c,cpp,java,prg
+"    \ setlocal foldmethod=syntax foldnestmax=2 foldlevel=0
 
 " Set correct markdown extensions
 autocmd BufNewFile,BufRead *.markdown,*.md,*.mdown,*.mkd,*.mkdn

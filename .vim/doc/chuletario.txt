@@ -37,7 +37,7 @@ CONTENIDO                                                 *chuleta_contenido*
   - Red en archlinux                                |netctl| |arch|
   - Paquetes archlinux                              |pacman| |arch|
   - Bluetooth archlinux                             |bluez| |arch|
-  - WSL en windows 10                               |wsl| |win10| 
+  - WSL en windows 10                               |wsl| |win10|
 
 ==============================================================================
 ==============================================================================
@@ -1013,7 +1013,7 @@ BLUETOOTH EN ARCHLINUX                                   *bluez* *arch*
 Tethering a través de bluetooth de Android~
 
   - Conectar por Bluetooth el PC con el móvil.
-  - En Android activar compartir conexión por Bluetooth. Redes e e internet -> 
+  - En Android activar compartir conexión por Bluetooth. Redes e e internet ->
     Zona Wifi -> Compartir conexión por Bluetooth.
   - Ejecutar el siguiente comando como root:
     (Cambiar dev_"" por la mac del Bluetooth del movil)
@@ -1052,5 +1052,5 @@ WSL EN WINDOWS 10                                          *WSL* *win10*
 - Reiniciar los servicios LxssManager para que se remonten las unidades y tome
   los nuevos parámetros.
 
-   
+
 vim:tw=78:sw=2:ts=2:nowrap:ft=help:norl

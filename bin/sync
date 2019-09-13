@@ -1,0 +1,96 @@
+#!/bin/bash
+# Script para actualizar máquinas de trabajo
+
+HOWCALLED=`basename $0`
+DOTFILES=".bashrc bin .dircolors .tmux.conf .vimrc .vim"
+
+# Colores
+C_G="\033[0;32m"    # Verde
+C_C="\033[0;36m"    # Cyan
+C_Y="\033[0;33m"    # Amarillo
+C_B="\033[0;34m"    # Blue
+C_P="\033[0;35m"    # Purple
+C_R="\033[0;31m"    # Rojo
+C_N="\033[0m"       # None
+
+# Uso
+function usage() {
+  echo -e "${C_Y}Sincronización de máquinas remotas de trabajo${C_N}"
+  echo
+  echo -e "Uso: ${C_B}$HOWCALLED [copia] [opción]${C_N}"
+  echo
+  echo "Copias:"
+  echo -e "     ${C_R}pi${C_N}       : Kernel Jarvis a Rasp Pi 3 (personal)"
+  echo -e "     ${C_R}casiopea${C_N} : Work a portatil HP."
+  echo -e "     ${C_R}library${C_N}  : Líbreria a nexus"
+  echo -e "     ${C_R}curro${C_N}    : Curro a nexus"
+  echo -e "     ${C_R}nexus${C_N}    : dotfiles a nexus"
+  echo
+  echo "Opciones:"
+  echo -e "     ${C_P}-i${C_N} : Modo inverso. Destino a Origen."
+  echo -e "     ${C_P}-f${C_N} : Forzar. Ignorar archivos nuevos en destino."
+}
+
+HOWCALLED=`basename $0`
+EXCLUDE="$HOME/cnf/exclude_rsync"
+
+if [ $# -eq 0 ]
+ then
+   usage
+   exit 1
+fi
+
+case "$1" in
+    pi)
+        SOUR="/mnt/d/work/soft/jarvis/kernel"
+        DEST="-e ssh tunelia@pi:/home/tunelia/work/jarvis"
+        BCKP="/home/tunelia/work_backup"
+        ;;
+    casiopea)
+        SOUR="/mnt/d/work"
+        DEST="-e ssh electro7@casiopea:/mnt/extra"
+        BCKP="/mnt/extra/work_backup"
+        ;;
+    library)
+        SOUR="/mnt/h/library"
+        DEST="-e ssh electro7@nexus:/mnt/extra"
+        BCKP="/mnt/extra/sync_backup"
+        ;;
+    curro)
+        SOUR="/mnt/h/curro"
+        DEST="-e ssh electro7@nexus:/mnt/extra"
+        BCKP="/mnt/extra/sync_backup"
+        ;;
+    nexus)
+        SOUR="${HOME}"
+        DEST="-e ssh electro7@nexus:/home/electro7"
+        BCKP="/home/electro7/sync_backup"
+esac
+
+if [ "$2" == "-i" ] ; then
+    TEMP_SOUR=$DEST
+    TEMP_DEST=$SOUR
+    DEST=$TEMP_DEST
+    SOUR=$TEMP_SOUR
+    BCKP="/mnt/d/sync_backup"
+fi
+
+TEST=`rsync -avvun --exclude-from=$EXCLUDE $SOUR $DEST | grep "is newer"`
+NUM=`echo $TEST | wc -c`
+
+if [[ $NUM -lt 2 || "$2" == "-f" ]] ; then
+    echo -e "${C_B}Enviando nuevos cambios a destino -> $DEST ${C_N}"
+    echo
+    if [[ "$1" == "nexus" ]] ; then
+        cd $SOUR
+        rsync -p -L -aavzhi --progress \
+            --exclude-from=$EXCLUDE $DOTFILES $DEST
+    else
+        rsync -p --chmod=ug+rwx -avzhi --progress \
+            --exclude-from=$EXCLUDE -b --backup-dir=$BCKP $SOUR $DEST
+    fi
+else
+    echo -e "${C_Y}¡ATENCIÓN! Nuevos cambios en destino! -> $DEST ${C_N}"
+    echo
+    echo $TEST
+fi

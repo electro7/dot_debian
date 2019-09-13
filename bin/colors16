@@ -1,34 +1,23 @@
-#!/bin/zsh
-#
-# ~/bin/colors16
-#
-# Prints terminal colour scheme information
-# Usage: ./colors [-s]
+#!/bin/bash
 
-hexes=($(xrdb -query | sed -n 's/.*color\([0-9]\)/\1/p' | sort -nu | cut -f2))
-names=(black red green yellow blue magenta cyan white)
+T='Hi!'   # The test text
 
-# add -s argument for simple output
-if [[ $# -eq 1 && $1 == "-s" ]]; then
-  printf "\e[1;37m     BLK        RED        GRN        YEL        BLU        MAG        CYN        WHT\n"
-  printf "────────────────────────────────────────────────────────────────────────────────────────\e[0m\n"
-  for i in {0..7}; printf "\e[$((30+$i))m █ $hexes[i+1] \e[0m"; printf "\n"
-  for i in {8..15}; printf "\e[1;$((22+$i))m █ $hexes[i+1] \e[0m"; printf "\n"
-else
-  printf "┌────────────────────────────────────────────────────────┐\n"
-  printf "│ Preview        Name         Bash      Urxvt      Hex   │\n"
-  printf "├────────────────────────────────────────────────────────┤\n"
-  for i in {0..7}
-  do
-    printf "%-35b" "│\e[0;$((30+$i))m ████████   $names[i+1]"
-    printf %s "\e[0;$((30+$i))m   "
-    printf "%-10b" "color$i"
-    printf "$hexes[i+1]\e[0m │\n"
+echo
+echo -n "    "
+for FG in {0..15}
+do
+    printf " %2d  " $FG
+done
 
-    printf "%-35b" "│\e[1;$((30+$i))m ████████   bold $names[i+1]"
-    printf %s "\e[1;$((30+$i))m   "
-    printf "%-10b" "color$((i+8))"
-    printf "$hexes[i+9]\e[0m │\n"
-  done
-  printf "└────────────────────────────────────────────────────────┘\n"
-fi
+echo $(tput sgr0)
+
+for FG in {0..15}
+do
+    printf " %2d " $FG
+    for BG  in {0..15}
+        do echo -en "$(tput setab $BG)$(tput setaf $FG) $T "
+    done
+    echo $(tput sgr0)
+done
+
+echo $(tput sgr0)
