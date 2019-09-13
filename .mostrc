@@ -1,0 +1,18 @@
+% most configuration
+%
+% The format is simple: 
+%       setkey <function-name> <key-name>
+%       unsetkey <key-name>
+%       color <object-name> <fg> <bg>
+%
+% Here <key-name> must be enclosed in double quotes.  '^' represents Ctrl.
+% The function name is not in double quotes.
+% 
+%
+
+% Color settings
+
+%color normal white black
+color status brightblue black
+%color underline brightgreen black
+%color overstrike brightcyan black
