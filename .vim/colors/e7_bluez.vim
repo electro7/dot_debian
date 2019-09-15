@@ -54,7 +54,7 @@ if has("gui_running")
   let s:addfg      = "NONE"
   let s:changebg   = "#293E56"
   let s:changefg   = "NONE"
-  let s:darkblue   = "#4583ed"
+  let s:darkblue   = "#477ab3"
   let s:darkcyan   = "#3bcbde"
   let s:darkred    = "#ed457d"
   let s:darkpurple = "#824de6"
@@ -241,7 +241,7 @@ endif
 " ----------------------------------------------------------------------------
 "
 exe "hi! ColorColumn"   .s:fg_darkred     .s:bg_selection   .s:fmt_none
-exe "hi!  Conceal"      .s:fg_background  .s:bg_none        .s:fmt_none
+exe "hi! Conceal"       .s:fg_background  .s:bg_none        .s:fmt_none
 "       Cursor"
 exe "hi! Cursor"        .s:fg_background  .s:bg_blue        .s:fmt_none
 exe "hi! lCursor"       .s:fg_background  .s:bg_blue        .s:fmt_none
@@ -276,9 +276,9 @@ exe "hi! SpellCap"      .s:fg_blue        .s:bg_darkblue    .s:fmt_undr
 exe "hi! SpellLocal"    .s:fg_aqua        .s:bg_darkcyan    .s:fmt_undr
 exe "hi! SpellBad"      .s:fg_red         .s:bg_darkred     .s:fmt_undr
 exe "hi! SpellRare"     .s:fg_purple      .s:bg_darkpurple  .s:fmt_undr
-exe "hi! StatusLine"    .s:fg_comment     .s:bg_background  .s:fmt_revr
-exe "hi! StatusLineNC"  .s:fg_darkcolumn  .s:bg_comment     .s:fmt_revr
-exe "hi! TabLine"       .s:fg_foreground  .s:bg_darkcolumn  .s:fmt_revr
+exe "hi! StatusLine"    .s:fg_aqua        .s:bg_selection   .s:fmt_none
+exe "hi! StatusLineNC"  .s:fg_comment     .s:bg_none        .s:fmt_none
+exe "hi! TabLine"       .s:fg_foreground  .s:bg_darkcolumn  .s:fmt_none
 "       TabLineFill"
 "       TabLineSel"
 exe "hi! Title"         .s:fg_blue        .s:bg_none        .s:fmt_none

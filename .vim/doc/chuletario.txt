@@ -33,11 +33,11 @@ CONTENIDO                                                 *chuleta_contenido*
   - MPD y ncmpcpp                                   |mpd_ncmpcpp|
   - Systemd en Debian                               |systemd|
   - Servidor DLNA en Debian                         |dlna|
-  - systemctl en archlinux                          |systemctl| |arch|
-  - Red en archlinux                                |netctl| |arch|
-  - Paquetes archlinux                              |pacman| |arch|
-  - Bluetooth archlinux                             |bluez| |arch|
-  - WSL en windows 10                               |wsl| |win10|
+  - systemctl en archlinux                          |systemctl|_|arch|
+  - Red en archlinux                                |netctl|
+  - Paquetes archlinux                              |pacman|
+  - Bluetooth archlinux                             |bluez_arch|
+  - WSL en windows 10                               |WSL|
 
 ==============================================================================
 ==============================================================================
@@ -76,10 +76,10 @@ EL FSTAB                                                     *chuleta_fstab*
 la opción "user". Se montaria con "mount /cdrom".
 
 - Para que puedan escribir en vfat/ntfs (del root) hay que poner en las opciones
-"gid=6,umask=0007,fmask=0117" y añadir el usuario al grupo disk (6). La opción "quiet"
-sirve para que al mover o copiar los archivos no aparezcan un mensaje de error
-al no poder mantener permisos. Con "utf8" funcionan algunos caracteres raros
-como la ñ.
+  "gid=6,umask=0007,fmask=0117" y añadir el usuario al grupo disk (6). La opción
+  "quiet" sirve para que al mover o copiar los archivos no aparezcan un mensaje
+  de error al no poder mantener permisos. Con "utf8" funcionan algunos
+  caracteres raros como la ñ.
 
 - Para soporte ntfs hay que instalar el paquete "ntfs-3g".
 
@@ -93,8 +93,8 @@ Ejemplo:
   /dev/hda3   /           ext2    defaults,errors=remount-ro  0       1
   /dev/hda2   none        swap    sw                          0       0
   proc        /proc       proc    defaults                    0       0
-  /dev/hda1   /hdwin      ntfs-3g gid=6,umask=0007,fmask=0117,utf8,quiet    0       0
-  /dev/hdd1   /hdextra    vfat    gid=6,umask=0007,fmask=0117,utf8,quiet    0       0
+  /dev/hda1   /hdwin      ntfs-3g gid=6,umask=0007,fmask=0117,utf8,quiet
+  /dev/hdd1   /hdextra    vfat    gid=6,umask=0007,fmask=0117,utf8,quiet
   /dev/fd0    /floppy     auto    defaults,noauto,user        0       0
   /dev/cdrom  /cdrom      iso9660 defaults,ro,noauto,user     0       0
   /dev/cdrw   /cdrw       iso9660 defaults,ro,noauto,user     0       0
@@ -880,7 +880,7 @@ Se hace la administración desde "VboxManage":
   Activa el escritorio remoto (mstsc) en el puerto 3389 para la máquina. El
   puerto se puede cambiar con --vrderproperty "TCP/Ports|Address=<value>"
 
-==============================================================================
+==============================================================================
 SYSTEMCTL ARCHLINUX                                      *systemctl* *arch*
 
 Activa "servicios" (demonios):
@@ -901,7 +901,7 @@ Activa "servicios" (demonios):
 <
 
 ==============================================================================
-RED EN ARCHLINUX                                         *netctl* *arch*
+RED EN ARCHLINUX                                                    *netctl*
 
 Para el manejo de la red en archlinux, nada mejor que el netctl, tanto para
 wifi (wlan) como por cable (eth).
@@ -914,8 +914,8 @@ dhcpcd de los servicios en el arranque.
 
 Es necesario el "dialog" para el "wifi-menu".
 
-Se basa en archivos de "profile" que van en {/etc/netctl}. Existen varios ejemplos
-en {/etc/netctl/examples}
+Se basa en archivos de "profile" que van en {/etc/netctl}. Existen varios
+ejemplos en {/etc/netctl/examples}
 
 Por ejemplo, para ip fija en eth0:
 >
@@ -945,7 +945,7 @@ Uso básico:
   Muestra el estado de la conexión wifi.
 
 ==============================================================================
-PAQUETES EN ARCHLINUX                                    *pacman* *arch*
+PAQUETES EN ARCHLINUX                                    *pacman*
 
 - pacman -S <paquete>~
   Instalar un paquete.
@@ -981,7 +981,7 @@ Ejemplos:
   Lista paquetes para actualizar.
 
 ==============================================================================
-BLUETOOTH EN ARCHLINUX                                   *bluez* *arch*
+BLUETOOTH EN ARCHLINUX                                   *bluez_arch*
 
 - Instalar los paquetes "bluez", "bluez-libs" y "bluez-utils".
 - El servicio no arranca por defecto. Arrancarlo con "sudo systemctl start
@@ -1026,7 +1026,7 @@ Tethering a través de bluetooth de Android~
   - Darle IP por dhcp con "dhcpcd bnep0".
 
 ==============================================================================
-WSL EN WINDOWS 10                                          *WSL* *win10*
+WSL EN WINDOWS 10                                          *WSL*
 
 - Abrir "powershell" como administrador y ejecutar (pide reiniciar):
   >

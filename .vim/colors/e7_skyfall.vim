@@ -241,7 +241,7 @@ endif
 " ----------------------------------------------------------------------------
 "
 exe "hi! ColorColumn"   .s:fg_darkred     .s:bg_selection   .s:fmt_none
-"       Conceal"
+exe "hi! Conceal"       .s:fg_background  .s:bg_none        .s:fmt_none
 "       Cursor"
 exe "hi! Cursor"        .s:fg_background  .s:bg_blue        .s:fmt_none
 exe "hi! lCursor"       .s:fg_background  .s:bg_blue        .s:fmt_none
@@ -366,6 +366,16 @@ exe "hi! markdownError"   .s:fg_red         .s:bg_none        .s:fmt_none
 exe "hi! markdownCodeBlock"         .s:fg_selection .s:bg_none  .s:fmt_none
 exe "hi! markdownHeadingDelimiter"  .s:fg_red       .s:bg_none  .s:fmt_none
 
+
+"}}}
+" Plugins:"{{{
+" ----------------------------------------------------------------------------
+
+" GitGutter
+exe "hi! GitGutterAdd"          .s:fg_green       .s:bg_none        .s:fmt_none
+exe "hi! GitGutterChange"       .s:fg_blue        .s:bg_none        .s:fmt_none
+exe "hi! GitGutterDelete"       .s:fg_red         .s:bg_none        .s:fmt_none
+exe "hi! GitGutterChangeDelete" .s:fg_yellow      .s:bg_none        .s:fmt_none
 
 "}}}
 " Diff Syntax Highlighting:"{{{

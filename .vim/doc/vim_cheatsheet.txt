@@ -1,0 +1,98 @@
+﻿*vim_cheatsheet.txt*    Combinación teclas de VIM   Last change: 12 sep 2019
+
+cheatsheet                                         *cheat* *cheatsheet* *keys*
+
+Mi chuletario personal para las combinaciones de teclas de VIM
+
+==============================================================================
+CONTENIDO                                               *cheatsheet_contenido*
+
+- Movimiento                                            |keys_movement|
+- Insertar                                              |insert_mode|
+- Editar                                                |edit|
+- Selecionar                                            |visual_mode|
+- Copiar y pegar                                        |copy_paste|
+- Macros                                                |macros|
+
+==============================================================================
+
+
+------------------------------------------------------------------------------
+MOVIMIENTO                                                     *keys_movement*
+
+  w         : Salto entre palabras puntuadas
+  W         : Salto entre palabras separadas por espacios
+  e         : Salto al final de la palabra puntuadas
+  E         : Salto al final de la palabra sin puntuar
+  b         : Salto atrás entre palabras puntuadas
+  B         : Salto atrás entre palabras separadas por espacios
+  %         : Mover a la llave pareja () [] {}
+
+  gg        : Ir al principio del documento
+  G         : Ir al final del documento
+
+  :marks    : Lista de marcadores
+  mX        : Establece marcador X
+  'X        : Salta a marcador X
+  y'X       : Copia texto hasta marcador X
+
+------------------------------------------------------------------------------
+INSERTAR                                                         *insert_mode*
+
+  i         : Insertar en el cursor
+  I         : Insertar al principio de la línea
+  a         : Insertar en el siguiente carácter
+  A         : Insertar al final de la línea
+  o         : Insertar en una línea delante
+  O         : Insertar en una línea detrás
+  ea        : Insertar al final de la palabra actual
+
+------------------------------------------------------------------------------
+EDITANDO                                                             *editing*
+
+  r         : Reemplazar solo un carácter
+  J         : Una la línea anterior al final de la actual
+  cc        : Reemplaza toda la línea
+  cw        : Reemplaza hasta el final de la palabra
+  c$        : Reemplaza hasta el final de la línea
+  s         : Borra el cáracter e inserta
+  S         : Igual que cc
+  xp        : Intercambia dos carácteres
+  u         : Undo
+  Ctrl + r  : Redo
+  ~         : Cambia a mayúsculas/minúsculas
+  gu        : Cambia a minúsculas
+  gU        : Cambia a mayúsculas
+  .         : Repite último comando
+
+------------------------------------------------------------------------------
+SELECCIONAR                                                      *visual_mode*
+
+  v         : Selección normal
+  V         : Selección por líneas
+  Ctrl + v  : Selección por bloques
+  o         : Mover al final de la selección
+  O         : Mover al otro extremo de la selección
+  aw        : Seleccionar una palabra
+  ab        : Selección de un bloque ()
+  aB        : Selección de un bloque {}
+  ib        : Seleccionar dentro de un ()
+  iB        : Seleccionar dentro de un {}
+  >         : Tabula la selección a la derecha
+  <         : Tabula la selección a la izquierda
+  d         : Borra la selección
+
+------------------------------------------------------------------------------
+COPIAR Y PEGAR                                                    *copy_paste*
+
+  y         : Copia la selección
+  p         : Pega le selección
+  yy        : Copia la línea actual
+  :reg      : Muestra los registros (portapapeles)
+  "Xy       : Copia al registro X
+  "Xp       : Pega el registro X
+
+------------------------------------------------------------------------------
+COPIAR Y PEGAR                                                    *copy_paste*
+
+vim:tw=78:sw=2:ts=2:nowrap:ft=help:norl:cole=0

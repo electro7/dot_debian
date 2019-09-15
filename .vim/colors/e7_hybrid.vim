@@ -42,24 +42,24 @@ if has("gui_running")
   let s:selection  = "#373b41"
   let s:line       = "#282a2e"
   let s:comment    = "#707880"
-  let s:red        = "#cc6666"
-  let s:orange     = "#de935f"
-  let s:yellow     = "#f0c674"
-  let s:green      = "#b5bd68"
-  let s:aqua       = "#8abeb7"
-  let s:blue       = "#81a2be"
-  let s:purple     = "#b294bb"
   let s:window     = "#4e4e4e"
   let s:darkcolumn = "#1c1c1c"
+  let s:darkred    = "#a54242"
+  let s:red        = "#cc6666"
+  let s:darkgreen  = "#8C9440"
+  let s:green      = "#b5bd68"
+  let s:orange     = "#de935f"
+  let s:yellow     = "#f0c674"
+  let s:darkblue   = "#5f819d"
+  let s:blue       = "#81a2be"
+  let s:darkpurple = "#85678f"
+  let s:purple     = "#b294bb"
+  let s:darkcyan   = "#5e8d87"
+  let s:aqua       = "#8abeb7"
   let s:addbg      = "#5F875F"
   let s:addfg      = "#d7ffaf"
   let s:changebg   = "#5F5F87"
   let s:changefg   = "#d7d7ff"
-  let s:darkblue   = "#5f819d"
-  let s:darkcyan   = "#5e8d87"
-  let s:darkred    = "#a54242"
-  let s:darkpurple = "#85678f"
-  let s:darkgreen  = "#8C9440"
 else
   let s:vmode      = "cterm"
   let s:background = "0"
@@ -240,6 +240,7 @@ endif
 " Vim Highlighting: (see :help highlight-groups)"{{{
 " ----------------------------------------------------------------------------
 exe "hi! ColorColumn"   .s:fg_darkred     .s:bg_selection   .s:fmt_none
+exe "hi! Conceal"       .s:fg_background  .s:bg_none        .s:fmt_none
 "       Conceal"
 "       Cursor"
 exe "hi! Cursor"        .s:fg_background  .s:bg_green       .s:fmt_none
@@ -260,7 +261,7 @@ exe "hi! SignColumn"    .s:fg_none        .s:bg_darkcolumn  .s:fmt_none
 "       Incsearch"
 exe "hi! LineNr"        .s:fg_selection   .s:bg_darkcolumn  .s:fmt_none
 exe "hi! CursorLineNr"  .s:fg_green       .s:bg_none        .s:fmt_none
-exe "hi! MatchParen"    .s:fg_background  .s:bg_changebg    .s:fmt_none
+exe "hi! MatchParen"    .s:fg_background  .s:bg_green       .s:fmt_none
 exe "hi! ModeMsg"       .s:fg_green       .s:bg_none        .s:fmt_none
 exe "hi! MoreMsg"       .s:fg_green       .s:bg_none        .s:fmt_none
 exe "hi! NonText"       .s:fg_selection   .s:bg_none        .s:fmt_none
@@ -269,15 +270,15 @@ exe "hi! PmenuSel"      .s:fg_foreground  .s:bg_selection   .s:fmt_revr
 "       PmenuSbar"
 "       PmenuThumb"
 exe "hi! Question"      .s:fg_green       .s:bg_none        .s:fmt_none
-exe "hi! Search"        .s:fg_green       .s:bg_none        .s:fmt_undr
+exe "hi! Search"        .s:fg_background  .s:bg_green       .s:fmt_none
 exe "hi! SpecialKey"    .s:fg_selection   .s:bg_none        .s:fmt_none
 exe "hi! SpellCap"      .s:fg_blue        .s:bg_darkblue    .s:fmt_undr
 exe "hi! SpellLocal"    .s:fg_aqua        .s:bg_darkcyan    .s:fmt_undr
 exe "hi! SpellBad"      .s:fg_red         .s:bg_darkred     .s:fmt_undr
 exe "hi! SpellRare"     .s:fg_purple      .s:bg_darkpurple  .s:fmt_undr
-exe "hi! StatusLine"    .s:fg_comment     .s:bg_background  .s:fmt_revr
-exe "hi! StatusLineNC"  .s:fg_darkcolumn  .s:bg_comment     .s:fmt_revr
-exe "hi! TabLine"       .s:fg_foreground  .s:bg_darkcolumn  .s:fmt_revr
+exe "hi! StatusLine"    .s:fg_green       .s:bg_selection   .s:fmt_none
+exe "hi! StatusLineNC"  .s:fg_comment     .s:bg_none        .s:fmt_none
+exe "hi! TabLine"       .s:fg_foreground  .s:bg_darkcolumn  .s:fmt_none
 "       TabLineFill"
 "       TabLineSel"
 exe "hi! Title"         .s:fg_blue        .s:bg_none        .s:fmt_none
@@ -365,6 +366,16 @@ exe "hi! markdownError"   .s:fg_red         .s:bg_none        .s:fmt_none
 exe "hi! markdownCodeBlock"         .s:fg_selection .s:bg_none  .s:fmt_none
 exe "hi! markdownHeadingDelimiter"  .s:fg_red       .s:bg_none  .s:fmt_none
 
+
+"}}}
+" Plugins:"{{{
+" ----------------------------------------------------------------------------
+
+" GitGutter
+exe "hi! GitGutterAdd"          .s:fg_green       .s:bg_none        .s:fmt_none
+exe "hi! GitGutterChange"       .s:fg_blue        .s:bg_none        .s:fmt_none
+exe "hi! GitGutterDelete"       .s:fg_red         .s:bg_none        .s:fmt_none
+exe "hi! GitGutterChangeDelete" .s:fg_yellow      .s:bg_none        .s:fmt_none
 
 "}}}
 " Diff Syntax Highlighting:"{{{

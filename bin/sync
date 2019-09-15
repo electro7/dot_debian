@@ -2,33 +2,35 @@
 # Script para actualizar máquinas de trabajo
 
 HOWCALLED=`basename $0`
-DOTFILES=".bashrc bin .dircolors .tmux.conf .vimrc .vim"
+
+# Ficheros de cnf para actualizar en las máquinas
+DOTNEXUS=".bashrc bin .dircolors .tmux.conf .vimrc .vim"
+DOTCASIOPEA="bin .dircolors .tmux.conf .vimrc .vim"
 
 # Colores
-C_G="\033[0;32m"    # Verde
-C_C="\033[0;36m"    # Cyan
-C_Y="\033[0;33m"    # Amarillo
-C_B="\033[0;34m"    # Blue
-C_P="\033[0;35m"    # Purple
-C_R="\033[0;31m"    # Rojo
-C_N="\033[0m"       # None
+c_yellow=$(tput setaf 11)
+c_blue=$(tput setaf 12)
+c_purple=$(tput setaf 13)
+c_red=$(tput setaf 9)
+c_none=$(tput sgr0)
 
 # Uso
 function usage() {
-  echo -e "${C_Y}Sincronización de máquinas remotas de trabajo${C_N}"
+  echo -e "${c_yellow}Sincronización de máquinas remotas de trabajo${c_none}"
   echo
-  echo -e "Uso: ${C_B}$HOWCALLED [copia] [opción]${C_N}"
+  echo -e "Uso: ${c_blue}$HOWCALLED [copia] [opción]${c_none}"
   echo
   echo "Copias:"
-  echo -e "     ${C_R}pi${C_N}       : Kernel Jarvis a Rasp Pi 3 (personal)"
-  echo -e "     ${C_R}casiopea${C_N} : Work a portatil HP."
-  echo -e "     ${C_R}library${C_N}  : Líbreria a nexus"
-  echo -e "     ${C_R}curro${C_N}    : Curro a nexus"
-  echo -e "     ${C_R}nexus${C_N}    : dotfiles a nexus"
+  echo -e "     ${c_red}pi${c_none}       : Kernel Jarvis a Rasp Pi 3 (personal)"
+  echo -e "     ${c_red}work${c_none}     : Work a portatil HP."
+  echo -e "     ${c_red}library${c_none}  : Líbreria a nexus"
+  echo -e "     ${c_red}curro${c_none}    : Curro a nexus"
+  echo -e "     ${c_red}nexus${c_none}    : dotfiles a nexus"
+  echo -e "     ${c_red}casiopea${c_none} : dotfiles a casiopea"
   echo
   echo "Opciones:"
-  echo -e "     ${C_P}-i${C_N} : Modo inverso. Destino a Origen."
-  echo -e "     ${C_P}-f${C_N} : Forzar. Ignorar archivos nuevos en destino."
+  echo -e "     ${c_red}-i${c_none} : Modo inverso. Destino a Origen."
+  echo -e "     ${c_red}-f${c_none} : Forzar. Ignorar archivos nuevos en destino."
 }
 
 HOWCALLED=`basename $0`
@@ -46,7 +48,7 @@ case "$1" in
         DEST="-e ssh tunelia@pi:/home/tunelia/work/jarvis"
         BCKP="/home/tunelia/work_backup"
         ;;
-    casiopea)
+    work)
         SOUR="/mnt/d/work"
         DEST="-e ssh electro7@casiopea:/mnt/extra"
         BCKP="/mnt/extra/work_backup"
@@ -64,7 +66,13 @@ case "$1" in
     nexus)
         SOUR="${HOME}"
         DEST="-e ssh electro7@nexus:/home/electro7"
-        BCKP="/home/electro7/sync_backup"
+        DOT="${DOTNEXUS}"
+        ;;
+    casiopea)
+        SOUR="${HOME}"
+        DEST="-e ssh electro7@casiopea:/home/electro7"
+        DOT="${DOTCASIOPEA}"
+        ;;
 esac
 
 if [ "$2" == "-i" ] ; then
@@ -79,18 +87,18 @@ TEST=`rsync -avvun --exclude-from=$EXCLUDE $SOUR $DEST | grep "is newer"`
 NUM=`echo $TEST | wc -c`
 
 if [[ $NUM -lt 2 || "$2" == "-f" ]] ; then
-    echo -e "${C_B}Enviando nuevos cambios a destino -> $DEST ${C_N}"
+    echo -e "${c_blue}Enviando nuevos cambios a destino -> $DEST ${c_none}"
     echo
-    if [[ "$1" == "nexus" ]] ; then
+    if [[ -n "${DOT}" ]] ; then
         cd $SOUR
-        rsync -p -L -aavzhi --progress \
-            --exclude-from=$EXCLUDE $DOTFILES $DEST
+        rsync -L -avzhi --progress \
+            --exclude-from=$EXCLUDE ${DOT} ${DEST}
     else
         rsync -p --chmod=ug+rwx -avzhi --progress \
             --exclude-from=$EXCLUDE -b --backup-dir=$BCKP $SOUR $DEST
     fi
 else
-    echo -e "${C_Y}¡ATENCIÓN! Nuevos cambios en destino! -> $DEST ${C_N}"
+    echo -e "${c_yellow}¡ATENCIÓN! Nuevos cambios en destino! -> $DEST ${c_none}"
     echo
     echo $TEST
 fi
