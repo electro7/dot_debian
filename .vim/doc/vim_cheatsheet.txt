@@ -1,24 +1,45 @@
 ﻿*vim_cheatsheet.txt*    Combinación teclas de VIM   Last change: 12 sep 2019
 
-cheatsheet                                         *cheat* *cheatsheet* *keys*
+CHEATSHEET                                               *cheat* *cheatsheet*
 
 Mi chuletario personal para las combinaciones de teclas de VIM
+
+<NOTA>: Fenerar los tags para navegar por la ayuda -> ":helptags .vim/doc/"
 
 ==============================================================================
 CONTENIDO                                               *cheatsheet_contenido*
 
-- Movimiento                                            |keys_movement|
-- Insertar                                              |insert_mode|
-- Editar                                                |edit|
-- Selecionar                                            |visual_mode|
-- Copiar y pegar                                        |copy_paste|
-- Macros                                                |macros|
+- Objetos y modificadores                               |cheat_objets|
+- Movimiento                                            |cheat_keys_movement|
+- Insertar                                              |cheat_insert_mode|
+- Editar                                                |cheat_edit|
+- Selecionar                                            |cheat_visual_mode|
+- Copiar y pegar                                        |cheat_copy_paste|
+- Macros                                                |cheat_macros|
+- Buscar y reemplazar                                   |cheat_search|
+- Pliegues                                              |cheat_folding|
+- Plugins                                               |cheat_plugins|
 
 ==============================================================================
 
+------------------------------------------------------------------------------
+OBJETOS Y MODIFICADORES                                         *cheat_objets*
+
+  Objetos~
+  w         : Palabra (word)
+  s         : Sentencia (sentence)
+  p         : Parrafo (paragraph)
+  b         : Bloque (block/parentheses)
+
+  Modificadores~
+  i         : Dentro (inside)
+  a         : Alrededor (around)
+  fX        : Hasta cáracter X
+  tX        : Hasta carácter X incluido
+  /         : Hasta busqueda
 
 ------------------------------------------------------------------------------
-MOVIMIENTO                                                     *keys_movement*
+MOVIMIENTO                                               *cheat_keys_movement*
 
   w         : Salto entre palabras puntuadas
   W         : Salto entre palabras separadas por espacios
@@ -26,18 +47,27 @@ MOVIMIENTO                                                     *keys_movement*
   E         : Salto al final de la palabra sin puntuar
   b         : Salto atrás entre palabras puntuadas
   B         : Salto atrás entre palabras separadas por espacios
+  0         : Salto al inicio de la línea
+  $         : Salto al final de la línea
   %         : Mover a la llave pareja () [] {}
+  gt        : Ir al siguiente Tag
+  gT        : Ir al anterior Tag
 
+  Documento~
   gg        : Ir al principio del documento
   G         : Ir al final del documento
+  :nX       : Ir a la línea X
 
+  Marcadores~
   :marks    : Lista de marcadores
   mX        : Establece marcador X
+  ''        : Salta al último marcador
   'X        : Salta a marcador X
   y'X       : Copia texto hasta marcador X
+  '.        : Salta a la última edición
 
 ------------------------------------------------------------------------------
-INSERTAR                                                         *insert_mode*
+INSERTAR                                                   *cheat_insert_mode*
 
   i         : Insertar en el cursor
   I         : Insertar al principio de la línea
@@ -48,34 +78,39 @@ INSERTAR                                                         *insert_mode*
   ea        : Insertar al final de la palabra actual
 
 ------------------------------------------------------------------------------
-EDITANDO                                                             *editing*
+EDITANDO                                                       *cheat_editing*
 
   r         : Reemplazar solo un carácter
   J         : Una la línea anterior al final de la actual
   cc        : Reemplaza toda la línea
   cw        : Reemplaza hasta el final de la palabra
+  ciw       : Reemplaza palabra actual
   c$        : Reemplaza hasta el final de la línea
   s         : Borra el cáracter e inserta
   S         : Igual que cc
   xp        : Intercambia dos carácteres
   u         : Undo
-  Ctrl + r  : Redo
-  ~         : Cambia a mayúsculas/minúsculas
-  gu        : Cambia a minúsculas
-  gU        : Cambia a mayúsculas
+  C-r       : Redo
+  ~         : Cambia el carácter a mayúsculas/minúsculas
+  guaw      : Cambia a minúsculas la palabra
+  gUaw      : Cambia a mayúsculas la palabra
+  guu       : Cambia a minúsculas toda la línea
+  gUU       : Cambia a mayúsculas toda la línea
+  gwip      : Formatea parrafo
   .         : Repite último comando
 
 ------------------------------------------------------------------------------
-SELECCIONAR                                                      *visual_mode*
+SELECCIONAR                                                *cheat_visual_mode*
 
   v         : Selección normal
   V         : Selección por líneas
-  Ctrl + v  : Selección por bloques
+  C-v       : Selección por bloques
   o         : Mover al final de la selección
   O         : Mover al otro extremo de la selección
   aw        : Seleccionar una palabra
   ab        : Selección de un bloque ()
   aB        : Selección de un bloque {}
+  ap        : Seleccionar parrafo
   ib        : Seleccionar dentro de un ()
   iB        : Seleccionar dentro de un {}
   >         : Tabula la selección a la derecha
@@ -83,16 +118,90 @@ SELECCIONAR                                                      *visual_mode*
   d         : Borra la selección
 
 ------------------------------------------------------------------------------
-COPIAR Y PEGAR                                                    *copy_paste*
+COPIAR Y PEGAR                                              *cheat_copy_paste*
 
   y         : Copia la selección
-  p         : Pega le selección
   yy        : Copia la línea actual
+  2yy       : Copia 2 líneas
+  yw        : Copia desde el cáracter hasta el final de la palabra
+  y$        : Copia hasta el final de la línea
+  p         : Pega después del cáracter actual
+  P         : Pega antes del carácter actual
+  dd        : Corta linea actual
+  2dd       : Corta dos líneas
+  dw        : Corta desde el cáracter hasta el final de la palabra
+  D         : Corta hasta el final de la línea
+  x         : Corta cáracter actual
+
+  Registros~
   :reg      : Muestra los registros (portapapeles)
-  "Xy       : Copia al registro X
-  "Xp       : Pega el registro X
+  "Xy       : Copia al registro "X"
+  "Xp       : Pega el registro "X"
 
 ------------------------------------------------------------------------------
-COPIAR Y PEGAR                                                    *copy_paste*
+MACROS                                                           *cheat_macro*
 
-vim:tw=78:sw=2:ts=2:nowrap:ft=help:norl:cole=0
+  qa        : Graba la macro "a"
+  q         : Detiene la grabación
+  @a        : Ejecuta la macro "a"
+  @@        : Ejecuta la última macro
+
+------------------------------------------------------------------------------
+BUSCAR Y REEMPLAZAR                                             *cheat_search*
+
+  /texto     : Buscar "texto"
+  ?texto     : Busca "texto" hacia atrás
+  \vtexto    : Busqueda ‘very magic’ (ignora carácteres raros)
+  n          : Siguiente coincidencia
+  N          : Anterior coincidencia
+  :%s/A/D/g  : Buscar y reemplazar "old" por "new"
+  :%s/A/B/gc : Buscar y reemplaza con confirmaciṕn
+  :noh       : Oculta coincidencias después de una busqueda
+
+  Buscar en ficheros~
+  :vimgrep /"texto"/ {file}
+  :cn        : Siguiente coincidencia
+  :cp        : Previa coincidencia
+  :copen     : Abre ventana con la lista de coincidencias
+
+------------------------------------------------------------------------------
+PLIEGUES                                                       *cheat_folding*
+
+  za        : Cambia entre abierto/cerrado
+  zo        : Abre
+  zc        : Cierra
+  zR        : Abre todos
+  zM        : Cierra todos
+  zO        : Abre recursivamente
+  zC        : Cierra todos recursivamente
+
+
+------------------------------------------------------------------------------
+PLUGINS                                                        *cheat_plugins*
+
+  ACK Plugin~
+  :Ack "texto"
+  o         : Abrir coincidencia
+  O         : Abrir coincidencia y cerrar resultados
+  v         : Abrir coincidencia en split vertical
+
+  Easy Align~
+  vga X     : Seleccionar en visual mode y alinea a X
+  vga 2X    : Seleccionar en visual mode y alinea al segundo X
+  gaip X    : Alinea el parrafo actual a X
+  vapga X   : Marca un parrafo y alinea a X
+
+  Surround~
+  cs'"      : Cambia "hola" a 'hola'
+  ds"       : Cambia "hola" a hola
+  ysaw"     : Cambia hola a "hola"
+  yssb      : Cambia hola mundo a (hola mundo)
+  yssB      : Cambia hola mundo a {hola mundo}
+  yss"      : Pone toda la línea entre comillas
+  S"        : Pone la selección entre comillas
+
+  Multiple Cursors~
+  C-n       : Comienza selección por palabras
+  C-n       : Comienza selección por palabras
+
+vim:tw=78:sw=2:ts=2:nowrap:ft=help:norl:cole=2:et:

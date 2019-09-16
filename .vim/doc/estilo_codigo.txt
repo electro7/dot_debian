@@ -1,132 +1,131 @@
-------------------------------------------------------------------------------
- Recomendaciones de estilo para el desarrollo de cÛdigo
- 1.1 - 20 ago. 2019  
+# Recomendaciones de estilo para el desarrollo de c√≥digo
+## 1.1 - 20 ago. 2019
 ------------------------------------------------------------------------------
 
-Importante: He creado una configuraciÛn para uncrustify para realizar los
-cambios autom·ticamente. Ejecutar el script code_format en el $HOME/bin de
-cyrgwin. El archivo de configuraciÛn de uncrustify est· en
+Importante: He creado una configuraci√≥n para uncrustify para realizar los
+cambios autom√°ticamente. Ejecutar el script code_format en el $HOME/bin de
+cyrgwin. El archivo de configuraci√≥n de uncrustify est√° en
 $HOME/uncrustify.cfg.
 
 Base -> https://www.kernel.org/doc/html/v4.10/process/coding-style.html
 
-1.- IntroducciÛn
+## Introducci√≥n
 
-    El objetivo de este documento es definir un conjunto de reglas que
-permitan dar un buen nivel de homogeneidad al cÛdigo com˙n de todos los
+El objetivo de este documento es definir un conjunto de reglas que
+permitan dar un buen nivel de homogeneidad al c√≥digo com√∫n de todos los
 ficheros fuente.
 
-2.- Estructura del fichero
+## Estructura del fichero
 
-- Usar indentaciÛn con 4 espacios. No usar tab's son el demonio.
-- La lÌnea no debe superar las 80 columnas.
-- Al principio del fichero se coloca una cabecera especÌfica del fichero.
-- El primer elemento de cÛdigo del programa son los #includes.
+- Usar indentaci√≥n con 4 espacios. No usar tab's son el demonio.
+- La l√≠nea no debe superar las 80 columnas.
+- Al principio del fichero se coloca una cabecera espec√≠fica del fichero.
+- El primer elemento de c√≥digo del programa son los #includes.
 - El segundo bloque los #define y los typedefs.
 - Seguidamente las declaraciones globales y externas.
-- DespuÈs los prototipos de funciones.
+- Despu√©s los prototipos de funciones.
 - Al final todas las funciones.
 
-3.- Nomenclatura de fichero
+## Nomenclatura de fichero
 
-- Los ficheros .c no deben superar los 8 c·racteres y tienen un nombre
+- Los ficheros .c no deben superar los 8 c√°racteres y tienen un nombre
   asociado a las funciones que definen.
 - Los ficheros .h comparten el nombre del fichero .c asociado. En caso de
-  cabeceras de tipo general, el nombre vendr· determinado por la
+  cabeceras de tipo general, el nombre vendr√° determinado por la
   funcionalidad del contenido del mismo.
 
-4.- Llaves
+## Llaves
 
 - Debe separarse con espacios. Ejemplo:
 
-    if (x < y) {
-        x++;
-    }
+>  if (x < y) {
+>        x++;
+>    }
 
 - En las estructuras de control (if, while, for, etc.), y declaraciones (struct,
-  enum, typedef) se aÒade la llave de apertura al final de la primera lÌnea
-  y la llave de cerrado sola en la ˙ltima lÌnea. Ejemplos:
+  enum, typedef) se a√±ade la llave de apertura al final de la primera l√≠nea
+  y la llave de cerrado sola en la √∫ltima l√≠nea. Ejemplos:
 
-    if (x == y) {
-        ...
-    } else if {
-        ---
-    } else {
-        ---
-    {
+>    if (x == y) {
+>        ...
+>    } else if {
+>        ---
+>    } else {
+>        ---
+>    {
 
-    do {
-        cuerpo de do ...
-    } white (condicion);
+>    do {
+>        cuerpo de do ...
+>    } white (condicion);
 
 - Sin embargo, en las funciones la apertura y el cerrado se hacen en una
-  nueva lÌnea. Elemplo:
+  nueva l√≠nea. Elemplo:
 
-    int function(int x)
-    {
-        ...
-    }
+>    int function(int x)
+>    {
+>        ...
+>    }
 
-5.- Nomenclatura
+## Nomenclatura
 
-- Se utiliza nombre en inglÈs.
-- Los nombres de variables y funciones se deben poner en min˙sculas con
-  lÌneas de subrayado para separar palabras y ser suficientemente
+- Se utiliza nombre en ingl√©s.
+- Los nombres de variables y funciones se deben poner en min√∫sculas con
+  l√≠neas de subrayado para separar palabras y ser suficientemente
   explicativos
-- Los nombres de las funciones debieran empezar con el nombre del mÛdulo al
-  que pertenencen de la forma "modulo_submodulo_operacion", por ejemplo,
-  "gnome_canvas_scroll" o  "gnome_mime_get_keys". Esta convenciÛn elimina las
-  colisiones de nombres de sÌmbolos entre mÛdulos. Es muy importante para las
+- Los nombres de las funciones debieran empezar con el nombre del m√≥dulo al
+  que pertenencen de la forma _modulo_submodulo_operacion_, por ejemplo,
+  _gnome_canvas_scroll_ o  "gnome_mime_get_keys". Esta convenci√≥n elimina las
+  colisiones de nombres de s√≠mbolos entre m√≥dulos. Es muy importante para las
   bibliotecas.
-- Las variables globales ser·n descriptivas. No es lo mismo
-  "gCountActiveUsers" que "cntusr". Normalmente empezaran con "g_".
+- Las variables globales ser√°n descriptivas. No es lo mismo
+  _gCountActiveUsers_ que _cntusr_. Normalmente empezaran con "g_".
 - Los punteros deben empezar con "p_" o "lp_".
 - Las variables locales deben ser cortas. Por ejemplo los contadores "i" o
   el buffer temportal "buf".
-- Las macros, los defines y los enum siempre en may˙sculas. Ejemplo:
-    
-    /* Tipo de sombra */
-    typedef enum {
-        GTK_SHADOW_NONE,
-        GTK_SHADOW_IN,
-        GTK_SHADOW_OUT,
-        GTK_SHADOW_ETCHED_IN,
-        GTK_SHADOW_ETCHED_OUT
-    } GtkShadowType;
+- Las macros, los defines y los enum siempre en may√∫sculas. Ejemplo:
 
-- Los nombre de typedef y struct se usa una mezcla de may˙sculas y
-  min˙sculas. Ejemplo:
-    
-    struct IconList {
-        char buf[BINPRM_BUF_SIZE];
-        struct page *page[MAX_ARG_PAGES];
-        struct mm_struct *mm;
-    };
+>   /* Tipo de sombra */
+>   typedef enum {
+>       GTK_SHADOW_NONE,
+>       GTK_SHADOW_IN,
+>       GTK_SHADOW_OUT,
+>       GTK_SHADOW_ETCHED_IN,
+>       GTK_SHADOW_ETCHED_OUT
+>   } GtkShadowType;
 
-6.- Comentarios
+- Los nombre de typedef y struct se usa una mezcla de may√∫sculas y
+  min√∫sculas. Ejemplo:
+
+>   struct IconList {
+>       char buf[BINPRM_BUF_SIZE];
+>       struct page *page[MAX_ARG_PAGES];
+>       struct mm_struct *mm;
+>   };
+
+##  Comentarios
 
 - Se usa comentarios tipo C -> /**/
 - Las variables globales se explican brevemente.
-- Los bloques de comentarios seguir·n un formato general de facil
+- Los bloques de comentarios seguir√°n un formato general de facil
   portabilidad. El formato propuesto es el siguiente:
 
-    /*
-    *  Inicio del comentario
-    *  que concluye en la prÛxima lÌnea
-    */
+>    /*
+>    *  Inicio del comentario
+>    *  que concluye en la pr√≥xima l√≠nea
+>    */
 
 - Cada fichero fuente debe comenzar con el nombre del fichero, el autor, la
-  versiÛn, la fecha, el copyright (GPL) y posiblemente un lista de cambios.
+  versi√≥n, la fecha, el copyright (GPL) y posiblemente un lista de cambios.
 
-    /************************************************************************
-    * NOMBRE DEL PROYECTO
-    * -----------------------------------------------------------------------
-    * DescripciÛn de lo que hace el archivo.
-    *************************************************************************/
+>    /************************************************************************
+>    * NOMBRE DEL PROYECTO
+>    * -----------------------------------------------------------------------
+>    * Descripci√≥n de lo que hace el archivo.
+>    *************************************************************************/
 
-- Se aÒadiran solo los comentarios realmente necesarios. Cada funciÛn debe
+- Se a√±adiran solo los comentarios realmente necesarios. Cada funci√≥n debe
   ser precedida con un comentario que comente brevemente lo que hace. Si es
-  necesario se incluir· una explicaciÛn de sus par·metros y su valor de
+  necesario se incluir√° una explicaci√≥n de sus par√°metros y su valor de
   retorno. Ejemplo:
 
     /* Ordena la lista de memorias */
@@ -135,20 +134,20 @@ ficheros fuente.
         ...
     }
 
-- Para separar grupos de funciones se usa una lÌnea. Ejemplo:
+- Para separar grupos de funciones se usa una l√≠nea. Ejemplo:
 
-    /* Archivo SVI
-    *  ---------------------------------------------------------------------- 
-    */
+>    /* Archivo SVI
+>    *  ----------------------------------------------------------------------
+>    */
 
-7.-  Ficheros de cabeceras
+## Ficheros de cabeceras
 
 - En ficheros de cabecera, siempre se definira un identificador que evite la
-  inclusiÛn m˙ltiple del fichero de la siguiente forma:
+  inclusi√≥n m√∫ltiple del fichero de la siguiente forma:
 
-    #ifndef __FICHERO_H
-    #define __FICHERO_H
-    ...
-    #endif
+>    #ifndef __FICHERO_H
+>    #define __FICHERO_H
+>    ...
+>    #endif
 
-vim:tw=78:nowrap:ft=help
+vim:tw=78:nowrap:ft=markdown

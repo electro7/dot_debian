@@ -6,7 +6,7 @@ Mi chuletario personal, debido a mi poca o nula memoría
 
 ==============================================================================
 ==============================================================================
-CONTENIDO                                                 *chuleta_contenido*
+CONTENIDO                                                  *chuleta_contenido*
 
   - Cambiar la ip                                   |chuleta_ip|
   - El fstab                                        |chuleta_fstab|
@@ -27,21 +27,21 @@ CONTENIDO                                                 *chuleta_contenido*
   - Wireless                                        |chuleta_wireless|
   - Versionitis con GIT                             |chuleta_git|
   - Instalando fuentes                              |chuleta_checkinstall|
-  - Instalando Linux en SSD                         |disco_ssd|
-  - Weechat + BitlBee (IRC + Mensajería)            |weechat_bitlbee|
-  - Samba fácil                                     |samba_facil|
-  - MPD y ncmpcpp                                   |mpd_ncmpcpp|
-  - Systemd en Debian                               |systemd|
-  - Servidor DLNA en Debian                         |dlna|
-  - systemctl en archlinux                          |systemctl|_|arch|
-  - Red en archlinux                                |netctl|
-  - Paquetes archlinux                              |pacman|
-  - Bluetooth archlinux                             |bluez_arch|
-  - WSL en windows 10                               |WSL|
+  - Instalando Linux en SSD                         |chuleta_disco_ssd|
+  - Weechat + BitlBee (IRC + Mensajería)            |chuleta_weechat_bitlbee|
+  - Samba fácil                                     |chuleta_samba_facil|
+  - MPD y ncmpcpp                                   |chuleta_mpd_ncmpcpp|
+  - Systemd en Debian                               |chuleta_systemd|
+  - Servidor DLNA en Debian                         |chuleta_dlna|
+  - systemctl en archlinux                          |chuleta_systemctl|
+  - Red en archlinux                                |chuleta_netctl|
+  - Paquetes archlinux                              |chuleta_pacman|
+  - Bluetooth archlinux                             |chuleta_bluetooh|
+  - WSL en windows 10                               |chuleta_WSL|
 
 ==============================================================================
 ==============================================================================
-CAMBIAR LA IP                                                   *chuleta_ip*
+CAMBIAR LA IP                                                     *chuleta_ip*
 
 Se hace con "ifup" y "ipdown" >
   ifup eth0; ifdown eth0
@@ -70,7 +70,7 @@ Para añadir varias IP a la misma interfaces, basta con crear un alias.
     addres 192.168.1.79
 >
 ==============================================================================
-EL FSTAB                                                     *chuleta_fstab*
+EL FSTAB                                                       *chuleta_fstab*
 
 - Para que los usuarios puedan montar el cdrom y el floppy hay que añadir
 la opción "user". Se montaria con "mount /cdrom".
@@ -103,7 +103,7 @@ Ejemplo:
   linuxe7:/home   /mnt/LinuxE7    nfs defaults,rw,noauto,user 0       0
 <
 ==============================================================================
-APT Y DPKG                                               *chuleta_paquetes*
+APT Y DPKG                                                  *chuleta_paquetes*
 
 El apt se configura en {/etc/apt/source.list}. El source.list (apt-setup)
 contiene los servidores de donde pillar los paquetes con el formato:
@@ -157,7 +157,7 @@ contiene los servidores de donde pillar los paquetes con el formato:
   usar con  "apt-file search <fichero>"
 
 ==============================================================================
-COMPILAR KERNEL EN DEBIAN                          *chuleta_debian_kernel*
+COMPILAR KERNEL EN DEBIAN                              *chuleta_debian_kernel*
 
 Instalar los paquetes "build-essential", "libncurses5-dev"y el
 "kernel-package". Extraer el codigo a {/usr/src/linux/}.
@@ -174,7 +174,7 @@ donde N es el número de imagen a asignar.
 Instalar el kernel y los headers. Se descomprime en /boot.
 
 ==============================================================================
-CRON Y ANACRON                                                *chuleta_cron*
+CRON Y ANACRON                                                  *chuleta_cron*
 
 En DEBIAN el CRON llama a ANACRON (un demonio que ejecuta las tareas sin
 necesidad de estar 24h rulando, la hace por intervalo de tiempo).
@@ -185,7 +185,7 @@ ficheros ejecutables que residen en {/etc/cron.daily}, {/etc/cron.weekly} y
 semanas y por meses, respectivamente.
 
 ==============================================================================
-CORREO AL ESTILO LINUX                                      *chuleta_correo*
+CORREO AL ESTILO LINUX                                        *chuleta_correo*
 
 Programas necesarios: Sendmail, fetchmail, mutt y xmailbox.
 
@@ -249,7 +249,8 @@ ACTUALIZACIÓN CON GMAIL
 Chequeamos si fetchmail tiene soporte openssl con "ldd /usr/bin/fetchmail"
 Si sale una línea con libssl.so.*, tenemos.
 
-Testeamos el certificado de gmail con "openssel s_client -connect pop.gmail.com:995"
+Testeamos el certificado de gmail con "openssel s_client -connect
+pop.gmail.com:995"
 
 Configuramos .fechmailrc tal que así:
 >
@@ -264,7 +265,7 @@ Configuramos .fechmailrc tal que así:
 Probamos con "fetchmail -d0 -vk pop.gmail.com". Las trazas van al syslog.
 
 ==============================================================================
-MODULOS                                                     *chuleta_modulos*
+MODULOS                                                      *chuleta_modulos*
 
 Para saber que quiere decir el mensaje "modprobe: Can locate module
 char-mayor-X", primero hay que mirar que dispositivo esta buscando
@@ -277,7 +278,7 @@ a utilizar.
 
 
 ==============================================================================
-GNUPG                                                        *chuleta_gnupg*
+GNUPG                                                          *chuleta_gnupg*
 
 Para generar la clave se utiliza "gpg --gen-key" y utilizamos el
 algoritmo DSA/ElGamal.
@@ -305,13 +306,13 @@ pulsa "p" y aparece el menú de PGP.
 SLRN -» Utilizando el pgpg-stuff.sh.
 
 ==============================================================================
-MAN                                                           *chuleta_man*
+MAN                                                              *chuleta_man*
 
 Para que funcione bien el scroll en el man hay que instalar "less".
 Puede ser necesario la variable de entorno PAGER='less' en el .bashrc
 
 ==============================================================================
-SSH                                                          *chuleta_ssh*
+SSH                                                              *chuleta_ssh*
 
 Vamos a poner la cosa un poco más segura que un telnet.
 
@@ -323,7 +324,7 @@ Vamos a poner la cosa un poco más segura que un telnet.
 - Activamos el sshd en la máquina servidor. No lo arranca el inetd.conf
   porque necesita generar la clave del servidor de 768 bits y puede tardar
   10 segundos en cada arranque. Se arranca en el runlevel.
-- El fichero de configuración del sshd es el {/etc/ssh/sshd_config}. Las
+- El fichero de configuración del sshd es el "/etc/ssh/sshd_config". Las
   opciones más interesantes son:
   - Port : Puerto de escucha.
   - X11Forwarding : Para poder lanzar aplicaciones X.
@@ -414,7 +415,7 @@ SERVIDOR X EN WIN
     plink.exe -ssh <ip_maquina> -l <user> -pw <password> -X "~/bin/X_remote"
 <
 ==============================================================================
-NFS                                                            *chuleta_nfs*
+NFS                                                              *chuleta_nfs*
 
 SERVIDOR
 
@@ -455,7 +456,7 @@ al /etc/fstab lo siguiente:
   linuxe7:/home   /mnt/LinuxE7    nfs     rw,noauto,user 0       0
 
 ==============================================================================
-COMPILAR PAQUETE DEBIAN                           *chuleta_compilar_debian*
+COMPILAR PAQUETE DEBIAN                              *chuleta_compilar_debian*
 
 - Lo bajamos con "apt-get source <paquete>"
 - Instalamos las dependandias con "apt-get build-dep <paquete>"
@@ -469,7 +470,7 @@ COMPILAR PAQUETE DEBIAN                           *chuleta_compilar_debian*
 
 
 ==============================================================================
-EN HORA CON NTP                                               *chuleta_ntp*
+EN HORA CON NTP                                                  *chuleta_ntp*
 
 - Instalar el paquete ntp. El solo hace las preguntas pertinentes.
 - Seleccionar correctamente la hora con "tzsetup".
@@ -487,7 +488,7 @@ utilizar el ntpdate.
 actualice en el arranque (o con anacron). Por defecto lo pone en "rcS.d".
 
 ==============================================================================
-ORDENAR MP3                                                   *chuleta_mp3*
+ORDENAR MP3                                                      *chuleta_mp3*
 
 - Formato tipo -» "Nº pista - Autor - Canción.mp3".
 - Lo hacemos "Shell friendly" convirtiendo espacios a subrayados.
@@ -499,7 +500,7 @@ ORDENAR MP3                                                   *chuleta_mp3*
 - Las carátulas, pues simplemente "back.jpg" y "cover.jpg".
 
 ==============================================================================
-FUENTES TEMAS ICONOS GTK                          *chuleta_fuentes_temas_gtk*
+FUENTES TEMAS ICONOS GTK                           *chuleta_fuentes_temas_gtk*
 
 - Fuentes PCF-BDF.
   - Crear fichero fonts.dir en el directorio con "mkfontdir".
@@ -519,7 +520,7 @@ FUENTES TEMAS ICONOS GTK                          *chuleta_fuentes_temas_gtk*
   {/etc/apt/source.list} e instalar el paquete "ttf-mscorefonts-instaler".
 
 ==============================================================================
-DRIVERS NVIDIA                                               *chuleta_nvidia*
+DRIVERS NVIDIA                                                *chuleta_nvidia*
 
 - Instalar el paquete "build-essential".
 - Instalar el paquete "apt-get install linux-headers-`uname -r`"
@@ -529,7 +530,7 @@ DRIVERS NVIDIA                                               *chuleta_nvidia*
 - Relanzar el gdm/lightdm
 
 ==============================================================================
-WIRELESS                                                  *chuleta_wireless*
+WIRELESS                                                    *chuleta_wireless*
 
 ----------------------------------------------------------------------------
 EN MANZANITA
@@ -680,7 +681,7 @@ VARIOS                                                    *chuleta_git_varios*
   git branch --set-upstream-to=origin/master master
 <
 ==============================================================================
-CHECKINSTALL                                          *chuleta_checkinstall*
+CHECKINSTALL                                            *chuleta_checkinstall*
 
 - Después de compilar cierto software con "./configure" o "make" o lo que sea,
   toca instalarlo en la máquina. Para hacerlo de forma limpia, creando un
@@ -694,7 +695,7 @@ CHECKINSTALL                                          *chuleta_checkinstall*
   para incluir en el paquete, como las dependencias.
 
 ==============================================================================
-DISCO SSD                                                      *disco_ssd*
+DISCO SSD                                                  *chuleta_disco_ssd*
 
 Consejos para instalar linux en unidad SSD:
 
@@ -717,7 +718,7 @@ Consejos para instalar linux en unidad SSD:
   De esta manera se usa un RAMDISK para el /tmp.
 
 ==============================================================================
-WEECHAT Y BITLBEE                                          *weechat_bitlbee*
+WEECHAT Y BITLBEE                                    *chuleta_weechat_bitlbee*
 
 Con esta combinación conseguimos IRC, TWITTER, y acceso a cuentas de
 mensajería como Google Talk, Jabber, ICQ, etc...
@@ -761,7 +762,7 @@ mensajería como Google Talk, Jabber, ICQ, etc...
       - :x -> cierra programa
 
 ==============================================================================
-SAMBA FACIL                                                   *samba_facil*
+SAMBA FACIL                                              *chuleta_samba_facil*
 
 Instalar y configurar Samba en comodos pasos:
 
@@ -793,7 +794,7 @@ Instalar y configurar Samba en comodos pasos:
     //titan/work /mnt/work cifs noauto,user,username=<user>,paswword=<pass> 0 0
 <
 ==============================================================================
-MPD Y NCMPCPP                                                   *mpd_ncmpcpp*
+MPD Y NCMPCPP                                            *chuleta_mpd_ncmpcpp*
 
 Instalar reproductor de música para consola:
 
@@ -814,7 +815,7 @@ Instalar reproductor de música para consola:
   - El fichero de configuración va en {.ncmpcpp/config}
 
 ==============================================================================
-SYSTEMD                                                          *systemd*
+SYSTEMD                                                      *chuleta_systemd*
 
 Al final han quitado nuestro querido systemv en debian y han puesto en
 systemd.
@@ -829,7 +830,7 @@ Cosillas:
   "systemctl set-default graphical.target"
 
 ==============================================================================
-SERVIDOR DLNA                                                    *dlna*
+SERVIDOR DLNA                                                   *chuleta_dlna*
 
 Sirve para compartir multimedia para aplicaciones clientes DLNA y uPNP, para
 el chromecast, por ejemplo:
@@ -852,7 +853,7 @@ el chromecast, por ejemplo:
 - Listo. Se puede ver el estado desde web al puerto 8200 del servidor.
 
 ==============================================================================
-VIRTUALBOX CONSOLA                                               *virtualbox*
+VIRTUALBOX CONSOLA                                        *chuleta_virtualbox*
 
 Se hace la administración desde "VboxManage":
 
@@ -881,7 +882,7 @@ Se hace la administración desde "VboxManage":
   puerto se puede cambiar con --vrderproperty "TCP/Ports|Address=<value>"
 
 ==============================================================================
-SYSTEMCTL ARCHLINUX                                      *systemctl* *arch*
+SYSTEMCTL ARCHLINUX                                        *chuleta_systemctl*
 
 Activa "servicios" (demonios):
 
@@ -901,7 +902,7 @@ Activa "servicios" (demonios):
 <
 
 ==============================================================================
-RED EN ARCHLINUX                                                    *netctl*
+RED EN ARCHLINUX                                              *chuleta_netctl*
 
 Para el manejo de la red en archlinux, nada mejor que el netctl, tanto para
 wifi (wlan) como por cable (eth).
@@ -945,7 +946,7 @@ Uso básico:
   Muestra el estado de la conexión wifi.
 
 ==============================================================================
-PAQUETES EN ARCHLINUX                                    *pacman*
+PAQUETES EN ARCHLINUX                                         *chuleta_pacman*
 
 - pacman -S <paquete>~
   Instalar un paquete.
@@ -981,13 +982,13 @@ Ejemplos:
   Lista paquetes para actualizar.
 
 ==============================================================================
-BLUETOOTH EN ARCHLINUX                                   *bluez_arch*
+BLUETOOTH EN ARCHLINUX                                      *chuleta_bluetooh*
 
-- Instalar los paquetes "bluez", "bluez-libs" y "bluez-utils".
+- Instalar los paquetes *bluez* , *bluez-libs* y *bluez-utils* .
 - El servicio no arranca por defecto. Arrancarlo con "sudo systemctl start
   bluetooth.service"
 
-- Se controla todo desde el comando "bluetoothctl". Principales comandos:
+- Se controla todo desde el comando *bluetoothctl* . Principales comandos:
 
     - power on~
     Enciende el bluetooth
@@ -1026,7 +1027,7 @@ Tethering a través de bluetooth de Android~
   - Darle IP por dhcp con "dhcpcd bnep0".
 
 ==============================================================================
-WSL EN WINDOWS 10                                          *WSL*
+WSL EN WINDOWS 10                                                *chuleta_WSL*
 
 - Abrir "powershell" como administrador y ejecutar (pide reiniciar):
   >
@@ -1041,7 +1042,7 @@ WSL EN WINDOWS 10                                          *WSL*
   nueva situación (d:/work/home).
 - Usar la consola wsltty -> https://github.com/mintty/wsltty
 - En el directorio "d:/work/home" se encuentran todos los archivos de
-  configureción: *.bashrc* *.minttyrc* *.dircolors* , etc...
+  configuración: *.bashrc* *.minttyrc* *.dircolors* , etc...
 - Para que funcionen correctamente el chmod y los permisos, crear el fichero
   WSL.conf en /etc con:
   >
@@ -1053,4 +1054,4 @@ WSL EN WINDOWS 10                                          *WSL*
   los nuevos parámetros.
 
 
-vim:tw=78:sw=2:ts=2:nowrap:ft=help:norl
+vim:tw=78:sw=2:ts=2:nowrap:ft=help:norl:cole=2

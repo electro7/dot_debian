@@ -31,11 +31,11 @@ Plugin 'gmarik/Vundle.vim'
 "Plugin 'Shougo/unite.vim'                  " Find files and buffers using ag
 "Plugin 'bling/vim-airline'                  " Pretty statusbar :h vim-airline
 "Plugin 'edkolev/promptline.vim'             " Prompt generator for bash
+"Plugin 'godlygeek/tabular'                  " Text alignment (:h tabular)
 Plugin 'itchyny/lightline.vim'              " Light statusbar
 Plugin 'mengelbrecht/lightline-bufferline'  " Light bufferline
 Plugin 'scrooloose/nerdtree'                " File Explorer
 Plugin 'ctrlpvim/ctrlp.vim'                 " file, buffer, tag... finder
-Plugin 'godlygeek/tabular'                  " Text alignment (:h tabular)
 Plugin 'majutsushi/tagbar'                  " Display tags in a window
 Plugin 'tpope/vim-fugitive'                 " Git wrapper (:h fugitive)
 Plugin 'airblade/vim-gitgutter'             " Show git diffs (:h gitgutter)
@@ -45,6 +45,9 @@ Plugin 'plasticboy/vim-markdown'            " Markdown integration
 Plugin 'christoomey/vim-tmux-navigator'     " Move easy between tmux and vim
 Plugin 'tmux-plugins/vim-tmux-focus-events' " Best tmux+vim integration
 Plugin 'Yggdroot/indentLine'                " Show indent lines
+Plugin 'junegunn/vim-easy-align'            " Tabular replacement
+Plugin 'qpkorr/vim-bufkill'                 " Kill current buffer
+Plugin 'mileszs/ack.vim'                    " ACK (vimgrep replacement)
 call vundle#end()
 
 "}}}
@@ -61,7 +64,7 @@ sil! set fileencodings=utf-8,latin1,default
 " Appareance
 sil! set background=dark colorcolumn=0 number cursorline noshowmode showbreak=
 sil! set noshowmatch title noerrorbells splitright noshowcmd cmdwinheight=10
-sil! set fillchars+=vert:┃ conceallevel=0 concealcursor=nvc more laststatus=2
+sil! set fillchars+=vert:┃ conceallevel=2 concealcursor=nc more laststatus=2
 sil! set showtabline=2 list lcs=tab:+·,nbsp:_
 sil! set statusline=%t\ %=\ %m%r%y%w\ %3l:%-2c
 if has('gui_running') | sil! set guifont=Consolas:h9 lines=60 columns=90
@@ -164,32 +167,29 @@ nnoremap - <C-x>|                                " Decrement
 vnoremap < <gv|                                  " Indent - selection
 vnoremap > >gv|                                  " Indent + selection
 vnoremap i ==|                                   " Autoindent selection
+nmap ga <Plug>(EasyAlign)|                       " vim-easy-align
+xmap ga <Plug>(EasyAlign)|                       " vim-easy-align in visual
 
 " leader + chars (:h map-comments)
 " ···············································
 nnoremap <leader><leader> :nohlsearch<CR>|       " Toggle hlsearh
+nnoremap <leader>. gwip|                         " Format paragraph
 nnoremap <leader>a  qaYp<C-A>q1@a|               " Increment in new line
-nnoremap <leader>bn :bn<CR>|                     " Next Buffer
-nnoremap <leader>bp :bp<CR>|                     " Prev Buffer
 nnoremap <leader>c :set columns=174<CR>|         " Set columns to doble panel
 nnoremap <leader>d :vertical diffsplit<CR>|      " Open diff vertical
-nnoremap <leader>f za|                           " Toggle fold
-nnoremap <leader>fo zR|                          " Open all folds
-nnoremap <leader>fc zM|                          " Close all fods
-nnoremap <leader>fr zO|                          " Open folds recursive
-nnoremap <leader>fR zC|                          " Close folds recursive
 nmap <leader>gn <Plug>(GitGutterNextHunk)|       " Next git change (gitgutter)
 nmap <leader>gp <Plug>(GitGutterPrevHunk)|       " Prev git change (gitgutter)
 nmap <leader>gu <Plug>(GitGutterUndoHunk)|       " Undo change (gitgutter)
 nmap <leader>gd <Plug>(GitGutterPreviewHunk)|    " Diff change (gitgutter)
 nnoremap <leader>ju :m-2<CR>:join<CR>|           " Join line with prev at end
+nnoremap <leader>n :bn<CR>|                      " Next Buffer
+nnoremap <leader>p :bp<CR>|                      " Prev Buffer
 nnoremap <leader>r :%s/<C-r><C-w>//gic|          " Replace (:h substitute)
-nnoremap <leader>t :call TabCurrentChar()<CR>|   " Tabularize at current char
 nnoremap <leader>v :vsplit<CR>|                  " Vertical split
 nnoremap <leader>vm :wincmd =<CR>|               " Vertical split at 50%
 nnoremap <leader>vi :call VimConfig()<CR>|       " Edit .vimrc/_vimrc
 nnoremap <leader>vr :call VimSource()<CR>|       " Reload vim config
-nnoremap <leader>w :%s/\s\+$\\| \+\ze\t//gce<CR>|" Delete trailing spaces
+nnoremap <leader>w :%s/\s\+$\\| \+\ze\t//ge<CR>| " Delete trailing spaces
 nnoremap <leader>x :BD<CR>|                      " Buffer deletion (buffkill)
 
 " Chars as is
@@ -198,6 +198,7 @@ nnoremap gt <C-]>|                               " Goto TAG
 "
 " F Function keys
 " ···············································
+noremap <F2> '.|                                 " Salta a la última edición
 nnoremap <silent> <F5> :call ExecCompiler()<CR>| " F5 -  Run my compiler
 noremap <F9> :TagbarToggle<CR>|                  " F9 - Ctags Bar
 noremap <F10> :NERDTreeFind<CR>|                 " F10 - File Explorer
@@ -284,6 +285,9 @@ let g:ctrlp_show_hidden = 1
 let g:ctrlp_match_window = 'bottom,order:ttd,min:20,max:20,results:20'
 let g:ctrlp_line_prefix = '● '
 
+" Indent Line
+let g:indentLine_setConceal = 0
+
 "}}}
 " Autocommands {{{
 " -----------------------------------------------------------------------------
@@ -298,13 +302,13 @@ au SwapExists * let v:swapchoice = 'o'
 au FileType c
   \ setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
 au FileType markdown
-  \ setlocal textwidth=80 sw=2 st=2 ts=2 cole=0
+  \ setlocal textwidth=78 sw=2 st=2 ts=2
 au FileType prg
   \ setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4 cindent
 
 " Txt
 au FileType text,changelog,help
-  \ setlocal textwidth=80 wrap expandtab sw=2 ts=2 st=2 cole=0
+  \ setlocal textwidth=78 wrap expandtab sw=2 ts=2 st=2
 
 " Set correct markdown extensions
 au BufNewFile,BufRead *.markdown,*.md,*.mdown,*.mkd,*.mkdn
@@ -378,12 +382,6 @@ function! ExecCompiler()
       :redraw!
     endif
   endif
-endfunction
-
-" Tabularize with current char
-function! TabCurrentChar()
-  let l:c = matchstr(getline('.'), '\%' . col('.') . 'c.')
-  :sil! exe 'Tabularize /' . l:c
 endfunction
 
 " Return fist line number with trailing space
