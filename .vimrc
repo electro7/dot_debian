@@ -1,4 +1,4 @@
-" ~/.vimrc
+" ~/.vimrcOA
 "
 " Archivo de configuración del editor VIM (er mejo!)
 "
@@ -141,68 +141,88 @@ let mapleader = ','
 
 " Ctrl +
 " ···············································
-" Autocomplete
+" [C-Space] Autocomplete
 inoremap <C-F> <C-X><C-F>
-noremap <expr> <CR> pumvisible() ?
-      \ "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <expr> <C-Space> pumvisible()
       \ ? '<C-n>' : '<C-n><C-r>=pumvisible()
       \ ? "\<lt>Down>" : ""<CR>'
 
-" <C-N> -> multiple cursors plugin (help vim-multiple-cursors)
-" <C-M> -> multiple cursors plugin (help vim-multiple-cursors)
-" <C-P> -> CtrlP
+" [C-N] multiple cursors plugin (help vim-multiple-cursors)
+" [C-M] multiple cursors plugin (help vim-multiple-cursors)
+" [C-P] CtrlP
 
 " Alt +
 " ···············································
-nnoremap <M-Right> :bn<CR>|                      " Next buffer
-nnoremap <M-Left> :bp<CR>|                       " Prev buffer
-nnoremap <M-Up> :b#<CR>|                         " Last buffer
+" Buffer movemenet with [Alt + arrow keys]
+nnoremap <M-Right> :bn<CR>
+nnoremap <M-Left> :bp<CR>
+nnoremap <M-Up> :b#<CR>
 
-" Specials keys
+" Keys alone
 " ···············································
-nnoremap <tab> <C-W>w|                           " Next window
-nnoremap + <C-a>|                                " Increment
-nnoremap - <C-x>|                                " Decrement
-vnoremap < <gv|                                  " Indent - selection
-vnoremap > >gv|                                  " Indent + selection
-vnoremap i ==|                                   " Autoindent selection
-nmap ga <Plug>(EasyAlign)|                       " vim-easy-align
-xmap ga <Plug>(EasyAlign)|                       " vim-easy-align in visual
+" [TAB] Next window
+nnoremap <tab> <C-W>w
+" [+] Increment number
+nnoremap + <C-a>
+" [-] Decrement number
+nnoremap - <C-x>
+" [<] Decrement indent on selecion
+vnoremap < <gv
+" [>] Increment indent on selecion
+vnoremap > >gv
+" [i] Auto indent on selecion
+vnoremap i ==
+" [ga] vim-easy-plugin
+nmap ga <Plug>(EasyAlign)
+xmap ga <Plug>(EasyAlign)
+" [gt] Goto TAG (vim help)
+nnoremap gt <C-]>
 
 " leader + chars (:h map-comments)
 " ···············································
-nnoremap <leader><leader> :nohlsearch<CR>|       " Toggle hlsearh
-nnoremap <leader>. gwip|                         " Format paragraph
-nnoremap <leader>a  qaYp<C-A>q1@a|               " Increment in new line
-nnoremap <leader>c :set columns=174<CR>|         " Set columns to doble panel
-nnoremap <leader>d :vertical diffsplit<CR>|      " Open diff vertical
-nmap <leader>gn <Plug>(GitGutterNextHunk)|       " Next git change (gitgutter)
-nmap <leader>gp <Plug>(GitGutterPrevHunk)|       " Prev git change (gitgutter)
-nmap <leader>gu <Plug>(GitGutterUndoHunk)|       " Undo change (gitgutter)
-nmap <leader>gd <Plug>(GitGutterPreviewHunk)|    " Diff change (gitgutter)
-nnoremap <leader>ju :m-2<CR>:join<CR>|           " Join line with prev at end
-nnoremap <leader>n :bn<CR>|                      " Next Buffer
-nnoremap <leader>p :bp<CR>|                      " Prev Buffer
-nnoremap <leader>r :%s/<C-r><C-w>//gic|          " Replace (:h substitute)
-nnoremap <leader>v :vsplit<CR>|                  " Vertical split
-nnoremap <leader>vm :wincmd =<CR>|               " Vertical split at 50%
-nnoremap <leader>vi :call VimConfig()<CR>|       " Edit .vimrc/_vimrc
-nnoremap <leader>vr :call VimSource()<CR>|       " Reload vim config
-nnoremap <leader>w :%s/\s\+$\\| \+\ze\t//ge<CR>| " Delete trailing spaces
-nnoremap <leader>x :BD<CR>|                      " Buffer deletion (buffkill)
+" [,] Toggle hlsearh
+nnoremap <leader><leader> :nohlsearch<CR>
+" [.] Format paragraph
+nnoremap <leader>. gwip
+" [a] Increment number in new line
+nnoremap <leader>a  qaYp<C-A>q1@a
+" [c] Increment vim size to vertical split
+nnoremap <leader>c :set columns=174<CR>
+" [d] Diff in vertical split
+nnoremap <leader>d :vertical diffsplit<CR>
+" [g {npud}] Move to git changes (gitgutter)
+nmap <leader>gn <Plug>(GitGutterNextHunk)
+nmap <leader>gp <Plug>(GitGutterPrevHunk)
+nmap <leader>gu <Plug>(GitGutterUndoHunk)
+nmap <leader>gd <Plug>(GitGutterPreviewHunk)
+" [ju] Join prev line at end (for comments)
+nnoremap <leader>ju :m-2<CR>:join<CR>
+" [r] Prepare replace with current word
+nnoremap <leader>r :%s/<C-r><C-w>//gic
+" [v] Vertical split
+nnoremap <leader>v :vsplit<CR>
+" [vm] Make vertical split same size
+nnoremap <leader>vm :wincmd =<CR>
+" [vi] Edit current .vimrc
+nnoremap <leader>vi :call VimConfig()<CR>
+" [vr] Reload vim config
+nnoremap <leader>vr :call VimSource()<CR>
+" [w] Delete trailing spaces/tabs
+nnoremap <silent> <leader>w :%s/\s\+$\\| \+\ze\t//ge<CR>
+" [x] Close current buffer without close panel (bufkill)
+nnoremap <leader>x :BD<CR>
 
-" Chars as is
+" Function keys
 " ···············································
-nnoremap gt <C-]>|                               " Goto TAG
-"
-" F Function keys
-" ···············································
-noremap <F2> '.|                                 " Salta a la última edición
-nnoremap <silent> <F5> :call ExecCompiler()<CR>| " F5 -  Run my compiler
-noremap <F9> :TagbarToggle<CR>|                  " F9 - Ctags Bar
-noremap <F10> :NERDTreeFind<CR>|                 " F10 - File Explorer
-noremap <F11> :CtrlPBuffer<CR>|                  " F11 - Buf Explorer
+" [F2] Multiple cursor select all
+" [F5] Run compilers
+nnoremap <silent> <F5> :call ExecCompiler()<CR>
+" [F9] Show Tags
+noremap <F9> :TagbarToggle<CR>
+" [F10] Show File explorer
+noremap <F10> :NERDTreeFind<CR>
+" [F11] Buffer explorer
+noremap <F11> :CtrlPBuffer<CR>
 
 "}}}
 " Abreviations {{{
@@ -270,7 +290,7 @@ let g:gitgutter_sign_modified_removed = '▌'
 " Multiple cursos keymap redefine
 let g:multi_cursor_use_default_mapping=0
 let g:multi_cursor_start_word_key      = '<C-n>'
-let g:multi_cursor_select_all_word_key = '<C-m>'
+let g:multi_cursor_select_all_word_key = '<F2>'
 let g:multi_cursor_next_key            = '<C-n>'
 let g:multi_cursor_prev_key            = '<C-p>'
 let g:multi_cursor_skip_key            = '<C-x>'

@@ -91,10 +91,10 @@ if [[ $NUM -lt 2 || "$2" == "-f" ]] ; then
     echo
     if [[ -n "${DOT}" ]] ; then
         cd $SOUR
-        rsync -L -avzhi --progress \
+        rsync -L -W -avzhi --progress \
             --exclude-from=$EXCLUDE ${DOT} ${DEST}
     else
-        rsync -p --chmod=ug+rwx -avzhi --progress \
+        rsync -p -W --chmod=ug+rwx -avzhi --progress \
             --exclude-from=$EXCLUDE -b --backup-dir=$BCKP $SOUR $DEST
     fi
 else
