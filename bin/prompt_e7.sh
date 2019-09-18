@@ -30,12 +30,24 @@ function __prompt_e7_init {
   else
     title="${TW_TITLE}"
   fi
+  # Truncate current dir
+  local pwdmaxlen=30
+  local trunc_symbol=".."
+  local dir=${PWD##*/}
+  pwdmaxlen=$(( ( pwdmaxlen < ${#dir} ) ? ${#dir} : pwdmaxlen ))
+  local new_pwd=${PWD/#$HOME/\~}
+  local pwdoffset=$(( ${#new_pwd} - pwdmaxlen ))
+  if [ ${pwdoffset} -gt "0" ]
+  then
+    new_pwd=${new_pwd:$pwdoffset:$pwdmaxlen}
+    new_pwd=${trunc_symbol}/${new_pwd#*/}
+  fi
   # Remote conection ?
   local prompt_init=""
   if [ -n "$SSH_CONNECTION" ]; then
-    prompt_init="$title${c_d_gray}┌[${c_yellow}\h${c_d_gray}]─[${c_gray}\w${c_d_gray}]"
+    prompt_init="$title${c_d_gray}┌[${c_yellow}\h${c_d_gray}]─[${c_gray}${new_pwd}${c_d_gray}]"
   else
-    prompt_init="$title${c_d_gray}┌[${c_gray}\w${c_d_gray}]"
+    prompt_init="$title${c_d_gray}┌[${c_gray}${new_pwd}${c_d_gray}]"
   fi
 
   printf "%s" "${prompt_init}"
