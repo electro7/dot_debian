@@ -75,7 +75,7 @@ if test "$si" = "y" -o "$si" = "s"; then
         if [ ${TYPE} = "Simple" ]; then
             echo -n "Convirtiendo ${F}..."
             #vim ${F} --clean -c "set fileencoding=utf-8 | silent! %s#noet#et#g | set et | retab | silent! %s#\/\/\(.*\)#\/*\1 *\/#g | wq"
-            vim ${F} --clean -c "set fileencoding=utf-8 | set fileformat=unix | silent! %s#noet#et#g | set et | retab | wq"
+            vim ${F} --clean -c "set fileencoding=latin1 | set fileformat=unix | silent! %s#noet#et#g | set et | retab | wq"
             #vim -s "$HOME/bin/code_format.vim" ${F}
             echo -e "${C_G} OK${C_N}"
         else

@@ -3,8 +3,8 @@
 # Fichero de opciones del shell bash
 #
 # Electro7
-# 31 ago. 2019
-# Versión para WSL y Debian
+# 23 sep 2019
+# Versión común - WSL, debian y archlinux
 #======================================================================#
 
 # If not running interactively, don't do anything
@@ -33,7 +33,7 @@ function __promptadd
 function prompt_line
 {
   source ~/bin/prompt_powerline.sh
-  PROMPT_COMMAND="$PROMPT_COMMAND __promptadd"
+  PROMPT_COMMAND="$PROMPT_COMMAND; __promptadd;"
 }
 
 # Prompt "normal" sin carácteres raros
@@ -92,10 +92,12 @@ export QT_AUTO_SCREEN_SCALE_FACTOR=0
 # Alias
 #----------------------------------------------------------------------#
 
-#Alias WSL
-alias start="/mnt/c/Windows/System32/cmd.exe /c "start""
-alias s="start"
-alias gv="start gvim.exe"
+# Alias WSL
+if [[ -n $WSL ]]; then
+  alias start="/mnt/c/Windows/System32/cmd.exe /c "start""
+  alias s="start"
+  alias gv="start gvim.exe"
+fi
 
 # Alias contra borrados accidentales.
 alias rm='rm -i'
@@ -126,12 +128,25 @@ alias dpkg="sudo dpkg"
 # Alias del git
 alias gia="git add"
 alias gcm="git commit -a -m"
-alias gp="git push"
 alias gs="git status"
+alias gp="git push"
+alias gg="git pull"
+alias gd="git diff"
 
 # Mis chuletas
 alias chuleta="vim ~/.vim/doc/chuletario.txt"
 alias todo="vim ~/work/ToDo.txt"
+
+# Cambio colores de terminal
+alias col_dark="sh ~/.config/termcolours/dark.sh"
+alias col_light="sh ~/.config/termcolours/light.sh"
+alias col_default="sh ~/.config/termcolours/default.sh"
+
+# Wifi on/off
+alias wifi_on="sudo netctl start"
+alias wifi_off="sudo netctl stop"
+alias wifi_status="iw dev wlan0 info"
+alias wifi_menu="wifi-menu"
 
 # App varias
 alias mldonkey="mldonkey -stdout -verbosity verb"
@@ -170,6 +185,40 @@ if ! shopt -oq posix; then
     source /etc/bash_completion
   fi
 fi
+
+# Man coloreador - hay que instalar less
+man() {
+  env \
+    LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+    LESS_TERMCAP_md=$(printf "\e[1;31m") \
+    LESS_TERMCAP_me=$(printf "\e[0m") \
+    LESS_TERMCAP_se=$(printf "\e[0m") \
+    LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+    LESS_TERMCAP_ue=$(printf "\e[0m") \
+    LESS_TERMCAP_us=$(printf "\e[1;32m") \
+    man "$@"
+}
+
+extract () {
+    if [ -f $1 ] ; then
+      case $1 in
+        *.tar.bz2)   tar xjvf $1    ;;
+        *.tar.gz)    tar xzvf $1    ;;
+        *.bz2)       bunzip2 $1     ;;
+        *.rar)       unrar e $1     ;;
+        *.gz)        gunzip $1      ;;
+        *.tar)       tar xvf $1     ;;
+        *.tbz2)      tar xjvf $1    ;;
+        *.tgz)       tar xzvf $1    ;;
+        *.zip)       unzip $1       ;;
+        *.Z)         uncompress $1  ;;
+        *.7z)        7z x $1        ;;
+        *)     echo "'$1' cannot be extracted via extract()" ;;
+         esac
+     else
+         echo "'$1' is not a valid file"
+     fi
+}
 
 # Para que a los VT100 no se les fastidie el terminal con los colores
 if [ $TERM = vt100 ]; then

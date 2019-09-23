@@ -159,7 +159,7 @@ function __prompt_e7 {
 }
 
 if [[ ! "$PROMPT_COMMAND" == *__prompt_e7* ]]; then
-    PROMPT_COMMAND='__prompt_e7'
+    PROMPT_COMMAND='__prompt_e7;'
 fi
 
 #__prompt_e7

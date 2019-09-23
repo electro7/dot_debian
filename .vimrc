@@ -1,4 +1,4 @@
-" ~/.vimrcOA
+" ~/.vimr
 "
 " Archivo de configuración del editor VIM (er mejo!)
 "
@@ -32,6 +32,8 @@ Plugin 'gmarik/Vundle.vim'
 "Plugin 'bling/vim-airline'                  " Pretty statusbar :h vim-airline
 "Plugin 'edkolev/promptline.vim'             " Prompt generator for bash
 "Plugin 'godlygeek/tabular'                  " Text alignment (:h tabular)
+"Plugin 'jlanzarotta/bufexplorer'            " Buffer explorer
+Plugin 'tmux-plugins/vim-tmux-focus-events' " tmux integration
 Plugin 'itchyny/lightline.vim'              " Light statusbar
 Plugin 'mengelbrecht/lightline-bufferline'  " Light bufferline
 Plugin 'scrooloose/nerdtree'                " File Explorer
@@ -43,7 +45,6 @@ Plugin 'tpope/vim-surround'                 " Quotes and brackets(:h surround)
 Plugin 'terryma/vim-multiple-cursors'       " :h vim-multiple-cursors-intro
 Plugin 'plasticboy/vim-markdown'            " Markdown integration
 Plugin 'christoomey/vim-tmux-navigator'     " Move easy between tmux and vim
-Plugin 'tmux-plugins/vim-tmux-focus-events' " Best tmux+vim integration
 Plugin 'Yggdroot/indentLine'                " Show indent lines
 Plugin 'junegunn/vim-easy-align'            " Tabular replacement
 Plugin 'qpkorr/vim-bufkill'                 " Kill current buffer
@@ -94,7 +95,7 @@ sil! set hlsearch incsearch wrapscan ignorecase smartcase magic
 
 " Colorscheme
 if has('gui_running')
-  let g:use_Xresources = 1 | colorscheme e7_hybrid
+  let g:use_Xresources = 1 | colorscheme e7_bluez
 elseif &term == "rxvt-unicode-256color"
   let g:use_Xresources = 1 | colorscheme e7_hybrid
 elseif stridx(&term, "256color") > 0
@@ -156,7 +157,11 @@ inoremap <expr> <C-Space> pumvisible()
 " Buffer movemenet with [Alt + arrow keys]
 nnoremap <M-Right> :bn<CR>
 nnoremap <M-Left> :bp<CR>
-nnoremap <M-Up> :b#<CR>
+" Mover línea actual arriba o abajo
+nnoremap <M-Up> :m--<CR>==
+nnoremap <M-Down> :m+<CR>==
+inoremap <M-Up> <Esc>:m--<CR>==gi
+inoremap <M-Down> <Esc>:m+<CR>==gi
 
 " Keys alone
 " ···············································
@@ -197,8 +202,11 @@ nmap <leader>gu <Plug>(GitGutterUndoHunk)
 nmap <leader>gd <Plug>(GitGutterPreviewHunk)
 " [ju] Join prev line at end (for comments)
 nnoremap <leader>ju :m-2<CR>:join<CR>
+" [p] Paste last
+nnoremap <leader>p "0p
 " [r] Prepare replace with current word
 nnoremap <leader>r :%s/<C-r><C-w>//gic
+xnoremap <leader>r :%s/<C-r><C-w>//gic
 " [v] Vertical split
 nnoremap <leader>v :vsplit<CR>
 " [vm] Make vertical split same size
@@ -208,7 +216,7 @@ nnoremap <leader>vi :call VimConfig()<CR>
 " [vr] Reload vim config
 nnoremap <leader>vr :call VimSource()<CR>
 " [w] Delete trailing spaces/tabs
-nnoremap <silent> <leader>w :%s/\s\+$\\| \+\ze\t//ge<CR>
+nnoremap <silent> <leader>w ma<bar>:%s/\s\+$\\| \+\ze\t//ge<CR><bar>'a<bar>:nohl<CR>
 " [x] Close current buffer without close panel (bufkill)
 nnoremap <leader>x :BD<CR>
 
@@ -222,6 +230,7 @@ noremap <F9> :TagbarToggle<CR>
 " [F10] Show File explorer
 noremap <F10> :NERDTreeFind<CR>
 " [F11] Buffer explorer
+"noremap <F11> :ToggleBufExplorer<CR>
 noremap <F11> :CtrlPBuffer<CR>
 
 "}}}
@@ -297,6 +306,7 @@ let g:multi_cursor_skip_key            = '<C-x>'
 let g:multi_cursor_quit_key            = '<Esc>'
 
 " Indent Line
+let g:indentLine_setConceal = 0
 let g:indentLine_setColors = 0
 let g:indentLine_char = '┃'
 
@@ -305,8 +315,24 @@ let g:ctrlp_show_hidden = 1
 let g:ctrlp_match_window = 'bottom,order:ttd,min:20,max:20,results:20'
 let g:ctrlp_line_prefix = '● '
 
-" Indent Line
-let g:indentLine_setConceal = 0
+" Easy aling
+let g:easy_align_delimiters = {
+\ '>': { 'pattern': '>>\|=>\|>' },
+\ '/': { 'pattern': '//\+\|/\*\|\*/', 'delimiter_align': 'l',
+\                   'ignore_groups':   ['!Comment'] },
+\ ']': { 'pattern': '[[\]]', 'left_margin': 0, 'right_margin': 0,
+\                   'stick_to_left': 0 },
+\ ')': { 'pattern': '[()]', 'left_margin': 0, 'right_margin': 0,
+\                   'stick_to_left': 0 },
+\ 'd': { 'pattern': ' \(\S\+\s*[;=]\)\@=', 'left_margin': 0,
+\                   'right_margin': 0 }
+\ }
+
+" BufExplorer
+let g:bufExplorerSortBy='fullpath'
+let g:bufExplorerSplitBelow=1
+let g:bufExplorerSplitHorzSize=20
+let g:bufExplorerDefaultHelp=0
 
 "}}}
 " Autocommands {{{
@@ -342,8 +368,7 @@ au BufNewFile,BufRead *.markdown,*.md,*.mdown,*.mkd,*.mkdn
 au BufNewFile,BufRead *.prg,*.dev,*.act,*.cas set ft=prg
 
 " Mark chars exceding column 80
-au BufWinEnter *
-  \ call matchadd('ColorColumn', '\%81v', 100)
+au BufNewFile,BufRead * call matchadd('ColorColumn', '\%81v', 100)
 
 " Update lightline trailing section after file save
 au CursorHold,BufWritePost * call MyLightLineUpdate()
@@ -394,9 +419,8 @@ function! ExecCompiler()
       :silent exe "!jarvis_w32.exe" l:file "&"
       :redraw!
     elseif has("win32")
-      :silent exe "!jarvis_w32.exe" l:file
+      :silent exe "!start jarvis_w32.exe" l:file
       :redraw!
-      " Linux
     else
       :silent exe "!jarvis " l:file "&"
       :redraw!
