@@ -93,7 +93,7 @@ export QT_AUTO_SCREEN_SCALE_FACTOR=0
 #----------------------------------------------------------------------#
 
 # Alias WSL
-if [[ -n $WSL ]]; then
+if [[ $(pgrep wsl) -gt 0 ]]; then
   alias start="/mnt/c/Windows/System32/cmd.exe /c "start""
   alias s="start"
   alias gv="start gvim.exe"
@@ -115,7 +115,7 @@ alias 'cd..'='cd ..'
 alias df="df -h"
 alias more='less'
 alias du='du -h'
-alias rs='rsync -ahvzi'
+alias rs='rsync -W -ahvzi --progress'
 
 # Alias para el su (root)
 alias reboot="sudo /sbin/reboot"
@@ -153,7 +153,7 @@ alias mldonkey="mldonkey -stdout -verbosity verb"
 alias netload="speedometer -r eth0 -t eth0"
 alias ko="export DISPLAY=:0.0; kodi &"
 alias vbox="export DISPLAY=:0.0; virtualbox &"
-alias vbox_start="VBoxManage startvm"
+alias vbox_start="export DISPLAY=:0.0; VBoxManage startvm"
 alias vbox_ctrl="VBoxManage controlvm"
 alias vbox_ls="VBoxManage list vms"
 
@@ -168,9 +168,17 @@ alias casiopea="ssh electro7@casiopea"
 # Funiones propias
 #----------------------------------------------------------------------#
 
-# Cambiar a directori obras
+# Cambiar a directorio obras
 cdc() {
   cd $(find /mnt/d/work/obras -maxdepth 3 -type d -name *$1* | tail -n 1)
+}
+
+# Arrancar y parar máquinas vituales de vbox
+vbox_on() {
+  VBoxManage startvm $1 --type headless
+}
+vbox_off() {
+  VBoxManage controlvm $1 savestate
 }
 
 #----------------------------------------------------------------------#

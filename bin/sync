@@ -5,7 +5,7 @@ HOWCALLED=`basename $0`
 
 # Ficheros de cnf para actualizar en las máquinas
 DOTNEXUS=".bashrc bin .dircolors .tmux.conf .vimrc .vim"
-DOTCASIOPEA=".bshrc bin .dircolors .tmux.conf .vimrc .vim"
+DOTCASIOPEA=".bashrc bin .dircolors .tmux.conf .vimrc .vim"
 
 # Colores
 c_yellow=$(tput setaf 11)

@@ -33,6 +33,7 @@ CONTENIDO                                                  *chuleta_contenido*
   - MPD y ncmpcpp                                   |chuleta_mpd_ncmpcpp|
   - Systemd en Debian                               |chuleta_systemd|
   - Servidor DLNA en Debian                         |chuleta_dlna|
+  - VirtualBox desde consola                        |chuleta_virtualbox|
   - systemctl en archlinux                          |chuleta_systemctl|
   - Red en archlinux                                |chuleta_netctl|
   - Paquetes archlinux                              |chuleta_pacman|
@@ -857,11 +858,17 @@ VIRTUALBOX CONSOLA                                        *chuleta_virtualbox*
 
 Se hace la administración desde "VboxManage":
 
+- VBoxManage registervm ~
+  Permite registrar una máquina de un fichero .vbox (XML)
+
 - VBoxManage list vms ~
   Muestra las máquinas virtuales disponibles.
 
 - VBoxManage startvm <maquina>~
   Arranca la máquina.
+
+- VBoxManage startvm <maquina> --type headless~
+  Arranca la máquina sin mostrar la gui.
 
 - VBoxManage showvinfo <maquina>~
   Muestra la configuración de la máquina.
@@ -873,9 +880,6 @@ Se hace la administración desde "VboxManage":
 - VBoxManage modifyvm <maquina> ~
   Modifica opciones de una maquina. -> Ej: "VBoxManage modifyvm "Win" - memory
   "1024MB"
-
-- VBoxManage registervm ~
-  Permite registrar una máquina de un fichero .vbox (XML)
 
 - VBoxManage modifyvm <maquina> --vrde on ~
   Activa el escritorio remoto (mstsc) en el puerto 3389 para la máquina. El

@@ -42,7 +42,7 @@ while getopts "sf" o; do
         s)
             TYPE="Simple"
             ;;
-        p)
+        f)
             TYPE="Completo"
             ;;
         *)

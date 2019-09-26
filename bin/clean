@@ -18,27 +18,31 @@ function usage() {
   echo
   echo -e "Uso: ${C_B}$HOWCALLED [directorio]${C_N}"
   echo
-  echo "Directorios:"
-  echo -e "    ${C_R}work${C_N} : Limpia el directorio D:/WORK"
+  echo "Opciones:"
+  echo -e "    ${C_R}-c${C_N} : Limpia directorio de Shield/Cas"
   echo
 }
 
-WORK="*.blg *.ilk *.idb *.obj *.pch *.pdb *.ncb *.opt *.plg *.dvg *.sdf cas.blg cas.trp .*.swp"
-WORK_DIRS=".vs .gimp* .thumbnails .cache"
+DIR=$(pwd)
+FILES="*.blg *.ilk *.idb *.obj *.pch *.pdb *.ncb *.opt *.plg *.dvg *.sdf cas.blg cas.trp .*.swp"
+DIRS=".vs .gimp* .thumbnails .cache"
+CAS="logs mibs backup temp apps"
+CASFILES="trap.bdt trap0.bdt trap1.bdt cas.blg cas.trp"
 
-if [ $# -eq 0 ]
- then
-   usage
-   exit 1
-fi
+# Opciones
+while getopts "ch" o; do
+    case "${o}" in
+        c)
+            DIRS=$CAS
+            FILES=$CASFILES
+            ;;
+        h)
+            usage
+            exit 0
+            ;;
+    esac
+done
 
-case "$1" in
-    work)
-        DIR="/cygdrive/c/work"
-        FILES="$WORK"
-        DIRS="$WORK_DIRS"
-        ;;
-esac
 
 echo
 echo -n -e "${C_B}¿Desea borrar todos los ficheros temporales en $DIR? ${C_Y}[s/N]:${C_N} "
@@ -46,7 +50,7 @@ read si;
 if test "$si" = "y" -o "$si" = "s"; then
     cd $DIR
     for F in $FILES
-        do find . -name "$F" -type f -delete -print
+        do find . -iname "$F" -type f -delete -print
     done
 else
     echo -e "${C_R}Cancelando...${C_N}";
@@ -57,8 +61,8 @@ echo -n -e "${C_B}¿Desea borrar todos los directorios temporales en $DIR? ${C_Y
 read si;
 if test "$si" = "y" -o "$si" = "s"; then
     cd $DIR
-    for F in $WORK_DIRS
-        do find . -name "$F" -type d -print -exec rm -rf {} +
+    for F in $DIRS
+        do find . -iname "$F" -type d -print -exec rm -rf {} +
     done
 else
     echo -e "${C_R}Cancelado...${C_N}";
