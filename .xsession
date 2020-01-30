@@ -56,6 +56,7 @@ exec /usr/lib/notification-daemon/notification-daemon &
 xinput set-button-map 10 1 2 3 4 5 2 7 8 9
 
 # Gestor de ventanas
+exec VBoxManage startvm w7_work -type headless &
 exec kodi -fs &
 exec x11vnc -forever -xkb -noxrecord -noxfixes -noxdamage -display :0 -auth /var/run/lightdm/root/:0 &
 exec i3

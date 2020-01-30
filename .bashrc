@@ -24,7 +24,7 @@ function __promptadd
   local col_u="\[\033[1;36m\]"                  # User > cyan
   [[ "$UID" = "0" ]] && col_u="\[\033[1;31m\]"  # Root > red
 
-  PS1="$TW_TITLE$PS1\n${col_u} \\$ ${coln}"
+  PS1="$TW_TITLE$PS1\n${col_u} \\$ ${col_n}"
 }
 
 # Prompt a traves de promptline.vim

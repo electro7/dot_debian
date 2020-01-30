@@ -39,6 +39,7 @@ downloads/*
 .lesshst
 .lftp/*
 .local/*
+.mono/*
 mail/*
 mbox
 music
@@ -53,6 +54,8 @@ music
 .pulse/*
 .pulse*
 .private/*
+.steam
+.steam/*
 .ssh/*
 .themes/*
 .thumbnails/*
