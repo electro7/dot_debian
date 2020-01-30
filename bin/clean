@@ -27,7 +27,7 @@ DIR=$(pwd)
 FILES="*.blg *.ilk *.idb *.obj *.pch *.pdb *.ncb *.opt *.plg *.dvg *.sdf cas.blg cas.trp .*.swp"
 DIRS=".vs .gimp* .thumbnails .cache"
 CAS="logs mibs backup temp apps"
-CASFILES="trap.bdt trap0.bdt trap1.bdt cas.blg cas.trp"
+CASFILES="trap.bdt trap0.bdt trap1.bdt cas.blg cas.trp shield.blg shield.trp"
 
 # Opciones
 while getopts "ch" o; do

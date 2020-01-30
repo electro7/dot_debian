@@ -870,7 +870,7 @@ Se hace la administración desde "VboxManage":
 - VBoxManage startvm <maquina> --type headless~
   Arranca la máquina sin mostrar la gui.
 
-- VBoxManage showvinfo <maquina>~
+- VBoxManage showvminfo <maquina>~
   Muestra la configuración de la máquina.
 
 - VBoxManage controlvm <maquina> <comando> ~

@@ -32,7 +32,7 @@ Plugin 'gmarik/Vundle.vim'
 "Plugin 'bling/vim-airline'                  " Pretty statusbar :h vim-airline
 "Plugin 'edkolev/promptline.vim'             " Prompt generator for bash
 "Plugin 'godlygeek/tabular'                  " Text alignment (:h tabular)
-"Plugin 'jlanzarotta/bufexplorer'            " Buffer explorer
+Plugin 'jlanzarotta/bufexplorer'            " Buffer explorer
 Plugin 'tmux-plugins/vim-tmux-focus-events' " tmux integration
 Plugin 'itchyny/lightline.vim'              " Light statusbar
 Plugin 'mengelbrecht/lightline-bufferline'  " Light bufferline
@@ -230,8 +230,8 @@ noremap <F9> :TagbarToggle<CR>
 " [F10] Show File explorer
 noremap <F10> :NERDTreeFind<CR>
 " [F11] Buffer explorer
-"noremap <F11> :ToggleBufExplorer<CR>
-noremap <F11> :CtrlPBuffer<CR>
+noremap <F11> :ToggleBufExplorer<CR>
+"noremap <F11> :CtrlPBuffer<CR>
 
 "}}}
 " Abreviations {{{
